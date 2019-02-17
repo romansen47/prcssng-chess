@@ -55,20 +55,18 @@ public class Field implements IBlackWhite, IDraw, ISpiel {
 		int size = Config.Size;
 		main.noStroke();
 		main.fill(getColAsInt());
-		main.rect(size * getJ(), size * getI(), size, size);
+		main.rect((float)size * getJ(), (float)size * getI(), size, size);
 		if (getFigur() != null) {
 			getFigur().draw(main);
 		}
 	}
 
 	public int getPosI(Main main) {
-		int PosI = (main.mouseX - main.mouseX % Config.Size) / Config.Size;
-		return PosI;
+		return (main.mouseX - main.mouseX % Config.Size) / Config.Size;
 	}
 
 	public int getPosJ(Main main) {
-		int PosJ = (main.mouseY - main.mouseY % Config.Size) / Config.Size;
-		return PosJ;
+		return  (main.mouseY - main.mouseY % Config.Size) / Config.Size;
 	}
 
 	@Override
@@ -83,30 +81,30 @@ public class Field implements IBlackWhite, IDraw, ISpiel {
 	public String toChessNotation() {
 		String str = "";
 		switch (this.getJ()) {
-			case 0:
-				str += "A";
-				break;
-			case 1:
-				str += "B";
-				break;
-			case 2:
-				str += "C";
-				break;
-			case 3:
-				str += "D";
-				break;
-			case 4:
-				str += "E";
-				break;
-			case 5:
-				str += "F";
-				break;
-			case 6:
-				str += "G";
-				break;
-			case 7:
-				str += "H";
-				break;
+		case 0:
+			str += "A";
+			break;
+		case 1:
+			str += "B";
+			break;
+		case 2:
+			str += "C";
+			break;
+		case 3:
+			str += "D";
+			break;
+		case 4:
+			str += "E";
+			break;
+		case 5:
+			str += "F";
+			break;
+		case 6:
+			str += "G";
+			break;
+		case 7:
+			str += "H";
+			break;
 		}
 		str += 8 - this.getI();
 		return str;

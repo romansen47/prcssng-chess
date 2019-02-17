@@ -69,7 +69,7 @@ public class Main extends Gui {
 		if (clicked) {
 			if (!getReferee().isMarked()) {
 				if (getSpiel().getField(getPosJ(), getPosI()).getFigur() != null
-				        && getSpiel().getField(getPosJ(), getPosI()).getFigur().getCol() == getPlayer().getCol()) {
+						&& getSpiel().getField(getPosJ(), getPosI()).getFigur().getCol() == getPlayer().getCol()) {
 					getReferee().setMarked(getSpiel().getField(getPosJ(), getPosI()));
 				}
 			} else {

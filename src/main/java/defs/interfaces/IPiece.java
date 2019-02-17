@@ -6,15 +6,15 @@ import java.util.List;
 import defs.classes.Field;
 import defs.classes.Piece;
 import defs.classes.Player;
-import defs.enums.BlackWhite;
 
 public interface IPiece {
 
 	List<Field> getPossibleMoves();
 
 	public Field getField();
+
 	public void setField(Field field);
-	
+
 	default public List<Field> getGuardingFields(Player player) {
 		List<Field> list = new ArrayList<Field>();
 		List<Piece> all = player.getFiguren();
@@ -25,7 +25,6 @@ public interface IPiece {
 		}
 		return list;
 	}
-
 
 	default public int getPosI() {
 		return getField().getI();

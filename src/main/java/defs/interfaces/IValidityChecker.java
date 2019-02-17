@@ -12,7 +12,7 @@ public interface IValidityChecker extends IBlackWhite {
 		if ((last.getFigur() == null || last.getFigur() == this) && fld.getFigur() == null)
 			ans = true;
 		if ((last.getFigur() == null || last.getFigur() == this) && fld.getFigur() != null
-		        && fld.getFigur().getCol() != getCol())
+				&& fld.getFigur().getCol() != getCol())
 			ans = true;
 		if (ans) {
 			lst.add(fld);

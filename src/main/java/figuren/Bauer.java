@@ -23,11 +23,11 @@ public class Bauer extends Piece {
 		if (this.getCol() == BlackWhite.WHITE) {
 			if (getField().getI() > 1) {
 				if (getPosJ() < 6 && getSpiel().getField(8 - getPosI(), getPosJ() + 1).getFigur() != null
-				        && getSpiel().getField(8 - getPosI(), getPosJ() + 1).getFigur().getCol() == BlackWhite.BLACK) {
+						&& getSpiel().getField(8 - getPosI(), getPosJ() + 1).getFigur().getCol() == BlackWhite.BLACK) {
 					lst.add(getSpiel().getField(8 - getPosI(), getPosJ() + 1));
 				}
 				if (getPosJ() > 0 && getSpiel().getField(8 - getPosI(), getPosJ() - 1).getFigur() != null
-				        && getSpiel().getField(8 - getPosI(), getPosJ() - 1).getFigur().getCol() == BlackWhite.BLACK) {
+						&& getSpiel().getField(8 - getPosI(), getPosJ() - 1).getFigur().getCol() == BlackWhite.BLACK) {
 					lst.add(getSpiel().getField(8 - getPosI(), getPosJ() - 1));
 				}
 				if (getSpiel().getField(8 - getPosI(), getPosJ()).getFigur() == null) {
@@ -42,11 +42,11 @@ public class Bauer extends Piece {
 		} else {
 			if (getField().getI() < 6) {
 				if (getPosJ() < 6 && getSpiel().getField(8 - getPosI(), getPosJ() + 1).getFigur() != null
-				        && getSpiel().getField(8 - getPosI(), getPosJ() + 1).getFigur().getCol() == BlackWhite.WHITE) {
+						&& getSpiel().getField(8 - getPosI(), getPosJ() + 1).getFigur().getCol() == BlackWhite.WHITE) {
 					lst.add(getSpiel().getField(6 - getPosI(), getPosJ() + 1));
 				}
 				if (getPosJ() > 0 && getSpiel().getField(8 - getPosI(), getPosJ() - 1).getFigur() != null
-				        && getSpiel().getField(8 - getPosI(), getPosJ() - 1).getFigur().getCol() == BlackWhite.WHITE) {
+						&& getSpiel().getField(8 - getPosI(), getPosJ() - 1).getFigur().getCol() == BlackWhite.WHITE) {
 					lst.add(getSpiel().getField(6 - getPosI(), getPosJ() - 1));
 				}
 				if (getSpiel().getField(6 - getPosI(), getPosJ()).getFigur() == null) {

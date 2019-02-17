@@ -1,8 +1,5 @@
 package defs.classes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import defs.enums.BlackWhite;
 import defs.enums.Ids;
 import defs.interfaces.IDraw;
@@ -26,7 +23,7 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, ISpiel {
 	public Field getField() {
 		return field;
 	}
-	
+
 	@Override
 	public void setField(Field field) {
 		this.field = field;
@@ -34,7 +31,8 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, ISpiel {
 			this.field.setFigur(this);
 		}
 	}
-	
+
+	@Override
 	public BlackWhite getCol() {
 		return col;
 	}
