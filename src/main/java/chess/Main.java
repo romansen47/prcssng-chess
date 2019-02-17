@@ -2,10 +2,10 @@ package chess;
 
 import conf.Config;
 import defs.classes.Field;
-import defs.classes.Player;
 import defs.classes.Move;
+import defs.classes.Player;
 import processing.core.PImage;
-import processingTemplate.Gui;
+import processing.template.Gui;
 
 public class Main extends Gui {
 
