@@ -10,7 +10,7 @@ import processing.template.Gui;
 public class Main extends Gui {
 
 	final static String mainclass = "chess.Main";
-	final static String path = "C:/Users/roman/eclipse-workspace/chess/src/main/java/pics/";
+	final static String path ="";
 
 	private PImage whiteKing;
 	private PImage blackKing;
