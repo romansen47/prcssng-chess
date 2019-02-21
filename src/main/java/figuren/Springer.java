@@ -7,12 +7,12 @@ import chess.Main;
 import conf.Config;
 import defs.classes.Field;
 import defs.classes.Piece;
-import defs.enums.BlackWhite;
+import defs.enums.Colors;
 import defs.enums.Ids;
 
 public class Springer extends Piece {
 
-	public Springer(BlackWhite col, Field field) {
+	public Springer(Colors col, Field field) throws Exception{
 		super(Ids.Springer, col, field);
 	}
 
@@ -46,13 +46,14 @@ public class Springer extends Piece {
 		if (i - 2 >= 0 && j - 1 >= 0 && checkForValidity(i - 2, j - 1)) {
 			lst.add(getSpiel().getField(i - 2, j - 1));
 		}
+		
 		return lst;
 	}
 
 	// TODO: An das Interface IValidityChecker anpassen
 	public boolean checkForValidity(int tmpI, int tmpJ) {
-		if (getSpiel().getField(tmpI, tmpJ).getFigur() != null) {
-			return getSpiel().getField(tmpI, tmpJ).getFigur().getCol() != getSpiel().getPlayer().getCol();
+		if (getSpiel().getField(tmpI, tmpJ).getPiece() != null) {
+			return getCol() != getSpiel().getField(tmpI, tmpJ).getPiece().getCol();
 		}
 		return true;
 	}
@@ -61,7 +62,7 @@ public class Springer extends Piece {
 	public void draw(Main main) {
 		main.fill(getColAsInt());
 		final int size = Config.Size;
-		if (col == BlackWhite.WHITE) {
+		if (col == Colors.WHITE) {
 			main.image(main.getWhiteKnight(), size * getField().getJ(), size * getField().getI(), size, size);
 		} else {
 			main.image(main.getBlackKnight(), size * getField().getJ(), size * getField().getI(), size, size);

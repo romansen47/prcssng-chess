@@ -7,14 +7,13 @@ import chess.Main;
 import conf.Config;
 import defs.classes.Field;
 import defs.classes.Piece;
-import defs.enums.BlackWhite;
+import defs.enums.Colors;
 import defs.enums.Ids;
 
 public class Dame extends Piece {
 
-	public Dame(BlackWhite col, Field field) {
+	public Dame(Colors col, Field field) throws Exception{
 		super(Ids.Dame, col, field);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -106,7 +105,7 @@ public class Dame extends Piece {
 		lst.addAll(lst2);
 		lst.addAll(lst3);
 		lst.addAll(lst4);
-
+		
 		return lst;
 	}
 
@@ -114,7 +113,7 @@ public class Dame extends Piece {
 	public void draw(Main main) {
 		main.fill(getColAsInt());
 		final int size = Config.Size;
-		if (col == BlackWhite.WHITE) {
+		if (col == Colors.WHITE) {
 			main.image(main.getWhiteQueen(), size * getField().getJ(), size * getField().getI(), size, size);
 		} else {
 			main.image(main.getBlackQueen(), size * getField().getJ(), size * getField().getI(), size, size);

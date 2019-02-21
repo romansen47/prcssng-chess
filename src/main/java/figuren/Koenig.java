@@ -7,14 +7,13 @@ import chess.Main;
 import conf.Config;
 import defs.classes.Field;
 import defs.classes.Piece;
-import defs.enums.BlackWhite;
+import defs.enums.Colors;
 import defs.enums.Ids;
 
 public class Koenig extends Piece {
 
-	public Koenig(BlackWhite col, Field field) {
+	public Koenig(Colors col, Field field) throws Exception{
 		super(Ids.Koenig, col, field);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -47,13 +46,14 @@ public class Koenig extends Piece {
 		if (tempJ - 1 >= 0) {
 			checkForValidity(getSpiel().getField(tempI, tempJ - 1), lst);
 		}
+
 		return lst;
 
 	}
 
 	@Override
 	public boolean checkForValidity(Field fld, List<Field> lst) {
-		if (fld.getFigur() != null && fld.getFigur().getCol() == getCol()) {
+		if (fld.getPiece() != null && fld.getPiece().getCol() == getCol()) {
 			return false;
 		}
 		lst.add(fld);
@@ -64,7 +64,7 @@ public class Koenig extends Piece {
 	public void draw(Main main) {
 		main.fill(getColAsInt());
 		final int size = Config.Size;
-		if (col == BlackWhite.WHITE) {
+		if (col == Colors.WHITE) {
 			main.image(main.getWhiteKing(), size * getField().getJ(), size * getField().getI(), size, size);
 		} else {
 			main.image(main.getBlackKing(), size * getField().getJ(), size * getField().getI(), size, size);

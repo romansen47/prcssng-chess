@@ -2,7 +2,7 @@ package defs.interfaces;
 
 import chess.Game;
 
-public interface ISpiel {
+public interface IGame {
 
 	default Game getSpiel() {
 		return Game.getInstance();

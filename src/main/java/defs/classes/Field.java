@@ -2,20 +2,20 @@ package defs.classes;
 
 import chess.Main;
 import conf.Config;
-import defs.enums.BlackWhite;
-import defs.interfaces.IBlackWhite;
+import defs.enums.Colors;
+import defs.interfaces.IColors;
 import defs.interfaces.IDraw;
-import defs.interfaces.ISpiel;
+import defs.interfaces.IGame;
 
-public class Field implements IBlackWhite, IDraw, ISpiel {
+public class Field implements IColors, IDraw, IGame {
 
 	final private int i;
 	final private int j;
-	final private BlackWhite col;
+	final private Colors col;
 
 	private Piece piece = null;
 
-	public Field(BlackWhite col, int i, int j) {
+	public Field(Colors col, int i, int j) {
 		this.col = col;
 		this.i = i;
 		this.j = j;
@@ -30,21 +30,21 @@ public class Field implements IBlackWhite, IDraw, ISpiel {
 	}
 
 	@Override
-	public BlackWhite getCol() {
+	public Colors getCol() {
 		return col;
 	}
 
-	public Piece getFigur() {
+	public Piece getPiece() {
 		return piece;
 	}
 
-	public void setFigur(Piece piece) {
+	public void setPiece(Piece piece) {
 		this.piece = piece;
 	}
 
 	@Override
 	public int getColAsInt() {
-		if (getCol() == BlackWhite.WHITE) {
+		if (getCol() == Colors.WHITE) {
 			return 250;
 		}
 		return 100;
@@ -56,8 +56,8 @@ public class Field implements IBlackWhite, IDraw, ISpiel {
 		main.noStroke();
 		main.fill(getColAsInt());
 		main.rect((float)size * getJ(), (float)size * getI(), size, size);
-		if (getFigur() != null) {
-			getFigur().draw(main);
+		if (getPiece() != null) {
+			getPiece().draw(main);
 		}
 	}
 
@@ -71,7 +71,7 @@ public class Field implements IBlackWhite, IDraw, ISpiel {
 
 	@Override
 	public String toString() {
-		if (this.getFigur() != null) {
+		if (this.getPiece() != null) {
 			return super.toString();
 		} else {
 			return "";

@@ -1,9 +1,12 @@
 package chess;
 
+import java.util.List;
+
 import conf.Config;
 import defs.classes.Field;
 import defs.classes.Move;
 import defs.classes.Player;
+import defs.enums.Colors;
 import processing.core.PImage;
 import processing.template.Gui;
 
@@ -41,7 +44,12 @@ public class Main extends Gui {
 		surface.setSize(12 * Config.Size, 8 * Config.Size);
 		surface.setLocation(displayWidth - width >> 1, displayHeight - height >> 1);
 		frameRate(60);
-		getSpiel().setup();
+		try {
+			getSpiel().setup();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
 		whiteKing = loadImage(path + "white_king.png");
 		blackKing = loadImage(path + "black_king.png");
 		whiteQueen = loadImage(path + "white_queen.png");
@@ -68,8 +76,8 @@ public class Main extends Gui {
 		drawChessboard();
 		if (clicked) {
 			if (!getReferee().isMarked()) {
-				if (getSpiel().getField(getPosJ(), getPosI()).getFigur() != null
-						&& getSpiel().getField(getPosJ(), getPosI()).getFigur().getCol() == getPlayer().getCol()) {
+				if (getSpiel().getField(getPosJ(), getPosI()).getPiece() != null
+						&& getSpiel().getField(getPosJ(), getPosI()).getPiece().getCol() == getPlayer().getCol()) {
 					getReferee().setMarked(getSpiel().getField(getPosJ(), getPosI()));
 				}
 			} else {
@@ -89,7 +97,7 @@ public class Main extends Gui {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (getReferee().getMarked() != null) {
-					rahmen(getReferee().getMarked());
+					mark(getReferee().getMarked(),Colors.GREEN);
 				}
 				getSpiel().getField(i, j).draw(this);
 				stroke(0);
@@ -101,12 +109,23 @@ public class Main extends Gui {
 			}
 		}
 		if (getReferee().getMarked() != null) {
-			for (Field fld : getReferee().getMarked().getFigur().getPossibleMoves()) {
-				rahmen(fld);
+			List<Field> FLD=getReferee().getMarked().getPiece().getPossibleMoves();
+			for (Field fld : FLD) {
+					mark(fld,Colors.GREEN);
+			}
+			FLD=getReferee().getMarked().getPiece().getAttackers(getOtherPlayer());
+			if (!FLD.isEmpty()) {
+				for (Field fld : FLD) {
+					mark(fld,Colors.RED);
+				}
 			}
 		}
 	}
 
+	public Player getOtherPlayer() {
+		return getSpiel().getOtherPlayer();
+	}
+	
 	public static Field getField(int i, int j) {
 		return getSpiel().getField(i, j);
 	}
@@ -233,14 +252,28 @@ public class Main extends Gui {
 		return Game.getReferee();
 	}
 
-	public void rahmen(Field fld) {
-		stroke(0, 255, 0);
+	public void mark(Field fld,Colors col) {
 		strokeWeight(7);
 		int size = Config.Size;
-		line(fld.getJ() * size, fld.getI() * size, (fld.getJ() + 1) * size, fld.getI() * size);
-		line(fld.getJ() * size, fld.getI() * size, fld.getJ() * size, (fld.getI() + 1) * size);
-		line((fld.getJ() + 1) * size, fld.getI() * size, (fld.getJ() + 1) * size, (fld.getI() + 1) * size);
-		line(fld.getJ() * size, (fld.getI() + 1) * size, (fld.getJ() + 1) * size, (fld.getI() + 1) * size);
+		switch(col){
+			case RED:
+				stroke(255,0,0);
+				noFill();
+				ellipse((fld.getJ()+1) * size-(int)(size/2.0), (fld.getI() + 1) * size-(int)(size/2.0), size/2,size/2);
+				break;
+			case BLUE:
+				stroke(0,0,255);
+				noFill();
+				ellipse(fld.getJ() * size, (fld.getI() + 1) * size, size/2,size/2);
+				break;
+			default:
+				stroke(0,255,0);
+				line(fld.getJ() * size, fld.getI() * size, (fld.getJ() + 1) * size, fld.getI() * size);
+				line(fld.getJ() * size, fld.getI() * size, fld.getJ() * size, (fld.getI() + 1) * size);
+				line((fld.getJ() + 1) * size, fld.getI() * size, (fld.getJ() + 1) * size, (fld.getI() + 1) * size);
+				line(fld.getJ() * size, (fld.getI() + 1) * size, (fld.getJ() + 1) * size, (fld.getI() + 1) * size);
+				break;
+		}
 	}
 
 	public static Player getPlayer() {

@@ -26,11 +26,11 @@ public class Referee {
 	}
 
 	public void setMarked(Field marked) {
-		if (marked == null || marked.getFigur() == null) {
+		if (marked == null || marked.getPiece() == null) {
 			this.marked = null;
 			return;
 		} else {
-			if (marked.getFigur().getCol() == Game.getInstance().getPlayer().getCol()) {
+			if (marked.getPiece().getCol() == Game.getInstance().getPlayer().getCol()) {
 				this.marked = marked;
 			}
 		}
@@ -71,11 +71,11 @@ public class Referee {
 	public Move getZug() {
 		// TODO: auf "marked.getFigur()!=null" verzichten, statt dessen ueber die Setter
 		// managen.
-		if (!this.isMarked2() || getMarked().getFigur() == null) {
+		if (!this.isMarked2() || getMarked().getPiece() == null) {
 			return null;
 		} else {
-			if (getMarked().getFigur().getPossibleMoves().contains(getMarked2())) {
-				Move move = new Move(marked.getFigur(), getMarked2());
+			if (getMarked().getPiece().getPossibleMoves().contains(getMarked2())) {
+				Move move = new Move(marked.getPiece(), getMarked2());
 				setMarked2(null);
 				setMarked(null);
 				switchMainPlayer();

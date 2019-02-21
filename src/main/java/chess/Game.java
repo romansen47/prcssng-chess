@@ -3,10 +3,11 @@ package chess;
 import defs.classes.Field;
 import defs.classes.Player;
 import defs.classes.Timeline;
-import defs.enums.BlackWhite;
+import defs.enums.Colors;
 import defs.enums.State;
+import defs.interfaces.IGame;
 
-final public class Game {
+final public class Game implements IGame{
 
 	private final Field[][] Chessboard;
 	private static Player Player;
@@ -32,19 +33,19 @@ final public class Game {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if ((i + j) % 2 == 0) {
-					Chessboard[i][j] = new Field(BlackWhite.BLACK, i, j);
+					Chessboard[i][j] = new Field(Colors.BLACK, i, j);
 				} else {
-					Chessboard[i][j] = new Field(BlackWhite.WHITE, i, j);
+					Chessboard[i][j] = new Field(Colors.WHITE, i, j);
 				}
 			}
 		}
 		referee = Referee.getInstance();
 	}
 
-	public void setup() {
-		setWhite(new Player(BlackWhite.WHITE));
+	public void setup() throws Exception {
+		setWhite(new Player(Colors.WHITE));
 		setPlayer(getWhite());
-		setBlack(new Player(BlackWhite.BLACK));
+		setBlack(new Player(Colors.BLACK));
 	}
 
 	public Field getField(int i, int j) {
@@ -69,6 +70,14 @@ final public class Game {
 
 	public Player getPlayer() {
 		return Player;
+	}
+	
+	public Player getOtherPlayer() {
+		if (getPlayer()==getWhite()) {
+			return getBlack();
+		}
+		return getWhite();
+		
 	}
 
 	public void setPlayer(Player player) {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chess.Game;
-import defs.enums.BlackWhite;
+import defs.enums.Colors;
 import figuren.Bauer;
 import figuren.Dame;
 import figuren.Koenig;
@@ -15,50 +15,55 @@ import figuren.Turm;
 public class Player {
 
 	private static Game game = null;
-	private final BlackWhite col;
-	final private List<Piece> Figuren = new ArrayList<Piece>();
+	private final Colors col;
+	final private List<Piece> Pieces = new ArrayList<Piece>();
+	final private List<Piece> deadPieces = new ArrayList<Piece>();
 
-	public List<Piece> getFiguren() {
-		return Figuren;
+	public List<Piece> getPieces() {
+		return Pieces;
 	}
 
 	final Koenig king;
 
-	public Player(BlackWhite col) {
+	public Player(Colors col) throws Exception {
 		game = Game.getInstance();
 		this.col = col;
-		if (col == BlackWhite.WHITE) {
-			this.king = new Koenig(BlackWhite.WHITE, game.getField(0, 4));
+		if (col == Colors.WHITE) {
+			this.king = new Koenig(Colors.WHITE, game.getField(0, 4));
 		} else {
-			this.king = new Koenig(BlackWhite.BLACK, game.getField(7, 4));
+			this.king = new Koenig(Colors.BLACK, game.getField(7, 4));
 		}
 		initialGeneration();
 	}
 
-	private void initialGeneration() {
+	private void initialGeneration() throws Exception {
 
-		Figuren.add(king);
+		Pieces.add(king);
 		int ersteReihe = 0;
 		int zweiteReihe = 1;
-		if (getCol() == BlackWhite.BLACK) {
+		if (getCol() == Colors.BLACK) {
 			ersteReihe = 7;
 			zweiteReihe = 6;
 		}
 		for (int j = 0; j < 8; j++) {
-			Figuren.add(new Bauer(getCol(), game.getField(zweiteReihe, j)));
+			Pieces.add(new Bauer(getCol(), game.getField(zweiteReihe, j)));
 		}
-		Figuren.add(new Springer(getCol(), game.getField(ersteReihe, 1)));
-		Figuren.add(new Springer(getCol(), game.getField(ersteReihe, 6)));
-		Figuren.add(new Laeufer(getCol(), game.getField(ersteReihe, 2)));
-		Figuren.add(new Laeufer(getCol(), game.getField(ersteReihe, 5)));
-		Figuren.add(new Turm(getCol(), game.getField(ersteReihe, 0)));
-		Figuren.add(new Turm(getCol(), game.getField(ersteReihe, 7)));
-		Figuren.add(new Dame(getCol(), game.getField(ersteReihe, 3)));
+		Pieces.add(new Springer(getCol(), game.getField(ersteReihe, 1)));
+		Pieces.add(new Springer(getCol(), game.getField(ersteReihe, 6)));
+		Pieces.add(new Laeufer(getCol(), game.getField(ersteReihe, 2)));
+		Pieces.add(new Laeufer(getCol(), game.getField(ersteReihe, 5)));
+		Pieces.add(new Turm(getCol(), game.getField(ersteReihe, 0)));
+		Pieces.add(new Turm(getCol(), game.getField(ersteReihe, 7)));
+		Pieces.add(new Dame(getCol(), game.getField(ersteReihe, 3)));
 
 	}
 
-	public BlackWhite getCol() {
+	public Colors getCol() {
 		return col;
+	}
+
+	public List<Piece> getDeadPieces() {
+		return deadPieces;
 	}
 
 }

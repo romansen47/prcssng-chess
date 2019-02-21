@@ -2,9 +2,9 @@ package defs.classes;
 
 import java.util.ArrayList;
 
-import defs.interfaces.ISpiel;
+import defs.interfaces.IGame;
 
-public class Timeline extends ArrayList<Move> implements ISpiel {
+public class Timeline extends ArrayList<Move> implements IGame {
 
 	private static final long serialVersionUID = 1L;
 	private static Timeline instance = null;

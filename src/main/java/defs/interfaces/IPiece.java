@@ -2,28 +2,40 @@ package defs.interfaces;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import defs.classes.Field;
 import defs.classes.Piece;
 import defs.classes.Player;
 
-public interface IPiece {
+public interface IPiece extends IGame {
 
 	List<Field> getPossibleMoves();
 
 	public Field getField();
-
+	
 	public void setField(Field field);
 
-	default public List<Field> getGuardingFields(Player player) {
-		List<Field> list = new ArrayList<Field>();
-		List<Piece> all = player.getFiguren();
-		for (Piece fig : all) {
-			if (fig.getPossibleMoves().contains(this.getField())) {
-				list.add(fig.getField());
+	default public List<Field> getAttackers(Player pl) {
+		List<Field> fields=new ArrayList<Field>();
+		List<Piece> pieces=pl.getPieces();
+		for (Piece piece:pieces) {
+			if (piece.getPossibleMoves().contains(getField())) {
+				fields.add(piece.getField());
 			}
 		}
-		return list;
+		//fields.remove(this.getField());
+		return fields;
+	}
+	
+	default public List<Field> getSupporters(Player pl) {
+		List<Field> fields=new ArrayList<Field>();
+		List<Piece> pieces=pl.getPieces();
+		for (Piece piece:pieces) {
+			if (piece.getPossibleMoves().contains(getField())) {
+				fields.add(piece.getField());
+			}
+		}
+		//fields.remove(this.getField());
+		return fields;
 	}
 
 	default public int getPosI() {

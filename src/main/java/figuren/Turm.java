@@ -7,12 +7,12 @@ import chess.Main;
 import conf.Config;
 import defs.classes.Field;
 import defs.classes.Piece;
-import defs.enums.BlackWhite;
+import defs.enums.Colors;
 import defs.enums.Ids;
 
 public class Turm extends Piece {
 
-	public Turm(BlackWhite col, Field field) {
+	public Turm(Colors col, Field field) throws Exception{
 		super(Ids.Turm, col, field);
 	}
 
@@ -65,7 +65,7 @@ public class Turm extends Piece {
 	public void draw(Main main) {
 		main.fill(getColAsInt());
 		final int size = Config.Size;
-		if (col == BlackWhite.WHITE) {
+		if (col == Colors.WHITE) {
 			main.image(main.getWhiteTower(), size * getField().getJ(), size * getField().getI(), size, size);
 		} else {
 			main.image(main.getBlackTower(), size * getField().getJ(), size * getField().getI(), size, size);

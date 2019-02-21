@@ -1,13 +1,13 @@
 package defs.classes;
 
 import chess.Game;
-import defs.enums.BlackWhite;
+import defs.enums.Colors;
 import defs.enums.Ids;
-import defs.interfaces.ISpiel;
+import defs.interfaces.IGame;
 
-public class Move implements ISpiel {
+public class Move implements IGame {
 
-	final BlackWhite col;
+	final Colors col;
 	final Field prev;
 	final private Ids prevId;
 	final Field next;
@@ -39,27 +39,29 @@ public class Move implements ISpiel {
 		prev = fig.getField();
 		prevId = fig.id;
 		next = fld;
-		if (next.getFigur() != null) {
-			nextId = next.getFigur().id;
+		if (next.getPiece() != null) {
+			nextId = next.getPiece().id;
 		} else {
 			nextId = null;
 		}
 	}
 
 	public boolean isValid(Game game) {
-		if (prev.getFigur().getPossibleMoves().contains(this.next)) {
+		if (prev.getPiece().getPossibleMoves().contains(this.next)) {
 			return true;
 		}
 		return false;
 	}
 
 	public void execute(Game game) {
-		Piece fig1 = prev.getFigur();
-		Piece fig2 = next.getFigur();
-		prev.setFigur(null);
+		Piece fig1 = prev.getPiece();
+		Piece fig2 = next.getPiece();
+		prev.setPiece(null);
 		fig1.setField(next);
+		next.setPiece(fig1);
 		if (fig2 != null) {
-			fig2.setField(null);
+			getSpiel().getOtherPlayer().getPieces().remove(fig2);
+			getSpiel().getOtherPlayer().getDeadPieces().add(fig2);
 		}
 		Game.getReferee().setMarked(null);
 	}
