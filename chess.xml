@@ -9,7 +9,7 @@
                 <attribute name="Class-Path" value="."/>
             </manifest>
 	    <fileset dir="${dir.jarfile}/target/classes"/>
-            <zipfileset excludes="META-INF/*.SF" src="target/chess-0.0.1-snapshot-jar-with-dependencies.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="target/chess-1.0.0-snapshot-jar-with-dependencies.jar"/>
         </jar>
     </target>
 </project>
