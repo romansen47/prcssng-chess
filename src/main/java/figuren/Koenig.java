@@ -12,7 +12,7 @@ import defs.enums.Ids;
 
 public class Koenig extends Piece {
 
-	public Koenig(Colors col, Field field) throws Exception{
+	public Koenig(Colors col, Field field){
 		super(Ids.Koenig, col, field);
 	}
 
@@ -20,23 +20,23 @@ public class Koenig extends Piece {
 	public List<Field> getPossibleMoves() {
 		List<Field> lst = new ArrayList<Field>();
 		lst.add(this.getField());
-		int tempI = 7 - getField().getI();
+		int tempI = 7-getField().getI();
 		int tempJ = getField().getJ();
 		if (tempI - 1 >= 0) {
 			checkForValidity(getSpiel().getField(tempI - 1, tempJ), lst);
-			if (tempI - 1 >= 0) {
+			if (tempJ - 1 >= 0) {
 				checkForValidity(getSpiel().getField(tempI - 1, tempJ - 1), lst);
 			}
-			if (tempI + 1 <= 7) {
+			if (tempJ + 1 <= 7) {
 				checkForValidity(getSpiel().getField(tempI - 1, tempJ + 1), lst);
 			}
 		}
 		if (tempI + 1 <= 7) {
 			checkForValidity(getSpiel().getField(tempI + 1, tempJ), lst);
-			if (tempI - 1 >= 0) {
+			if (tempJ - 1 >= 0) {
 				checkForValidity(getSpiel().getField(tempI + 1, tempJ - 1), lst);
 			}
-			if (tempI + 1 <= 7) {
+			if (tempJ + 1 <= 7) {
 				checkForValidity(getSpiel().getField(tempI + 1, tempJ + 1), lst);
 			}
 		}

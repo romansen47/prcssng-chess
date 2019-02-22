@@ -19,13 +19,15 @@ public class Player {
 	final private List<Piece> Pieces = new ArrayList<Piece>();
 	final private List<Piece> deadPieces = new ArrayList<Piece>();
 
+	final private List<Move> MoveList=new ArrayList<Move>();
+	
 	public List<Piece> getPieces() {
 		return Pieces;
 	}
 
 	final Koenig king;
-
-	public Player(Colors col) throws Exception {
+	
+	public Player(Colors col){
 		game = Game.getInstance();
 		this.col = col;
 		if (col == Colors.WHITE) {
@@ -36,7 +38,7 @@ public class Player {
 		initialGeneration();
 	}
 
-	private void initialGeneration() throws Exception {
+	private void initialGeneration() {
 
 		Pieces.add(king);
 		int ersteReihe = 0;
@@ -64,6 +66,10 @@ public class Player {
 
 	public List<Piece> getDeadPieces() {
 		return deadPieces;
+	}
+
+	public List<Move> getMoveList() {
+		return MoveList;
 	}
 
 }

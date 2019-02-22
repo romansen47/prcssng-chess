@@ -12,7 +12,7 @@ import defs.enums.Ids;
 
 public class Turm extends Piece {
 
-	public Turm(Colors col, Field field) throws Exception{
+	public Turm(Colors col, Field field){
 		super(Ids.Turm, col, field);
 	}
 

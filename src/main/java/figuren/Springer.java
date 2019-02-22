@@ -12,7 +12,7 @@ import defs.enums.Ids;
 
 public class Springer extends Piece {
 
-	public Springer(Colors col, Field field) throws Exception{
+	public Springer(Colors col, Field field){
 		super(Ids.Springer, col, field);
 	}
 

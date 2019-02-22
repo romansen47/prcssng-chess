@@ -2,6 +2,7 @@ package chess;
 
 import defs.classes.Field;
 import defs.classes.Player;
+import defs.classes.Referee;
 import defs.classes.Timeline;
 import defs.enums.Colors;
 import defs.enums.State;
@@ -42,7 +43,7 @@ final public class Game implements IGame{
 		referee = Referee.getInstance();
 	}
 
-	public void setup() throws Exception {
+	public void setup() {
 		setWhite(new Player(Colors.WHITE));
 		setBlack(new Player(Colors.BLACK));
 		setPlayer(getWhite());

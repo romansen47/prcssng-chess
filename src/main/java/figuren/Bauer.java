@@ -12,7 +12,7 @@ import defs.enums.Ids;
 
 public class Bauer extends Piece {
 
-	public Bauer(Colors col, Field field) throws Exception {
+	public Bauer(Colors col, Field field) {
 		super(Ids.Bauer, col, field);
 	}
 

@@ -13,10 +13,10 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IGame {
 	public final Colors col;
 	private Field field;
 
-	public Piece(Ids id, Colors col, Field field) throws Exception {
-		if (col!=Colors.WHITE && col!=Colors.BLACK) {
-			throw new Exception("Figuren dürfen nur schwarz oder weiss sein!");
-		}
+	public Piece(Ids id, Colors col, Field field) {
+//		if (col!=Colors.WHITE && col!=Colors.BLACK) {
+//			throw new Exception("Figuren dürfen nur schwarz oder weiss sein!");
+//		}
 		this.id = id;
 		this.col = col;
 		this.setField(field);

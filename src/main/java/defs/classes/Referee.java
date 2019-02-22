@@ -1,7 +1,6 @@
-package chess;
+package defs.classes;
 
-import defs.classes.Field;
-import defs.classes.Move;
+import chess.Game;
 
 public class Referee {
 
@@ -68,7 +67,7 @@ public class Referee {
 		return false;
 	}
 
-	public Move getZug() {
+	public Move getMove() {
 		// TODO: auf "marked.getFigur()!=null" verzichten, statt dessen ueber die Setter
 		// managen.
 		if (!this.isMarked2() || getMarked().getPiece() == null) {
@@ -97,4 +96,21 @@ public class Referee {
 		return Game.getInstance();
 	}
 
+	public void processMove(Move move) {
+		if (move != null) {
+			getSpiel().getZugListe().add(move);
+			System.out.println((getSpiel().getZugListe()).toStr());
+			move.execute(getSpiel());
+		}
+	}
+	
+	// TODO
+	public void checkForChess() {
+		
+	}
+	
+	// TODO
+	public void switchState() {
+		
+	}
 }

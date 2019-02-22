@@ -8,6 +8,7 @@ import defs.interfaces.IGame;
 public class Move implements IGame {
 
 	final Colors col;
+	final Piece fig;
 	final Field prev;
 	final private Ids prevId;
 	final Field next;
@@ -35,6 +36,7 @@ public class Move implements IGame {
 	}
 
 	public Move(Piece fig, Field fld) {
+		this.fig=fig;
 		col = fig.getCol();
 		prev = fig.getField();
 		prevId = fig.id;
@@ -54,6 +56,7 @@ public class Move implements IGame {
 	}
 
 	public void execute(Game game) {
+		
 		Piece fig1 = prev.getPiece();
 		Piece fig2 = next.getPiece();
 		prev.setPiece(null);
@@ -64,6 +67,7 @@ public class Move implements IGame {
 			getSpiel().getOtherPlayer().getDeadPieces().add(fig2);
 		}
 		Game.getReferee().setMarked(null);
+		getSpiel().getPlayer().getMoveList().add(this);
 	}
 
 }

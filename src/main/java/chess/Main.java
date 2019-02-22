@@ -3,9 +3,13 @@ package chess;
 import java.util.List;
 
 import conf.Config;
-import defs.classes.Field;
+import defs.classes.Drawer;
+import defs.classes.Field; 
 import defs.classes.Move;
+import defs.classes.Piece;
 import defs.classes.Player;
+import defs.classes.Referee;
+import defs.classes.Setup;
 import defs.enums.Colors;
 import processing.core.PImage;
 import processing.template.Gui;
@@ -28,125 +32,34 @@ public class Main extends Gui {
 	private PImage whitePawn;
 	private PImage blackPawn;
 
+	private Setup setup=Setup.getInstance(this);
+	private Drawer drawer=Drawer.getInstance(this);
+	
 	public static void main(String[] args) {
 		(new Gui()).run(mainclass);
 	}
 
+	
 	@Override
 	public void settings() {
 	}
-
-	public void initiatePieces(String path) {
-		whiteKing = loadImage(path + "white_king.png");
-		blackKing = loadImage(path + "black_king.png");
-		whiteQueen = loadImage(path + "white_queen.png");
-		blackQueen = loadImage(path + "black_queen.png");
-		whiteKnight = loadImage(path + "white_knight.png");
-		blackKnight = loadImage(path + "black_knight.png");
-		whiteBishop = loadImage(path + "white_bishop.png");
-		blackBishop = loadImage(path + "black_bishop.png");
-		whiteTower = loadImage(path + "white_rook.png");
-		blackTower = loadImage(path + "black_rook.png");
-		whitePawn = loadImage(path + "white_pawn.png");
-		blackPawn = loadImage(path + "black_pawn.png");
-	}
 	
-	public void setupSurface() {
-		surface.setResizable(true);
-		surface.setSize(12 * Config.Size, 8 * Config.Size);
-		surface.setLocation(displayWidth - width >> 1, displayHeight - height >> 1);
-	}
 	
 	@Override
 	public void setup() {
 		
-		background(255);
-		frameRate(60);
-		
-		setupSurface();
-		
-		try {
-			getSpiel().setup();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.exit(0);
-		}
-		
-		initiatePieces(path);
-		getReferee();
-		
+		setup.execute();		
 		stroke(0);
 	}
 
+	
 	@Override
 	public void draw() {
 
-		boolean clicked;
-		
-		if (clicked() == 1) {
-			clicked = true;
-		} else {
-			clicked = false;
-		}
-		
-		drawChessboard();
-		
-		setMark(clicked);
-		
-		Move move = getReferee().getZug();
-		
-		if (move != null) {
-			getSpiel().getZugListe().add(move);
-			System.out.println((getSpiel().getZugListe()).toStr());
-			move.execute(getSpiel());
-		}
+		drawer.execute();
 		
 	}
-	
-	public void setMark(boolean clicked) {
-		if (!clicked) {
-			return;
-		}
-		if (!getReferee().isMarked()) {
-			if (getSpiel().getField(getPosJ(), getPosI()).getPiece() != null
-					&& getSpiel().getField(getPosJ(), getPosI()).getPiece().getCol() == getPlayer().getCol()) {
-				getReferee().setMarked(getSpiel().getField(getPosJ(), getPosI()));
-			}
-		} else {
-			getReferee().setMarked2(getSpiel().getField(getPosJ(), getPosI()));
-		}
-		loop();
-	}
-
-	public void drawChessboard() {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				if (getReferee().getMarked() != null) {
-					mark(getReferee().getMarked(),Colors.GREEN);
-				}
-				getSpiel().getField(i, j).draw(this);
-				stroke(0);
-				strokeWeight(3);
-				line(0, 0, 8 * Config.Size, 0);
-				line(0, 0, 0, 8 * Config.Size);
-				line(8 * Config.Size, 0, 8 * Config.Size, 8 * Config.Size);
-				line(0, 8 * Config.Size, 8 * Config.Size, 8 * Config.Size);
-			}
-		}
-		if (getReferee().getMarked() != null) {
-			List<Field> FLD=getReferee().getMarked().getPiece().getPossibleMoves();
-			for (Field fld : FLD) {
-					mark(fld,Colors.GREEN);
-			}
-			FLD=getReferee().getMarked().getPiece().getAttackers(getOtherPlayer());
-			if (!FLD.isEmpty()) {
-				for (Field fld : FLD) {
-					mark(fld,Colors.RED);
-				}
-			}
-		}
-	}
-
+		
 	public Player getOtherPlayer() {
 		return getSpiel().getOtherPlayer();
 	}
@@ -265,7 +178,7 @@ public class Main extends Gui {
 		return mainclass;
 	}
 
-	public static String getPath() {
+	public String getPath() {
 		return path;
 	}
 
@@ -277,30 +190,14 @@ public class Main extends Gui {
 		return Game.getReferee();
 	}
 
-	public void mark(Field fld,Colors col) {
-		strokeWeight(7);
-		int size = Config.Size;
-		switch(col){
-			case RED:
-				stroke(255,0,0);
-				noFill();
-				ellipse((fld.getJ()+1) * size-(int)(size/2.0), (fld.getI() + 1) * size-(int)(size/2.0), size/2,size/2);
-				break;
-			case BLUE:
-				stroke(0,0,255);
-				noFill();
-				ellipse(fld.getJ() * size, (fld.getI() + 1) * size, size/2,size/2);
-				break;
-			default:
-				stroke(0,255,0);
-				line(fld.getJ() * size, fld.getI() * size, (fld.getJ() + 1) * size, fld.getI() * size);
-				line(fld.getJ() * size, fld.getI() * size, fld.getJ() * size, (fld.getI() + 1) * size);
-				line((fld.getJ() + 1) * size, fld.getI() * size, (fld.getJ() + 1) * size, (fld.getI() + 1) * size);
-				line(fld.getJ() * size, (fld.getI() + 1) * size, (fld.getJ() + 1) * size, (fld.getI() + 1) * size);
-				break;
+	public void processMove(Move move) {
+		if (move != null) {
+			getSpiel().getZugListe().add(move);
+			System.out.println((getSpiel().getZugListe()).toStr());
+			move.execute(getSpiel());
 		}
 	}
-
+	
 	public static Player getPlayer() {
 		return Game.getInstance().getPlayer();
 	}
