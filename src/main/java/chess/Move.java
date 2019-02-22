@@ -1,26 +1,20 @@
-package defs.classes;
+package chess;
 
-import chess.Game;
+import defs.classes.Field;
+import defs.classes.Game;
+import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
-import defs.interfaces.IGame;
+import defs.interfaces.IRefs;
 
-public class Move implements IGame {
+public class Move implements IRefs {
 
-	final Colors col;
-	final Piece fig;
-	final Field prev;
-	final private Ids prevId;
-	final Field next;
-	final private Ids nextId;
-
-	public Ids getPrevId() {
-		return prevId;
-	}
-
-	public Ids getNextId() {
-		return nextId;
-	}
+	final public Colors col;
+	final public Piece fig;
+	final public Field prev;
+	final public Ids prevId;
+	final public Field next;
+	final public Ids nextId;
 
 	@Override
 	public String toString() {
@@ -66,8 +60,10 @@ public class Move implements IGame {
 			getSpiel().getOtherPlayer().getPieces().remove(fig2);
 			getSpiel().getOtherPlayer().getDeadPieces().add(fig2);
 		}
-		Game.getReferee().setMarked(null);
+		getReferee().setMarked(null);
 		getSpiel().getPlayer().getMoveList().add(this);
+
+		getReferee().switchMainPlayer();
 	}
 
 }

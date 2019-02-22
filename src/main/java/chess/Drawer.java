@@ -1,15 +1,17 @@
-package defs.classes;
+package chess;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.Game;
-import chess.Main;
 import conf.Config;
+import defs.classes.Field;
+import defs.classes.Piece;
+import defs.classes.Player;
 import defs.enums.Colors;
-import figuren.Bauer;
+import defs.interfaces.ISetupAndRun;
+import pieces.Pawn;
 
-public class Drawer {
+public class Drawer implements ISetupAndRun{
 
 	final Main main;
 	
@@ -41,7 +43,6 @@ public class Drawer {
 		drawChessboard();
 				
 	}
-
 
 	public boolean checkForClick() {
 		if (main.clicked() == 1) {
@@ -105,26 +106,12 @@ public class Drawer {
 		if (getReferee().getMarked() != null) {
 			
 			drawMarkedFields(getReferee().getMarked().getPiece().getPossibleMoves(),Colors.GREEN);
-			drawMarkedFields(getReferee().getMarked().getPiece().getAttackers(getOtherPlayer()),Colors.RED);			
-
-			Piece piece=getReferee().getMarked().getPiece();
-			Colors col=Colors.WHITE;
-			if (piece.getCol()==col) {
-				col=Colors.BLACK;
-			}
-			Field field=piece.getField();
-			Piece fakepiece=new Bauer(col, field);
-			field.setPiece(fakepiece);
-			getPlayer().getPieces().remove(piece);
-			getPlayer().getPieces().add(fakepiece);			
-			drawMarkedFields(piece.getAttackers(getPlayer()),Colors.BLUE);
-			getPlayer().getPieces().remove(fakepiece);
-			getPlayer().getPieces().add(piece);
-			field.setPiece(piece);
-		
-			List<Field> tmp=new ArrayList<Field>();
-			tmp.add(getReferee().getMarked());
-			drawMarkedFields(tmp,Colors.YELLOW);
+			drawMarkedFields(getReferee().getMarked().getPiece().getAttackers(),Colors.RED);			
+			drawMarkedFields(getReferee().getMarked().getPiece().getSupporters(),Colors.BLUE);
+			
+			List<Field> pos=new ArrayList<Field>();
+			pos.add(getReferee().getMarked());
+			drawMarkedFields(pos,Colors.YELLOW);
 			
 		}
 		
@@ -161,7 +148,6 @@ public class Drawer {
 				
 		}
 	}
-
 	
 	private Player getOtherPlayer() {
 		return getSpiel().getOtherPlayer();
@@ -171,11 +157,4 @@ public class Drawer {
 		return getSpiel().getPlayer();
 	}
 
-	private static Referee getReferee() {
-		return Referee.getInstance();
-	}
-
-	private Game getSpiel() {
-		return Main.getSpiel();
-	}
 }

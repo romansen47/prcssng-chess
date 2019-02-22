@@ -1,10 +1,11 @@
-package defs.classes;
+package conf;
 
 import java.util.ArrayList;
 
-import defs.interfaces.IGame;
+import chess.Move;
+import defs.interfaces.IRefs;
 
-public class Timeline extends ArrayList<Move> implements IGame {
+public class Timeline extends ArrayList<Move> implements IRefs {
 
 	private static final long serialVersionUID = 1L;
 	private static Timeline instance = null;

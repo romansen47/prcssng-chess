@@ -1,10 +1,11 @@
-package defs.classes;
+package chess;
 
-import chess.Main;
 import conf.Config;
-import defs.interfaces.IGame;
+import conf.Referee;
+import defs.interfaces.IRefs;
+import defs.interfaces.ISetupAndRun;
 
-public class Setup implements IGame{
+public class Setup implements IRefs,ISetupAndRun{
 
 	final Main main;
 
@@ -21,7 +22,7 @@ public class Setup implements IGame{
 		this.main=main;
 	}
 	
-	public final void execute() {
+	public void execute() {
 
 		// setup the surface
 		setupSurface();
@@ -67,10 +68,6 @@ public class Setup implements IGame{
 		main.setWhitePawn(main.loadImage(path + "white_pawn.png"));
 		main.setBlackPawn(main.loadImage(path + "black_pawn.png"));
 		
-	}
-	
-	public static Referee getReferee() {
-		return Main.getReferee();
 	}
 
 }

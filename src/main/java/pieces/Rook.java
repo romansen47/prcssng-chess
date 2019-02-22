@@ -1,4 +1,4 @@
-package figuren;
+package pieces;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,9 @@ import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
 
-public class Turm extends Piece {
-
-	public Turm(Colors col, Field field){
+public class Rook extends Piece {
+	
+	public Rook(Colors col, Field field){
 		super(Ids.Turm, col, field);
 	}
 
@@ -70,6 +70,10 @@ public class Turm extends Piece {
 		} else {
 			main.image(main.getBlackTower(), size * getField().getJ(), size * getField().getI(), size, size);
 		}
+	}
+
+	public boolean isValidForCastling() {
+		return getAttackers().isEmpty();
 	}
 
 }

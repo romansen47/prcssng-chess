@@ -1,4 +1,4 @@
-package figuren;
+package pieces;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,9 @@ import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
 
-public class Bauer extends Piece {
+public class Pawn extends Piece {
 
-	public Bauer(Colors col, Field field) {
+	public Pawn(Colors col, Field field) {
 		super(Ids.Bauer, col, field);
 	}
 

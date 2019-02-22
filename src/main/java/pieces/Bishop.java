@@ -1,4 +1,4 @@
-package figuren;
+package pieces;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,9 @@ import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
 
-public class Springer extends Piece {
+public class Bishop extends Piece {
 
-	public Springer(Colors col, Field field){
+	public Bishop(Colors col, Field field){
 		super(Ids.Springer, col, field);
 	}
 

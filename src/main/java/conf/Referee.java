@@ -1,8 +1,12 @@
-package defs.classes;
+package conf;
 
-import chess.Game;
+import chess.Move;
+import defs.classes.Field;
+import defs.classes.Game;
+import defs.enums.Ids;
+import defs.interfaces.IRefs;
 
-public class Referee {
+public class Referee implements IRefs{
 
 	protected static Referee instance = null;
 
@@ -74,10 +78,9 @@ public class Referee {
 			return null;
 		} else {
 			if (getMarked().getPiece().getPossibleMoves().contains(getMarked2())) {
-				Move move = new Move(marked.getPiece(), getMarked2());
+				Move move = getMarked().getPiece().getMove(getMarked2());
 				setMarked2(null);
 				setMarked(null);
-				switchMainPlayer();
 				return move;
 			}
 			return null;
@@ -90,10 +93,6 @@ public class Referee {
 		} else {
 			Game.getInstance().setPlayer(Game.getInstance().getWhite());
 		}
-	}
-
-	public Game getSpiel() {
-		return Game.getInstance();
 	}
 
 	public void processMove(Move move) {

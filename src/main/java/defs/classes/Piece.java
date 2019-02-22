@@ -1,13 +1,14 @@
 package defs.classes;
 
+import chess.Move;
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.interfaces.IDraw;
 import defs.interfaces.IPiece;
-import defs.interfaces.IGame;
+import defs.interfaces.IRefs;
 import defs.interfaces.IValidityChecker;
 
-abstract public class Piece implements IPiece, IValidityChecker, IDraw, IGame {
+abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
  
 	public final Ids id;
 	public final Colors col;
@@ -38,6 +39,10 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IGame {
 	@Override
 	public Colors getCol() {
 		return col;
+	}
+	
+	public Move getMove(Field field) {
+		return new Move(this,field);
 	}
 
 }

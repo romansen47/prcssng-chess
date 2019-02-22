@@ -3,18 +3,17 @@ package chess;
 import java.util.List;
 
 import conf.Config;
-import defs.classes.Drawer;
-import defs.classes.Field; 
-import defs.classes.Move;
+import conf.Referee;
+import defs.classes.Field;
+import defs.classes.Game;
 import defs.classes.Piece;
 import defs.classes.Player;
-import defs.classes.Referee;
-import defs.classes.Setup;
 import defs.enums.Colors;
+import defs.interfaces.IRefs;
 import processing.core.PImage;
 import processing.template.Gui;
 
-public class Main extends Gui {
+public class Main extends Gui implements IRefs{
 
 	final static String mainclass = "chess.Main";
 	final static String path ="";
@@ -64,7 +63,7 @@ public class Main extends Gui {
 		return getSpiel().getOtherPlayer();
 	}
 	
-	public static Field getField(int i, int j) {
+	public Field getField(int i, int j) {
 		return getSpiel().getField(i, j);
 	}
 
@@ -180,22 +179,6 @@ public class Main extends Gui {
 
 	public String getPath() {
 		return path;
-	}
-
-	public static Game getSpiel() {
-		return Game.getInstance();
-	}
-
-	public static Referee getReferee() {
-		return Game.getReferee();
-	}
-
-	public void processMove(Move move) {
-		if (move != null) {
-			getSpiel().getZugListe().add(move);
-			System.out.println((getSpiel().getZugListe()).toStr());
-			move.execute(getSpiel());
-		}
 	}
 	
 	public static Player getPlayer() {

@@ -5,9 +5,9 @@ import conf.Config;
 import defs.enums.Colors;
 import defs.interfaces.IColors;
 import defs.interfaces.IDraw;
-import defs.interfaces.IGame;
+import defs.interfaces.IRefs;
 
-public class Field implements IColors, IDraw, IGame {
+public class Field implements IColors, IDraw, IRefs {
 
 	final private int i;
 	final private int j;

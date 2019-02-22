@@ -3,14 +3,14 @@ package defs.classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.Game;
+import chess.Move;
 import defs.enums.Colors;
-import figuren.Bauer;
-import figuren.Dame;
-import figuren.Koenig;
-import figuren.Laeufer;
-import figuren.Springer;
-import figuren.Turm;
+import pieces.Pawn;
+import pieces.Queen;
+import pieces.King;
+import pieces.Knight;
+import pieces.Bishop;
+import pieces.Rook;
 
 public class Player {
 
@@ -25,15 +25,15 @@ public class Player {
 		return Pieces;
 	}
 
-	final Koenig king;
+	final King king;
 	
 	public Player(Colors col){
 		game = Game.getInstance();
 		this.col = col;
 		if (col == Colors.WHITE) {
-			this.king = new Koenig(Colors.WHITE, game.getField(0, 4));
+			this.king = new King(Colors.WHITE, game.getField(0, 4));
 		} else {
-			this.king = new Koenig(Colors.BLACK, game.getField(7, 4));
+			this.king = new King(Colors.BLACK, game.getField(7, 4));
 		}
 		initialGeneration();
 	}
@@ -48,15 +48,15 @@ public class Player {
 			zweiteReihe = 6;
 		}
 		for (int j = 0; j < 8; j++) {
-			Pieces.add(new Bauer(getCol(), game.getField(zweiteReihe, j)));
+			Pieces.add(new Pawn(getCol(), game.getField(zweiteReihe, j)));
 		}
-		Pieces.add(new Springer(getCol(), game.getField(ersteReihe, 1)));
-		Pieces.add(new Springer(getCol(), game.getField(ersteReihe, 6)));
-		Pieces.add(new Laeufer(getCol(), game.getField(ersteReihe, 2)));
-		Pieces.add(new Laeufer(getCol(), game.getField(ersteReihe, 5)));
-		Pieces.add(new Turm(getCol(), game.getField(ersteReihe, 0)));
-		Pieces.add(new Turm(getCol(), game.getField(ersteReihe, 7)));
-		Pieces.add(new Dame(getCol(), game.getField(ersteReihe, 3)));
+		Pieces.add(new Bishop(getCol(), game.getField(ersteReihe, 1)));
+		Pieces.add(new Bishop(getCol(), game.getField(ersteReihe, 6)));
+		Pieces.add(new Knight(getCol(), game.getField(ersteReihe, 2)));
+		Pieces.add(new Knight(getCol(), game.getField(ersteReihe, 5)));
+		Pieces.add(new Rook(getCol(), game.getField(ersteReihe, 0)));
+		Pieces.add(new Rook(getCol(), game.getField(ersteReihe, 7)));
+		Pieces.add(new Queen(getCol(), game.getField(ersteReihe, 3)));
 
 	}
 
