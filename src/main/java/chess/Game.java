@@ -44,8 +44,8 @@ final public class Game implements IGame{
 
 	public void setup() throws Exception {
 		setWhite(new Player(Colors.WHITE));
-		setPlayer(getWhite());
 		setBlack(new Player(Colors.BLACK));
+		setPlayer(getWhite());
 	}
 
 	public Field getField(int i, int j) {

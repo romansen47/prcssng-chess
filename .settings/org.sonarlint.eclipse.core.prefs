@@ -4,5 +4,5 @@ extraProperties=
 fileExclusions=
 idePrefixKey=
 projectKey=prcssng\:build
-serverId=localhost
+serverId=surface
 sqPrefixKey=prcssng-chess

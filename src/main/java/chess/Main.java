@@ -27,7 +27,6 @@ public class Main extends Gui {
 	private PImage blackTower;
 	private PImage whitePawn;
 	private PImage blackPawn;
-	protected boolean clicked;
 
 	public static void main(String[] args) {
 		(new Gui()).run(mainclass);
@@ -37,19 +36,7 @@ public class Main extends Gui {
 	public void settings() {
 	}
 
-	@Override
-	public void setup() {
-		background(255);
-		surface.setResizable(true);
-		surface.setSize(12 * Config.Size, 8 * Config.Size);
-		surface.setLocation(displayWidth - width >> 1, displayHeight - height >> 1);
-		frameRate(60);
-		try {
-			getSpiel().setup();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.exit(0);
-		}
+	public void initiatePieces(String path) {
 		whiteKing = loadImage(path + "white_king.png");
 		blackKing = loadImage(path + "black_king.png");
 		whiteQueen = loadImage(path + "white_queen.png");
@@ -62,35 +49,73 @@ public class Main extends Gui {
 		blackTower = loadImage(path + "black_rook.png");
 		whitePawn = loadImage(path + "white_pawn.png");
 		blackPawn = loadImage(path + "black_pawn.png");
-		stroke(0);
+	}
+	
+	public void setupSurface() {
+		surface.setResizable(true);
+		surface.setSize(12 * Config.Size, 8 * Config.Size);
+		surface.setLocation(displayWidth - width >> 1, displayHeight - height >> 1);
+	}
+	
+	@Override
+	public void setup() {
+		
+		background(255);
+		frameRate(60);
+		
+		setupSurface();
+		
+		try {
+			getSpiel().setup();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
+		
+		initiatePieces(path);
 		getReferee();
+		
+		stroke(0);
 	}
 
 	@Override
 	public void draw() {
+
+		boolean clicked;
+		
 		if (clicked() == 1) {
 			clicked = true;
 		} else {
 			clicked = false;
 		}
+		
 		drawChessboard();
-		if (clicked) {
-			if (!getReferee().isMarked()) {
-				if (getSpiel().getField(getPosJ(), getPosI()).getPiece() != null
-						&& getSpiel().getField(getPosJ(), getPosI()).getPiece().getCol() == getPlayer().getCol()) {
-					getReferee().setMarked(getSpiel().getField(getPosJ(), getPosI()));
-				}
-			} else {
-				getReferee().setMarked2(getSpiel().getField(getPosJ(), getPosI()));
-			}
-			loop();
-		}
+		
+		setMark(clicked);
+		
 		Move move = getReferee().getZug();
+		
 		if (move != null) {
 			getSpiel().getZugListe().add(move);
 			System.out.println((getSpiel().getZugListe()).toStr());
 			move.execute(getSpiel());
 		}
+		
+	}
+	
+	public void setMark(boolean clicked) {
+		if (!clicked) {
+			return;
+		}
+		if (!getReferee().isMarked()) {
+			if (getSpiel().getField(getPosJ(), getPosI()).getPiece() != null
+					&& getSpiel().getField(getPosJ(), getPosI()).getPiece().getCol() == getPlayer().getCol()) {
+				getReferee().setMarked(getSpiel().getField(getPosJ(), getPosI()));
+			}
+		} else {
+			getReferee().setMarked2(getSpiel().getField(getPosJ(), getPosI()));
+		}
+		loop();
 	}
 
 	public void drawChessboard() {
