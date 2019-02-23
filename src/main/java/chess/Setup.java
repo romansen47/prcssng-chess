@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import conf.Config;
-import conf.Referee;
 import defs.classes.Piece;
 import defs.classes.Player;
 import defs.enums.Colors;
@@ -13,8 +12,17 @@ import defs.interfaces.IRefs;
 import defs.interfaces.ISetupAndRun;
 import processing.core.PImage;
 
+/**
+ * 
+ * @author roman
+ *
+ * The functionality of the main setup method is being outsourced to an own (singleton) class
+ */
 public class Setup implements IRefs,ISetupAndRun{
 
+	/**
+	 * This is necessary, since main instance is needed to initiate the pieces
+	 */
 	final Main main;
 
 	private static Setup instance=null;
@@ -26,10 +34,19 @@ public class Setup implements IRefs,ISetupAndRun{
 		return instance;
 	}
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param main the papplet object
+	 */
 	private Setup(Main main) {
 		this.main=main;
 	}
 	
+	/**
+	 * the substituted main "setup" method
+	 */
+	@Override
 	public void execute() {
 
 		// setup the surface
@@ -47,10 +64,16 @@ public class Setup implements IRefs,ISetupAndRun{
 	
 	// Preparations
 	
+	/**
+	 * Setup players
+	 */
 	final void setupPlayers() {
 		getSpiel().setup();
 	}
 	
+	/**
+	 * Setup surface-attribute of papplet instance
+	 */
 	final void setupSurface() {
 		
 		main.background(255);
@@ -61,6 +84,12 @@ public class Setup implements IRefs,ISetupAndRun{
 		
 	}
 	
+	/**
+	 * Returns e.g. all black rooks.
+	 * @param id the id the pieces in the returned list should have
+	 * @param col the color the pieces in the returned list should have
+	 * @return the list of pieces of same color and id
+	 */
 	public List<Piece> getPiecesOfSameKind(Ids id,Colors col){
 		List<Piece> pieces=new ArrayList<Piece>();
 		Player pl = getSpiel().getWhite();
@@ -75,16 +104,31 @@ public class Setup implements IRefs,ISetupAndRun{
 		return pieces;
 	}
 	
+	/**
+	 * Assignes an image to a set of pieces
+	 * @param pieces list of pieces
+	 * @param image to be assigned
+	 */
 	public void getImageForAllRelevant(List<Piece> pieces,PImage image) {
 		for (Piece piece:pieces) {
 			piece.setImage(image);
 		}
 	}
 	
+	/**
+	 * Assignes an image to a set of pieces of same kind
+	 * @param id the id corresponding to which the pieces will be selected
+	 * @param col the col corresponding to which the pieces will be selected
+	 * @param image the image to be assigned
+	 */
 	public void initiateRelevant(Ids id,Colors col,PImage image) {
 		getImageForAllRelevant(getPiecesOfSameKind(id,col),image);
 	}
 	
+	/**
+	 * Initiates the pimage objects and assignes them to the pieces 
+	 * @param path the path where the images are stored
+	 */
 	final void initiatePieces(String path) {
 		
 		main.setWhiteKing(main.loadImage(path + "white_king.png"));

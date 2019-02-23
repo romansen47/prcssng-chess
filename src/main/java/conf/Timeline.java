@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import chess.Move;
 import defs.interfaces.IRefs;
 
+/**
+ * 
+ * @author roman
+ *
+ * TODO
+ */
 public class Timeline extends ArrayList<Move> implements IRefs {
 
 	private static final long serialVersionUID = 1L;

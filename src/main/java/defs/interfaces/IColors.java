@@ -4,13 +4,10 @@ import defs.enums.Colors;
 
 public interface IColors {
 
+	/**
+	 * @return the color
+	 */
 	public Colors getCol();
 
-	default public int getColAsInt() {
-		if (getCol() == Colors.WHITE) {
-			return 255;
-		}
-		return 0;
-	}
 
 }

@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chess.Castling;
-import chess.Main;
 import chess.Move;
-import conf.Config;
 import defs.classes.Field;
 import defs.classes.Piece;
 import defs.classes.Player;
@@ -45,6 +43,7 @@ public class King extends Piece {
 	/**
 	 *  Must be rewritten in order to avoid cycles
 	 */
+	@Override
 	public List<Field> getPossibleMovesOfInterest() {
 		List<Field> lst = new ArrayList<Field>();
 		lst.add(this.getField());

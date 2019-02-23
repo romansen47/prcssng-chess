@@ -1,12 +1,17 @@
 package chess;
 
 import defs.classes.Field;
-import defs.classes.Game;
 import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.interfaces.IRefs;
 
+/**
+ * 
+ * @author roman
+ *
+ * The main information about the game is saved to a sequence of "moves"
+ */
 public class Move implements IRefs {
 
 	final public Colors col;
@@ -16,6 +21,9 @@ public class Move implements IRefs {
 	final public Field next;
 	final public Ids nextId;
 
+	/**
+	 * @return String in order to present the move
+	 */
 	@Override
 	public String toString() {
 		String str = "";
@@ -29,6 +37,12 @@ public class Move implements IRefs {
 		return str;
 	}
 
+	/**
+	 * Constructor for a move
+	 * 
+	 * @param fig the initial piece to move
+	 * @param fld the field, fig is to be moved to
+	 */
 	public Move(Piece fig, Field fld) {
 		this.fig=fig;
 		col = fig.getCol();
@@ -41,15 +55,11 @@ public class Move implements IRefs {
 			nextId = null;
 		}
 	}
-
-	public boolean isValid(Game game) {
-		if (prev.getPiece().getPossibleMoves().contains(this.next)) {
-			return true;
-		}
-		return false;
-	}
-
-	public void execute(Game game) {
+	
+	/**
+	 * Execution of a move. Recalculates new possitions.
+	 */
+	public void execute() {
 		
 		Piece fig1 = prev.getPiece();
 		Piece fig2 = next.getPiece();

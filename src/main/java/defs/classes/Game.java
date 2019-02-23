@@ -14,7 +14,7 @@ final public class Game implements IRefs{
 	private static Player Black;
 	private State state = State.White_Turn;
 
-	final private Timeline Zugliste = Timeline.getInstance();
+	final private Timeline MoveList = Timeline.getInstance();
 
 	private static Game instance = null;
 
@@ -90,8 +90,8 @@ final public class Game implements IRefs{
 		this.state = state;
 	}
 
-	public Timeline getZugListe() {
-		return Zugliste;
+	public Timeline getMoveList() {
+		return MoveList;
 	}
 
 }

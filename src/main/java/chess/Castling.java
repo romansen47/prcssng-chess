@@ -1,13 +1,22 @@
 package chess;
 
-import defs.classes.Game;
 import defs.classes.Piece;
 import defs.enums.Ids;
 import pieces.King;
 import pieces.Rook;
 
+
+/**
+ * 
+ * @author roman
+ *
+ * Subtype of Move.
+ */
 public class Castling extends Move{
 
+	/**
+	 * Treating a castling like a (friendly) beat. Opponent is always a rook.
+	 */
 	final Rook rook;
 	
 	public Castling(King king, Rook rook) {
@@ -16,7 +25,7 @@ public class Castling extends Move{
 	}
 
 	@Override
-	public void execute(Game game) {
+	public void execute() {
 		Piece piece=next.getPiece();
 		if (piece.id==Ids.Turm && fig.getCol()==next.getPiece().getCol()) {
 			int k=prev.getJ();

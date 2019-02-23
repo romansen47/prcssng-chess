@@ -5,22 +5,43 @@ import java.util.List;
 
 import conf.Config;
 import defs.classes.Field;
-import defs.classes.Piece;
 import defs.classes.Player;
 import defs.enums.Colors;
 import defs.interfaces.ISetupAndRun;
-import pieces.Pawn;
 
+/**
+ * 
+ * @author roman
+ *
+ * Class for handling the main draw-function, constructed as a singleton class.
+ */
 public class Drawer implements ISetupAndRun{
 
+	/**
+	 * main instance is needed, since the drawer should be able to "draw" things.
+	 */
 	final Main main;
 	
+	/**
+	 * Implementation as a singletn class
+	 */
 	private static Drawer instance=null;
 	
+	/**
+	 * private construcor.
+	 * 
+	 * @param main the main papplet object. 
+	 */
 	private Drawer(Main main) {
 		this.main=main;
 	}
 	
+	/**
+	 * instance getter
+	 * 
+	 * @param main the main papplet object
+	 * @return drawer instance
+	 */
 	public static Drawer getInstance(Main main) {
 		if (instance==null) {
 			return new Drawer(main);
@@ -28,6 +49,10 @@ public class Drawer implements ISetupAndRun{
 		return instance;
 	}
 	
+	/**
+	 * the main method executed whithin the main draw loop
+	 */
+	@Override
 	public void execute() {
 		
 		// check for intaraction and mark field, if clicked
@@ -44,6 +69,11 @@ public class Drawer implements ISetupAndRun{
 				
 	}
 
+	/**
+	 * Do we have a click?
+	 * 
+	 * @return whether click has been performed.
+	 */
 	public boolean checkForClick() {
 		if (main.clicked() == 1) {
 			return true;
@@ -51,6 +81,11 @@ public class Drawer implements ISetupAndRun{
 		return false;
 	}
 	
+	/**
+	 * Marks the field, which has been cicked on
+	 * 
+	 * @param clicked tells whether click has been performed
+	 */
 	public void setMark(boolean clicked) {
 		if (!clicked) {
 			return;
@@ -69,20 +104,21 @@ public class Drawer implements ISetupAndRun{
 
 	// Chessboard
 	
+	/**
+	 *  Draws the chess board. First draws the grid.
+	 */
 	public void drawChessboard() {
-		
 		drawGrid();
+		drawPieces();
 		drawMarked();
-		
 	}
 	
+	/**
+	 * draws the grid
+	 */
 	public void drawGrid() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				if (getReferee().getMarked() != null) {
-					mark(getReferee().getMarked(),Colors.GREEN);
-				}
-				getSpiel().getField(i, j).draw(this.main);
 				main.stroke(0);
 				main.strokeWeight(3);
 				main.line(0, 0, 8 * Config.Size, 0);
@@ -93,6 +129,22 @@ public class Drawer implements ISetupAndRun{
 		}
 	}
 	
+	/**
+	 * draws the pieces
+	 */
+	public void drawPieces() {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				getSpiel().getField(i, j).draw(this.main);
+			}
+		}
+	}
+	
+	/**
+	 * draws specific marked fields
+	 * @param fields the marked fields
+	 * @param tmp the colors for the fields
+	 */
 	public void drawMarkedFields(List<Field> fields,Colors tmp) {
 		if (!fields.isEmpty()) {
 			for (Field fld : fields) {
@@ -101,6 +153,9 @@ public class Drawer implements ISetupAndRun{
 		}
 	}
 	
+	/**
+	 * draws all marked fields
+	 */
 	public void drawMarked() {
 		
 		if (getReferee().getMarked() != null) {
@@ -117,6 +172,11 @@ public class Drawer implements ISetupAndRun{
 		
 	}
 	
+	/**
+	 * Concrete drawing of a field mark
+	 * @param fld the field to draw the mark for
+	 * @param col the color
+	 */
 	public void mark(Field fld,Colors col) {
 		
 		int thickness=5;
@@ -148,11 +208,11 @@ public class Drawer implements ISetupAndRun{
 				
 		}
 	}
-	
-	private Player getOtherPlayer() {
-		return getSpiel().getOtherPlayer();
-	}
 
+	/**
+	 * getter for the active player
+	 * @return the active player
+	 */
 	private Player getPlayer() {
 		return getSpiel().getPlayer();
 	}

@@ -3,7 +3,6 @@ package defs.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 
-import conf.Referee;
 import defs.classes.Field;
 import defs.classes.Piece;
 import defs.classes.Player;
@@ -38,8 +37,7 @@ public interface IPiece extends IRefs {
 	
 	/**
 	 * 
-	 * @param pl the player 
-	 * @return
+	 * @return returns list attacking fields
 	 */
 	default List<Field> getAttackers() {
 		return getFieldsOfInterest(getOpponent());

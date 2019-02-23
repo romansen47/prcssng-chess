@@ -8,25 +8,59 @@ import defs.enums.Colors;
 import pieces.Pawn;
 import pieces.Queen;
 import pieces.King;
-import pieces.Knight;
 import pieces.Bishop;
+import pieces.Knight;
 import pieces.Rook;
 
+/**
+ * 
+ * @author roman
+ *
+ */
 public class Player {
 
+	/**
+	 * The game
+	 */
 	private static Game game = null;
+	
+	/**
+	 * player's color
+	 */
 	private final Colors col;
+	
+	/**
+	 * Player's set of pieces
+	 */
 	final private List<Piece> Pieces = new ArrayList<Piece>();
+	
+	/**
+	 * set of dead pieces
+	 */
 	final private List<Piece> deadPieces = new ArrayList<Piece>();
 
+	/**
+	 * List of player's moves
+	 */
 	final private List<Move> MoveList=new ArrayList<Move>();
 	
+	/**
+	 * Getter of player's pieces
+	 * @return list of player's pieces
+	 */
 	public List<Piece> getPieces() {
 		return Pieces;
 	}
 
+	/**
+	 * The king
+	 */
 	private final King king;
 	
+	/**
+	 * Constructor for the player
+	 * @param col the player's color
+	 */
 	public Player(Colors col){
 		game = Game.getInstance();
 		this.col = col;
@@ -38,6 +72,9 @@ public class Player {
 		initialGeneration();
 	}
 
+	/**
+	 * First setup
+	 */
 	private void initialGeneration() {
 
 		Pieces.add(getKing());
@@ -51,28 +88,44 @@ public class Player {
 			Pieces.add(new Pawn(getCol(), game.getField(zweiteReihe, j)));
 		}
 		
-		Pieces.add(new Bishop(getCol(), game.getField(ersteReihe, 1)));
-		Pieces.add(new Bishop(getCol(), game.getField(ersteReihe, 6)));
-		Pieces.add(new Knight(getCol(), game.getField(ersteReihe, 2)));
-		Pieces.add(new Knight(getCol(), game.getField(ersteReihe, 5)));
+		Pieces.add(new Knight(getCol(), game.getField(ersteReihe, 1)));
+		Pieces.add(new Knight(getCol(), game.getField(ersteReihe, 6)));
+		Pieces.add(new Bishop(getCol(), game.getField(ersteReihe, 2)));
+		Pieces.add(new Bishop(getCol(), game.getField(ersteReihe, 5)));
 		Pieces.add(new Rook(getCol(), game.getField(ersteReihe, 0)));
 		Pieces.add(new Rook(getCol(), game.getField(ersteReihe, 7)));
 		Pieces.add(new Queen(getCol(), game.getField(ersteReihe, 3)));
 
 	}
 
+	/**
+	 * Getter for color
+	 * @return the color
+	 */
 	public Colors getCol() {
 		return col;
 	}
 
+	/**
+	 * getter for list of dead pieces
+	 * @return the list of dead pieces
+	 */
 	public List<Piece> getDeadPieces() {
 		return deadPieces;
 	}
 
+	/**
+	 * Getter for the list of moves
+	 * @return MoveList
+	 */
 	public List<Move> getMoveList() {
 		return MoveList;
 	}
 
+	/**
+	 * Getter for the king
+	 * @return the king
+	 */
 	public King getKing() {
 		return king;
 	}

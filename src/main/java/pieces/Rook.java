@@ -3,8 +3,6 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.Main;
-import conf.Config;
 import defs.classes.Field;
 import defs.classes.Piece;
 import defs.enums.Colors;

@@ -1,7 +1,16 @@
 package conf;
 
+/**
+ * 
+ * @author roman
+ *
+ * final config, modeeled as a singleton class
+ */
 final public class Config {
 
+	/**
+	 * the stanard size of a field
+	 */
 	public final static int Size = 150;
 
 	private static Config instance = null;
