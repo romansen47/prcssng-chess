@@ -25,7 +25,7 @@ public class Player {
 		return Pieces;
 	}
 
-	final King king;
+	private final King king;
 	
 	public Player(Colors col){
 		game = Game.getInstance();
@@ -40,7 +40,7 @@ public class Player {
 
 	private void initialGeneration() {
 
-		Pieces.add(king);
+		Pieces.add(getKing());
 		int ersteReihe = 0;
 		int zweiteReihe = 1;
 		if (getCol() == Colors.BLACK) {
@@ -50,6 +50,7 @@ public class Player {
 		for (int j = 0; j < 8; j++) {
 			Pieces.add(new Pawn(getCol(), game.getField(zweiteReihe, j)));
 		}
+		
 		Pieces.add(new Bishop(getCol(), game.getField(ersteReihe, 1)));
 		Pieces.add(new Bishop(getCol(), game.getField(ersteReihe, 6)));
 		Pieces.add(new Knight(getCol(), game.getField(ersteReihe, 2)));
@@ -70,6 +71,10 @@ public class Player {
 
 	public List<Move> getMoveList() {
 		return MoveList;
+	}
+
+	public King getKing() {
+		return king;
 	}
 
 }

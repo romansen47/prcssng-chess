@@ -68,12 +68,12 @@ public class Main extends Gui implements IRefs{
 	}
 
 	public int getPosI() {
-		int PosI = (mouseX - mouseX % Config.Size) / Config.Size;
+		int PosI = 7-(mouseY - mouseY % Config.Size) / Config.Size;
 		return PosI;
 	}
 
 	public int getPosJ() {
-		int PosJ = 7 - (mouseY - mouseY % Config.Size) / Config.Size;
+		int PosJ = (mouseX - mouseX % Config.Size) / Config.Size;
 		return PosJ;
 	}
 

@@ -1,15 +1,19 @@
 package defs.classes;
 
+import chess.Main;
 import chess.Move;
+import conf.Config;
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.interfaces.IDraw;
 import defs.interfaces.IPiece;
 import defs.interfaces.IRefs;
 import defs.interfaces.IValidityChecker;
+import processing.core.PImage;
 
 abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
  
+	private PImage image;
 	public final Ids id;
 	public final Colors col;
 	private Field field;
@@ -21,6 +25,14 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 		this.id = id;
 		this.col = col;
 		this.setField(field);
+	}
+
+	public PImage getImage() {
+		return image;
+	}
+	
+	public void setImage(PImage image) {
+		this.image=image;
 	}
 
 	@Override
@@ -44,5 +56,18 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	public Move getMove(Field field) {
 		return new Move(this,field);
 	}
+	
+
+	@Override
+	public void draw(Main main) {
+		main.fill(getColAsInt());
+		final int size = Config.Size;
+		if (col == Colors.WHITE) {
+			main.image(getImage(), size * getField().getJ(), size * getField().getI(), size, size);
+		} else {
+			main.image(getImage(), size * getField().getJ(), size * getField().getI(), size, size);
+		}
+	}
+
 
 }

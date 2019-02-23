@@ -31,23 +31,23 @@ public class Queen extends Piece {
 		lst4.add(this.getField());
 
 		int i = 1;
-		while (getPosI() + i <= 7 && checkForValidity(getSpiel().getField(7 - getPosI() - i, getPosJ()), lst1)) {
-			lst.add(getSpiel().getField(7 - getPosI() - i, getPosJ()));
+		while (getPosI() + i <= 7 && checkForValidity(getSpiel().getField( getPosI() + i, getPosJ()), lst1)) {
+			lst.add(getSpiel().getField( getPosI() + i, getPosJ()));
 			i += 1;
 		}
 		i = 1;
-		while (getPosI() - i >= 0 && checkForValidity(getSpiel().getField(7 - getPosI() + i, getPosJ()), lst2)) {
-			lst.add(getSpiel().getField(7 - getPosI() + i, getPosJ()));
+		while (getPosI() - i >= 0 && checkForValidity(getSpiel().getField( getPosI() - i, getPosJ()), lst2)) {
+			lst.add(getSpiel().getField( getPosI() - i, getPosJ()));
 			i += 1;
 		}
 		i = 1;
-		while (getPosJ() + i <= 7 && checkForValidity(getSpiel().getField(7 - getPosI(), getPosJ() + i), lst3)) {
-			lst.add(getSpiel().getField(7 - getPosI(), getPosJ() + i));
+		while (getPosJ() + i <= 7 && checkForValidity(getSpiel().getField( getPosI(), getPosJ() + i), lst3)) {
+			lst.add(getSpiel().getField( getPosI(), getPosJ() + i));
 			i += 1;
 		}
 		i = 1;
-		while (getPosJ() - i >= 0 && checkForValidity(getSpiel().getField(7 - getPosI(), getPosJ() - i), lst4)) {
-			lst.add(getSpiel().getField(7 - getPosI(), getPosJ() - i));
+		while (getPosJ() - i >= 0 && checkForValidity(getSpiel().getField( getPosI(), getPosJ() - i), lst4)) {
+			lst.add(getSpiel().getField( getPosI(), getPosJ() - i));
 			i += 1;
 		}
 
@@ -73,26 +73,26 @@ public class Queen extends Piece {
 
 		i = 1;
 		while (getPosI() + i <= 7 && getPosJ() + i <= 7
-				&& checkForValidity(getSpiel().getField(7 - getPosI() - i, getPosJ() + i), lst1)) {
-			lst.add(getSpiel().getField(7 - getPosI() - i, getPosJ() + i));
+				&& checkForValidity(getSpiel().getField( getPosI() + i, getPosJ() + i), lst1)) {
+			lst.add(getSpiel().getField( getPosI() + i, getPosJ() + i));
 			i += 1;
 		}
 		i = 1;
 		while (getPosI() + i <= 7 && getPosJ() - i >= 0
-				&& checkForValidity(getSpiel().getField(7 - getPosI() - i, getPosJ() - i), lst2)) {
-			lst.add(getSpiel().getField(7 - getPosI() - i, getPosJ() - i));
+				&& checkForValidity(getSpiel().getField( getPosI() + i, getPosJ() - i), lst2)) {
+			lst.add(getSpiel().getField( getPosI() + i, getPosJ() - i));
 			i += 1;
 		}
 		i = 1;
 		while (getPosI() - i >= 0 && getPosJ() + i <= 7
-				&& checkForValidity(getSpiel().getField(7 - getPosI() + i, getPosJ() + i), lst3)) {
-			lst.add(getSpiel().getField(7 - getPosI() + i, getPosJ() + i));
+				&& checkForValidity(getSpiel().getField( getPosI() - i, getPosJ() + i), lst3)) {
+			lst.add(getSpiel().getField( getPosI() - i, getPosJ() + i));
 			i += 1;
 		}
 		i = 1;
 		while (getPosI() - i >= 0 && getPosJ() - i >= 0
-				&& checkForValidity(getSpiel().getField(7 - getPosI() + i, getPosJ() - i), lst4)) {
-			lst.add(getSpiel().getField(7 - getPosI() + i, getPosJ() - i));
+				&& checkForValidity(getSpiel().getField( getPosI() - i, getPosJ() - i), lst4)) {
+			lst.add(getSpiel().getField( getPosI() - i, getPosJ() - i));
 			i += 1;
 		}
 
@@ -107,17 +107,6 @@ public class Queen extends Piece {
 		lst.addAll(lst4);
 		
 		return lst;
-	}
-
-	@Override
-	public void draw(Main main) {
-		main.fill(getColAsInt());
-		final int size = Config.Size;
-		if (col == Colors.WHITE) {
-			main.image(main.getWhiteQueen(), size * getField().getJ(), size * getField().getI(), size, size);
-		} else {
-			main.image(main.getBlackQueen(), size * getField().getJ(), size * getField().getI(), size, size);
-		}
 	}
 
 }

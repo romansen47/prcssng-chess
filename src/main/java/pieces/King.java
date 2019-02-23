@@ -21,10 +21,14 @@ public class King extends Piece {
 		super(Ids.Koenig, col, field);
 	}
 
+
+	/**
+	 * @return returns the list of possible moves excluding the castling moves
+	 */
 	@Override
 	public List<Field> getPossibleMoves() {
 		List<Field> lst=getPossibleMovesOfInterest();
-		int tempI = 7-getField().getI();
+		int tempI = getField().getI();
 		int tempJ = getField().getJ();
 		if (tempJ + 2 <= 7 && getSpiel().getField(tempI, tempJ + 1).getPiece()==null
 				&& isValidForCastling(getSpiel().getField(tempI, tempJ + 2))) {
@@ -38,10 +42,13 @@ public class King extends Piece {
 		return lst;
 	}
 	
+	/**
+	 *  Must be rewritten in order to avoid cycles
+	 */
 	public List<Field> getPossibleMovesOfInterest() {
 		List<Field> lst = new ArrayList<Field>();
 		lst.add(this.getField());
-		int tempI = 7-getField().getI();
+		int tempI = getField().getI();
 		int tempJ = getField().getJ();
 		if (tempI - 1 >= 0) {
 			checkForValidity(getSpiel().getField(tempI - 1, tempJ), lst);
@@ -109,17 +116,6 @@ public class King extends Piece {
 		return true;
 	}
 
-	@Override
-	public void draw(Main main) {
-		main.fill(getColAsInt());
-		final int size = Config.Size;
-		if (col == Colors.WHITE) {
-			main.image(main.getWhiteKing(), size * getField().getJ(), size * getField().getI(), size, size);
-		} else {
-			main.image(main.getBlackKing(), size * getField().getJ(), size * getField().getI(), size, size);
-		}
-	}
-
 	/**
 	 * 
 	 * @return returns, whether king already has been moved or checked
@@ -167,7 +163,7 @@ public class King extends Piece {
 		}
 		List<Field> fields=new ArrayList<Field>();
 		for (int i=1;i<r-k;i++) {
-			fields.add(getSpiel().getField(7-fld1.getI(), k+i));
+			fields.add(getSpiel().getField(fld1.getI(), k+i));
 		}
 		return fields;
 	}
@@ -185,7 +181,7 @@ public class King extends Piece {
 					r=7;
 				}
 			}
-			Field tmpField=getSpiel().getField(7-getPosI(), r);
+			Field tmpField=getSpiel().getField(getPosI(), r);
 			if (tmpField.getPiece()!=null && tmpField.getPiece().id==Ids.Turm 
 					&& tmpField.getPiece().getCol()==getCol()) {
 				rook=(Rook)tmpField.getPiece();

@@ -33,26 +33,26 @@ public class Knight extends Piece {
 
 		int i = 1;
 		while (getPosI() + i <= 7 && getPosJ() + i <= 7
-				&& checkForValidity(getSpiel().getField(7 - getPosI() - i, getPosJ() + i), lst1)) {
-			lst.add(getSpiel().getField(7 - getPosI() - i, getPosJ() + i));
+				&& checkForValidity(getSpiel().getField( getPosI() + i, getPosJ() + i), lst1)) {
+			lst.add(getSpiel().getField( getPosI() + i, getPosJ() + i));
 			i += 1;
 		}
 		i = 1;
 		while (getPosI() + i <= 7 && getPosJ() - i >= 0
-				&& checkForValidity(getSpiel().getField(7 - getPosI() - i, getPosJ() - i), lst2)) {
-			lst.add(getSpiel().getField(7 - getPosI() - i, getPosJ() - i));
+				&& checkForValidity(getSpiel().getField(getPosI() + i, getPosJ() - i), lst2)) {
+			lst.add(getSpiel().getField( getPosI() + i, getPosJ() - i));
 			i += 1;
 		}
 		i = 1;
 		while (getPosI() - i >= 0 && getPosJ() + i <= 7
-				&& checkForValidity(getSpiel().getField(7 - getPosI() + i, getPosJ() + i), lst3)) {
-			lst.add(getSpiel().getField(7 - getPosI() + i, getPosJ() + i));
+				&& checkForValidity(getSpiel().getField(getPosI() - i, getPosJ() + i), lst3)) {
+			lst.add(getSpiel().getField(getPosI() - i, getPosJ() + i));
 			i += 1;
 		}
 		i = 1;
 		while (getPosI() - i >= 0 && getPosJ() - i >= 0
-				&& checkForValidity(getSpiel().getField(7 - getPosI() + i, getPosJ() - i), lst4)) {
-			lst.add(getSpiel().getField(7 - getPosI() + i, getPosJ() - i));
+				&& checkForValidity(getSpiel().getField( getPosI() - i, getPosJ() - i), lst4)) {
+			lst.add(getSpiel().getField(getPosI() - i, getPosJ() - i));
 			i += 1;
 		}
 
@@ -67,17 +67,6 @@ public class Knight extends Piece {
 		lst.addAll(lst4);
 
 		return lst;
-	}
-
-	@Override
-	public void draw(Main main) {
-		main.fill(getColAsInt());
-		final int size = Config.Size;
-		if (col == Colors.WHITE) {
-			main.image(main.getWhiteBishop(), size * getField().getJ(), size * getField().getI(), size, size);
-		} else {
-			main.image(main.getBlackBishop(), size * getField().getJ(), size * getField().getI(), size, size);
-		}
 	}
 
 }

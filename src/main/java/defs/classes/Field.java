@@ -22,7 +22,7 @@ public class Field implements IColors, IDraw, IRefs {
 	}
 
 	public int getI() {
-		return 7 - i;
+		return i;
 	}
 
 	public int getJ() {
@@ -106,7 +106,7 @@ public class Field implements IColors, IDraw, IRefs {
 			str += "H";
 			break;
 		}
-		str += 8 - this.getI();
+		str += 1+this.getI();
 		return str;
 	}
 

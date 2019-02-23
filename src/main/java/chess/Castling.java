@@ -30,10 +30,10 @@ public class Castling extends Move{
 				k=r+1;
 			}
 			prev.setPiece(null);
-			fig.setField(getSpiel().getField(7-prev.getI(), k));
+			fig.setField(getSpiel().getField(prev.getI(), k));
 			getSpiel().getField(prev.getI(), k).setPiece(fig);
 			next.setPiece(null);
-			rook.setField(getSpiel().getField(7-prev.getI(), r));
+			rook.setField(getSpiel().getField(prev.getI(), r));
 			getSpiel().getField(prev.getI(), r).setPiece(rook);
 			
 		}

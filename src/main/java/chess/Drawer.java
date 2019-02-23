@@ -56,12 +56,12 @@ public class Drawer implements ISetupAndRun{
 			return;
 		}
 		if (!getReferee().isMarked()) {
-			if (getSpiel().getField(main.getPosJ(), main.getPosI()).getPiece() != null
-					&& getSpiel().getField(main.getPosJ(), main.getPosI()).getPiece().getCol() == getPlayer().getCol()) {
-				getReferee().setMarked(getSpiel().getField(main.getPosJ(), main.getPosI()));
+			if (getSpiel().getField(7-main.getPosI(), main.getPosJ()).getPiece() != null
+					&& getSpiel().getField(7-main.getPosI(), main.getPosJ()).getPiece().getCol() == getPlayer().getCol()) {
+				getReferee().setMarked(getSpiel().getField(7-main.getPosI(), main.getPosJ()));
 			}
 		} else {
-			getReferee().setMarked2(getSpiel().getField(main.getPosJ(), main.getPosI()));
+			getReferee().setMarked2(getSpiel().getField(7-main.getPosI(), main.getPosJ()));
 		}
 		main.loop();
 	}
