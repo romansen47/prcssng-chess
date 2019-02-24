@@ -7,28 +7,27 @@ import defs.classes.Field;
 import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
+import defs.interfaces.ILongDist;
 
-public class Bishop extends Piece {
+public class Bishop extends Piece implements ILongDist{
 
 	public Bishop(Colors col, Field field){
 		super(Ids.Laeufer, col, field);
 	}
 
+	public List<Field> createList(){
+		List<Field> lst = new ArrayList<Field>();
+		lst.add(this.getField());
+		return lst;
+	}
+	
 	@Override
 	public List<Field> getPossibleMoves() {
+		return longDistCheck();
+	}
+	
 
-		List<Field> lst = new ArrayList<Field>();
-		List<Field> lst1 = new ArrayList<Field>();
-		List<Field> lst2 = new ArrayList<Field>();
-		List<Field> lst3 = new ArrayList<Field>();
-		List<Field> lst4 = new ArrayList<Field>();
-
-		lst.add(this.getField());
-		lst1.add(this.getField());
-		lst2.add(this.getField());
-		lst3.add(this.getField());
-		lst4.add(this.getField());
-
+	public void checkDirections(List<Field> lst,List<Field> lst1,List<Field> lst2,List<Field> lst3,List<Field> lst4) {
 		int i = 1;
 		while (getPosI() + i <= 7 && getPosJ() + i <= 7
 				&& checkForValidity(getSpiel().getField( getPosI() + i, getPosJ() + i), lst1)) {
@@ -53,18 +52,6 @@ public class Bishop extends Piece {
 			lst.add(getSpiel().getField(getPosI() - i, getPosJ() - i));
 			i += 1;
 		}
-
-		lst1.remove(0);
-		lst2.remove(0);
-		lst3.remove(0);
-		lst4.remove(0);
-
-		lst.addAll(lst1);
-		lst.addAll(lst2);
-		lst.addAll(lst3);
-		lst.addAll(lst4);
-
-		return lst;
 	}
 
 }

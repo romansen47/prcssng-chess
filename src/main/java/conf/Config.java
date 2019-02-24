@@ -11,7 +11,7 @@ final public class Config {
 	/**
 	 * the stanard size of a field
 	 */
-	public final static int Size = 150;
+	public final static int Size = 100;
 
 	private static Config instance = null;
 
