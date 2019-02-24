@@ -145,6 +145,7 @@ public class Referee implements IRefs{
 	public void processMove(Move move) {
 		if (move != null) {
 			getSpiel().getMoveList().add(move);
+			getSpiel().getPlayer().getMoveList().add(move);
 			System.out.println((getSpiel().getMoveList()).toStr());
 			move.execute();
 		}

@@ -129,5 +129,13 @@ public class Player {
 	public King getKing() {
 		return king;
 	}
+	
+	public Move getLastMove() {
+		int n=getMoveList().size();
+		if(n>0) {
+			return getMoveList().get(n-1);
+		}
+		return null;
+	}
 
 }

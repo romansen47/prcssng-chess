@@ -117,5 +117,9 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 		main.image(getImage(), size * getField().getJ(), size * getField().getI(), size, size);
 	}
 
+	public void die() {
+		getField().setPiece(null);
+		this.getPlayer().getPieces().remove(this);
+	}
 
 }

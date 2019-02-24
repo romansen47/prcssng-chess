@@ -71,7 +71,7 @@ public class Move implements IRefs {
 			getSpiel().getOtherPlayer().getDeadPieces().add(fig2);
 		}
 		getReferee().setMarked(null);
-		getSpiel().getPlayer().getMoveList().add(this);
+		// getSpiel().getPlayer().getMoveList().add(this);
 
 		getReferee().switchMainPlayer();
 	}
