@@ -3,6 +3,7 @@ package defs.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 
+import chess.Move;
 import defs.classes.Field;
 import defs.classes.Piece;
 import defs.classes.Player;
@@ -11,27 +12,45 @@ import pieces.Pawn;
 
 public interface IPiece extends IRefs {
 
+	Move getMove(Field fld);
+	
+	default List<Move> convertFieldsToMoves(List<Field> input){
+		List<Move> ans=new ArrayList<>();
+		for (Field fld:input){
+			ans.add(getMove(fld));
+		}
+		return ans;
+	}
+	
+	default List<Field> convertMovesToFields(List<Move> input){
+		List<Field> ans=new ArrayList<>();
+		for (Move move:input){
+			ans.add(move.next);
+		}
+		return ans;
+	}
+	
 	/**
 	 * @return returns the list of possible moves
 	 */
-	List<Field> getPossibleMoves();
+	List<Move> getPossibleMoves();
 
 	Field getField();
 	
 	void setField(Field field);
 
 	default List<Field> getFieldsOfInterest(Player pl){
-		List<Field> fields=new ArrayList<Field>();
+		List<Field> fields=new ArrayList<>();
 		List<Piece> pieces=pl.getPieces();
 		for (Piece piece:pieces) {
-			if (piece.getPossibleMovesOfInterest().contains(getField())) {
+			if (piece.convertMovesToFields(piece.getPossibleMovesOfInterest()).contains(getField())) {
 				fields.add(piece.getField());
 			}
 		}
 		return fields;
 	}
 	
-	default List<Field> getPossibleMovesOfInterest() {
+	default List<Move> getPossibleMovesOfInterest() {
 		return getPossibleMoves();
 	}
 	

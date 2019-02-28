@@ -5,6 +5,7 @@ import java.util.List;
 
 import conf.Config;
 import defs.classes.Field;
+import defs.classes.Piece;
 import defs.classes.Player;
 import defs.enums.Colors;
 import defs.interfaces.ISetupAndRun;
@@ -75,10 +76,7 @@ public class Drawer implements ISetupAndRun{
 	 * @return whether click has been performed.
 	 */
 	public boolean checkForClick() {
-		if (main.clicked() == 1) {
-			return true;
-		} 
-		return false;
+		return (main.clicked()==1);
 	}
 	
 	/**
@@ -121,10 +119,10 @@ public class Drawer implements ISetupAndRun{
 			for (int j = 0; j < 8; j++) {
 				main.stroke(0);
 				main.strokeWeight(3);
-				main.line(0, 0, 8 * Config.Size, 0);
-				main.line(0, 0, 0, 8 * Config.Size);
-				main.line(8 * Config.Size, 0, 8 * Config.Size, 8 * Config.Size);
-				main.line(0, 8 * Config.Size, 8 * Config.Size, 8 * Config.Size);
+				main.line(0, 0, 8 * (float)Config.Size, 0);
+				main.line(0, 0, 0, 8 * (float)Config.Size);
+				main.line(8 * (float)Config.Size, 0, 8 * (float)Config.Size, 8 * (float)Config.Size);
+				main.line(0, 8 * (float)Config.Size, 8 * (float)Config.Size, 8 * (float)Config.Size);
 			}
 		}
 	}
@@ -157,14 +155,16 @@ public class Drawer implements ISetupAndRun{
 	 * draws all marked fields
 	 */
 	public void drawMarked() {
-		
-		if (getReferee().getMarked() != null) {
+
+		if (getReferee().getMarked()!=null && getReferee().getMarked().getPiece() != null) {
 			
-			drawMarkedFields(getReferee().getMarked().getPiece().getPossibleMoves(),Colors.GREEN);
+			Piece piece=getReferee().getMarked().getPiece();
+			
+			drawMarkedFields(piece.convertMovesToFields(piece.getPossibleMoves()),Colors.GREEN);
 			drawMarkedFields(getReferee().getMarked().getPiece().getAttackers(),Colors.RED);			
 			drawMarkedFields(getReferee().getMarked().getPiece().getSupporters(),Colors.BLUE);
 			
-			List<Field> pos=new ArrayList<Field>();
+			List<Field> pos=new ArrayList<>();
 			pos.add(getReferee().getMarked());
 			drawMarkedFields(pos,Colors.YELLOW);
 			
@@ -186,24 +186,24 @@ public class Drawer implements ISetupAndRun{
 			case RED:
 				main.stroke(255,0,0);
 				main.noFill();
-				main.rect((fld.getJ()+1) * size-size+thickness, (fld.getI() + 1) * size-size+thickness, size-2*thickness,size-2*thickness);
+				main.rect((fld.getJ()+1) * size-size+(float)thickness, (fld.getI() + 1) * (float)size-size+thickness, (float)size-2*thickness,(float)size-2*thickness);
 				break;
 			case BLUE:
 				main.stroke(0,0,255);
 				main.noFill();
-				main.rect((fld.getJ()+1) * size-size+2*thickness, (fld.getI() + 1) * size-size+2*thickness, size-4*thickness,size-4*thickness);
+				main.rect((fld.getJ()+1) * (float)size-size+2*thickness, (fld.getI() + 1) * (float)size-size+2*thickness, (float)size-4*thickness,(float)size-4*thickness);
 				break;
 			case YELLOW:
 				main.stroke(255,255,0);
 				main.noFill();
-				main.rect((fld.getJ()+1) * size-size+thickness, (fld.getI() + 1) * size-size+thickness, size-2*thickness,size-2*thickness);
-				main.rect((fld.getJ()+1) * size-size+2*thickness, (fld.getI() + 1) * size-size+2*thickness, size-4*thickness,size-4*thickness);
-				main.rect((fld.getJ()+1) * size-size, (fld.getI() + 1) * size-size, size,size);
+				main.rect((fld.getJ()+1) * (float)size-size+thickness, (fld.getI() + 1) * (float)size-size+thickness, (float)size-2*thickness,(float)size-2*thickness);
+				main.rect((fld.getJ()+1) * (float)size-size+2*thickness, (fld.getI() + 1) * (float)size-size+2*thickness, (float)size-4*thickness,(float)size-4*thickness);
+				main.rect((fld.getJ()+1) * (float)size-size, (fld.getI() + 1) * (float)size-size, size,size);
 				break;
 			default:
 				main.stroke(0,255,0);
 				main.noFill();
-				main.rect((fld.getJ()+1) * size-size, (fld.getI() + 1) * size-size, size,size);
+				main.rect((fld.getJ()+1) * (float)size-size, (fld.getI() + 1) * (float)size-size, (float)size,(float)size);
 				break;
 				
 		}

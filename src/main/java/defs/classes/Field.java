@@ -177,6 +177,8 @@ public class Field implements IColors, IDraw, IRefs {
 		case 7:
 			str += "H";
 			break;
+		default:
+			break;
 		}
 		str += 1+this.getI();
 		return str;

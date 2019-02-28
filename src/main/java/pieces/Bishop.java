@@ -3,6 +3,7 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import chess.Move;
 import defs.classes.Field;
 import defs.classes.Piece;
 import defs.enums.Colors;
@@ -15,6 +16,7 @@ public class Bishop extends Piece implements ILongDist{
 		super(Ids.Laeufer, col, field);
 	}
 
+	@Override
 	public List<Field> createList(){
 		List<Field> lst = new ArrayList<Field>();
 		lst.add(this.getField());
@@ -22,8 +24,8 @@ public class Bishop extends Piece implements ILongDist{
 	}
 	
 	@Override
-	public List<Field> getPossibleMoves() {
-		return longDistCheck();
+	public List<Move> getPossibleMoves() {
+		return convertFieldsToMoves(longDistCheck());
 	}
 	
 

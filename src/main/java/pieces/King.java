@@ -24,17 +24,17 @@ public class King extends Piece {
 	 * @return returns the list of possible moves excluding the castling moves
 	 */
 	@Override
-	public List<Field> getPossibleMoves() {
-		List<Field> lst=getPossibleMovesOfInterest();
+	public List<Move> getPossibleMoves() {
+		List<Move> lst=getPossibleMovesOfInterest();
 		int tempI = getField().getI();
 		int tempJ = getField().getJ();
 		if (tempJ + 2 <= 7 && getSpiel().getField(tempI, tempJ + 1).getPiece()==null
 				&& isValidForCastling(getSpiel().getField(tempI, tempJ + 2))) {
-			lst.add(getSpiel().getField(tempI, tempJ + 2));
+			lst.add(getMove(getSpiel().getField(tempI, tempJ + 2)));
 		}
 		if (tempJ - 2 >= 0 && getSpiel().getField(tempI, tempJ - 1).getPiece()==null
 				&& isValidForCastling(getSpiel().getField(tempI, tempJ - 2))) {
-			lst.add(getSpiel().getField(tempI, tempJ - 2));
+			lst.add(getMove((getSpiel().getField(tempI, tempJ - 2))));
 		}
 		
 		return lst;
@@ -44,8 +44,8 @@ public class King extends Piece {
 	 *  Must be rewritten in order to avoid cycles
 	 */
 	@Override
-	public List<Field> getPossibleMovesOfInterest() {
-		List<Field> lst = new ArrayList<Field>();
+	public List<Move> getPossibleMovesOfInterest() {
+		List<Field> lst = new ArrayList<>();
 		lst.add(this.getField());
 		int tempI = getField().getI();
 		int tempJ = getField().getJ();
@@ -75,25 +75,18 @@ public class King extends Piece {
 		}
 
 		
-		return lst;
+		return convertFieldsToMoves(lst);
 
 	}
 
 	@Override
 	public  List<Field> getAttackers() {
 		Player pl=getOpponent();
-		List<Field> fields=new ArrayList<Field>();
+		List<Field> fields=new ArrayList<>();
 		List<Piece> pieces=pl.getPieces();
 		for (Piece piece:pieces) {
-			if (!(piece instanceof King)) {
-				if (piece.getPossibleMoves().contains(getField())) {
+			if (piece.convertMovesToFields(piece.getPossibleMovesOfInterest()).contains(getField())) {
 					fields.add(piece.getField());
-				}
-			}
-			else {
-				if (((King)piece).getPossibleMovesOfInterest().contains(getField())) {
-					fields.add(piece.getField());
-				}
 			}
 		}
 		return fields;
@@ -147,9 +140,9 @@ public class King extends Piece {
 	}
 	
 	public List<Field> getAllAttackedFields(){
-		List<Field> fields=new ArrayList<Field>();
+		List<Field> fields=new ArrayList<>();
 		for (Piece piece:getOpponent().getPieces()) {
-			fields.addAll(piece.getPossibleMovesOfInterest());
+			fields.addAll(piece.convertMovesToFields(piece.getPossibleMovesOfInterest()));
 		}
 		return fields;
 	}
@@ -160,7 +153,7 @@ public class King extends Piece {
 		if (r<=k) {
 			return getFieldsInBetween(fld2,fld1);
 		}
-		List<Field> fields=new ArrayList<Field>();
+		List<Field> fields=new ArrayList<>();
 		for (int i=1;i<r-k;i++) {
 			fields.add(getSpiel().getField(fld1.getI(), k+i));
 		}

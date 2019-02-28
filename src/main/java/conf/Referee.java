@@ -3,6 +3,7 @@ package conf;
 import chess.Move;
 import defs.classes.Field;
 import defs.classes.Game;
+import defs.classes.Piece;
 import defs.interfaces.IRefs;
 
 /**
@@ -50,7 +51,6 @@ public class Referee implements IRefs{
 	public void setMarked(Field marked) {
 		if (marked == null || marked.getPiece() == null) {
 			this.marked = null;
-			return;
 		} else {
 			if (marked.getPiece().getCol() == Game.getInstance().getPlayer().getCol()) {
 				this.marked = marked;
@@ -96,11 +96,7 @@ public class Referee implements IRefs{
 	 */
 	public boolean isMarked2() {
 		if (getMarked() != null) {
-			if (getMarked2() != null) {
-				return true;
-			} else {
-				return false;
-			}
+			return (getMarked2()!=null);
 		}
 		setMarked2(null);
 		return false;
@@ -111,12 +107,11 @@ public class Referee implements IRefs{
 	 * @return a move in case of validity. null otherwise
 	 */
 	public Move getMove() {
-		// TODO: auf "marked.getFigur()!=null" verzichten, statt dessen ueber die Setter
-		// managen.
 		if (!this.isMarked2() || getMarked().getPiece() == null) {
 			return null;
 		} else {
-			if (getMarked().getPiece().getPossibleMoves().contains(getMarked2())) {
+			Piece piece=getMarked().getPiece();
+			if (piece.convertMovesToFields(piece.getPossibleMoves()).contains(getMarked2())) {
 				Move move = getMarked().getPiece().getMove(getMarked2());
 				setMarked2(null);
 				setMarked(null);
@@ -146,7 +141,9 @@ public class Referee implements IRefs{
 		if (move != null) {
 			getSpiel().getMoveList().add(move);
 			getSpiel().getPlayer().getMoveList().add(move);
-			System.out.println((getSpiel().getMoveList()).toStr());
+			/**
+			 * Print move: System.out.println((getSpiel().getMoveList()).toStr());
+			 */
 			move.execute();
 		}
 	}

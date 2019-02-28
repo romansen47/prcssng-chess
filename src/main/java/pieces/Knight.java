@@ -3,6 +3,7 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import chess.Move;
 import defs.classes.Field;
 import defs.classes.Piece;
 import defs.enums.Colors;
@@ -15,7 +16,7 @@ public class Knight extends Piece {
 	}
 
 	@Override
-	public List<Field> getPossibleMoves() {
+	public List<Move> getPossibleMoves() {
 		List<Field> lst = new ArrayList<Field>();
 		lst.add(this.getField());
 		int i = getField().getI();
@@ -45,7 +46,7 @@ public class Knight extends Piece {
 			lst.add(getSpiel().getField(i - 2, j - 1));
 		}
 		
-		return lst;
+		return convertFieldsToMoves(lst);
 	}
 
 	// TODO: An das Interface IValidityChecker anpassen

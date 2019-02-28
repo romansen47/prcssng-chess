@@ -3,6 +3,7 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import chess.Move;
 import defs.classes.Field;
 import defs.classes.Piece;
 import defs.enums.Colors;
@@ -16,8 +17,8 @@ public class Rook extends Piece implements ILongDist{
 	}
 
 	@Override
-	public List<Field> getPossibleMoves() {
-		return longDistCheck();
+	public List<Move> getPossibleMoves() {
+		return convertFieldsToMoves(longDistCheck());
 	}
 	
 	public void checkDirections(List<Field> lst,List<Field> lst1,List<Field> lst2,List<Field> lst3,List<Field> lst4) {

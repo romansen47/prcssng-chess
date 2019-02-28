@@ -2,6 +2,7 @@ package pieces;
 
 import java.util.List;
 
+import chess.Move;
 import defs.classes.Field;
 import defs.classes.Piece;
 import defs.enums.Colors;
@@ -14,13 +15,13 @@ public class Queen extends Piece {
 	}
 
 	@Override
-	public List<Field> getPossibleMoves() {
+	public List<Move> getPossibleMoves() {
 		Rook tmprook=new Rook(this.getCol(), this.getField());
 		this.getField().setPiece(tmprook);
-		List<Field> lst1 = tmprook.getPossibleMoves();
+		List<Move> lst1 = tmprook.getPossibleMoves();
 		Bishop tmpbish=new Bishop(this.getCol(), this.getField());
 		this.getField().setPiece(tmpbish);
-		List<Field> lst2 = tmpbish.getPossibleMoves();
+		List<Move> lst2 = tmpbish.getPossibleMoves();
 		lst1.addAll(lst2);
 		this.getField().setPiece(this);
 		return lst1;

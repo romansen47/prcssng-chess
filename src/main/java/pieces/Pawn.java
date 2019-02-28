@@ -18,7 +18,7 @@ public class Pawn extends Piece {
 	}
 
 	@Override
-	public List<Field> getPossibleMoves() {
+	public List<Move> getPossibleMoves() {
 		List<Field> lst = new ArrayList<Field>();
 		lst.add(this.getField());
 		if (this.getCol() == Colors.WHITE) {
@@ -73,7 +73,12 @@ public class Pawn extends Piece {
 			}
 		}
 		
-		return lst;
+		List<Move> list=new ArrayList<Move>();
+		for (Field fld:lst){
+			list.add(getMove(fld));
+		}
+		
+		return list;
 	}
 	
 	/**
