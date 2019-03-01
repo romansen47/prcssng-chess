@@ -5,9 +5,13 @@ import java.util.List;
 
 import defs.classes.Field;
 
-public interface ILongDist {
+public interface ILongDist extends IPiece,IValidityChecker{
 
 	public Field getField();
+	
+	int getPosI();
+	
+	int getPosJ();
 	
 	default public List<Field> createList(){
 		List<Field> lst = new ArrayList<Field>();
@@ -15,23 +19,29 @@ public interface ILongDist {
 		return lst;
 	}
 	
-	public void checkDirections(List<Field> lst,List<Field> lst1,List<Field> lst2,List<Field> lst3,List<Field> lst4) ;
+	public void checkDirections(List<Field> lst) ;
 	
 	default List<Field> longDistCheck(){
-		
-		List<Field> lst =createList();
-		List<Field> lst1=createList();
-		List<Field> lst2=createList();
-		List<Field> lst3=createList();
-		List<Field> lst4=createList();
-		
-		checkDirections(lst,lst1,lst2,lst3,lst4);
+		List<Field> lst = createList();		
+		checkDirections(lst);
+		return lst;
+	}
 	
-		lst.addAll(lst1);
-		lst.addAll(lst2);
-		lst.addAll(lst3);
-		lst.addAll(lst4);
-
-	return lst;
-}
+	public default void checkDirection(List<Field> lst,int[] direction) {
+		List<Field> tmpList=new ArrayList<>();
+		tmpList.add(getField());
+		int i = 1;
+		while (getPosI() + i*direction[0] >=0 && getPosI() + i*direction[0] <= 7 && 
+				getPosJ() + i*direction[1] >=0 && getPosJ() + i*direction[1] <= 7 &&
+				checkForValidity(getSpiel().getField(getPosI()+i*direction[0], getPosJ()+i*direction[1]), tmpList)) {
+			i += 1;
+		}
+		lst.addAll(tmpList);
+	}
+	
+	@Override
+	default List<IMove> getPossibleMoves() {
+		return convertFieldsToMoves(longDistCheck());
+	}
+	
 }

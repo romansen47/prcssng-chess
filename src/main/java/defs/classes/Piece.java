@@ -99,5 +99,15 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	public Ids getId() {
 		return id;
 	}
+	
+	@Override
+	public int getPosI() {
+		return getField().getI();
+	}
+	
+	@Override
+	public int getPosJ() {
+		return getField().getJ();
+	}
 
 }

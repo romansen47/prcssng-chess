@@ -18,31 +18,14 @@ public class Rook extends Piece implements ILongDist{
 	}
 
 	@Override
-	public List<IMove> getPossibleMoves() {
-		return convertFieldsToMoves(longDistCheck());
-	}
-	
-	public void checkDirections(List<Field> lst,List<Field> lst1,List<Field> lst2,List<Field> lst3,List<Field> lst4) {
-		int i = 1;
-		while (getPosI() + i <= 7 && checkForValidity(getSpiel().getField( getPosI() +i, getPosJ()), lst1)) {
-			i += 1;
-		}
-		i = 1;
-		while (getPosI() - i >= 0 && checkForValidity(getSpiel().getField( getPosI() - i, getPosJ()), lst2)) {
-			i += 1;
-		}
-		i = 1;
-		while (getPosJ() + i <= 7 && checkForValidity(getSpiel().getField( getPosI(), getPosJ() + i), lst3)) {
-			i += 1;
-		}
-		i = 1;
-		while (getPosJ() - i >= 0 && checkForValidity(getSpiel().getField( getPosI(), getPosJ() - i), lst4)) {
-			i += 1;
-		}
+	public void checkDirections(List<Field> lst) {
+		checkDirection(lst, new int[] {1,0});
+		checkDirection(lst, new int[] {-1,0});
+		checkDirection(lst, new int[] {0,1});
+		checkDirection(lst, new int[] {0,-1});
 	}
 
 	public boolean isValidForCastling() {
 		return getAttackers().isEmpty();
 	}
-
 }
