@@ -1,11 +1,11 @@
 package defs.classes;
 
 import chess.Main;
-import chess.Move;
 import conf.Config;
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.interfaces.IDraw;
+import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
 import defs.interfaces.IRefs;
 import defs.interfaces.IValidityChecker;
@@ -27,12 +27,12 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	/**
 	 * The id
 	 */
-	public final Ids id;
+	private final Ids id;
 	
 	/**
 	 * the color
 	 */
-	public final Colors col;
+	private final Colors col;
 	
 	/**
 	 * the field. nullable
@@ -51,35 +51,21 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 		this.setField(field);
 	}
 
-	/**
-	 * Getter for the pimage
-	 * @return the corresponding pimage
-	 */
+	
+	
 	public PImage getImage() {
 		return image;
 	}
 	
-	/**
-	 * Setter for the pimage
-	 * @param image the pimage
-	 */
 	public void setImage(PImage image) {
 		this.image=image;
 	}
 
-	/**
-	 * Getter for the field
-	 * @return the field
-	 */
 	@Override
 	public Field getField() {
 		return field;
 	}
 
-	/**
-	 * Setter for the field
-	 * @param field the field
-	 */
 	@Override
 	public void setField(Field field) {
 		this.field = field;
@@ -88,38 +74,30 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 		}
 	}
 
-	/**
-	 * Getter for the color
-	 * @return the color
-	 */
 	@Override
 	public Colors getCol() {
 		return col;
 	}
 	
-	/**
-	 * Creator of a move
-	 * @param field the field to move on
-	 * @return the created move
-	 */
-	public Move getMove(Field field) {
+	@Override
+	public IMove getMove(Field field) {
 		return new Move(this,field);
 	}
 	
-	/**
-	 * Draws the piece
-	 * 
-	 * @param main the main papplet
-	 */
 	@Override
 	public void draw(Main main) {
-		final int size = Config.Size;
+		final int size = Config.SIZE;
 		main.image(getImage(), size * getField().getJ(), size * getField().getI(), size, size);
 	}
 
 	public void die() {
 		getField().setPiece(null);
 		this.getPlayer().getPieces().remove(this);
+	}
+	
+	@Override
+	public Ids getId() {
+		return id;
 	}
 
 }

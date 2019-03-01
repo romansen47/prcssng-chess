@@ -3,12 +3,13 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.Move;
 import defs.classes.Field;
+import defs.classes.Move;
 import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.interfaces.ILongDist;
+import defs.interfaces.IMove;
 
 public class Bishop extends Piece implements ILongDist{
 
@@ -24,11 +25,10 @@ public class Bishop extends Piece implements ILongDist{
 	}
 	
 	@Override
-	public List<Move> getPossibleMoves() {
+	public List<IMove> getPossibleMoves() {
 		return convertFieldsToMoves(longDistCheck());
 	}
 	
-
 	public void checkDirections(List<Field> lst,List<Field> lst1,List<Field> lst2,List<Field> lst3,List<Field> lst4) {
 		int i = 1;
 		while (getPosI() + i <= 7 && getPosJ() + i <= 7

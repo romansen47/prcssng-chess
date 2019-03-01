@@ -5,6 +5,7 @@ import conf.Config;
 import defs.enums.Colors;
 import defs.interfaces.IColors;
 import defs.interfaces.IDraw;
+import defs.interfaces.IPiece;
 import defs.interfaces.IRefs;
 
 /**
@@ -33,7 +34,7 @@ public class Field implements IColors, IDraw, IRefs {
 	/**
 	 * the piece on the field. nullable
 	 */
-	private Piece piece = null;
+	private IPiece piece = null;
 
 	/**
 	 * Constructor of field.
@@ -76,7 +77,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * Getter for the piece on the field
 	 * @return the piece
 	 */
-	public Piece getPiece() {
+	public IPiece getPiece() {
 		return piece;
 	}
 
@@ -84,7 +85,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * Setter for piece
 	 * @param piece the piece on the field
 	 */
-	public void setPiece(Piece piece) {
+	public void setPiece(IPiece piece) {
 		this.piece = piece;
 	}
 
@@ -106,7 +107,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 */
 	@Override
 	public void draw(Main main) {
-		int size = Config.Size;
+		int size = Config.SIZE;
 		main.noStroke();
 		main.fill(getColAsInt());
 		main.rect((float)size * getJ(), (float)size * getI(), size, size);
@@ -121,7 +122,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return the vertical position
 	 */
 	public int getPosI(Main main) {
-		return (main.mouseX - main.mouseX % Config.Size) / Config.Size;
+		return (main.mouseX - main.mouseX % Config.SIZE) / Config.SIZE;
 	}
 
 
@@ -131,7 +132,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return the horizontal position
 	 */
 	public int getPosJ(Main main) {
-		return  (main.mouseY - main.mouseY % Config.Size) / Config.Size;
+		return  (main.mouseY - main.mouseY % Config.SIZE) / Config.SIZE;
 	}
 
 	/**

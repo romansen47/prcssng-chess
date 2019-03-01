@@ -1,9 +1,12 @@
 package conf;
 
-import chess.Move;
 import defs.classes.Field;
 import defs.classes.Game;
+import defs.classes.Move;
+import defs.enums.Colors;
 import defs.classes.Piece;
+import defs.interfaces.IMove;
+import defs.interfaces.IPiece;
 import defs.interfaces.IRefs;
 
 /**
@@ -106,13 +109,13 @@ public class Referee implements IRefs{
 	 * Constructs a move and checks it for validity
 	 * @return a move in case of validity. null otherwise
 	 */
-	public Move getMove() {
+	public IMove getMove() {
 		if (!this.isMarked2() || getMarked().getPiece() == null) {
 			return null;
 		} else {
-			Piece piece=getMarked().getPiece();
+			IPiece piece=getMarked().getPiece();
 			if (piece.convertMovesToFields(piece.getPossibleMoves()).contains(getMarked2())) {
-				Move move = getMarked().getPiece().getMove(getMarked2());
+				IMove move = getMarked().getPiece().getMove(getMarked2());
 				setMarked2(null);
 				setMarked(null);
 				return move;
@@ -137,7 +140,7 @@ public class Referee implements IRefs{
 	 * 
 	 * @param move the given move
 	 */
-	public void processMove(Move move) {
+	public void processMove(IMove move) {
 		if (move != null) {
 			getSpiel().getMoveList().add(move);
 			getSpiel().getPlayer().getMoveList().add(move);

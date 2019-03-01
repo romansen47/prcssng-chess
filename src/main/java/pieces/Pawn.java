@@ -3,13 +3,14 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.Castling;
-import chess.EnPassant;
-import chess.Move;
+import defs.classes.Castling;
+import defs.classes.EnPassant;
 import defs.classes.Field;
+import defs.classes.Move;
 import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
+import defs.interfaces.IMove;
 
 public class Pawn extends Piece {
 
@@ -18,8 +19,8 @@ public class Pawn extends Piece {
 	}
 
 	@Override
-	public List<Move> getPossibleMoves() {
-		List<Field> lst = new ArrayList<Field>();
+	public List<IMove> getPossibleMoves() {
+		List<Field> lst = new ArrayList<>();
 		lst.add(this.getField());
 		if (this.getCol() == Colors.WHITE) {
 			if (getField().getI() < 7 ) {
@@ -61,19 +62,19 @@ public class Pawn extends Piece {
 				}
 			}
 		}
-		Move move=this.getOpponent().getLastMove();
-		if (move!=null && move.fig.id==Ids.Bauer && getPosI()==4) {
-			if (move.prev.getI()==6 && move.next.getI()==4) {
-				lst.add(getSpiel().getField(5,move.next.getJ()));
+		IMove move=this.getOpponent().getLastMove();
+		if (move!=null && move.getFig().getId()==Ids.Bauer && getPosI()==4) {
+			if (move.getPrev().getI()==6 && move.getNext().getI()==4) {
+				lst.add(getSpiel().getField(5,move.getNext().getJ()));
 			}
 		}
-		if (move!=null && move.fig.id==Ids.Bauer && getPosI()==3) {
-			if (move.prev.getI()==1 && move.next.getI()==3) {
-				lst.add(getSpiel().getField(2,move.next.getJ()));
+		if (move!=null && move.getFig().getId()==Ids.Bauer && getPosI()==3) {
+			if (move.getPrev().getI()==1 && move.getNext().getI()==3) {
+				lst.add(getSpiel().getField(2,move.getNext().getJ()));
 			}
 		}
 		
-		List<Move> list=new ArrayList<Move>();
+		List<IMove> list=new ArrayList<>();
 		for (Field fld:lst){
 			list.add(getMove(fld));
 		}
@@ -86,7 +87,7 @@ public class Pawn extends Piece {
 	 * @return returns the move. returns subtype enpassant in case of validity
 	 */
 	@Override
-	public Move getMove(Field field) {
+	public IMove getMove(Field field) {
 		Pawn nextPawn=(Pawn)getSpiel().getField(getPosI(),field.getJ()).getPiece();
 		if (nextPawn!=null && nextPawn.getCol()!=getCol()) {
 			return new EnPassant(this,nextPawn,field);

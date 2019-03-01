@@ -9,5 +9,4 @@ public interface IColors {
 	 */
 	public Colors getCol();
 
-
 }

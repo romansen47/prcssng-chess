@@ -3,13 +3,15 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.Castling;
-import chess.Move;
+import defs.classes.Castling;
 import defs.classes.Field;
+import defs.classes.Move;
 import defs.classes.Piece;
 import defs.classes.Player;
 import defs.enums.Colors;
 import defs.enums.Ids;
+import defs.interfaces.IMove;
+import defs.interfaces.IPiece;
 
 public class King extends Piece {
 	
@@ -24,8 +26,8 @@ public class King extends Piece {
 	 * @return returns the list of possible moves excluding the castling moves
 	 */
 	@Override
-	public List<Move> getPossibleMoves() {
-		List<Move> lst=getPossibleMovesOfInterest();
+	public List<IMove> getPossibleMoves() {
+		List<IMove> lst=getPossibleMovesOfInterest();
 		int tempI = getField().getI();
 		int tempJ = getField().getJ();
 		if (tempJ + 2 <= 7 && getSpiel().getField(tempI, tempJ + 1).getPiece()==null
@@ -44,7 +46,7 @@ public class King extends Piece {
 	 *  Must be rewritten in order to avoid cycles
 	 */
 	@Override
-	public List<Move> getPossibleMovesOfInterest() {
+	public List<IMove> getPossibleMovesOfInterest() {
 		List<Field> lst = new ArrayList<>();
 		lst.add(this.getField());
 		int tempI = getField().getI();
@@ -83,8 +85,8 @@ public class King extends Piece {
 	public  List<Field> getAttackers() {
 		Player pl=getOpponent();
 		List<Field> fields=new ArrayList<>();
-		List<Piece> pieces=pl.getPieces();
-		for (Piece piece:pieces) {
+		List<IPiece> pieces=pl.getPieces();
+		for (IPiece piece:pieces) {
 			if (piece.convertMovesToFields(piece.getPossibleMovesOfInterest()).contains(getField())) {
 					fields.add(piece.getField());
 			}
@@ -141,7 +143,7 @@ public class King extends Piece {
 	
 	public List<Field> getAllAttackedFields(){
 		List<Field> fields=new ArrayList<>();
-		for (Piece piece:getOpponent().getPieces()) {
+		for (IPiece piece:getOpponent().getPieces()) {
 			fields.addAll(piece.convertMovesToFields(piece.getPossibleMovesOfInterest()));
 		}
 		return fields;
@@ -174,7 +176,7 @@ public class King extends Piece {
 				}
 			}
 			Field tmpField=getSpiel().getField(getPosI(), r);
-			if (tmpField.getPiece()!=null && tmpField.getPiece().id==Ids.Turm 
+			if (tmpField.getPiece()!=null && tmpField.getPiece().getId()==Ids.Turm 
 					&& tmpField.getPiece().getCol()==getCol()) {
 				rook=(Rook)tmpField.getPiece();
 			}
@@ -195,7 +197,7 @@ public class King extends Piece {
 	 * @return returns the move. returns subtype castling in case of validity
 	 */
 	@Override
-	public Move getMove(Field field) {
+	public IMove getMove(Field field) {
 		Rook rook=getRook(field);
 		if (rook!=null) {
 			return new Castling(this,rook);

@@ -5,9 +5,12 @@ import java.util.List;
 
 import conf.Config;
 import defs.classes.Field;
+import defs.classes.Move;
 import defs.classes.Piece;
 import defs.classes.Player;
 import defs.enums.Colors;
+import defs.interfaces.IMove;
+import defs.interfaces.IPiece;
 import defs.interfaces.ISetupAndRun;
 
 /**
@@ -60,7 +63,7 @@ public class Drawer implements ISetupAndRun{
 		setMark(checkForClick());
 				
 		// use information on interaction to create next move
-		Move move = getReferee().getMove();
+		IMove move = getReferee().getMove();
 				
 		// save move to list and statistics
 		getReferee().processMove(move);
@@ -76,7 +79,8 @@ public class Drawer implements ISetupAndRun{
 	 * @return whether click has been performed.
 	 */
 	public boolean checkForClick() {
-		return (main.clicked()==1);
+		boolean clicked=main.clicked()==1;
+		return clicked;
 	}
 	
 	/**
@@ -119,10 +123,10 @@ public class Drawer implements ISetupAndRun{
 			for (int j = 0; j < 8; j++) {
 				main.stroke(0);
 				main.strokeWeight(3);
-				main.line(0, 0, 8 * (float)Config.Size, 0);
-				main.line(0, 0, 0, 8 * (float)Config.Size);
-				main.line(8 * (float)Config.Size, 0, 8 * (float)Config.Size, 8 * (float)Config.Size);
-				main.line(0, 8 * (float)Config.Size, 8 * (float)Config.Size, 8 * (float)Config.Size);
+				main.line(0, 0, 8 * (float)Config.SIZE, 0);
+				main.line(0, 0, 0, 8 * (float)Config.SIZE);
+				main.line(8 * (float)Config.SIZE, 0, 8 * (float)Config.SIZE, 8 * (float)Config.SIZE);
+				main.line(0, 8 * (float)Config.SIZE, 8 * (float)Config.SIZE, 8 * (float)Config.SIZE);
 			}
 		}
 	}
@@ -158,7 +162,7 @@ public class Drawer implements ISetupAndRun{
 
 		if (getReferee().getMarked()!=null && getReferee().getMarked().getPiece() != null) {
 			
-			Piece piece=getReferee().getMarked().getPiece();
+			IPiece piece=getReferee().getMarked().getPiece();
 			
 			drawMarkedFields(piece.convertMovesToFields(piece.getPossibleMoves()),Colors.GREEN);
 			drawMarkedFields(getReferee().getMarked().getPiece().getAttackers(),Colors.RED);			
@@ -181,7 +185,7 @@ public class Drawer implements ISetupAndRun{
 		
 		int thickness=5;
 		main.strokeWeight(thickness);
-		int size = Config.Size;
+		int size = Config.SIZE;
 		switch(col){
 			case RED:
 				main.stroke(255,0,0);
