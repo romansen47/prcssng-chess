@@ -2,7 +2,8 @@ package conf;
 
 import java.util.ArrayList;
 
-import chess.Move;
+import defs.classes.Move;
+import defs.interfaces.IMove;
 import defs.interfaces.IRefs;
 
 /**
@@ -11,7 +12,7 @@ import defs.interfaces.IRefs;
  *
  * TODO
  */
-public class Timeline extends ArrayList<Move> implements IRefs {
+public class Timeline extends ArrayList<IMove> implements IRefs {
 
 	private static final long serialVersionUID = 1L;
 	private static Timeline instance = null;
@@ -29,7 +30,7 @@ public class Timeline extends ArrayList<Move> implements IRefs {
 
 	public String toStr() {
 		String str = "";
-		for (Move move : instance) {
+		for (IMove move : instance) {
 			str += move.toString() + "\n ";
 		}
 		return str;

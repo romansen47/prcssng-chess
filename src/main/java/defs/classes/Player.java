@@ -3,8 +3,9 @@ package defs.classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.Move;
 import defs.enums.Colors;
+import defs.interfaces.IMove;
+import defs.interfaces.IPiece;
 import pieces.Pawn;
 import pieces.Queen;
 import pieces.King;
@@ -32,23 +33,23 @@ public class Player {
 	/**
 	 * Player's set of pieces
 	 */
-	final private List<Piece> Pieces = new ArrayList<Piece>();
+	final private List<IPiece> Pieces = new ArrayList<>();
 	
 	/**
 	 * set of dead pieces
 	 */
-	final private List<Piece> deadPieces = new ArrayList<Piece>();
+	final private List<IPiece> deadPieces = new ArrayList<>();
 
 	/**
 	 * List of player's moves
 	 */
-	final private List<Move> MoveList=new ArrayList<Move>();
+	final private List<IMove> MoveList=new ArrayList<>();
 	
 	/**
 	 * Getter of player's pieces
 	 * @return list of player's pieces
 	 */
-	public List<Piece> getPieces() {
+	public List<IPiece> getPieces() {
 		return Pieces;
 	}
 
@@ -110,7 +111,7 @@ public class Player {
 	 * getter for list of dead pieces
 	 * @return the list of dead pieces
 	 */
-	public List<Piece> getDeadPieces() {
+	public List<IPiece> getDeadPieces() {
 		return deadPieces;
 	}
 
@@ -118,7 +119,7 @@ public class Player {
 	 * Getter for the list of moves
 	 * @return MoveList
 	 */
-	public List<Move> getMoveList() {
+	public List<IMove> getMoveList() {
 		return MoveList;
 	}
 
@@ -130,7 +131,7 @@ public class Player {
 		return king;
 	}
 	
-	public Move getLastMove() {
+	public IMove getLastMove() {
 		int n=getMoveList().size();
 		if(n>0) {
 			return getMoveList().get(n-1);

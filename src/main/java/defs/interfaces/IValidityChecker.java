@@ -6,7 +6,7 @@ import defs.classes.Field;
 
 public interface IValidityChecker extends IColors {
 
-	default public boolean checkForValidity(Field fld, List<Field> lst) {
+	default boolean checkForValidity(Field fld, List<Field> lst) {
 		boolean ans = false;
 		Field last = lst.get(lst.size() - 1);
 		if ((last.getPiece() == null || last.getPiece() == this) && fld.getPiece() == null)

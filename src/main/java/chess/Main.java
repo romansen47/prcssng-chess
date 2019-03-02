@@ -1,6 +1,7 @@
 package chess;
 
 import conf.Config;
+import conf.Setup;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.classes.Player;
@@ -13,12 +14,12 @@ public class Main extends Gui implements IRefs{
 	/**
 	 * the main class
 	 */
-	final static String mainclass = "chess.Main";
+	final static String MAINCLASS = "chess.Main";
 	
 	/**
 	 * the path for where the images are stored
 	 */
-	final static String path ="";
+	final static String PATH ="";
 
 	/**
 	 * the images for the pieces
@@ -51,11 +52,14 @@ public class Main extends Gui implements IRefs{
 	 * @param args some options
 	 */
 	public static void main(String[] args) {
-		(new Gui()).run(mainclass);
+		(new Gui()).run(MAINCLASS);
 	}
 
 	@Override
 	public void settings() {
+		/**
+		 * Nothing to do here...
+		 */
 	}
 	
 	/**
@@ -98,8 +102,7 @@ public class Main extends Gui implements IRefs{
 	 * @return the vertical position
 	 */
 	public int getPosI() {
-		int PosI = 7-(mouseY - mouseY % Config.Size) / Config.Size;
-		return PosI;
+		return 7-(mouseY - mouseY % Config.SIZE) / Config.SIZE;
 	}
 
 	/**
@@ -107,8 +110,7 @@ public class Main extends Gui implements IRefs{
 	 * @return the horizontal position
 	 */
 	public int getPosJ() {
-		int PosJ = (mouseX - mouseX % Config.Size) / Config.Size;
-		return PosJ;
+		return (mouseX - mouseX % Config.SIZE) / Config.SIZE;
 	}
 
 	/**
@@ -260,11 +262,11 @@ public class Main extends Gui implements IRefs{
 	 * @return pimage
 	 */
 	public static String getLoc() {
-		return mainclass;
+		return MAINCLASS;
 	}
 
 	public String getPath() {
-		return path;
+		return PATH;
 	}
 
 	/**

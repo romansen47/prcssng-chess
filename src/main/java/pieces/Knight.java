@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import defs.classes.Field;
+import defs.classes.Move;
 import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
+import defs.interfaces.IMove;
 
 public class Knight extends Piece {
 
@@ -15,7 +17,7 @@ public class Knight extends Piece {
 	}
 
 	@Override
-	public List<Field> getPossibleMoves() {
+	public List<IMove> getPossibleMoves() {
 		List<Field> lst = new ArrayList<Field>();
 		lst.add(this.getField());
 		int i = getField().getI();
@@ -45,7 +47,7 @@ public class Knight extends Piece {
 			lst.add(getSpiel().getField(i - 2, j - 1));
 		}
 		
-		return lst;
+		return convertFieldsToMoves(lst);
 	}
 
 	// TODO: An das Interface IValidityChecker anpassen
