@@ -11,6 +11,7 @@ import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.interfaces.IMove;
+import defs.interfaces.IPiece;
 
 public class Pawn extends Piece {
 
@@ -88,9 +89,9 @@ public class Pawn extends Piece {
 	 */
 	@Override
 	public IMove getMove(Field field) {
-		Pawn nextPawn=(Pawn)getSpiel().getField(getPosI(),field.getJ()).getPiece();
-		if (nextPawn!=null && nextPawn.getCol()!=getCol()) {
-			return new EnPassant(this,nextPawn,field);
+		IPiece fig=getSpiel().getField(getPosI(),field.getJ()).getPiece();
+		if (fig!=null && fig instanceof Pawn && fig.getCol()!=getCol()) {
+			return new EnPassant(this,(Pawn)fig,field);
 		}
 		return super.getMove(field);
 	}
