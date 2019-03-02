@@ -53,10 +53,12 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 
 	
 	
+	@Override
 	public PImage getImage() {
 		return image;
 	}
 	
+	@Override
 	public void setImage(PImage image) {
 		this.image=image;
 	}
@@ -90,6 +92,7 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 		main.image(getImage(), size * getField().getJ(), size * getField().getI(), size, size);
 	}
 
+	@Override
 	public void die() {
 		getField().setPiece(null);
 		this.getPlayer().getPieces().remove(this);

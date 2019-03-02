@@ -84,7 +84,7 @@ public class Main extends Gui implements IRefs{
 	 * @return the inactive player
 	 */
 	public Player getOtherPlayer() {
-		return getSpiel().getOtherPlayer();
+		return getGame().getOtherPlayer();
 	}
 	
 	/**
@@ -94,7 +94,7 @@ public class Main extends Gui implements IRefs{
 	 * @return the field at position (i,j)
 	 */
 	public Field getField(int i, int j) {
-		return getSpiel().getField(i, j);
+		return getGame().getField(i, j);
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class Main extends Gui implements IRefs{
 	 * @return the vertical position
 	 */
 	public int getPosI() {
-		return 7-(mouseY - mouseY % Config.SIZE) / Config.SIZE;
+		return Config.GAMESIZE-(mouseY - mouseY % Config.SIZE) / Config.SIZE;
 	}
 
 	/**

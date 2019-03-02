@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chess.Main;
-import conf.Config;
 import defs.classes.Field;
-import defs.classes.Move;
 import defs.classes.Piece;
 import defs.classes.Player;
 import defs.enums.Colors;
@@ -80,16 +78,16 @@ public interface IPiece extends IRefs {
 	
 	default Player getPlayer() {
 		if (getCol()==Colors.WHITE) {
-			return getSpiel().getWhite();
+			return getGame().getWhite();
 		}
-		return getSpiel().getBlack();
+		return getGame().getBlack();
 	}
 
 	default Player getOpponent() {
 		if (getCol()==Colors.WHITE) {
-			return getSpiel().getBlack();
+			return getGame().getBlack();
 		}
-		return getSpiel().getWhite();
+		return getGame().getWhite();
 	}
 
 	default public int getPosI() {

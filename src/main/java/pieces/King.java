@@ -3,13 +3,14 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import conf.Config;
 import defs.classes.Castling;
 import defs.classes.Field;
-import defs.classes.Move;
 import defs.classes.Piece;
 import defs.classes.Player;
 import defs.enums.Colors;
 import defs.enums.Ids;
+import defs.enums.State;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
 
@@ -21,6 +22,18 @@ public class King extends Piece {
 		super(Ids.Koenig, col, field);
 	}
 
+	private State state = State.Plain;
+	
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		if (state==State.Chess) {
+			setValidForCastling(false);
+		}
+		this.state = state;
+	}
 
 	/**
 	 * @return returns the list of possible moves excluding the castling moves
@@ -30,13 +43,13 @@ public class King extends Piece {
 		List<IMove> lst=getPossibleMovesOfInterest();
 		int tempI = getField().getI();
 		int tempJ = getField().getJ();
-		if (tempJ + 2 <= 7 && getSpiel().getField(tempI, tempJ + 1).getPiece()==null
-				&& isValidForCastling(getSpiel().getField(tempI, tempJ + 2))) {
-			lst.add(getMove(getSpiel().getField(tempI, tempJ + 2)));
+		if (tempJ + 2 <= Config.GAMESIZE && getGame().getField(tempI, tempJ + 1).getPiece()==null
+				&& isValidForCastling(getGame().getField(tempI, tempJ + 2))) {
+			lst.add(getMove(getGame().getField(tempI, tempJ + 2)));
 		}
-		if (tempJ - 2 >= 0 && getSpiel().getField(tempI, tempJ - 1).getPiece()==null
-				&& isValidForCastling(getSpiel().getField(tempI, tempJ - 2))) {
-			lst.add(getMove((getSpiel().getField(tempI, tempJ - 2))));
+		if (tempJ - 2 >= 0 && getGame().getField(tempI, tempJ - 1).getPiece()==null
+				&& isValidForCastling(getGame().getField(tempI, tempJ - 2))) {
+			lst.add(getMove((getGame().getField(tempI, tempJ - 2))));
 		}
 		
 		return lst;
@@ -52,30 +65,29 @@ public class King extends Piece {
 		int tempI = getField().getI();
 		int tempJ = getField().getJ();
 		if (tempI - 1 >= 0) {
-			checkForValidity(getSpiel().getField(tempI - 1, tempJ), lst);
+			checkForValidity(getGame().getField(tempI - 1, tempJ), lst);
 			if (tempJ - 1 >= 0) {
-				checkForValidity(getSpiel().getField(tempI - 1, tempJ - 1), lst);
+				checkForValidity(getGame().getField(tempI - 1, tempJ - 1), lst);
 			}
-			if (tempJ + 1 <= 7) {
-				checkForValidity(getSpiel().getField(tempI - 1, tempJ + 1), lst);
+			if (tempJ + 1 <= Config.GAMESIZE) {
+				checkForValidity(getGame().getField(tempI - 1, tempJ + 1), lst);
 			}
 		}
-		if (tempI + 1 <= 7) {
-			checkForValidity(getSpiel().getField(tempI + 1, tempJ), lst);
+		if (tempI + 1 <= Config.GAMESIZE) {
+			checkForValidity(getGame().getField(tempI + 1, tempJ), lst);
 			if (tempJ - 1 >= 0) {
-				checkForValidity(getSpiel().getField(tempI + 1, tempJ - 1), lst);
+				checkForValidity(getGame().getField(tempI + 1, tempJ - 1), lst);
 			}
-			if (tempJ + 1 <= 7) {
-				checkForValidity(getSpiel().getField(tempI + 1, tempJ + 1), lst);
+			if (tempJ + 1 <= Config.GAMESIZE) {
+				checkForValidity(getGame().getField(tempI + 1, tempJ + 1), lst);
 			}
 		}
-		if (tempJ + 1 <= 7) {
-			checkForValidity(getSpiel().getField(tempI, tempJ + 1), lst);
+		if (tempJ + 1 <= Config.GAMESIZE) {
+			checkForValidity(getGame().getField(tempI, tempJ + 1), lst);
 		}
 		if (tempJ - 1 >= 0) {
-			checkForValidity(getSpiel().getField(tempI, tempJ - 1), lst);
+			checkForValidity(getGame().getField(tempI, tempJ - 1), lst);
 		}
-
 		
 		return convertFieldsToMoves(lst);
 
@@ -131,7 +143,7 @@ public class King extends Piece {
 				List<Field> fields=getFieldsInBetween(this.getField(),rook.getField());
 				List<Field> allAttackedFields=getAllAttackedFields();
 				for (Field fld:fields) {
-					if(allAttackedFields.contains(fld)) {
+					if(fld.getPiece()!=null || allAttackedFields.contains(fld)) {
 						return false;
 					}
 				}
@@ -157,14 +169,14 @@ public class King extends Piece {
 		}
 		List<Field> fields=new ArrayList<>();
 		for (int i=1;i<r-k;i++) {
-			fields.add(getSpiel().getField(fld1.getI(), k+i));
+			fields.add(getGame().getField(fld1.getI(), k+i));
 		}
 		return fields;
 	}
 
 	public Rook getRook(Field field) {
 		Rook rook=null;
-		if (isValidForCastling) {
+		if (isValidForCastling()) {
 			int k=this.getPosJ();
 			int r=field.getJ();
 			if (Math.abs(r-k)>1) {
@@ -172,10 +184,10 @@ public class King extends Piece {
 					r=0;
 				}
 				else {
-					r=7;
+					r=Config.GAMESIZE;
 				}
 			}
-			Field tmpField=getSpiel().getField(getPosI(), r);
+			Field tmpField=getGame().getField(getPosI(), r);
 			if (tmpField.getPiece()!=null && tmpField.getPiece().getId()==Ids.Turm 
 					&& tmpField.getPiece().getCol()==getCol()) {
 				rook=(Rook)tmpField.getPiece();
@@ -203,6 +215,10 @@ public class King extends Piece {
 			return new Castling(this,rook);
 		}
 		return super.getMove(field);
+	}
+
+	public void setValidForCastling(boolean isValidForCastling) {
+		this.isValidForCastling = isValidForCastling;
 	}
 
 }

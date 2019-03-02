@@ -39,13 +39,13 @@ public class Castling extends Move{
 				k=r+1;
 			}
 			getPrev().setPiece(null);
-			getFig().setField(getSpiel().getField(getPrev().getI(), k));
-			getSpiel().getField(getPrev().getI(), k).setPiece(getFig());
+			getFig().setField(getGame().getField(getPrev().getI(), k));
+			getGame().getField(getPrev().getI(), k).setPiece(getFig());
 			getNext().setPiece(null);
-			rook.setField(getSpiel().getField(getPrev().getI(), r));
-			getSpiel().getField(getPrev().getI(), r).setPiece(rook);
-			
+			rook.setField(getGame().getField(getPrev().getI(), r));
+			getGame().getField(getPrev().getI(), r).setPiece(rook);
 		}
+		((King)getFig()).setValidForCastling(false);
 		getReferee().switchMainPlayer();
 	}
 }

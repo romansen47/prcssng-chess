@@ -13,6 +13,8 @@ final public class Config {
 	 */
 	public final static int SIZE = 100;
 
+	public final static int GAMESIZE=7;
+	
 	private static Config instance = null;
 
 	private Config() {

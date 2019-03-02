@@ -5,8 +5,6 @@ import java.util.List;
 
 import conf.Config;
 import defs.classes.Field;
-import defs.classes.Move;
-import defs.classes.Piece;
 import defs.classes.Player;
 import defs.enums.Colors;
 import defs.interfaces.IMove;
@@ -59,15 +57,20 @@ public class Drawer implements ISetupAndRun{
 	@Override
 	public void execute() {
 		
-		// check for intaraction and mark field, if clicked
-		setMark(checkForClick());
-				
-		// use information on interaction to create next move
-		IMove move = getReferee().getMove();
-				
-		// save move to list and statistics
-		getReferee().processMove(move);
+		// check for interaction and mark field, if clicked
+		boolean cl=checkForClick();
+		setMark(cl);
+		
+		if (cl) {
+			
+			// use information on interaction to create next move
+			IMove move = getReferee().getMove();
+					
+			// save move to list and statistics
+			getReferee().processMove(move);
 
+		}
+		
 		// Draw the complete chess board
 		drawChessboard();
 				
@@ -93,14 +96,14 @@ public class Drawer implements ISetupAndRun{
 			return;
 		}
 		if (!getReferee().isMarked()) {
-			if (getSpiel().getField(7-main.getPosI(), main.getPosJ()).getPiece() != null
-					&& getSpiel().getField(7-main.getPosI(), main.getPosJ()).getPiece().getCol() == getPlayer().getCol()) {
-				getReferee().setMarked(getSpiel().getField(7-main.getPosI(), main.getPosJ()));
+			if (getGame().getField(Config.GAMESIZE-main.getPosI(), main.getPosJ()).getPiece() != null
+					&& getGame().getField(Config.GAMESIZE-main.getPosI(), main.getPosJ()).getPiece().getCol() == getPlayer().getCol()) {
+				getReferee().setMarked(getGame().getField(Config.GAMESIZE-main.getPosI(), main.getPosJ()));
 			}
 		} else {
-			getReferee().setMarked2(getSpiel().getField(7-main.getPosI(), main.getPosJ()));
+			getReferee().setMarked2(getGame().getField(Config.GAMESIZE-main.getPosI(), main.getPosJ()));
 		}
-		main.loop();
+		//main.loop();
 	}
 	
 
@@ -137,7 +140,7 @@ public class Drawer implements ISetupAndRun{
 	public void drawPieces() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				getSpiel().getField(i, j).draw(this.main);
+				getGame().getField(i, j).draw(this.main);
 			}
 		}
 	}
@@ -207,7 +210,7 @@ public class Drawer implements ISetupAndRun{
 			default:
 				main.stroke(0,255,0);
 				main.noFill();
-				main.rect((fld.getJ()+1) * (float)size-size, (fld.getI() + 1) * (float)size-size, (float)size,(float)size);
+				main.rect((fld.getJ()+1) * (float)size-size, (fld.getI() + 1) * (float)size-size, size,size);
 				break;
 				
 		}
@@ -218,7 +221,7 @@ public class Drawer implements ISetupAndRun{
 	 * @return the active player
 	 */
 	private Player getPlayer() {
-		return getSpiel().getPlayer();
+		return getGame().getPlayer();
 	}
 
 }

@@ -1,10 +1,15 @@
 package defs.classes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import defs.enums.Colors;
 import defs.enums.Ids;
+import defs.enums.State;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
 import defs.interfaces.IRefs;
+import pieces.King;
 
 /**
  * 
@@ -57,24 +62,32 @@ public class Move implements IMove,IRefs {
 	}
 	
 	/**
-	 * Execution of a move. Recalculates new possitions.
+	 * Execution of a move. Recalculates new positions.
 	 */
 	@Override
 	public void execute() {
-		
-		IPiece fig1 = getPrev().getPiece();
+		IPiece fig1 = fig;
 		IPiece fig2 = getNext().getPiece();
 		getPrev().setPiece(null);
 		fig1.setField(getNext());
 		getNext().setPiece(fig1);
 		if (fig2 != null) {
-			getSpiel().getOtherPlayer().getPieces().remove(fig2);
-			getSpiel().getOtherPlayer().getDeadPieces().add(fig2);
+			getGame().getOtherPlayer().getPieces().remove(fig2);
+			getGame().getOtherPlayer().getDeadPieces().add(fig2);
 		}
 		getReferee().setMarked(null);
-		// getSpiel().getPlayer().getMoveList().add(this);
-
+		if (fig instanceof King) {
+			((King) fig).setValidForCastling(false);
+		}
+		if (checkForChess()) {
+			King opKing=fig1.getOpponent().getKing();
+			opKing.setState(State.Chess);
+		}
 		getReferee().switchMainPlayer();
+	}
+
+	private boolean checkForChess() {
+		return !getFig().getOpponent().getKing().getAttackers().isEmpty();
 	}
 
 	@Override
@@ -105,6 +118,21 @@ public class Move implements IMove,IRefs {
 	@Override
 	public Ids getNextId() {
 		return nextId;
+	}
+
+	@Override
+	public List<IMove> getValidMoves(List<IMove> moves) {
+		List<IMove> validMoves=new ArrayList<>();
+		for (IMove move:moves) {
+			validMoves.add(move.getValidMove());
+		}
+		return validMoves;
+	}
+
+	@Override
+	public IMove getValidMove() {
+		//Field field=getPrev();
+		return this;
 	}
 
 }

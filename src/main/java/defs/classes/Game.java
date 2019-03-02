@@ -3,7 +3,6 @@ package defs.classes;
 import conf.Referee;
 import conf.Timeline;
 import defs.enums.Colors;
-import defs.enums.State;
 import defs.interfaces.IRefs;
 
 final public class Game implements IRefs{
@@ -12,7 +11,6 @@ final public class Game implements IRefs{
 	private static Player Player;
 	private static Player White;
 	private static Player Black;
-	private State state = State.White_Turn;
 
 	final private Timeline MoveList = Timeline.getInstance();
 
@@ -80,14 +78,6 @@ final public class Game implements IRefs{
 
 	public void setPlayer(Player player) {
 		Player = player;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
 	}
 
 	public Timeline getMoveList() {

@@ -1,7 +1,8 @@
 package defs.interfaces;
 
+import java.util.List;
+
 import defs.classes.Field;
-import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
 
@@ -21,4 +22,7 @@ public interface IMove {
 
 	Ids getNextId();
 	
+	List<IMove> getValidMoves(List<IMove> moves);
+	
+	IMove getValidMove();
 }

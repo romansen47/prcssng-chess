@@ -2,7 +2,6 @@ package conf;
 
 import java.util.ArrayList;
 
-import defs.classes.Move;
 import defs.interfaces.IMove;
 import defs.interfaces.IRefs;
 

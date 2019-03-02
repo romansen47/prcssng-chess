@@ -3,14 +3,15 @@ package defs.classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import conf.Config;
 import defs.enums.Colors;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
+import pieces.Bishop;
+import pieces.King;
+import pieces.Knight;
 import pieces.Pawn;
 import pieces.Queen;
-import pieces.King;
-import pieces.Bishop;
-import pieces.Knight;
 import pieces.Rook;
 
 /**
@@ -68,7 +69,7 @@ public class Player {
 		if (col == Colors.WHITE) {
 			this.king = new King(Colors.WHITE, game.getField(0, 4));
 		} else {
-			this.king = new King(Colors.BLACK, game.getField(7, 4));
+			this.king = new King(Colors.BLACK, game.getField(Config.GAMESIZE, 4));
 		}
 		initialGeneration();
 	}
@@ -82,7 +83,7 @@ public class Player {
 		int ersteReihe = 0;
 		int zweiteReihe = 1;
 		if (getCol() == Colors.BLACK) {
-			ersteReihe = 7;
+			ersteReihe = Config.GAMESIZE;
 			zweiteReihe = 6;
 		}
 		for (int j = 0; j < 8; j++) {
@@ -94,7 +95,7 @@ public class Player {
 		Pieces.add(new Bishop(getCol(), game.getField(ersteReihe, 2)));
 		Pieces.add(new Bishop(getCol(), game.getField(ersteReihe, 5)));
 		Pieces.add(new Rook(getCol(), game.getField(ersteReihe, 0)));
-		Pieces.add(new Rook(getCol(), game.getField(ersteReihe, 7)));
+		Pieces.add(new Rook(getCol(), game.getField(ersteReihe, Config.GAMESIZE)));
 		Pieces.add(new Queen(getCol(), game.getField(ersteReihe, 3)));
 
 	}

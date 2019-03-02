@@ -7,7 +7,7 @@ import defs.classes.Game;
 
 public interface IRefs {
 
-	default Game getSpiel() {
+	default Game getGame() {
 		return Game.getInstance();
 	}
 	

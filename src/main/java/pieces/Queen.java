@@ -3,12 +3,10 @@ package pieces;
 import java.util.List;
 
 import defs.classes.Field;
-import defs.classes.Move;
 import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.interfaces.ILongDist;
-import defs.interfaces.IMove;
 
 public class Queen extends Piece implements ILongDist{
 

@@ -2,16 +2,13 @@ package conf;
 
 import defs.classes.Field;
 import defs.classes.Game;
-import defs.classes.Move;
-import defs.enums.Colors;
-import defs.classes.Piece;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
 import defs.interfaces.IRefs;
 
 /**
  * 
- * @author roman
+ * @author Ro Mansen
  *
  * Referee class, modelled as a singleton class. This class performs the main logical steps.
  */
@@ -21,7 +18,6 @@ public class Referee implements IRefs{
 	 * The first field the referee recognizes as marked by the player
 	 */
 	private Field marked = null;
-	
 
 	/**
 	 * The second field the referee recognizes as marked by the player
@@ -106,13 +102,11 @@ public class Referee implements IRefs{
 	}
 
 	/**
-	 * Constructs a move and checks it for validity
+	 * Constructs a move and checks for validity
 	 * @return a move in case of validity. null otherwise
 	 */
 	public IMove getMove() {
-		if (!this.isMarked2() || getMarked().getPiece() == null) {
-			return null;
-		} else {
+		if (this.isMarked2() && getMarked().getPiece() != null) {
 			IPiece piece=getMarked().getPiece();
 			if (piece.convertMovesToFields(piece.getPossibleMoves()).contains(getMarked2())) {
 				IMove move = getMarked().getPiece().getMove(getMarked2());
@@ -120,8 +114,8 @@ public class Referee implements IRefs{
 				setMarked(null);
 				return move;
 			}
-			return null;
 		}
+		return null;
 	}
 
 	/**
@@ -142,10 +136,10 @@ public class Referee implements IRefs{
 	 */
 	public void processMove(IMove move) {
 		if (move != null) {
-			getSpiel().getMoveList().add(move);
-			getSpiel().getPlayer().getMoveList().add(move);
+			getGame().getMoveList().add(move);
+			getGame().getPlayer().getMoveList().add(move);
 			/**
-			 * Print move: System.out.println((getSpiel().getMoveList()).toStr());
+			 * Print move: System.out.println((getGame().getMoveList()).toStr());
 			 */
 			move.execute();
 		}

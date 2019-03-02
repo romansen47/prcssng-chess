@@ -1,7 +1,6 @@
 package defs.classes;
 
 import pieces.Pawn;
-import defs.classes.Move;
 
 public class EnPassant extends Move{
 

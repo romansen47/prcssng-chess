@@ -175,7 +175,7 @@ public class Field implements IColors, IDraw, IRefs {
 		case 6:
 			str += "G";
 			break;
-		case 7:
+		case Config.GAMESIZE:
 			str += "H";
 			break;
 		default:

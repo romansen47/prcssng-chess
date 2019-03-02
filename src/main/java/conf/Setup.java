@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chess.Main;
-import defs.classes.Piece;
 import defs.classes.Player;
 import defs.enums.Colors;
 import defs.enums.Ids;
@@ -69,7 +68,7 @@ public class Setup implements IRefs,ISetupAndRun{
 	 * Setup players
 	 */
 	final void setupPlayers() {
-		getSpiel().setup();
+		getGame().setup();
 	}
 	
 	/**
@@ -93,9 +92,9 @@ public class Setup implements IRefs,ISetupAndRun{
 	 */
 	public List<IPiece> getPiecesOfSameKind(Ids id,Colors col){
 		List<IPiece> pieces=new ArrayList<>();
-		Player pl = getSpiel().getWhite();
+		Player pl = getGame().getWhite();
 		if (col == Colors.BLACK) {
-			pl=getSpiel().getBlack();
+			pl=getGame().getBlack();
 		}
 		for (IPiece piece:pl.getPieces()) {
 			if (piece.getId()==id) {

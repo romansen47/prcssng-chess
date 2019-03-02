@@ -1,15 +1,14 @@
 package pieces;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import defs.classes.Field;
-import defs.classes.Move;
 import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.interfaces.ILongDist;
 import defs.interfaces.IMove;
+import defs.interfaces.IPiece;
 
 public class Rook extends Piece implements ILongDist{
 	
@@ -26,6 +25,13 @@ public class Rook extends Piece implements ILongDist{
 	}
 
 	public boolean isValidForCastling() {
-		return getAttackers().isEmpty();
+		boolean hasBeenMoved=false;
+		for (IMove move:getPlayer().getMoveList()) {
+			IPiece fig=move.getFig();
+			if (fig instanceof Rook && (Rook)fig==this) {
+				hasBeenMoved=true;
+			}
+		}
+		return getAttackers().isEmpty() && !hasBeenMoved;
 	}
 }
