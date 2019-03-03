@@ -38,7 +38,6 @@ public class Move implements IMove,IRefs {
 			str += " -> " + getNextId() + ":  ";
 		}
 		str += "(" + getPrev().toChessNotation() + ":" + getNext().toChessNotation() + ")";
-		System.out.println("");
 		return str;
 	}
 
@@ -118,21 +117,6 @@ public class Move implements IMove,IRefs {
 	@Override
 	public Ids getNextId() {
 		return nextId;
-	}
-
-	@Override
-	public List<IMove> getValidMoves(List<IMove> moves) {
-		List<IMove> validMoves=new ArrayList<>();
-		for (IMove move:moves) {
-			validMoves.add(move.getValidMove());
-		}
-		return validMoves;
-	}
-
-	@Override
-	public IMove getValidMove() {
-		//Field field=getPrev();
-		return this;
 	}
 
 }

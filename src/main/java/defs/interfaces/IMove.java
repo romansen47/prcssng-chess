@@ -22,7 +22,4 @@ public interface IMove {
 
 	Ids getNextId();
 	
-	List<IMove> getValidMoves(List<IMove> moves);
-	
-	IMove getValidMove();
 }

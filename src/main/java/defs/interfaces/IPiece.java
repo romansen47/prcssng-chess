@@ -35,11 +35,15 @@ public interface IPiece extends IRefs {
 	 */
 	List<IMove> getPossibleMoves();
 
+	default List<Field> getPossibleFields(){
+		return convertMovesToFields(getPossibleMoves());
+	}
+	
 	default List<Field> getFieldsOfInterest(Player pl){
 		List<Field> fields=new ArrayList<>();
 		List<IPiece> pieces=pl.getPieces();
 		for (IPiece piece:pieces) {
-			if (piece.convertMovesToFields(piece.getPossibleMovesOfInterest()).contains(getField())) {
+			if (piece.getPossibleFields().contains(getField())) {
 				fields.add(piece.getField());
 			}
 		}
@@ -47,7 +51,7 @@ public interface IPiece extends IRefs {
 	}
 	
 	default List<IMove> getPossibleMovesOfInterest() {
-		return getPossibleMoves();
+		return ((Piece)this).getValidMoves(getPossibleMoves());
 	}
 	
 	/**

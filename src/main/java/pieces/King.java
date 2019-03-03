@@ -99,7 +99,7 @@ public class King extends Piece {
 		List<Field> fields=new ArrayList<>();
 		List<IPiece> pieces=pl.getPieces();
 		for (IPiece piece:pieces) {
-			if (piece.convertMovesToFields(piece.getPossibleMovesOfInterest()).contains(getField())) {
+			if (!(piece instanceof King) && piece.convertMovesToFields(piece.getPossibleMoves()).contains(getField())) {
 					fields.add(piece.getField());
 			}
 		}
@@ -141,9 +141,8 @@ public class King extends Piece {
 			Rook rook=getRook(field);
 			if (rook!=null && rook.isValidForCastling()){
 				List<Field> fields=getFieldsInBetween(this.getField(),rook.getField());
-				List<Field> allAttackedFields=getAllAttackedFields();
 				for (Field fld:fields) {
-					if(fld.getPiece()!=null || allAttackedFields.contains(fld)) {
+					if(fld.getPiece()!=null || getAllAttackedFields().contains(fld)) {
 						return false;
 					}
 				}
