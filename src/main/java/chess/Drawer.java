@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import conf.Config;
+import conf.Timeline;
 import defs.classes.Field;
 import defs.classes.Player;
 import defs.enums.Colors;
@@ -103,7 +104,6 @@ public class Drawer implements ISetupAndRun{
 		} else {
 			getReferee().setMarked2(getGame().getField(Config.GAMESIZE-main.getPosI(), main.getPosJ()));
 		}
-		//main.loop();
 	}
 	
 
@@ -116,8 +116,22 @@ public class Drawer implements ISetupAndRun{
 		drawGrid();
 		drawPieces();
 		drawMarked();
+		drawTimeLine();
 	}
 	
+	private void drawTimeLine() {
+		Timeline tl = getGame().getMoveList();
+		this.main.textSize(32);
+		this.main.fill(0);
+		this.main.text("Timeline:", (Config.GAMESIZE+2)*Config.SIZE,Config.SIZE); 
+		this.main.textSize(18);
+		int i=2;
+		for (String str:tl.toStr()) {
+			this.main.text(str, (Config.GAMESIZE+2)*Config.SIZE,Config.SIZE+i++*30); 
+		}
+		
+	}
+
 	/**
 	 * draws the grid
 	 */

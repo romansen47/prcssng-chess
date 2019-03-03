@@ -1,6 +1,7 @@
 package conf;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import defs.interfaces.IMove;
 import defs.interfaces.IRefs;
@@ -27,12 +28,12 @@ public class Timeline extends ArrayList<IMove> implements IRefs {
 
 	}
 
-	public String toStr() {
-		String str = "";
+	public List<String> toStr() {
+		List<String> ans=new ArrayList<>();
 		for (IMove move : instance) {
-			str += move.toString() + "\n ";
+			ans.add(move.toString() + "\n");
 		}
-		return str;
+		return ans;
 	}
 
 }
