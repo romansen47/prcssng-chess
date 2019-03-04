@@ -135,7 +135,7 @@ public class Referee implements IRefs{
 	 * @param move the given move
 	 */
 	public void processMove(IMove move) {
-		if (move != null) {
+		if (getValidMove(move) != null) {
 			getGame().getMoveList().add(move);
 			getGame().getPlayer().getMoveList().add(move);
 			/**
@@ -143,6 +143,9 @@ public class Referee implements IRefs{
 			 */
 			move.execute();
 		}
+	}
+	private Object getValidMove(IMove move) {
+		return move;
 	}
 	
 }

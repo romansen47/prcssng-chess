@@ -51,7 +51,7 @@ public interface IPiece extends IRefs {
 	}
 	
 	default List<IMove> getPossibleMovesOfInterest() {
-		return ((Piece)this).getValidMoves(getPossibleMoves());
+		return getPossibleMoves();
 	}
 	
 	/**

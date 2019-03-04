@@ -124,10 +124,10 @@ public class Drawer implements ISetupAndRun{
 		this.main.textSize(32);
 		this.main.fill(0);
 		this.main.text("Timeline:", (Config.GAMESIZE+2)*Config.SIZE,Config.SIZE); 
-		this.main.textSize(16);
+		this.main.textSize(18);
 		int i=2;
 		for (String str:tl.toStr()) {
-			this.main.text(str, Config.SIZE/2+(Config.GAMESIZE+1)*Config.SIZE,Config.SIZE+i++*30); 
+			this.main.text(str, Config.SIZE/4+(Config.GAMESIZE+1)*Config.SIZE,Config.SIZE+i++*30); 
 		}
 		
 	}
