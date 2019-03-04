@@ -97,7 +97,11 @@ public class Drawer implements ISetupAndRun{
 			return;
 		}
 		if (!getReferee().isMarked()) {
-			if (getGame().getField(Config.GAMESIZE-main.getPosI(), main.getPosJ()).getPiece() != null
+			int i=Config.GAMESIZE-main.getPosI();
+			int j=main.getPosJ();
+			if (i>=0 && i<=Config.GAMESIZE &&
+					j>=0 && j<=Config.GAMESIZE &&
+					getGame().getField(i, j).getPiece() != null 
 					&& getGame().getField(Config.GAMESIZE-main.getPosI(), main.getPosJ()).getPiece().getCol() == getPlayer().getCol()) {
 				getReferee().setMarked(getGame().getField(Config.GAMESIZE-main.getPosI(), main.getPosJ()));
 			}
