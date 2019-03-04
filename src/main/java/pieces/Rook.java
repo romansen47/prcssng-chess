@@ -34,4 +34,5 @@ public class Rook extends Piece implements ILongDist{
 		}
 		return getAttackers().isEmpty() && !hasBeenMoved;
 	}
+
 }

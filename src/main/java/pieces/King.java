@@ -220,4 +220,9 @@ public class King extends Piece {
 		this.isValidForCastling = isValidForCastling;
 	}
 
+	@Override
+	public void reset() {
+		super.reset();
+		setValidForCastling(true);
+	}
 }

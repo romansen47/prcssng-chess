@@ -84,4 +84,8 @@ final public class Game implements IRefs{
 		return MoveList;
 	}
 
+	public void reset() {
+		
+	}
+	
 }

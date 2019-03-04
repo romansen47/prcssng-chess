@@ -9,6 +9,7 @@ import defs.classes.Piece;
 import defs.classes.Player;
 import defs.enums.Colors;
 import defs.enums.Ids;
+import pieces.King;
 import pieces.Pawn;
 import processing.core.PImage;
 
@@ -43,7 +44,7 @@ public interface IPiece extends IRefs {
 		List<Field> fields=new ArrayList<>();
 		List<IPiece> pieces=pl.getPieces();
 		for (IPiece piece:pieces) {
-			if (piece.getPossibleFields().contains(getField())) {
+			if (!(piece instanceof King) &&piece.getPossibleFields().contains(getField())) {
 				fields.add(piece.getField());
 			}
 		}
@@ -145,6 +146,10 @@ public interface IPiece extends IRefs {
 	public void die();
 	
 	Ids getId();
+
+	void reset();
+
+	Field getFirstField();
 
 	
 }

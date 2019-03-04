@@ -39,6 +39,9 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	 */
 	private Field field;
 	
+	
+	final private Field firstField;
+	
 	/**
 	 * Constructor for piece
 	 * @param id the id
@@ -49,6 +52,7 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 		this.id = id;
 		this.col = col;
 		this.setField(field);
+		this.firstField=field;
 	}
 
 	
@@ -111,6 +115,18 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	@Override
 	public int getPosJ() {
 		return getField().getJ();
+	}
+	
+	@Override
+	public void reset() {
+		this.getField().setPiece(null);
+		this.setField(this.getFirstField());
+		getField().setPiece(this);;
+	}
+
+	@Override
+	public Field getFirstField() {
+		return firstField;
 	}
 
 }
