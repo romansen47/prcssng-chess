@@ -44,7 +44,7 @@ public interface IPiece extends IRefs {
 		List<Field> fields=new ArrayList<>();
 		List<IPiece> pieces=pl.getPieces();
 		for (IPiece piece:pieces) {
-			if (!(piece instanceof King) &&piece.getPossibleFields().contains(getField())) {
+			if (piece.getPossibleFields().contains(getField())) {
 				fields.add(piece.getField());
 			}
 		}
