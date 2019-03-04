@@ -13,7 +13,7 @@ import defs.interfaces.IMove;
 public class Knight extends Piece {
 
 	public Knight(Colors col, Field field){
-		super(Ids.Springer, col, field);
+		super(Ids.Knight, col, field);
 	}
 
 	@Override

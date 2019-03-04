@@ -132,40 +132,40 @@ public class Setup implements IRefs,ISetupAndRun{
 	final void initiatePieces(String path) {
 		
 		main.setWhiteKing(main.loadImage(path + "white_king.png"));
-		initiateRelevant(Ids.Koenig,Colors.WHITE,main.getWhiteKing());
+		initiateRelevant(Ids.King,Colors.WHITE,main.getWhiteKing());
 		
 		main.setBlackKing(main.loadImage(path + "black_king.png"));
-		initiateRelevant(Ids.Koenig,Colors.BLACK,main.getBlackKing());
+		initiateRelevant(Ids.King,Colors.BLACK,main.getBlackKing());
 		
 		main.setWhiteQueen(main.loadImage(path + "white_queen.png"));
-		initiateRelevant(Ids.Dame,Colors.WHITE,main.getWhiteQueen());
+		initiateRelevant(Ids.Queen,Colors.WHITE,main.getWhiteQueen());
 		
 		main.setBlackQueen(main.loadImage(path + "black_queen.png"));
-		initiateRelevant(Ids.Dame,Colors.BLACK,main.getBlackQueen());
+		initiateRelevant(Ids.Queen,Colors.BLACK,main.getBlackQueen());
 		
 		main.setWhiteKnight(main.loadImage(path + "white_knight.png"));
-		initiateRelevant(Ids.Springer,Colors.WHITE,main.getWhiteKnight());
+		initiateRelevant(Ids.Knight,Colors.WHITE,main.getWhiteKnight());
 		
 		main.setBlackKnight(main.loadImage(path + "black_knight.png"));
-		initiateRelevant(Ids.Springer,Colors.BLACK,main.getBlackKnight());
+		initiateRelevant(Ids.Knight,Colors.BLACK,main.getBlackKnight());
 		
 		main.setWhiteBishop(main.loadImage(path + "white_bishop.png"));
-		initiateRelevant(Ids.Laeufer,Colors.WHITE,main.getWhiteBishop());
+		initiateRelevant(Ids.Bishop,Colors.WHITE,main.getWhiteBishop());
 		
 		main.setBlackBishop(main.loadImage(path + "black_bishop.png"));
-		initiateRelevant(Ids.Laeufer,Colors.BLACK,main.getBlackBishop());
+		initiateRelevant(Ids.Bishop,Colors.BLACK,main.getBlackBishop());
 		
 		main.setWhiteTower(main.loadImage(path + "white_rook.png"));
-		initiateRelevant(Ids.Turm,Colors.WHITE,main.getWhiteTower());
+		initiateRelevant(Ids.Rook,Colors.WHITE,main.getWhiteTower());
 		
 		main.setBlackTower(main.loadImage(path + "black_rook.png"));
-		initiateRelevant(Ids.Turm,Colors.BLACK,main.getBlackTower());
+		initiateRelevant(Ids.Rook,Colors.BLACK,main.getBlackTower());
 		
 		main.setWhitePawn(main.loadImage(path + "white_pawn.png"));
-		initiateRelevant(Ids.Bauer,Colors.WHITE,main.getWhitePawn());
+		initiateRelevant(Ids.Pawn,Colors.WHITE,main.getWhitePawn());
 		
 		main.setBlackPawn(main.loadImage(path + "black_pawn.png"));
-		initiateRelevant(Ids.Bauer,Colors.BLACK,main.getBlackPawn());
+		initiateRelevant(Ids.Pawn,Colors.BLACK,main.getBlackPawn());
 		
 	}
 

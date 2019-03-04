@@ -2,6 +2,6 @@ package defs.enums;
 
 public enum Ids {
 	
-	Bauer, Turm, Springer, Laeufer, Dame, Koenig;
+	Pawn, Rook, Knight, Bishop, Queen, King;
 
 }

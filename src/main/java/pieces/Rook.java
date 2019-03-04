@@ -13,7 +13,7 @@ import defs.interfaces.IPiece;
 public class Rook extends Piece implements ILongDist{
 	
 	public Rook(Colors col, Field field){
-		super(Ids.Turm, col, field);
+		super(Ids.Rook, col, field);
 	}
 
 	@Override

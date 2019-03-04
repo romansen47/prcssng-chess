@@ -15,7 +15,7 @@ import defs.interfaces.IPiece;
 public class Pawn extends Piece {
 
 	public Pawn(Colors col, Field field) {
-		super(Ids.Bauer, col, field);
+		super(Ids.Pawn, col, field);
 	}
 
 	@Override
@@ -63,12 +63,12 @@ public class Pawn extends Piece {
 			}
 		}
 		IMove move=this.getOpponent().getLastMove();
-		if (move!=null && move.getFig().getId()==Ids.Bauer && getPosI()==4) {
+		if (move!=null && move.getFig().getId()==Ids.Pawn && getPosI()==4) {
 			if (move.getPrev().getI()==6 && move.getNext().getI()==4) {
 				lst.add(getGame().getField(5,move.getNext().getJ()));
 			}
 		}
-		if (move!=null && move.getFig().getId()==Ids.Bauer && getPosI()==3) {
+		if (move!=null && move.getFig().getId()==Ids.Pawn && getPosI()==3) {
 			if (move.getPrev().getI()==1 && move.getNext().getI()==3) {
 				lst.add(getGame().getField(2,move.getNext().getJ()));
 			}

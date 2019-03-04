@@ -19,7 +19,7 @@ public class King extends Piece {
 	private boolean isValidForCastling=true;
 
 	public King(Colors col, Field field){
-		super(Ids.Koenig, col, field);
+		super(Ids.King, col, field);
 	}
 
 	private State state = State.Plain;
@@ -187,7 +187,7 @@ public class King extends Piece {
 				}
 			}
 			Field tmpField=getGame().getField(getPosI(), r);
-			if (tmpField.getPiece()!=null && tmpField.getPiece().getId()==Ids.Turm 
+			if (tmpField.getPiece()!=null && tmpField.getPiece().getId()==Ids.Rook 
 					&& tmpField.getPiece().getCol()==getCol()) {
 				rook=(Rook)tmpField.getPiece();
 			}
