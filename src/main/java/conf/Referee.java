@@ -1,5 +1,8 @@
 package conf;
 
+import java.util.List;
+
+import chess.Main;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.interfaces.IMove;
@@ -25,6 +28,7 @@ public class Referee implements IRefs{
 	private Field marked2 = null;
 
 	protected static Referee instance = null;
+	
 	public static Referee getInstance() {
 		if (instance == null) {
 			instance = new Referee();
@@ -144,8 +148,33 @@ public class Referee implements IRefs{
 			move.execute();
 		}
 	}
-	private Object getValidMove(IMove move) {
+	
+	public IMove getValidMove(IMove move) {
 		return move;
+	}
+	
+	public void rewindLastMove() {
+		getGame().setPlayer(getGame().getWhite());
+		Timeline tl=getGame().getMoveList();
+		resetFigures();
+		int last = tl.size()-1;
+		if (last>=0) {
+			tl.remove(last);
+			for (IMove move:tl) {
+				move.execute();
+			}
+		}
+		setMarked(null);
+		setMarked2(null);
+	}
+	private void resetFigures() {
+		List<IPiece> allPieces = getGame().getWhite().getPieces();
+		allPieces.addAll(getGame().getWhite().getDeadPieces());
+		allPieces.addAll(getGame().getBlack().getPieces());
+		allPieces.addAll(getGame().getBlack().getDeadPieces());
+		for (IPiece piece:allPieces) {
+			piece.reset();
+		}
 	}
 	
 }

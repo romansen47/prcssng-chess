@@ -74,7 +74,17 @@ public class Drawer implements ISetupAndRun{
 		
 		// Draw the complete chess board
 		drawChessboard();
-				
+			
+		if (main.pressed()==1 && main.key=='r') {
+			getReferee().rewindLastMove();
+			main.background(255);
+//			try {
+//				Thread.sleep(100);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+		}
 	}
 
 	/**
