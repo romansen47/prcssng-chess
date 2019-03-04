@@ -79,7 +79,7 @@ public class Setup implements IRefs,ISetupAndRun{
 		main.background(255);
 		main.frameRate(60);
 		main.getSurface().setResizable(true);
-		main.getSurface().setSize(12 * Config.SIZE, 8 * Config.SIZE);
+		main.getSurface().setSize(15 * Config.SIZE, 8 * Config.SIZE);
 		main.getSurface().setLocation(main.displayWidth - main.width >> 1, main.displayHeight - main.height >> 1);
 		
 	}
