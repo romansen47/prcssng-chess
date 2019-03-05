@@ -31,6 +31,8 @@ public class Player {
 	 */
 	private final Colors col;
 	
+	final private List<IPiece> AllPieces = new ArrayList<>();;
+	
 	/**
 	 * Player's set of pieces
 	 */
@@ -97,6 +99,7 @@ public class Player {
 		Pieces.add(new Rook(getCol(), game.getField(ersteReihe, 0)));
 		Pieces.add(new Rook(getCol(), game.getField(ersteReihe, Config.GAMESIZE)));
 		Pieces.add(new Queen(getCol(), game.getField(ersteReihe, 3)));
+		AllPieces.addAll(Pieces);
 
 	}
 
@@ -138,6 +141,10 @@ public class Player {
 			return getMoveList().get(n-1);
 		}
 		return null;
+	}
+
+	public List<IPiece> getAllPieces() {
+		return AllPieces;
 	}
 
 }

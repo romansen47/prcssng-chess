@@ -79,7 +79,7 @@ public class Referee implements IRefs{
 		if (marked2 != getMarked()) {
 			this.marked2 = marked2;
 		} else {
-			setMarked(null);
+			//setMarked(null);
 		}
 	}
 
@@ -169,20 +169,17 @@ public class Referee implements IRefs{
 				move.execute();
 			}
 		}
-		setMarked(null);
-		setMarked2(null);
 	}
 	private void resetFigures() {
-		List<IPiece> allPieces = getGame().getWhite().getPieces();
-		allPieces.addAll(getGame().getWhite().getDeadPieces());
-		allPieces.addAll(getGame().getBlack().getPieces());
-		allPieces.addAll(getGame().getBlack().getDeadPieces());
-		for (IPiece piece:allPieces) {
+		for (IPiece piece: getGame().getWhite().getAllPieces()) {
+			piece.reset();
+		}
+		for (IPiece piece: getGame().getBlack().getAllPieces()) {
 			piece.reset();
 		}
 	}
 	
-	List<IMove> getValidMoves(List<IMove> moves){
+	public List<IMove> getValidMoves(List<IMove> moves){
 		List<IMove> ans=new ArrayList<>();
 		for (IMove move:moves){
 			if (checkForValidity(move)){
@@ -197,17 +194,16 @@ public class Referee implements IRefs{
 			return false;
 		}
 		boolean ans=true;
-
 		getGame().getMoveList().add(move);
 		getGame().getPlayer().getMoveList().add(move);
 		move.execute();
-		
 		for (IPiece piece:move.getFig().getOpponent().getPieces()){
 			if(piece.getPossibleFields().contains(move.getFig().getPlayer().getKing().getField())){
 				ans=false;
 			}
 		}
 		rewindLastMove();
+		setMarked(move.getPrev());
 		return ans;
 	}
 	

@@ -43,13 +43,15 @@ public class King extends Piece {
 		List<IMove> lst=getPossibleMovesOfInterest();
 		int tempI = getField().getI();
 		int tempJ = getField().getJ();
-		if (tempJ + 2 <= Config.GAMESIZE && getGame().getField(tempI, tempJ + 1).getPiece()==null
-				&& isValidForCastling(getGame().getField(tempI, tempJ + 2))) {
-			lst.add(getMove(getGame().getField(tempI, tempJ + 2)));
-		}
-		if (tempJ - 2 >= 0 && getGame().getField(tempI, tempJ - 1).getPiece()==null
-				&& isValidForCastling(getGame().getField(tempI, tempJ - 2))) {
-			lst.add(getMove((getGame().getField(tempI, tempJ - 2))));
+		if (isValidForCastling()) {
+			if (tempJ + 2 <= Config.GAMESIZE && getGame().getField(tempI, tempJ + 1).getPiece()==null
+					&& isValidForCastling(getGame().getField(tempI, tempJ + 2))) {
+				lst.add(getMove(getGame().getField(tempI, tempJ + 2)));
+			}
+			if (tempJ - 2 >= 0 && getGame().getField(tempI, tempJ - 1).getPiece()==null
+					&& isValidForCastling(getGame().getField(tempI, tempJ - 2))) {
+				lst.add(getMove((getGame().getField(tempI, tempJ - 2))));
+			}
 		}
 		lst.remove(null);
 		return lst;

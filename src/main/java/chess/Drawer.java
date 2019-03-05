@@ -83,6 +83,8 @@ public class Drawer implements ISetupAndRun{
 		if (main.pressed()==1 && main.key=='r') {
 			getReferee().rewindLastMove();
 			main.background(255);
+			getGame().getReferee().setMarked(null);
+			getGame().getReferee().setMarked2(null);
 		}
 	}
 
@@ -194,9 +196,9 @@ public class Drawer implements ISetupAndRun{
 			
 			IPiece piece=getReferee().getMarked().getPiece();
 			
-			drawMarkedFields(piece.convertMovesToFields(piece.getPossibleMoves()),Colors.GREEN);
-			drawMarkedFields(getReferee().getMarked().getPiece().getAttackers(),Colors.RED);			
-			drawMarkedFields(getReferee().getMarked().getPiece().getSupporters(),Colors.BLUE);
+			drawMarkedFields(piece.convertMovesToFields(getReferee().getValidMoves(piece.getPossibleMoves())),Colors.GREEN);
+			drawMarkedFields(piece.getAttackers(),Colors.RED);			
+			drawMarkedFields(piece.getSupporters(),Colors.BLUE);
 			
 			List<Field> pos=new ArrayList<>();
 			pos.add(getReferee().getMarked());

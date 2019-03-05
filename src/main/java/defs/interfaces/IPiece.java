@@ -45,8 +45,18 @@ public interface IPiece extends IRefs {
 		List<Field> fields=new ArrayList<>();
 		List<IPiece> pieces=pl.getPieces();
 		for (IPiece piece:pieces) {
+			King king=null;
+			boolean castling=true;
+			if (piece instanceof King) {
+				king=(King)piece;
+				castling=king.isValidForCastling();
+				king.setValidForCastling(false);
+			}
 			if (piece.getPossibleFields().contains(getField())) {
 				fields.add(piece.getField());
+			}
+			if (piece instanceof King) {
+				king.setValidForCastling(castling);
 			}
 		}
 		return fields;
@@ -65,7 +75,7 @@ public interface IPiece extends IRefs {
 	}
 	
 	default List<Field> getSupporters(){
-		IPiece piece=getReferee().getMarked().getPiece();
+		IPiece piece=this;//getReferee().getMarked().getPiece();
 		Colors col=Colors.WHITE;
 		if (piece.getCol()==col) {
 			col=Colors.BLACK;
