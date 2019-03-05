@@ -27,7 +27,7 @@ public class Castling extends Move{
 	@Override
 	public void execute() {
 		IPiece piece=getNext().getPiece();
-		if (piece.getId()==Ids.Rook && getFig().getCol()==getNext().getPiece().getCol()) {
+		if (piece.getId()==Ids.ROOK && getFig().getCol()==getNext().getPiece().getCol()) {
 			int k=getPrev().getJ();
 			int r=getNext().getJ();
 			if (k>r) {
