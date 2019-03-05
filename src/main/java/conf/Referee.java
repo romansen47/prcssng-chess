@@ -1,7 +1,9 @@
 package conf;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import artint.RandomPlayer;
 import chess.Main;
 import defs.classes.Field;
 import defs.classes.Game;
@@ -150,7 +152,10 @@ public class Referee implements IRefs{
 	}
 	
 	public IMove getValidMove(IMove move) {
-		return move;
+		if (checkForValidity(move)){
+			return move;
+		}
+		return null;
 	}
 	
 	public void rewindLastMove() {
@@ -175,6 +180,35 @@ public class Referee implements IRefs{
 		for (IPiece piece:allPieces) {
 			piece.reset();
 		}
+	}
+	
+	List<IMove> getValidMoves(List<IMove> moves){
+		List<IMove> ans=new ArrayList<>();
+		for (IMove move:moves){
+			if (checkForValidity(move)){
+				ans.add(move);
+			}
+		}
+		return ans;
+	}
+	
+	private boolean checkForValidity(IMove move) {
+		if(move==null){
+			return false;
+		}
+		boolean ans=true;
+
+		getGame().getMoveList().add(move);
+		getGame().getPlayer().getMoveList().add(move);
+		move.execute();
+		
+		for (IPiece piece:move.getFig().getOpponent().getPieces()){
+			if(piece.getPossibleFields().contains(move.getFig().getPlayer().getKing().getField())){
+				ans=false;
+			}
+		}
+		rewindLastMove();
+		return ans;
 	}
 	
 }

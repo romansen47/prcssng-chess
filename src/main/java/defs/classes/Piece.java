@@ -91,18 +91,6 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	}
 	
 	@Override
-	public void draw(Main main) {
-		final int size = Config.SIZE;
-		main.image(getImage(), size * getField().getJ(), size * getField().getI(), size, size);
-	}
-
-	@Override
-	public void die() {
-		getField().setPiece(null);
-		this.getPlayer().getPieces().remove(this);
-	}
-	
-	@Override
 	public Ids getId() {
 		return id;
 	}
@@ -121,12 +109,23 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	public void reset() {
 		this.getField().setPiece(null);
 		this.setField(this.getFirstField());
-		getField().setPiece(this);;
+		getField().setPiece(this);
 	}
 
 	@Override
 	public Field getFirstField() {
 		return firstField;
+	}
+	
+	@Override
+	public void draw(Main main) {
+		final int size = Config.SIZE;
+		main.image(getImage(), size * getField().getJ(), size * getField().getI(), size, size);
+	}
+	
+	@Override
+	public String toString(){
+		return getCol()+" "+getId();
 	}
 
 }

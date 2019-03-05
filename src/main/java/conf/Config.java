@@ -20,11 +20,21 @@ final public class Config {
 	private Config() {
 	}
 
+	private static boolean RandomPlayer=false;
+	
 	public static Config getInstance() {
 		if (instance == null) {
 			instance = new Config();
 		}
 		return instance;
+	}
+
+	public static boolean isRandomPlayer() {
+		return RandomPlayer;
+	}
+
+	public void setRandomPlayer(boolean randomPlayer) {
+		RandomPlayer = randomPlayer;
 	}
 
 }

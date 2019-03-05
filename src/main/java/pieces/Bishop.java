@@ -12,7 +12,7 @@ import defs.interfaces.ILongDist;
 public class Bishop extends Piece implements ILongDist{
 
 	public Bishop(Colors col, Field field){
-		super(Ids.Bishop, col, field);
+		super(Ids.BISHOP, col, field);
 	}
 
 	@Override

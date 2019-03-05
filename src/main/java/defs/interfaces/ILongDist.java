@@ -19,7 +19,7 @@ public interface ILongDist extends IPiece,IValidityChecker{
 	
 	default public List<Field> createList(){
 		List<Field> lst = new ArrayList<Field>();
-		lst.add(this.getField());
+		//lst.add(this.getField());
 		return lst;
 	}
 	
@@ -28,6 +28,7 @@ public interface ILongDist extends IPiece,IValidityChecker{
 	default List<Field> longDistCheck(){
 		List<Field> lst = createList();		
 		checkDirections(lst);
+		lst.remove(getField());
 		return lst;
 	}
 	
@@ -40,12 +41,15 @@ public interface ILongDist extends IPiece,IValidityChecker{
 				checkForValidity(getGame().getField(getPosI()+i*direction[0], getPosJ()+i*direction[1]), tmpList)) {
 			i += 1;
 		}
+		tmpList.remove(0);
 		lst.addAll(tmpList);
 	}
 	
 	@Override
 	default List<IMove> getPossibleMoves() {
-		return convertFieldsToMoves(longDistCheck());
+		List<IMove> tmp=convertFieldsToMoves(longDistCheck());
+		tmp.remove(null);
+		return tmp;
 	}
 	
 }

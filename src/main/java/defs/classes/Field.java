@@ -140,11 +140,11 @@ public class Field implements IColors, IDraw, IRefs {
 	 */
 	@Override
 	public String toString() {
+		String ans="("+toChessNotation()+"): "+getCol()+" FIELD";
 		if (this.getPiece() != null) {
-			return super.toString();
-		} else {
-			return "";
+			ans+=" ("+getPiece().toString()+")";
 		}
+		return ans;
 	}
 
 	/**

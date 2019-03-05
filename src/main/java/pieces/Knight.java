@@ -13,13 +13,12 @@ import defs.interfaces.IMove;
 public class Knight extends Piece {
 
 	public Knight(Colors col, Field field){
-		super(Ids.Knight, col, field);
+		super(Ids.KNIGHT, col, field);
 	}
 
 	@Override
 	public List<IMove> getPossibleMoves() {
 		List<Field> lst = new ArrayList<Field>();
-		lst.add(this.getField());
 		int i = getField().getI();
 		int j = getField().getJ();
 		if (i + 1 <= Config.GAMESIZE && j + 2 <= Config.GAMESIZE && checkForValidity(i + 1, j + 2)) {
@@ -46,7 +45,7 @@ public class Knight extends Piece {
 		if (i - 2 >= 0 && j - 1 >= 0 && checkForValidity(i - 2, j - 1)) {
 			lst.add(getGame().getField(i - 2, j - 1));
 		}
-		
+		lst.remove(null);
 		return convertFieldsToMoves(lst);
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chess.Main;
+import conf.Config;
 import defs.classes.Field;
 import defs.classes.Piece;
 import defs.classes.Player;
@@ -44,7 +45,7 @@ public interface IPiece extends IRefs {
 		List<Field> fields=new ArrayList<>();
 		List<IPiece> pieces=pl.getPieces();
 		for (IPiece piece:pieces) {
-			if (!(piece instanceof King) &&piece.getPossibleFields().contains(getField())) {
+			if (piece.getPossibleFields().contains(getField())) {
 				fields.add(piece.getField());
 			}
 		}
@@ -141,9 +142,12 @@ public interface IPiece extends IRefs {
 	 * 
 	 * @param main the main papplet
 	 */
-	public void draw(Main main);
+	void draw(Main main);
 
-	public void die();
+	default void die() {
+		getField().setPiece(null);
+		this.getPlayer().getPieces().remove(this);
+	}
 	
 	Ids getId();
 
@@ -151,5 +155,7 @@ public interface IPiece extends IRefs {
 
 	Field getFirstField();
 
-	
+//	List<Field> getAllFieldsPossible();
+//	
+//	List<Field> getFieldsNotUsedByFriend(List<Field> allFieldsPossible);
 }

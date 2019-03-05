@@ -13,7 +13,7 @@ import defs.interfaces.IPiece;
 public class Rook extends Piece implements ILongDist{
 	
 	public Rook(Colors col, Field field){
-		super(Ids.Rook, col, field);
+		super(Ids.ROOK, col, field);
 	}
 
 	@Override
@@ -32,7 +32,12 @@ public class Rook extends Piece implements ILongDist{
 				hasBeenMoved=true;
 			}
 		}
-		return getAttackers().isEmpty() && !hasBeenMoved;
+		King king=getOpponent().getKing();
+		boolean validForCastling=king.isValidForCastling();
+		king.setValidForCastling(false);
+		List<Field> attackers=getAttackers();
+		king.setValidForCastling(validForCastling);
+		return attackers.isEmpty() && !hasBeenMoved;
 	}
 
 }

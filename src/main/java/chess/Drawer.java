@@ -3,6 +3,7 @@ package chess;
 import java.util.ArrayList;
 import java.util.List;
 
+import artint.RandomPlayer;
 import conf.Config;
 import conf.Timeline;
 import defs.classes.Field;
@@ -62,16 +63,20 @@ public class Drawer implements ISetupAndRun{
 		boolean cl=checkForClick();
 		setMark(cl);
 		
-		if (cl) {
-			
-			// use information on interaction to create next move
-			IMove move = getReferee().getMove();
-					
-			// save move to list and statistics
-			getReferee().processMove(move);
-
+		if (getGame().getPlayer() instanceof RandomPlayer){
+			getReferee().processMove(((RandomPlayer)getGame().getPlayer()).randomMove());
 		}
-		
+		else{
+			if (cl) {
+				
+				// use information on interaction to create next move
+				IMove move = getReferee().getMove();
+						
+				// save move to list and statistics
+				getReferee().processMove(move);
+	
+			}
+		}
 		// Draw the complete chess board
 		drawChessboard();
 			

@@ -1,5 +1,7 @@
 package defs.classes;
 
+import artint.RandomPlayer;
+import conf.Config;
 import conf.Referee;
 import conf.Timeline;
 import defs.enums.Colors;
@@ -40,7 +42,12 @@ final public class Game implements IRefs{
 
 	public void setup() {
 		setWhite(new Player(Colors.WHITE));
-		setBlack(new Player(Colors.BLACK));
+		if (Config.isRandomPlayer()){
+			setBlack(new RandomPlayer());
+		}
+		else{
+			setBlack(new Player(Colors.BLACK));
+		}
 		setPlayer(getWhite());
 	}
 
@@ -82,10 +89,6 @@ final public class Game implements IRefs{
 
 	public Timeline getMoveList() {
 		return MoveList;
-	}
-
-	public void reset() {
-		
 	}
 	
 }

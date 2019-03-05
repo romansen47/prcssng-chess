@@ -15,13 +15,13 @@ import defs.interfaces.IPiece;
 public class Pawn extends Piece {
 
 	public Pawn(Colors col, Field field) {
-		super(Ids.Pawn, col, field);
+		super(Ids.PAWN, col, field);
 	}
 
 	@Override
 	public List<IMove> getPossibleMoves() {
 		List<Field> lst = new ArrayList<>();
-		lst.add(this.getField());
+		//lst.add(this.getField());
 		if (this.getCol() == Colors.WHITE) {
 			if (getField().getI() < Config.GAMESIZE ) {
 				if (getPosJ() < Config.GAMESIZE && getGame().getField(getPosI()+1, getPosJ() + 1).getPiece() != null
@@ -63,12 +63,12 @@ public class Pawn extends Piece {
 			}
 		}
 		IMove move=this.getOpponent().getLastMove();
-		if (move!=null && move.getFig().getId()==Ids.Pawn && getPosI()==4) {
+		if (move!=null && move.getFig().getId()==Ids.PAWN && getPosI()==4) {
 			if (move.getPrev().getI()==6 && move.getNext().getI()==4) {
 				lst.add(getGame().getField(5,move.getNext().getJ()));
 			}
 		}
-		if (move!=null && move.getFig().getId()==Ids.Pawn && getPosI()==3) {
+		if (move!=null && move.getFig().getId()==Ids.PAWN && getPosI()==3) {
 			if (move.getPrev().getI()==1 && move.getNext().getI()==3) {
 				lst.add(getGame().getField(2,move.getNext().getJ()));
 			}
@@ -78,7 +78,6 @@ public class Pawn extends Piece {
 		for (Field fld:lst){
 			list.add(getMove(fld));
 		}
-		
 		return list;
 	}
 	
@@ -89,7 +88,7 @@ public class Pawn extends Piece {
 	@Override
 	public IMove getMove(Field field) {
 		IPiece fig=getGame().getField(getPosI(),field.getJ()).getPiece();
-		if (fig!=null && fig instanceof Pawn && fig.getCol()!=getCol()) {
+		if (fig instanceof Pawn && fig.getCol()!=getCol()) {
 			return new EnPassant(this,(Pawn)fig,field);
 		}
 		return super.getMove(field);

@@ -43,7 +43,6 @@ public class Timeline extends ArrayList<IMove> implements IRefs {
 				last=last+" ,  "+tmp;
 				ans.set(ans.size()-1, last);
 			}
-			tmp=null;
 		}
 		return ans;
 	}
