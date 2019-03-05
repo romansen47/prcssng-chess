@@ -19,7 +19,7 @@ public class King extends Piece {
 	private boolean isValidForCastling=true;
 
 	public King(Colors col, Field field){
-		super(Ids.King, col, field);
+		super(Ids.KING, col, field);
 	}
 
 	private State state = State.Plain;
@@ -51,7 +51,7 @@ public class King extends Piece {
 				&& isValidForCastling(getGame().getField(tempI, tempJ - 2))) {
 			lst.add(getMove((getGame().getField(tempI, tempJ - 2))));
 		}
-		
+		lst.remove(null);
 		return lst;
 	}
 	
@@ -61,7 +61,6 @@ public class King extends Piece {
 	@Override
 	public List<IMove> getPossibleMovesOfInterest() {
 		List<Field> lst = new ArrayList<>();
-		lst.add(this.getField());
 		int tempI = getField().getI();
 		int tempJ = getField().getJ();
 		if (tempI - 1 >= 0) {
@@ -88,7 +87,6 @@ public class King extends Piece {
 		if (tempJ - 1 >= 0) {
 			checkForValidity(getGame().getField(tempI, tempJ - 1), lst);
 		}
-		
 		return convertFieldsToMoves(lst);
 
 	}
@@ -187,7 +185,7 @@ public class King extends Piece {
 				}
 			}
 			Field tmpField=getGame().getField(getPosI(), r);
-			if (tmpField.getPiece()!=null && tmpField.getPiece().getId()==Ids.Rook 
+			if (tmpField.getPiece()!=null && tmpField.getPiece().getId()==Ids.ROOK 
 					&& tmpField.getPiece().getCol()==getCol()) {
 				rook=(Rook)tmpField.getPiece();
 			}

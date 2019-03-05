@@ -11,7 +11,7 @@ import defs.interfaces.ILongDist;
 public class Queen extends Piece implements ILongDist{
 
 	public Queen(Colors col, Field field){
-		super(Ids.Queen, col, field);
+		super(Ids.QUEEN, col, field);
 	}
 
 	@Override
