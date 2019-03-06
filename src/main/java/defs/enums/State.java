@@ -1,7 +1,7 @@
 package defs.enums;
 
 public enum State {
-	
-	Plain,Chess,Mate,StaleMate;
-	
+
+	Plain, Chess, Mate, StaleMate;
+
 }

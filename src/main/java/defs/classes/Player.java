@@ -25,19 +25,19 @@ public class Player {
 	 * The game
 	 */
 	private static Game game = null;
-	
+
 	/**
 	 * player's color
 	 */
 	private final Colors col;
-	
+
 	final private List<IPiece> AllPieces = new ArrayList<>();;
-	
+
 	/**
 	 * Player's set of pieces
 	 */
 	final private List<IPiece> Pieces = new ArrayList<>();
-	
+
 	/**
 	 * set of dead pieces
 	 */
@@ -46,10 +46,11 @@ public class Player {
 	/**
 	 * List of player's moves
 	 */
-	final private List<IMove> MoveList=new ArrayList<>();
-	
+	final private List<IMove> MoveList = new ArrayList<>();
+
 	/**
 	 * Getter of player's pieces
+	 * 
 	 * @return list of player's pieces
 	 */
 	public List<IPiece> getPieces() {
@@ -60,12 +61,13 @@ public class Player {
 	 * The king
 	 */
 	private final King king;
-	
+
 	/**
 	 * Constructor for the player
+	 * 
 	 * @param col the player's color
 	 */
-	public Player(Colors col){
+	public Player(Colors col) {
 		game = Game.getInstance();
 		this.col = col;
 		if (col == Colors.WHITE) {
@@ -91,7 +93,7 @@ public class Player {
 		for (int j = 0; j < 8; j++) {
 			Pieces.add(new Pawn(getCol(), game.getField(zweiteReihe, j)));
 		}
-		
+
 		Pieces.add(new Knight(getCol(), game.getField(ersteReihe, 1)));
 		Pieces.add(new Knight(getCol(), game.getField(ersteReihe, 6)));
 		Pieces.add(new Bishop(getCol(), game.getField(ersteReihe, 2)));
@@ -105,6 +107,7 @@ public class Player {
 
 	/**
 	 * Getter for color
+	 * 
 	 * @return the color
 	 */
 	public Colors getCol() {
@@ -113,6 +116,7 @@ public class Player {
 
 	/**
 	 * getter for list of dead pieces
+	 * 
 	 * @return the list of dead pieces
 	 */
 	public List<IPiece> getDeadPieces() {
@@ -121,6 +125,7 @@ public class Player {
 
 	/**
 	 * Getter for the list of moves
+	 * 
 	 * @return MoveList
 	 */
 	public List<IMove> getMoveList() {
@@ -129,16 +134,17 @@ public class Player {
 
 	/**
 	 * Getter for the king
+	 * 
 	 * @return the king
 	 */
 	public King getKing() {
 		return king;
 	}
-	
+
 	public IMove getLastMove() {
-		int n=getMoveList().size();
-		if(n>0) {
-			return getMoveList().get(n-1);
+		int n = getMoveList().size();
+		if (n > 0) {
+			return getMoveList().get(n - 1);
 		}
 		return null;
 	}

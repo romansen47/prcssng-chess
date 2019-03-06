@@ -4,7 +4,7 @@ package conf;
  * 
  * @author roman
  *
- * final config, modeeled as a singleton class
+ *         final config, modeeled as a singleton class
  */
 final public class Config {
 
@@ -13,15 +13,15 @@ final public class Config {
 	 */
 	public final static int SIZE = 100;
 
-	public final static int GAMESIZE=7;
-	
+	public final static int GAMESIZE = 7;
+
 	private static Config instance = null;
 
 	private Config() {
 	}
 
-	private static boolean RandomPlayer=false;
-	
+	private static boolean RandomPlayer = false;
+
 	public static Config getInstance() {
 		if (instance == null) {
 			instance = new Config();

@@ -1,7 +1,7 @@
 package defs.enums;
 
 public enum Colors {
-	
-	BLACK, WHITE,RED,GREEN,BLUE,YELLOW;
+
+	BLACK, WHITE, RED, GREEN, BLUE, YELLOW;
 
 }

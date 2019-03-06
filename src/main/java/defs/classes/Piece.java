@@ -15,56 +15,54 @@ import processing.core.PImage;
  * 
  * @author roman
  *
- * The blueprint for the pieces
+ *         The blueprint for the pieces
  */
 abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
- 
+
 	/**
 	 * Every piece has its own pimage
 	 */
 	private PImage image;
-	
+
 	/**
 	 * The id
 	 */
 	private final Ids id;
-	
+
 	/**
 	 * the color
 	 */
 	private final Colors col;
-	
+
 	/**
 	 * the field. nullable
 	 */
 	private Field field;
-	
-	
+
 	final private Field firstField;
-	
+
 	/**
 	 * Constructor for piece
-	 * @param id the id
-	 * @param col the color
+	 * 
+	 * @param id    the id
+	 * @param col   the color
 	 * @param field the field
 	 */
 	public Piece(Ids id, Colors col, Field field) {
 		this.id = id;
 		this.col = col;
 		this.setField(field);
-		this.firstField=field;
+		this.firstField = field;
 	}
 
-	
-	
 	@Override
 	public PImage getImage() {
 		return image;
 	}
-	
+
 	@Override
 	public void setImage(PImage image) {
-		this.image=image;
+		this.image = image;
 	}
 
 	@Override
@@ -84,27 +82,27 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	public Colors getCol() {
 		return col;
 	}
-	
+
 	@Override
 	public IMove getMove(Field field) {
-		return new Move(this,field);
+		return new Move(this, field);
 	}
-	
+
 	@Override
 	public Ids getId() {
 		return id;
 	}
-	
+
 	@Override
 	public int getPosI() {
 		return getField().getI();
 	}
-	
+
 	@Override
 	public int getPosJ() {
 		return getField().getJ();
 	}
-	
+
 	@Override
 	public void reset() {
 		this.getField().setPiece(null);
@@ -116,16 +114,16 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	public Field getFirstField() {
 		return firstField;
 	}
-	
+
 	@Override
 	public void draw(Main main) {
 		final int size = Config.SIZE;
 		main.image(getImage(), size * getField().getJ(), size * getField().getI(), size, size);
 	}
-	
+
 	@Override
-	public String toString(){
-		return getCol()+" "+getId();
+	public String toString() {
+		return getCol() + " " + getId();
 	}
 
 }

@@ -21,33 +21,33 @@ public interface IValidityChecker extends IColors {
 		}
 		return ans;
 	}
-	
-	default  List<IMove> getValidMoves(List<IMove> moves) {
-		List<IMove> validMoves=new ArrayList<>();
-		for (IMove move:moves) {
+
+	default List<IMove> getValidMoves(List<IMove> moves) {
+		List<IMove> validMoves = new ArrayList<>();
+		for (IMove move : moves) {
 			validMoves.add(getValidMove(move));
 		}
 		return validMoves;
 	}
-	
+
 	default IMove getValidMove(IMove move) {
-		if (move.getNext().getPiece()==move.getFig()) {
+		if (move.getNext().getPiece() == move.getFig()) {
 			return move;
 		}
-		IPiece deadPiece=move.getNext().getPiece();
+		IPiece deadPiece = move.getNext().getPiece();
 		move.getFig().setField(move.getNext());
 		move.getNext().setPiece(move.getFig());
 		move.getFig().getOpponent().getPieces().remove(deadPiece);
 		move.getNext().setPiece(null);
-		boolean ans=false;
-		List<Field> list=new ArrayList<>();
-		for (IPiece piece:move.getFig().getOpponent().getPieces()) {
+		boolean ans = false;
+		List<Field> list = new ArrayList<>();
+		for (IPiece piece : move.getFig().getOpponent().getPieces()) {
 			if (!(piece instanceof King)) {
 				list.addAll(piece.getPossibleFields());
 			}
 		}
 		if (!list.contains(move.getFig().getPlayer().getKing().getField())) {
-			ans=true;
+			ans = true;
 		}
 		move.getFig().setField(move.getPrev());
 		move.getPrev().setPiece(move.getFig());

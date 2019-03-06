@@ -11,7 +11,7 @@ import defs.interfaces.IRefs;
  * 
  * @author roman
  *
- * TODO
+ *         TODO
  */
 public class Timeline extends ArrayList<IMove> implements IRefs {
 
@@ -30,18 +30,17 @@ public class Timeline extends ArrayList<IMove> implements IRefs {
 	}
 
 	public List<String> toStr() {
-		List<String> ans=new ArrayList<>();
+		List<String> ans = new ArrayList<>();
 		String tmp;
-		int i=1;
-		for (IMove move:instance) {
-			tmp=i+++": "+move.toString();
-			if(move.getCol()==Colors.WHITE) {
+		int i = 1;
+		for (IMove move : instance) {
+			tmp = i++ + ": " + move.toString();
+			if (move.getCol() == Colors.WHITE) {
 				ans.add(tmp);
-			}
-			else {
-				String last=ans.get(ans.size()-1);
-				last=last+" ,  "+tmp;
-				ans.set(ans.size()-1, last);
+			} else {
+				String last = ans.get(ans.size() - 1);
+				last = last + " ,  " + tmp;
+				ans.set(ans.size() - 1, last);
 			}
 		}
 		return ans;

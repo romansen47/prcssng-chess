@@ -12,7 +12,7 @@ import defs.interfaces.IRefs;
  * 
  * @author roman
  *
- * Implementation of field class
+ *         Implementation of field class
  */
 public class Field implements IColors, IDraw, IRefs {
 
@@ -25,7 +25,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * the horizontal coordinate
 	 */
 	private final int j;
-	
+
 	/**
 	 * the color of the field
 	 */
@@ -40,8 +40,8 @@ public class Field implements IColors, IDraw, IRefs {
 	 * Constructor of field.
 	 * 
 	 * @param col the color of the field
-	 * @param i the vertical coordinate
-	 * @param j the horizontal coordinate
+	 * @param i   the vertical coordinate
+	 * @param j   the horizontal coordinate
 	 */
 	public Field(Colors col, int i, int j) {
 		this.col = col;
@@ -51,6 +51,7 @@ public class Field implements IColors, IDraw, IRefs {
 
 	/**
 	 * Getter for i
+	 * 
 	 * @return vertical coordinate
 	 */
 	public int getI() {
@@ -59,6 +60,7 @@ public class Field implements IColors, IDraw, IRefs {
 
 	/**
 	 * Getter for j
+	 * 
 	 * @return horizontal coordinate
 	 */
 	public int getJ() {
@@ -75,6 +77,7 @@ public class Field implements IColors, IDraw, IRefs {
 
 	/**
 	 * Getter for the piece on the field
+	 * 
 	 * @return the piece
 	 */
 	public IPiece getPiece() {
@@ -83,6 +86,7 @@ public class Field implements IColors, IDraw, IRefs {
 
 	/**
 	 * Setter for piece
+	 * 
 	 * @param piece the piece on the field
 	 */
 	public void setPiece(IPiece piece) {
@@ -90,8 +94,9 @@ public class Field implements IColors, IDraw, IRefs {
 	}
 
 	/**
-	 * We need some different colors, since the fields should not be only black and white. 
-	 * In detail, e.e. white should rather be grey
+	 * We need some different colors, since the fields should not be only black and
+	 * white. In detail, e.e. white should rather be grey
+	 * 
 	 * @return the corresponding color value as integer
 	 */
 	public int getColAsInt() {
@@ -101,8 +106,9 @@ public class Field implements IColors, IDraw, IRefs {
 		return 100;
 	}
 
-	/*+
-	 * (non-Javadoc)
+	/*
+	 * + (non-Javadoc)
+	 * 
 	 * @see defs.interfaces.IDraw#draw(chess.Main)
 	 */
 	@Override
@@ -110,7 +116,7 @@ public class Field implements IColors, IDraw, IRefs {
 		int size = Config.SIZE;
 		main.noStroke();
 		main.fill(getColAsInt());
-		main.rect((float)size * getJ(), (float)size * getI(), size, size);
+		main.rect((float) size * getJ(), (float) size * getI(), size, size);
 		if (getPiece() != null) {
 			getPiece().draw(main);
 		}
@@ -118,6 +124,7 @@ public class Field implements IColors, IDraw, IRefs {
 
 	/**
 	 * The mouse position in chess game's native coordinates
+	 * 
 	 * @param main the main papplet
 	 * @return the vertical position
 	 */
@@ -125,14 +132,14 @@ public class Field implements IColors, IDraw, IRefs {
 		return (main.mouseX - main.mouseX % Config.SIZE) / Config.SIZE;
 	}
 
-
 	/**
 	 * The mouse position in chess game's native coordinates
+	 * 
 	 * @param main the main papplet
 	 * @return the horizontal position
 	 */
 	public int getPosJ(Main main) {
-		return  (main.mouseY - main.mouseY % Config.SIZE) / Config.SIZE;
+		return (main.mouseY - main.mouseY % Config.SIZE) / Config.SIZE;
 	}
 
 	/**
@@ -140,15 +147,16 @@ public class Field implements IColors, IDraw, IRefs {
 	 */
 	@Override
 	public String toString() {
-		String ans="("+toChessNotation()+"): "+getCol()+" FIELD";
+		String ans = "(" + toChessNotation() + "): " + getCol() + " FIELD";
 		if (this.getPiece() != null) {
-			ans+=" ("+getPiece().toString()+")";
+			ans += " (" + getPiece().toString() + ")";
 		}
 		return ans;
 	}
 
 	/**
 	 * Implementation of chess notation
+	 * 
 	 * @return the string in chess notation
 	 */
 	public String toChessNotation() {
@@ -181,7 +189,7 @@ public class Field implements IColors, IDraw, IRefs {
 		default:
 			break;
 		}
-		str += 1+this.getI();
+		str += 1 + this.getI();
 		return str;
 	}
 

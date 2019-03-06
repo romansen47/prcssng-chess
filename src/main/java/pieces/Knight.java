@@ -12,7 +12,7 @@ import defs.interfaces.IMove;
 
 public class Knight extends Piece {
 
-	public Knight(Colors col, Field field){
+	public Knight(Colors col, Field field) {
 		super(Ids.KNIGHT, col, field);
 	}
 

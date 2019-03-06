@@ -7,7 +7,7 @@ import conf.Timeline;
 import defs.enums.Colors;
 import defs.interfaces.IRefs;
 
-final public class Game implements IRefs{
+final public class Game implements IRefs {
 
 	private final Field[][] Chessboard;
 	private static Player Player;
@@ -42,10 +42,9 @@ final public class Game implements IRefs{
 
 	public void setup() {
 		setWhite(new Player(Colors.WHITE));
-		if (Config.isRandomPlayer()){
+		if (Config.isRandomPlayer()) {
 			setBlack(new RandomPlayer());
-		}
-		else{
+		} else {
 			setBlack(new Player(Colors.BLACK));
 		}
 		setPlayer(getWhite());
@@ -74,13 +73,13 @@ final public class Game implements IRefs{
 	public Player getPlayer() {
 		return Player;
 	}
-	
+
 	public Player getOtherPlayer() {
-		if (getPlayer()==getWhite()) {
+		if (getPlayer() == getWhite()) {
 			return getBlack();
 		}
 		return getWhite();
-		
+
 	}
 
 	public void setPlayer(Player player) {
@@ -90,5 +89,5 @@ final public class Game implements IRefs{
 	public Timeline getMoveList() {
 		return MoveList;
 	}
-	
+
 }

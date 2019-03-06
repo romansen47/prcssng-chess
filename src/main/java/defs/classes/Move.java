@@ -1,8 +1,5 @@
 package defs.classes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.enums.State;
@@ -15,9 +12,9 @@ import pieces.King;
  * 
  * @author roman
  *
- * The main information about the game is saved to a sequence of "moves"
+ *         The main information about the game is saved to a sequence of "moves"
  */
-public class Move implements IMove,IRefs {
+public class Move implements IMove, IRefs {
 
 	private final Colors col;
 	private final Piece fig;
@@ -48,7 +45,7 @@ public class Move implements IMove,IRefs {
 	 * @param fld the field, fig is to be moved to
 	 */
 	public Move(Piece fig, Field fld) {
-		this.fig=fig;
+		this.fig = fig;
 		col = fig.getCol();
 		prev = fig.getField();
 		prevId = fig.getId();
@@ -59,7 +56,7 @@ public class Move implements IMove,IRefs {
 			nextId = null;
 		}
 	}
-	
+
 	/**
 	 * Execution of a move. Recalculates new positions.
 	 */
@@ -79,7 +76,7 @@ public class Move implements IMove,IRefs {
 			((King) fig).setValidForCastling(false);
 		}
 		if (checkForChess()) {
-			King opKing=fig1.getOpponent().getKing();
+			King opKing = fig1.getOpponent().getKing();
 			opKing.setState(State.Chess);
 		}
 		getReferee().switchMainPlayer();

@@ -8,25 +8,25 @@ import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.interfaces.ILongDist;
 
-public class Queen extends Piece implements ILongDist{
+public class Queen extends Piece implements ILongDist {
 
-	public Queen(Colors col, Field field){
+	public Queen(Colors col, Field field) {
 		super(Ids.QUEEN, col, field);
 	}
 
 	@Override
 	public void checkDirections(List<Field> lst) {
-		
-		checkDirection(lst, new int[] {1,1});
-		checkDirection(lst, new int[] {-1,1});
-		checkDirection(lst, new int[] {1,-1});
-		checkDirection(lst, new int[] {-1,-1});
 
-		checkDirection(lst, new int[] {1,0});
-		checkDirection(lst, new int[] {-1,0});
-		checkDirection(lst, new int[] {0,1});
-		checkDirection(lst, new int[] {0,-1});
-		
+		checkDirection(lst, new int[] { 1, 1 });
+		checkDirection(lst, new int[] { -1, 1 });
+		checkDirection(lst, new int[] { 1, -1 });
+		checkDirection(lst, new int[] { -1, -1 });
+
+		checkDirection(lst, new int[] { 1, 0 });
+		checkDirection(lst, new int[] { -1, 0 });
+		checkDirection(lst, new int[] { 0, 1 });
+		checkDirection(lst, new int[] { 0, -1 });
+
 	}
 
 }

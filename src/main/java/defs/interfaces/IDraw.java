@@ -5,9 +5,9 @@ import chess.Main;
 public interface IDraw {
 
 	/**
-	 * 	draws the piece
+	 * draws the piece
 	 * 
-	 *  @param main gui object
+	 * @param main gui object
 	 */
 	void draw(Main main);
 

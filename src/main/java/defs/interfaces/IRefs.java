@@ -10,11 +10,11 @@ public interface IRefs {
 	default Game getGame() {
 		return Game.getInstance();
 	}
-	
+
 	default Drawer getDrawer(Main main) {
 		return Drawer.getInstance(main);
 	}
-	
+
 	default Referee getReferee() {
 		return Referee.getInstance();
 	}
