@@ -48,12 +48,55 @@ public class Main extends Gui implements IRefs {
 		(new Gui()).run(MAINCLASS);
 	}
 
+	/**
+	 * image for the piece
+	 */
 	private PImage blackBishop;
+	/**
+	 * image for the piece
+	 */
 	private PImage blackKing;
+	/**
+	 * image for the piece
+	 */
 	private PImage blackKnight;
+	/**
+	 * image for the piece
+	 */
 	private PImage blackPawn;
+	/**
+	 * image for the piece
+	 */
 	private PImage blackQueen;
+	/**
+	 * image for the piece
+	 */
 	private PImage blackTower;
+	/**
+	 * image for the piece
+	 */
+	private PImage whiteBishop;
+	/**
+	 * image for the piece
+	 */
+	private PImage whiteKing;
+	/**
+	 * image for the piece
+	 */
+	private PImage whiteKnight;
+	/**
+	 * image for the piece
+	 */
+	private PImage whitePawn;
+	/**
+	 * image for the piece
+	 */
+	private PImage whiteQueen;
+	/**
+	 * image for the piece
+	 */
+	private PImage whiteTower;
+	
 	/**
 	 * a drawer instance
 	 */
@@ -62,20 +105,6 @@ public class Main extends Gui implements IRefs {
 	 * a setup instance
 	 */
 	private ISetupAndRun setup = Setup.getInstance(this);
-	private PImage whiteBishop;
-
-	/**
-	 * the images for the pieces
-	 */
-	private PImage whiteKing;
-
-	private PImage whiteKnight;
-
-	private PImage whitePawn;
-
-	private PImage whiteQueen;
-
-	private PImage whiteTower;
 
 	/**
 	 * functionality outsourced to Drawer class

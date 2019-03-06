@@ -69,7 +69,7 @@ final public class Game implements IRefs {
 	/**
 	 * getter for the black player
 	 * 
-	 * @return
+	 * @return the black player
 	 */
 	public Player getBlack() {
 		return Black;
@@ -98,7 +98,7 @@ final public class Game implements IRefs {
 	/**
 	 * getter for the passive player
 	 * 
-	 * @return
+	 * @return the passive player
 	 */
 	public Player getOpponent() {
 		if (getPlayer() == getWhite()) {
@@ -137,7 +137,7 @@ final public class Game implements IRefs {
 	/**
 	 * setter for the active player
 	 * 
-	 * @param player
+	 * @param player the player
 	 */
 	public void setPlayer(Player player) {
 		Player = player;

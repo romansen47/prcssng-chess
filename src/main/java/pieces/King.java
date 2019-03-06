@@ -29,8 +29,8 @@ public class King extends Piece {
 	/**
 	 * Constructor
 	 * 
-	 * @param col
-	 * @param field
+	 * @param col the color
+	 * @param field the field
 	 */
 	public King(Colors col, Field field) {
 		super(Ids.KING, col, field);

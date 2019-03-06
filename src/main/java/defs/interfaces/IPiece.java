@@ -46,7 +46,7 @@ public interface IPiece extends IRefs {
 	/**
 	 * creates an empty list of fields
 	 * 
-	 * @return
+	 * @return an empty list of fields
 	 */
 	default public List<Field> createList() {
 		List<Field> lst = new ArrayList<Field>();
@@ -134,7 +134,7 @@ public interface IPiece extends IRefs {
 	/**
 	 * getter for the player the piece belongs to. NOT the acting player
 	 * 
-	 * @return
+	 * @return the player the piece belongs to
 	 */
 	default Player getOwner() {
 		if (getCol() == Colors.WHITE) {
@@ -177,8 +177,8 @@ public interface IPiece extends IRefs {
 
 	/**
 	 * 
-	 * @param pl
-	 * @return
+	 * @param pl the player
+	 * @return list including the special moves
 	 */
 	default List<Field> getSpecialFields(Player pl) {
 		List<Field> fields = new ArrayList<>();
@@ -212,9 +212,8 @@ public interface IPiece extends IRefs {
 	}
 
 	/**
-	 * List of fields with friends on them guarding the piece
 	 * 
-	 * @return
+	 * @return List of fields with friends on them guarding the piece
 	 */
 	default List<Field> getSupporters() {
 		IPiece piece = this;// getReferee().getMarked().getPiece();

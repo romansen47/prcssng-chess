@@ -31,7 +31,7 @@ final public class Config {
 	/**
 	 * getter for the static instance
 	 * 
-	 * @return
+	 * @return the static instance
 	 */
 	public static Config getInstance() {
 		if (instance == null) {
@@ -43,7 +43,7 @@ final public class Config {
 	/**
 	 * Getter for RandomPlayer
 	 * 
-	 * @return
+	 * @return the random player
 	 */
 	public static boolean isRandomPlayer() {
 		return RandomPlayer;

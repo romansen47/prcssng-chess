@@ -21,7 +21,7 @@ public interface IMove {
 	/**
 	 * Getter for the moved piece
 	 * 
-	 * @return
+	 * @return the moved piece
 	 */
 	IPiece getFig();
 

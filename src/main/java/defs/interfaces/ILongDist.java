@@ -60,7 +60,7 @@ public interface ILongDist extends IPiece, IValidityChecker {
 	/**
 	 * creates an empty list and fills it with valid moves along possible directions
 	 * 
-	 * @return
+	 * @return list of possible moves
 	 */
 	default List<Field> longDistCheck() {
 		List<Field> lst = createList();

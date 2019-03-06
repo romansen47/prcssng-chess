@@ -33,7 +33,7 @@ public class Rook extends Piece implements ILongDist {
 	/**
 	 * computes whether rook already has been moved
 	 * 
-	 * @return
+	 * @return whether rook is still valid for castling
 	 */
 	public boolean isValidForCastling() {
 		boolean hasBeenMoved = false;
