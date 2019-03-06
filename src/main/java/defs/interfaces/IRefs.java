@@ -16,6 +16,7 @@ public interface IRefs {
 
 	/**
 	 * Getter for the drawer
+	 * 
 	 * @param main the Main instance
 	 * @return static instance of drawer
 	 */

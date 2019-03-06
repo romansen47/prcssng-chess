@@ -29,7 +29,7 @@ public class King extends Piece {
 	/**
 	 * Constructor
 	 * 
-	 * @param col the color
+	 * @param col   the color
 	 * @param field the field
 	 */
 	public King(Colors col, Field field) {

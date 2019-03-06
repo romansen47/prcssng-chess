@@ -96,7 +96,7 @@ public class Main extends Gui implements IRefs {
 	 * image for the piece
 	 */
 	private PImage whiteTower;
-	
+
 	/**
 	 * a drawer instance
 	 */
