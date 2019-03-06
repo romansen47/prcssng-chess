@@ -9,26 +9,45 @@ import defs.interfaces.IRefs;
 
 /**
  * 
- * @author roman
+ * @author RoMansen
  *
  *         TODO
  */
 public class Timeline extends ArrayList<IMove> implements IRefs {
 
-	private static final long serialVersionUID = 1L;
+	/**
+	 * static instance
+	 */
 	private static Timeline instance = null;
 
-	private Timeline() {
-	}
+	/**
+	 * Whatever
+	 */
+	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Getter for static instance
+	 * 
+	 * @return the static instance
+	 */
 	public static Timeline getInstance() {
 		if (instance == null) {
 			instance = new Timeline();
 		}
 		return instance;
-
 	}
 
+	/**
+	 * private Constructor
+	 */
+	private Timeline() {
+	}
+
+	/**
+	 * gives a list with all moves in chess notation
+	 * 
+	 * @return a list of strings
+	 */
 	public List<String> toStr() {
 		List<String> ans = new ArrayList<>();
 		String tmp;

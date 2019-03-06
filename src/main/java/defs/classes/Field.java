@@ -17,6 +17,11 @@ import defs.interfaces.IRefs;
 public class Field implements IColors, IDraw, IRefs {
 
 	/**
+	 * the color of the field
+	 */
+	private final Colors col;
+
+	/**
 	 * the vertical coordinate
 	 */
 	private final int i;
@@ -25,11 +30,6 @@ public class Field implements IColors, IDraw, IRefs {
 	 * the horizontal coordinate
 	 */
 	private final int j;
-
-	/**
-	 * the color of the field
-	 */
-	private final Colors col;
 
 	/**
 	 * the piece on the field. nullable
@@ -47,6 +47,43 @@ public class Field implements IColors, IDraw, IRefs {
 		this.col = col;
 		this.i = i;
 		this.j = j;
+	}
+
+	/*
+	 * + (non-Javadoc)
+	 * 
+	 * @see defs.interfaces.IDraw#draw(chess.Main)
+	 */
+	@Override
+	public void draw(Main main) {
+		int size = Config.SIZE;
+		main.noStroke();
+		main.fill(getColAsInt());
+		main.rect((float) size * getJ(), (float) size * getI(), size, size);
+		if (getPiece() != null) {
+			getPiece().draw(main);
+		}
+	}
+
+	/**
+	 * Getter for the color
+	 */
+	@Override
+	public Colors getCol() {
+		return col;
+	}
+
+	/**
+	 * We need some different colors, since the fields should not be only black and
+	 * white. In detail, e.e. white should rather be grey
+	 * 
+	 * @return the corresponding color value as integer
+	 */
+	public int getColAsInt() {
+		if (getCol() == Colors.WHITE) {
+			return 230;
+		}
+		return 100;
 	}
 
 	/**
@@ -68,58 +105,12 @@ public class Field implements IColors, IDraw, IRefs {
 	}
 
 	/**
-	 * Getter for the color
-	 */
-	@Override
-	public Colors getCol() {
-		return col;
-	}
-
-	/**
 	 * Getter for the piece on the field
 	 * 
 	 * @return the piece
 	 */
 	public IPiece getPiece() {
 		return piece;
-	}
-
-	/**
-	 * Setter for piece
-	 * 
-	 * @param piece the piece on the field
-	 */
-	public void setPiece(IPiece piece) {
-		this.piece = piece;
-	}
-
-	/**
-	 * We need some different colors, since the fields should not be only black and
-	 * white. In detail, e.e. white should rather be grey
-	 * 
-	 * @return the corresponding color value as integer
-	 */
-	public int getColAsInt() {
-		if (getCol() == Colors.WHITE) {
-			return 230;
-		}
-		return 100;
-	}
-
-	/*
-	 * + (non-Javadoc)
-	 * 
-	 * @see defs.interfaces.IDraw#draw(chess.Main)
-	 */
-	@Override
-	public void draw(Main main) {
-		int size = Config.SIZE;
-		main.noStroke();
-		main.fill(getColAsInt());
-		main.rect((float) size * getJ(), (float) size * getI(), size, size);
-		if (getPiece() != null) {
-			getPiece().draw(main);
-		}
 	}
 
 	/**
@@ -143,15 +134,12 @@ public class Field implements IColors, IDraw, IRefs {
 	}
 
 	/**
-	 * own method for presentation
+	 * Setter for piece
+	 * 
+	 * @param piece the piece on the field
 	 */
-	@Override
-	public String toString() {
-		String ans = "(" + toChessNotation() + "): " + getCol() + " FIELD";
-		if (this.getPiece() != null) {
-			ans += " (" + getPiece().toString() + ")";
-		}
-		return ans;
+	public void setPiece(IPiece piece) {
+		this.piece = piece;
 	}
 
 	/**
@@ -191,6 +179,18 @@ public class Field implements IColors, IDraw, IRefs {
 		}
 		str += 1 + this.getI();
 		return str;
+	}
+
+	/**
+	 * own method for presentation
+	 */
+	@Override
+	public String toString() {
+		String ans = "(" + toChessNotation() + "): " + getCol() + " FIELD";
+		if (this.getPiece() != null) {
+			ans += " (" + getPiece().toString() + ")";
+		}
+		return ans;
 	}
 
 }

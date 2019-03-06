@@ -12,6 +12,12 @@ import defs.interfaces.IPiece;
 
 public class Rook extends Piece implements ILongDist {
 
+	/**
+	 * Constructor
+	 * 
+	 * @param col   the color
+	 * @param field the field
+	 */
 	public Rook(Colors col, Field field) {
 		super(Ids.ROOK, col, field);
 	}
@@ -24,9 +30,14 @@ public class Rook extends Piece implements ILongDist {
 		checkDirection(lst, new int[] { 0, -1 });
 	}
 
+	/**
+	 * computes whether rook already has been moved
+	 * 
+	 * @return
+	 */
 	public boolean isValidForCastling() {
 		boolean hasBeenMoved = false;
-		for (IMove move : getPlayer().getMoveList()) {
+		for (IMove move : getOwner().getMoveList()) {
 			IPiece fig = move.getFig();
 			if (fig instanceof Rook && (Rook) fig == this) {
 				hasBeenMoved = true;

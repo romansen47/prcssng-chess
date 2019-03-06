@@ -1,7 +1,14 @@
 package defs.enums;
 
+/**
+ * 
+ * @author RoMansen
+ * 
+ *         This enum privides key words for the names of the pieces
+ *
+ */
 public enum Ids {
 
-	PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING;
+	BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK;
 
 }

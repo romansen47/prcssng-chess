@@ -1,7 +1,14 @@
 package defs.enums;
 
+/**
+ * 
+ * @author RoMansen
+ * 
+ *         This enum privides key words for the states a king can have
+ *
+ */
 public enum State {
 
-	Plain, Chess, Mate, StaleMate;
+	Chess, Mate, Plain, StaleMate;
 
 }

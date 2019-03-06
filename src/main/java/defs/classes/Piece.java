@@ -20,16 +20,6 @@ import processing.core.PImage;
 abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 
 	/**
-	 * Every piece has its own pimage
-	 */
-	private PImage image;
-
-	/**
-	 * The id
-	 */
-	private final Ids id;
-
-	/**
 	 * the color
 	 */
 	private final Colors col;
@@ -40,6 +30,16 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	private Field field;
 
 	final private Field firstField;
+
+	/**
+	 * The id
+	 */
+	private final Ids id;
+
+	/**
+	 * Every piece has its own pimage
+	 */
+	private PImage image;
 
 	/**
 	 * Constructor for piece
@@ -56,26 +56,9 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	}
 
 	@Override
-	public PImage getImage() {
-		return image;
-	}
-
-	@Override
-	public void setImage(PImage image) {
-		this.image = image;
-	}
-
-	@Override
-	public Field getField() {
-		return field;
-	}
-
-	@Override
-	public void setField(Field field) {
-		this.field = field;
-		if (field != null) {
-			this.field.setPiece(this);
-		}
+	public void draw(Main main) {
+		final int size = Config.SIZE;
+		main.image(getImage(), size * getField().getJ(), size * getField().getI(), size, size);
 	}
 
 	@Override
@@ -84,13 +67,28 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	}
 
 	@Override
-	public IMove getMove(Field field) {
-		return new Move(this, field);
+	public Field getField() {
+		return field;
+	}
+
+	@Override
+	public Field getFirstField() {
+		return firstField;
 	}
 
 	@Override
 	public Ids getId() {
 		return id;
+	}
+
+	@Override
+	public PImage getImage() {
+		return image;
+	}
+
+	@Override
+	public IMove getMove(Field field) {
+		return new Move(this, field);
 	}
 
 	@Override
@@ -111,14 +109,16 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	}
 
 	@Override
-	public Field getFirstField() {
-		return firstField;
+	public void setField(Field field) {
+		this.field = field;
+		if (field != null) {
+			this.field.setPiece(this);
+		}
 	}
 
 	@Override
-	public void draw(Main main) {
-		final int size = Config.SIZE;
-		main.image(getImage(), size * getField().getJ(), size * getField().getI(), size, size);
+	public void setImage(PImage image) {
+		this.image = image;
 	}
 
 	@Override

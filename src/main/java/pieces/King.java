@@ -16,23 +16,100 @@ import defs.interfaces.IPiece;
 
 public class King extends Piece {
 
+	/**
+	 * King carries around the information if he is valid for castling
+	 */
 	private boolean isValidForCastling = true;
 
+	/**
+	 * king has a state
+	 */
+	private State state = State.Plain;
+
+	/**
+	 * Constructor
+	 * 
+	 * @param col
+	 * @param field
+	 */
 	public King(Colors col, Field field) {
 		super(Ids.KING, col, field);
 	}
 
-	private State state = State.Plain;
-
-	public State getState() {
-		return state;
+	/**
+	 * @param fld the field to be checked for validity
+	 * @param lst the list of fields already validated
+	 * 
+	 * @return returns true, if field is valid and adds field to the list of valid
+	 *         fields. returns false and does nothing, otherwise.
+	 */
+	@Override
+	public boolean checkIfOccupiedByFriend(Field fld, List<Field> lst) {
+		if (fld.getPiece() != null && fld.getPiece().getCol() == getCol()) {
+			return false;
+		}
+		lst.add(fld);
+		return true;
 	}
 
-	public void setState(State state) {
-		if (state == State.Chess) {
-			setValidForCastling(false);
+	/**
+	 * the forecast for the king which fields he may not enter
+	 * 
+	 * @return the fields the king may not enter
+	 */
+	public List<Field> getAllAttackedFields() {
+		List<Field> fields = new ArrayList<>();
+		for (IPiece piece : getOpponent().getPieces()) {
+			fields.addAll(piece.convertMovesToFields(piece.getSpecialMoves()));
 		}
-		this.state = state;
+		return fields;
+	}
+
+	@Override
+	public List<Field> getAttackers() {
+		Player pl = getOpponent();
+		List<Field> fields = new ArrayList<>();
+		List<IPiece> pieces = pl.getPieces();
+		for (IPiece piece : pieces) {
+			if (!(piece instanceof King) && piece.convertMovesToFields(piece.getPossibleMoves()).contains(getField())) {
+				fields.add(piece.getField());
+			}
+		}
+		return fields;
+	}
+
+	/**
+	 * in a check for validity for a castling the fields between the king and the
+	 * rook must not be being attacked
+	 * 
+	 * @param fld1 first field
+	 * @param fld2 second field
+	 * @return the fields in between
+	 */
+	public List<Field> getFieldsInBetween(Field fld1, Field fld2) {
+		int k = fld1.getJ();
+		int r = fld2.getJ();
+		if (r <= k) {
+			return getFieldsInBetween(fld2, fld1);
+		}
+		List<Field> fields = new ArrayList<>();
+		for (int i = 1; i < r - k; i++) {
+			fields.add(getGame().getField(fld1.getI(), k + i));
+		}
+		return fields;
+	}
+
+	/**
+	 * @param field the field to move on
+	 * @return returns the move. returns subtype castling in case of validity
+	 */
+	@Override
+	public IMove getMove(Field field) {
+		Rook rook = getRook(field);
+		if (rook != null) {
+			return new Castling(this, rook);
+		}
+		return super.getMove(field);
 	}
 
 	/**
@@ -40,7 +117,7 @@ public class King extends Piece {
 	 */
 	@Override
 	public List<IMove> getPossibleMoves() {
-		List<IMove> lst = getPossibleMovesOfInterest();
+		List<IMove> lst = getSpecialMoves();
 		int tempI = getField().getI();
 		int tempJ = getField().getJ();
 		if (isValidForCastling()) {
@@ -58,122 +135,10 @@ public class King extends Piece {
 	}
 
 	/**
-	 * Must be rewritten in order to avoid cycles
-	 */
-	@Override
-	public List<IMove> getPossibleMovesOfInterest() {
-		List<Field> lst = new ArrayList<>();
-		int tempI = getField().getI();
-		int tempJ = getField().getJ();
-		if (tempI - 1 >= 0) {
-			checkForValidity(getGame().getField(tempI - 1, tempJ), lst);
-			if (tempJ - 1 >= 0) {
-				checkForValidity(getGame().getField(tempI - 1, tempJ - 1), lst);
-			}
-			if (tempJ + 1 <= Config.GAMESIZE) {
-				checkForValidity(getGame().getField(tempI - 1, tempJ + 1), lst);
-			}
-		}
-		if (tempI + 1 <= Config.GAMESIZE) {
-			checkForValidity(getGame().getField(tempI + 1, tempJ), lst);
-			if (tempJ - 1 >= 0) {
-				checkForValidity(getGame().getField(tempI + 1, tempJ - 1), lst);
-			}
-			if (tempJ + 1 <= Config.GAMESIZE) {
-				checkForValidity(getGame().getField(tempI + 1, tempJ + 1), lst);
-			}
-		}
-		if (tempJ + 1 <= Config.GAMESIZE) {
-			checkForValidity(getGame().getField(tempI, tempJ + 1), lst);
-		}
-		if (tempJ - 1 >= 0) {
-			checkForValidity(getGame().getField(tempI, tempJ - 1), lst);
-		}
-		return convertFieldsToMoves(lst);
-
-	}
-
-	@Override
-	public List<Field> getAttackers() {
-		Player pl = getOpponent();
-		List<Field> fields = new ArrayList<>();
-		List<IPiece> pieces = pl.getPieces();
-		for (IPiece piece : pieces) {
-			if (!(piece instanceof King) && piece.convertMovesToFields(piece.getPossibleMoves()).contains(getField())) {
-				fields.add(piece.getField());
-			}
-		}
-		return fields;
-	}
-
-	/**
-	 * @param fld the field to be checked for validity
-	 * @param lst the list of fields already validated
 	 * 
-	 * @return returns true, if field is valid and adds field to the list of valid
-	 *         fields. returns false and does nothing, otherwise.
+	 * @param field rooks field
+	 * @return the rook
 	 */
-	@Override
-	public boolean checkForValidity(Field fld, List<Field> lst) {
-		if (fld.getPiece() != null && fld.getPiece().getCol() == getCol()) {
-			return false;
-		}
-		lst.add(fld);
-		return true;
-	}
-
-	/**
-	 * 
-	 * @return returns, whether king already has been moved or checked
-	 */
-	public boolean isValidForCastling() {
-		return isValidForCastling;
-	}
-
-	/**
-	 * 
-	 * @param field the field to be checked for validity
-	 * @return returns, whether the field contains a rook of same color, whether
-	 *         rook has already been attacked and if one of the fields in between is
-	 *         under enemy attack.
-	 */
-	public boolean isValidForCastling(Field field) {
-		if (isValidForCastling) {
-			Rook rook = getRook(field);
-			if (rook != null && rook.isValidForCastling()) {
-				List<Field> fields = getFieldsInBetween(this.getField(), rook.getField());
-				for (Field fld : fields) {
-					if (fld.getPiece() != null || getAllAttackedFields().contains(fld)) {
-						return false;
-					}
-				}
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public List<Field> getAllAttackedFields() {
-		List<Field> fields = new ArrayList<>();
-		for (IPiece piece : getOpponent().getPieces()) {
-			fields.addAll(piece.convertMovesToFields(piece.getPossibleMovesOfInterest()));
-		}
-		return fields;
-	}
-
-	public List<Field> getFieldsInBetween(Field fld1, Field fld2) {
-		int k = fld1.getJ();
-		int r = fld2.getJ();
-		if (r <= k) {
-			return getFieldsInBetween(fld2, fld1);
-		}
-		List<Field> fields = new ArrayList<>();
-		for (int i = 1; i < r - k; i++) {
-			fields.add(getGame().getField(fld1.getI(), k + i));
-		}
-		return fields;
-	}
-
 	public Rook getRook(Field field) {
 		Rook rook = null;
 		if (isValidForCastling()) {
@@ -196,6 +161,51 @@ public class King extends Piece {
 	}
 
 	/**
+	 * Must be rewritten in order to avoid cycles
+	 */
+	@Override
+	public List<IMove> getSpecialMoves() {
+		List<Field> lst = new ArrayList<>();
+		int tempI = getField().getI();
+		int tempJ = getField().getJ();
+		if (tempI - 1 >= 0) {
+			checkIfOccupiedByFriend(getGame().getField(tempI - 1, tempJ), lst);
+			if (tempJ - 1 >= 0) {
+				checkIfOccupiedByFriend(getGame().getField(tempI - 1, tempJ - 1), lst);
+			}
+			if (tempJ + 1 <= Config.GAMESIZE) {
+				checkIfOccupiedByFriend(getGame().getField(tempI - 1, tempJ + 1), lst);
+			}
+		}
+		if (tempI + 1 <= Config.GAMESIZE) {
+			checkIfOccupiedByFriend(getGame().getField(tempI + 1, tempJ), lst);
+			if (tempJ - 1 >= 0) {
+				checkIfOccupiedByFriend(getGame().getField(tempI + 1, tempJ - 1), lst);
+			}
+			if (tempJ + 1 <= Config.GAMESIZE) {
+				checkIfOccupiedByFriend(getGame().getField(tempI + 1, tempJ + 1), lst);
+			}
+		}
+		if (tempJ + 1 <= Config.GAMESIZE) {
+			checkIfOccupiedByFriend(getGame().getField(tempI, tempJ + 1), lst);
+		}
+		if (tempJ - 1 >= 0) {
+			checkIfOccupiedByFriend(getGame().getField(tempI, tempJ - 1), lst);
+		}
+		return convertFieldsToMoves(lst);
+
+	}
+
+	/**
+	 * getter for the state
+	 * 
+	 * @return the state
+	 */
+	public State getState() {
+		return state;
+	}
+
+	/**
 	 * 
 	 * @return returns, whether king is under enemy attack
 	 */
@@ -204,25 +214,58 @@ public class King extends Piece {
 	}
 
 	/**
-	 * @param field the field to move on
-	 * @return returns the move. returns subtype castling in case of validity
+	 * 
+	 * @return returns, whether king already has been moved or checked
 	 */
-	@Override
-	public IMove getMove(Field field) {
-		Rook rook = getRook(field);
-		if (rook != null) {
-			return new Castling(this, rook);
-		}
-		return super.getMove(field);
+	public boolean isValidForCastling() {
+		return isValidForCastling;
 	}
 
-	public void setValidForCastling(boolean isValidForCastling) {
-		this.isValidForCastling = isValidForCastling;
+	/**
+	 * 
+	 * @param field the field to be checked for validity
+	 * @return returns, whether the field contains a rook of same color, whether
+	 *         rook has already been attacked and if one of the fields in between is
+	 *         under enemy attack.
+	 */
+	public boolean isValidForCastling(Field field) {
+		Rook rook = getRook(field);
+		if (rook != null && rook.isValidForCastling()) {
+			List<Field> fields = getFieldsInBetween(this.getField(), rook.getField());
+			for (Field fld : fields) {
+				if (fld.getPiece() != null || getAllAttackedFields().contains(fld)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 
 	@Override
 	public void reset() {
 		super.reset();
 		setValidForCastling(true);
+	}
+
+	/**
+	 * setter for the state
+	 * 
+	 * @param state the state
+	 */
+	public void setState(State state) {
+		if (state == State.Chess) {
+			setValidForCastling(false);
+		}
+		this.state = state;
+	}
+
+	/**
+	 * setter for isValidForCastling
+	 * 
+	 * @param isValidForCastling isValidForCastling
+	 */
+	public void setValidForCastling(boolean isValidForCastling) {
+		this.isValidForCastling = isValidForCastling;
 	}
 }

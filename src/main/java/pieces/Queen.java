@@ -10,6 +10,12 @@ import defs.interfaces.ILongDist;
 
 public class Queen extends Piece implements ILongDist {
 
+	/**
+	 * Constructor
+	 * 
+	 * @param col   the color
+	 * @param field the field
+	 */
 	public Queen(Colors col, Field field) {
 		super(Ids.QUEEN, col, field);
 	}

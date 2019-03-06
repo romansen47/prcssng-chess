@@ -1,11 +1,11 @@
 package chess;
 
 import conf.Config;
-import conf.Setup;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.classes.Player;
 import defs.interfaces.IRefs;
+import defs.interfaces.ISetupAndRun;
 import processing.core.PImage;
 import processing.template.Gui;
 
@@ -22,30 +22,22 @@ public class Main extends Gui implements IRefs {
 	final static String PATH = "";
 
 	/**
-	 * the images for the pieces
+	 * Getter for MainClass
+	 * 
+	 * @return the main class as string
 	 */
-	private PImage whiteKing;
-	private PImage blackKing;
-	private PImage whiteQueen;
-	private PImage blackQueen;
-	private PImage whiteKnight;
-	private PImage blackKnight;
-	private PImage whiteBishop;
-	private PImage blackBishop;
-	private PImage whiteTower;
-	private PImage blackTower;
-	private PImage whitePawn;
-	private PImage blackPawn;
+	public static String getMainClass() {
+		return MAINCLASS;
+	}
 
 	/**
-	 * a setup instance
+	 * Getter for the acting player
+	 * 
+	 * @return the acting player
 	 */
-	private Setup setup = Setup.getInstance(this);
-
-	/**
-	 * a drawer instance
-	 */
-	private Drawer drawer = Drawer.getInstance(this);
+	public static Player getPlayer() {
+		return Game.getInstance().getPlayer();
+	}
 
 	/**
 	 * Initial main method
@@ -56,21 +48,34 @@ public class Main extends Gui implements IRefs {
 		(new Gui()).run(MAINCLASS);
 	}
 
-	@Override
-	public void settings() {
-		/**
-		 * Nothing to do here...
-		 */
-	}
+	private PImage blackBishop;
+	private PImage blackKing;
+	private PImage blackKnight;
+	private PImage blackPawn;
+	private PImage blackQueen;
+	private PImage blackTower;
+	/**
+	 * a drawer instance
+	 */
+	private ISetupAndRun drawer = Drawer.getInstance(this);
+	/**
+	 * a setup instance
+	 */
+	private ISetupAndRun setup = Setup.getInstance(this);
+	private PImage whiteBishop;
 
 	/**
-	 * functionality outsourced to Setup class
+	 * the images for the pieces
 	 */
-	@Override
-	public void setup() {
-		setup.execute();
-		stroke(0);
-	}
+	private PImage whiteKing;
+
+	private PImage whiteKnight;
+
+	private PImage whitePawn;
+
+	private PImage whiteQueen;
+
+	private PImage whiteTower;
 
 	/**
 	 * functionality outsourced to Drawer class
@@ -81,12 +86,57 @@ public class Main extends Gui implements IRefs {
 	}
 
 	/**
-	 * Getter for inactive player
+	 * Getter for pimage
 	 * 
-	 * @return the inactive player
+	 * @return pimage
 	 */
-	public Player getOtherPlayer() {
-		return getGame().getOtherPlayer();
+	public PImage getBlackBishop() {
+		return blackBishop;
+	}
+
+	/**
+	 * Getter for pimage
+	 * 
+	 * @return pimage
+	 */
+	public PImage getBlackKing() {
+		return blackKing;
+	}
+
+	/**
+	 * Getter for pimage
+	 * 
+	 * @return pimage
+	 */
+	public PImage getBlackKnight() {
+		return blackKnight;
+	}
+
+	/**
+	 * Getter for pimage
+	 * 
+	 * @return pimage
+	 */
+	public PImage getBlackPawn() {
+		return blackPawn;
+	}
+
+	/**
+	 * Getter for pimage
+	 * 
+	 * @return pimage
+	 */
+	public PImage getBlackQueen() {
+		return blackQueen;
+	}
+
+	/**
+	 * Getter for pimage
+	 * 
+	 * @return pimage
+	 */
+	public PImage getBlackTower() {
+		return blackTower;
 	}
 
 	/**
@@ -98,6 +148,24 @@ public class Main extends Gui implements IRefs {
 	 */
 	public Field getField(int i, int j) {
 		return getGame().getField(i, j);
+	}
+
+	/**
+	 * Getter for inactive player
+	 * 
+	 * @return the inactive player
+	 */
+	public Player getOtherPlayer() {
+		return getGame().getOpponent();
+	}
+
+	/**
+	 * Getter for PATH
+	 * 
+	 * @return the path to main class as string
+	 */
+	public String getPath() {
+		return PATH;
 	}
 
 	/**
@@ -123,71 +191,17 @@ public class Main extends Gui implements IRefs {
 	 * 
 	 * @return pimage
 	 */
+	public PImage getWhiteBishop() {
+		return whiteBishop;
+	}
+
+	/**
+	 * Getter for pimage
+	 * 
+	 * @return pimage
+	 */
 	public PImage getWhiteKing() {
 		return whiteKing;
-	}
-
-	/**
-	 * Setter for pimage
-	 * 
-	 * @param whiteKing pimage
-	 */
-	public void setWhiteKing(PImage whiteKing) {
-		this.whiteKing = whiteKing;
-	}
-
-	/**
-	 * Getter for pimage
-	 * 
-	 * @return pimage
-	 */
-	public PImage getBlackKing() {
-		return blackKing;
-	}
-
-	/**
-	 * Setter for pimage
-	 * 
-	 * @param blackKing pimage
-	 */
-	public void setBlackKing(PImage blackKing) {
-		this.blackKing = blackKing;
-	}
-
-	/**
-	 * Getter for pimage
-	 * 
-	 * @return pimage
-	 */
-	public PImage getWhiteQueen() {
-		return whiteQueen;
-	}
-
-	/**
-	 * Setter for pimage
-	 * 
-	 * @param whiteQueen pimage
-	 */
-	public void setWhiteQueen(PImage whiteQueen) {
-		this.whiteQueen = whiteQueen;
-	}
-
-	/**
-	 * Getter for pimage
-	 * 
-	 * @return pimage
-	 */
-	public PImage getBlackQueen() {
-		return blackQueen;
-	}
-
-	/**
-	 * Setter for pimage
-	 * 
-	 * @param blackQueen pimage
-	 */
-	public void setBlackQueen(PImage blackQueen) {
-		this.blackQueen = blackQueen;
 	}
 
 	/**
@@ -200,12 +214,12 @@ public class Main extends Gui implements IRefs {
 	}
 
 	/**
-	 * Setter for pimage
+	 * Getter for pimage
 	 * 
-	 * @param whiteKnight pimage
+	 * @return pimage
 	 */
-	public void setWhiteKnight(PImage whiteKnight) {
-		this.whiteKnight = whiteKnight;
+	public PImage getWhitePawn() {
+		return whitePawn;
 	}
 
 	/**
@@ -213,53 +227,8 @@ public class Main extends Gui implements IRefs {
 	 * 
 	 * @return pimage
 	 */
-	public PImage getBlackKnight() {
-		return blackKnight;
-	}
-
-	/**
-	 * Setter for pimage
-	 * 
-	 * @param blackKnight pimage
-	 */
-	public void setBlackKnight(PImage blackKnight) {
-		this.blackKnight = blackKnight;
-	}
-
-	/**
-	 * Getter for pimage
-	 * 
-	 * @return pimage
-	 */
-	public PImage getWhiteBishop() {
-		return whiteBishop;
-	}
-
-	/**
-	 * Setter for pimage
-	 * 
-	 * @param whiteBishop pimage
-	 */
-	public void setWhiteBishop(PImage whiteBishop) {
-		this.whiteBishop = whiteBishop;
-	}
-
-	/**
-	 * Getter for pimage
-	 * 
-	 * @return pimage
-	 */
-	public PImage getBlackBishop() {
-		return blackBishop;
-	}
-
-	/**
-	 * Setter for pimage
-	 * 
-	 * @param blackBishop pimage
-	 */
-	public void setBlackBishop(PImage blackBishop) {
-		this.blackBishop = blackBishop;
+	public PImage getWhiteQueen() {
+		return whiteQueen;
 	}
 
 	/**
@@ -274,55 +243,28 @@ public class Main extends Gui implements IRefs {
 	/**
 	 * Setter for pimage
 	 * 
-	 * @param whiteTower pimage
+	 * @param blackBishop pimage
 	 */
-	public void setWhiteTower(PImage whiteTower) {
-		this.whiteTower = whiteTower;
-	}
-
-	/**
-	 * Getter for pimage
-	 * 
-	 * @return pimage
-	 */
-	public PImage getBlackTower() {
-		return blackTower;
+	public void setBlackBishop(PImage blackBishop) {
+		this.blackBishop = blackBishop;
 	}
 
 	/**
 	 * Setter for pimage
 	 * 
-	 * @param blackTower pimage
+	 * @param blackKing pimage
 	 */
-	public void setBlackTower(PImage blackTower) {
-		this.blackTower = blackTower;
-	}
-
-	/**
-	 * Getter for pimage
-	 * 
-	 * @return pimage
-	 */
-	public PImage getWhitePawn() {
-		return whitePawn;
+	public void setBlackKing(PImage blackKing) {
+		this.blackKing = blackKing;
 	}
 
 	/**
 	 * Setter for pimage
 	 * 
-	 * @param whitePawn pimage
+	 * @param blackKnight pimage
 	 */
-	public void setWhitePawn(PImage whitePawn) {
-		this.whitePawn = whitePawn;
-	}
-
-	/**
-	 * Getter for pimage
-	 * 
-	 * @return pimage
-	 */
-	public PImage getBlackPawn() {
-		return blackPawn;
+	public void setBlackKnight(PImage blackKnight) {
+		this.blackKnight = blackKnight;
 	}
 
 	/**
@@ -335,29 +277,90 @@ public class Main extends Gui implements IRefs {
 	}
 
 	/**
-	 * Getter for MainClass
+	 * Setter for pimage
 	 * 
-	 * @return the main class as string
+	 * @param blackQueen pimage
 	 */
-	public static String getMainClass() {
-		return MAINCLASS;
+	public void setBlackQueen(PImage blackQueen) {
+		this.blackQueen = blackQueen;
 	}
 
 	/**
-	 * Getter for PATH
+	 * Setter for pimage
 	 * 
-	 * @return the path to main class as string
+	 * @param blackTower pimage
 	 */
-	public String getPath() {
-		return PATH;
+	public void setBlackTower(PImage blackTower) {
+		this.blackTower = blackTower;
+	}
+
+	@Override
+	public void settings() {
+		/**
+		 * Nothing to do here...
+		 */
 	}
 
 	/**
-	 * Getter for the acting player
-	 * 
-	 * @return the acting player
+	 * functionality outsourced to Setup class
 	 */
-	public static Player getPlayer() {
-		return Game.getInstance().getPlayer();
+	@Override
+	public void setup() {
+		setup.execute();
+		stroke(0);
+	}
+
+	/**
+	 * Setter for pimage
+	 * 
+	 * @param whiteBishop pimage
+	 */
+	public void setWhiteBishop(PImage whiteBishop) {
+		this.whiteBishop = whiteBishop;
+	}
+
+	/**
+	 * Setter for pimage
+	 * 
+	 * @param whiteKing pimage
+	 */
+	public void setWhiteKing(PImage whiteKing) {
+		this.whiteKing = whiteKing;
+	}
+
+	/**
+	 * Setter for pimage
+	 * 
+	 * @param whiteKnight pimage
+	 */
+	public void setWhiteKnight(PImage whiteKnight) {
+		this.whiteKnight = whiteKnight;
+	}
+
+	/**
+	 * Setter for pimage
+	 * 
+	 * @param whitePawn pimage
+	 */
+	public void setWhitePawn(PImage whitePawn) {
+		this.whitePawn = whitePawn;
+	}
+
+	/**
+	 * Setter for pimage
+	 * 
+	 * @param whiteQueen pimage
+	 */
+	public void setWhiteQueen(PImage whiteQueen) {
+		this.whiteQueen = whiteQueen;
+	}
+
+	/**
+	 * Setter for pimage
+	 * 
+	 * @param whiteTower pimage
+	 */
+	public void setWhiteTower(PImage whiteTower) {
+		this.whiteTower = whiteTower;
 	}
 }

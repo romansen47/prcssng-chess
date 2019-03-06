@@ -8,7 +8,14 @@ import pieces.King;
 
 public interface IValidityChecker extends IColors {
 
-	default boolean checkForValidity(Field fld, List<Field> lst) {
+	/**
+	 * 
+	 * @param fld the field to check for validity
+	 * @param lst the list of valid moves the converted field will be added to in
+	 *            case for validity
+	 * @return true, if valid, false otherwise
+	 */
+	default boolean checkIfOccupiedByFriend(Field fld, List<Field> lst) {
 		boolean ans = false;
 		Field last = lst.get(lst.size() - 1);
 		if ((last.getPiece() == null || last.getPiece() == this) && fld.getPiece() == null)
@@ -22,14 +29,13 @@ public interface IValidityChecker extends IColors {
 		return ans;
 	}
 
-	default List<IMove> getValidMoves(List<IMove> moves) {
-		List<IMove> validMoves = new ArrayList<>();
-		for (IMove move : moves) {
-			validMoves.add(getValidMove(move));
-		}
-		return validMoves;
-	}
-
+	/**
+	 * Checks move for validity.
+	 * 
+	 * @param move the move to check
+	 * @return the move, if after the move the own king is not being chessed by any
+	 *         opponent piece. castling of the opponent is not checked as a threat!.
+	 */
 	default IMove getValidMove(IMove move) {
 		if (move.getNext().getPiece() == move.getFig()) {
 			return move;
@@ -46,7 +52,7 @@ public interface IValidityChecker extends IColors {
 				list.addAll(piece.getPossibleFields());
 			}
 		}
-		if (!list.contains(move.getFig().getPlayer().getKing().getField())) {
+		if (!list.contains(move.getFig().getOwner().getKing().getField())) {
 			ans = true;
 		}
 		move.getFig().setField(move.getPrev());
@@ -58,6 +64,20 @@ public interface IValidityChecker extends IColors {
 			return move;
 		}
 		return null;
+	}
+
+	/**
+	 * Checks a list of moves for valid moves
+	 * 
+	 * @param moves list of moves to ckeck for validity
+	 * @return the list with valid moves
+	 */
+	default List<IMove> getValidMoves(List<IMove> moves) {
+		List<IMove> validMoves = new ArrayList<>();
+		for (IMove move : moves) {
+			validMoves.add(getValidMove(move));
+		}
+		return validMoves;
 	}
 
 }

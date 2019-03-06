@@ -14,8 +14,27 @@ import defs.interfaces.IPiece;
 
 public class Pawn extends Piece {
 
+	/**
+	 * Constructor
+	 * 
+	 * @param col   the color
+	 * @param field the field
+	 */
 	public Pawn(Colors col, Field field) {
 		super(Ids.PAWN, col, field);
+	}
+
+	/**
+	 * @param field the field to move on
+	 * @return returns the move. returns subtype enpassant in case of validity
+	 */
+	@Override
+	public IMove getMove(Field field) {
+		IPiece fig = getGame().getField(getPosI(), field.getJ()).getPiece();
+		if (fig instanceof Pawn && fig.getCol() != getCol()) {
+			return new EnPassant(this, (Pawn) fig, field);
+		}
+		return super.getMove(field);
 	}
 
 	@Override
@@ -78,19 +97,6 @@ public class Pawn extends Piece {
 			list.add(getMove(fld));
 		}
 		return list;
-	}
-
-	/**
-	 * @param field the field to move on
-	 * @return returns the move. returns subtype enpassant in case of validity
-	 */
-	@Override
-	public IMove getMove(Field field) {
-		IPiece fig = getGame().getField(getPosI(), field.getJ()).getPiece();
-		if (fig instanceof Pawn && fig.getCol() != getCol()) {
-			return new EnPassant(this, (Pawn) fig, field);
-		}
-		return super.getMove(field);
 	}
 
 }

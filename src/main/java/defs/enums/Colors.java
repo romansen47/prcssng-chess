@@ -1,7 +1,14 @@
 package defs.enums;
 
+/**
+ * 
+ * @author RoMansen
+ * 
+ *         This enum privides key words for colors
+ *
+ */
 public enum Colors {
 
-	BLACK, WHITE, RED, GREEN, BLUE, YELLOW;
+	BLACK, BLUE, GREEN, RED, WHITE, YELLOW;
 
 }

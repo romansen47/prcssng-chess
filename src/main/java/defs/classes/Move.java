@@ -16,27 +16,15 @@ import pieces.King;
  */
 public class Move implements IMove, IRefs {
 
+	/**
+	 * private attributes
+	 */
 	private final Colors col;
 	private final Piece fig;
-	private final Field prev;
-	private final Ids prevId;
 	private final Field next;
 	private final Ids nextId;
-
-	/**
-	 * @return String in order to present the move
-	 */
-	@Override
-	public String toString() {
-		String str = "";
-		// str+=super.toString()+": ";
-		str += getPrevId();
-		if (getNextId() != null) {
-			str += " -> " + getNextId() + ":  ";
-		}
-		str += "(" + getPrev().toChessNotation() + ":" + getNext().toChessNotation() + ")";
-		return str;
-	}
+	private final Field prev;
+	private final Ids prevId;
 
 	/**
 	 * Constructor for a move
@@ -57,8 +45,12 @@ public class Move implements IMove, IRefs {
 		}
 	}
 
+	private boolean checkForChess() {
+		return !getFig().getOpponent().getKing().getAttackers().isEmpty();
+	}
+
 	/**
-	 * Execution of a move. Recalculates new positions.
+	 * default implementation
 	 */
 	@Override
 	public void execute() {
@@ -68,8 +60,8 @@ public class Move implements IMove, IRefs {
 		fig1.setField(getNext());
 		getNext().setPiece(fig1);
 		if (fig2 != null) {
-			getGame().getOtherPlayer().getPieces().remove(fig2);
-			getGame().getOtherPlayer().getDeadPieces().add(fig2);
+			getGame().getOpponent().getPieces().remove(fig2);
+			getGame().getOpponent().getDeadPieces().add(fig2);
 		}
 		getReferee().setMarked(null);
 		if (fig instanceof King) {
@@ -80,10 +72,6 @@ public class Move implements IMove, IRefs {
 			opKing.setState(State.Chess);
 		}
 		getReferee().switchMainPlayer();
-	}
-
-	private boolean checkForChess() {
-		return !getFig().getOpponent().getKing().getAttackers().isEmpty();
 	}
 
 	@Override
@@ -97,6 +85,16 @@ public class Move implements IMove, IRefs {
 	}
 
 	@Override
+	public Field getNext() {
+		return next;
+	}
+
+	@Override
+	public Ids getNextId() {
+		return nextId;
+	}
+
+	@Override
 	public Field getPrev() {
 		return prev;
 	}
@@ -106,14 +104,19 @@ public class Move implements IMove, IRefs {
 		return prevId;
 	}
 
+	/**
+	 * @return String in order to present the move
+	 */
 	@Override
-	public Field getNext() {
-		return next;
-	}
-
-	@Override
-	public Ids getNextId() {
-		return nextId;
+	public String toString() {
+		String str = "";
+		// str+=super.toString()+": ";
+		str += getPrevId();
+		if (getNextId() != null) {
+			str += " -> " + getNextId() + ":  ";
+		}
+		str += "(" + getPrev().toChessNotation() + ":" + getNext().toChessNotation() + ")";
+		return str;
 	}
 
 }

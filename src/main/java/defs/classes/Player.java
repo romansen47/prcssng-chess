@@ -27,16 +27,15 @@ public class Player {
 	private static Game game = null;
 
 	/**
-	 * player's color
+	 * a list of all players of one color. this list stays allways the same. no
+	 * pieces are to be added or removed!
 	 */
-	private final Colors col;
-
-	final private List<IPiece> AllPieces = new ArrayList<>();;
+	final private List<IPiece> AllPieces = new ArrayList<>();
 
 	/**
-	 * Player's set of pieces
+	 * player's color
 	 */
-	final private List<IPiece> Pieces = new ArrayList<>();
+	private final Colors col;;
 
 	/**
 	 * set of dead pieces
@@ -44,23 +43,19 @@ public class Player {
 	final private List<IPiece> deadPieces = new ArrayList<>();
 
 	/**
+	 * The king
+	 */
+	private final King king;
+
+	/**
 	 * List of player's moves
 	 */
 	final private List<IMove> MoveList = new ArrayList<>();
 
 	/**
-	 * Getter of player's pieces
-	 * 
-	 * @return list of player's pieces
+	 * Player's set of pieces
 	 */
-	public List<IPiece> getPieces() {
-		return Pieces;
-	}
-
-	/**
-	 * The king
-	 */
-	private final King king;
+	final private List<IPiece> Pieces = new ArrayList<>();
 
 	/**
 	 * Constructor for the player
@@ -76,6 +71,73 @@ public class Player {
 			this.king = new King(Colors.BLACK, game.getField(Config.GAMESIZE, 4));
 		}
 		initialGeneration();
+	}
+
+	/**
+	 * Get all pieces, the living and the dead
+	 * 
+	 * @return allPieces
+	 */
+	public List<IPiece> getAllPieces() {
+		return AllPieces;
+	}
+
+	/**
+	 * Getter for color
+	 * 
+	 * @return the color
+	 */
+	public Colors getCol() {
+		return col;
+	}
+
+	/**
+	 * getter for list of dead pieces
+	 * 
+	 * @return the list of dead pieces
+	 */
+	public List<IPiece> getDeadPieces() {
+		return deadPieces;
+	}
+
+	/**
+	 * Getter for the king
+	 * 
+	 * @return the king
+	 */
+	public King getKing() {
+		return king;
+	}
+
+	/**
+	 * method to get the last move the player performed
+	 * 
+	 * @return the last move performed by the player
+	 */
+	public IMove getLastMove() {
+		int n = getMoveList().size();
+		if (n > 0) {
+			return getMoveList().get(n - 1);
+		}
+		return null;
+	}
+
+	/**
+	 * Getter for the list of moves
+	 * 
+	 * @return MoveList
+	 */
+	public List<IMove> getMoveList() {
+		return MoveList;
+	}
+
+	/**
+	 * Getter of player's pieces
+	 * 
+	 * @return list of player's pieces
+	 */
+	public List<IPiece> getPieces() {
+		return Pieces;
 	}
 
 	/**
@@ -103,54 +165,6 @@ public class Player {
 		Pieces.add(new Queen(getCol(), game.getField(ersteReihe, 3)));
 		AllPieces.addAll(Pieces);
 
-	}
-
-	/**
-	 * Getter for color
-	 * 
-	 * @return the color
-	 */
-	public Colors getCol() {
-		return col;
-	}
-
-	/**
-	 * getter for list of dead pieces
-	 * 
-	 * @return the list of dead pieces
-	 */
-	public List<IPiece> getDeadPieces() {
-		return deadPieces;
-	}
-
-	/**
-	 * Getter for the list of moves
-	 * 
-	 * @return MoveList
-	 */
-	public List<IMove> getMoveList() {
-		return MoveList;
-	}
-
-	/**
-	 * Getter for the king
-	 * 
-	 * @return the king
-	 */
-	public King getKing() {
-		return king;
-	}
-
-	public IMove getLastMove() {
-		int n = getMoveList().size();
-		if (n > 0) {
-			return getMoveList().get(n - 1);
-		}
-		return null;
-	}
-
-	public List<IPiece> getAllPieces() {
-		return AllPieces;
 	}
 
 }

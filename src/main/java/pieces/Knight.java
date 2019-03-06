@@ -12,8 +12,22 @@ import defs.interfaces.IMove;
 
 public class Knight extends Piece {
 
+	/**
+	 * Constructor
+	 * 
+	 * @param col   the color
+	 * @param field the field
+	 */
 	public Knight(Colors col, Field field) {
 		super(Ids.KNIGHT, col, field);
+	}
+
+	// TODO: An das Interface IValidityChecker anpassen
+	public boolean checkForValidity(int tmpI, int tmpJ) {
+		if (getGame().getField(tmpI, tmpJ).getPiece() != null) {
+			return getCol() != getGame().getField(tmpI, tmpJ).getPiece().getCol();
+		}
+		return true;
 	}
 
 	@Override
@@ -47,14 +61,6 @@ public class Knight extends Piece {
 		}
 		lst.remove(null);
 		return convertFieldsToMoves(lst);
-	}
-
-	// TODO: An das Interface IValidityChecker anpassen
-	public boolean checkForValidity(int tmpI, int tmpJ) {
-		if (getGame().getField(tmpI, tmpJ).getPiece() != null) {
-			return getCol() != getGame().getField(tmpI, tmpJ).getPiece().getCol();
-		}
-		return true;
 	}
 
 }

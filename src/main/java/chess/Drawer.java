@@ -23,23 +23,9 @@ import defs.interfaces.ISetupAndRun;
 public class Drawer implements ISetupAndRun {
 
 	/**
-	 * main instance is needed, since the drawer should be able to "draw" things.
-	 */
-	final Main main;
-
-	/**
 	 * Implementation as a singletn class
 	 */
 	private static Drawer instance = null;
-
-	/**
-	 * private construcor.
-	 * 
-	 * @param main the main papplet object.
-	 */
-	private Drawer(Main main) {
-		this.main = main;
-	}
 
 	/**
 	 * instance getter
@@ -52,6 +38,120 @@ public class Drawer implements ISetupAndRun {
 			return new Drawer(main);
 		}
 		return instance;
+	}
+
+	/**
+	 * main instance is needed, since the drawer should be able to "draw" things.
+	 */
+	final Main main;
+
+	/**
+	 * private construcor.
+	 * 
+	 * @param main the main papplet object.
+	 */
+	private Drawer(Main main) {
+		this.main = main;
+	}
+
+	/**
+	 * Do we have a click?
+	 * 
+	 * @return whether click has been performed.
+	 */
+	public boolean checkForClick() {
+		boolean clicked = main.clicked() == 1;
+		return clicked;
+	}
+
+	/**
+	 * Draws the chess board. First draws the grid.
+	 */
+	public void drawChessboard() {
+		drawGrid();
+		drawPieces();
+		drawMarked();
+		drawTimeLine();
+	}
+
+	/**
+	 * draws the grid
+	 */
+	public void drawGrid() {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				main.stroke(0);
+				main.strokeWeight(3);
+				main.line(0, 0, 8 * (float) Config.SIZE, 0);
+				main.line(0, 0, 0, 8 * (float) Config.SIZE);
+				main.line(8 * (float) Config.SIZE, 0, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE);
+				main.line(0, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE);
+			}
+		}
+	}
+
+	// Chessboard
+
+	/**
+	 * draws all marked fields
+	 */
+	public void drawMarked() {
+
+		if (getReferee().getMarked() != null && getReferee().getMarked().getPiece() != null) {
+
+			IPiece piece = getReferee().getMarked().getPiece();
+
+			drawMarkedFields(piece.convertMovesToFields(getReferee().getValidMoves(piece.getPossibleMoves())),
+					Colors.GREEN);
+			drawMarkedFields(piece.getAttackers(), Colors.RED);
+			drawMarkedFields(piece.getSupporters(), Colors.BLUE);
+
+			List<Field> pos = new ArrayList<>();
+			pos.add(getReferee().getMarked());
+			drawMarkedFields(pos, Colors.YELLOW);
+
+		}
+
+	}
+
+	/**
+	 * draws specific marked fields
+	 * 
+	 * @param fields the marked fields
+	 * @param tmp    the colors for the fields
+	 */
+	public void drawMarkedFields(List<Field> fields, Colors tmp) {
+		if (!fields.isEmpty()) {
+			for (Field fld : fields) {
+				mark(fld, tmp);
+			}
+		}
+	}
+
+	/**
+	 * draws the pieces
+	 */
+	public void drawPieces() {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				getGame().getField(i, j).draw(this.main);
+			}
+		}
+	}
+
+	/**
+	 * Draws the timeline
+	 */
+	private void drawTimeLine() {
+		Timeline tl = getGame().getMoveList();
+		this.main.textSize(32);
+		this.main.fill(0);
+		this.main.text("Timeline:", (Config.GAMESIZE + 2) * Config.SIZE, Config.SIZE);
+		this.main.textSize(18);
+		int i = 2;
+		for (String str : tl.toStr()) {
+			this.main.text(str, Config.SIZE / 4 + (Config.GAMESIZE + 1) * Config.SIZE, Config.SIZE + i++ * 30);
+		}
 	}
 
 	/**
@@ -89,124 +189,12 @@ public class Drawer implements ISetupAndRun {
 	}
 
 	/**
-	 * Do we have a click?
+	 * getter for the active player
 	 * 
-	 * @return whether click has been performed.
+	 * @return the active player
 	 */
-	public boolean checkForClick() {
-		boolean clicked = main.clicked() == 1;
-		return clicked;
-	}
-
-	/**
-	 * Marks the field, which has been cicked on
-	 * 
-	 * @param clicked tells whether click has been performed
-	 */
-	public void setMark(boolean clicked) {
-		if (!clicked) {
-			return;
-		}
-		if (!getReferee().isMarked()) {
-			int i = Config.GAMESIZE - main.getPosI();
-			int j = main.getPosJ();
-			if (i >= 0 && i <= Config.GAMESIZE && j >= 0 && j <= Config.GAMESIZE
-					&& getGame().getField(i, j).getPiece() != null
-					&& getGame().getField(Config.GAMESIZE - main.getPosI(), main.getPosJ()).getPiece()
-							.getCol() == getPlayer().getCol()) {
-				getReferee().setMarked(getGame().getField(Config.GAMESIZE - main.getPosI(), main.getPosJ()));
-			}
-		} else {
-			getReferee().setMarked2(getGame().getField(Config.GAMESIZE - main.getPosI(), main.getPosJ()));
-		}
-	}
-
-	// Chessboard
-
-	/**
-	 * Draws the chess board. First draws the grid.
-	 */
-	public void drawChessboard() {
-		drawGrid();
-		drawPieces();
-		drawMarked();
-		drawTimeLine();
-	}
-
-	private void drawTimeLine() {
-		Timeline tl = getGame().getMoveList();
-		this.main.textSize(32);
-		this.main.fill(0);
-		this.main.text("Timeline:", (Config.GAMESIZE + 2) * Config.SIZE, Config.SIZE);
-		this.main.textSize(18);
-		int i = 2;
-		for (String str : tl.toStr()) {
-			this.main.text(str, Config.SIZE / 4 + (Config.GAMESIZE + 1) * Config.SIZE, Config.SIZE + i++ * 30);
-		}
-
-	}
-
-	/**
-	 * draws the grid
-	 */
-	public void drawGrid() {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				main.stroke(0);
-				main.strokeWeight(3);
-				main.line(0, 0, 8 * (float) Config.SIZE, 0);
-				main.line(0, 0, 0, 8 * (float) Config.SIZE);
-				main.line(8 * (float) Config.SIZE, 0, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE);
-				main.line(0, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE);
-			}
-		}
-	}
-
-	/**
-	 * draws the pieces
-	 */
-	public void drawPieces() {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				getGame().getField(i, j).draw(this.main);
-			}
-		}
-	}
-
-	/**
-	 * draws specific marked fields
-	 * 
-	 * @param fields the marked fields
-	 * @param tmp    the colors for the fields
-	 */
-	public void drawMarkedFields(List<Field> fields, Colors tmp) {
-		if (!fields.isEmpty()) {
-			for (Field fld : fields) {
-				mark(fld, tmp);
-			}
-		}
-	}
-
-	/**
-	 * draws all marked fields
-	 */
-	public void drawMarked() {
-
-		if (getReferee().getMarked() != null && getReferee().getMarked().getPiece() != null) {
-
-			IPiece piece = getReferee().getMarked().getPiece();
-
-			drawMarkedFields(piece.convertMovesToFields(getReferee().getValidMoves(piece.getPossibleMoves())),
-					Colors.GREEN);
-			drawMarkedFields(piece.getAttackers(), Colors.RED);
-			drawMarkedFields(piece.getSupporters(), Colors.BLUE);
-
-			List<Field> pos = new ArrayList<>();
-			pos.add(getReferee().getMarked());
-			drawMarkedFields(pos, Colors.YELLOW);
-
-		}
-
+	private Player getPlayer() {
+		return getGame().getPlayer();
 	}
 
 	/**
@@ -256,12 +244,26 @@ public class Drawer implements ISetupAndRun {
 	}
 
 	/**
-	 * getter for the active player
+	 * Marks the field, which has been cicked on
 	 * 
-	 * @return the active player
+	 * @param clicked tells whether click has been performed
 	 */
-	private Player getPlayer() {
-		return getGame().getPlayer();
+	public void setMark(boolean clicked) {
+		if (!clicked) {
+			return;
+		}
+		if (!getReferee().isMarked()) {
+			int i = Config.GAMESIZE - main.getPosI();
+			int j = main.getPosJ();
+			if (i >= 0 && i <= Config.GAMESIZE && j >= 0 && j <= Config.GAMESIZE
+					&& getGame().getField(i, j).getPiece() != null
+					&& getGame().getField(Config.GAMESIZE - main.getPosI(), main.getPosJ()).getPiece()
+							.getCol() == getPlayer().getCol()) {
+				getReferee().setMarked(getGame().getField(Config.GAMESIZE - main.getPosI(), main.getPosJ()));
+			}
+		} else {
+			getReferee().setMarked2(getGame().getField(Config.GAMESIZE - main.getPosI(), main.getPosJ()));
+		}
 	}
 
 }

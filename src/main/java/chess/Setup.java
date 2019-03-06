@@ -1,9 +1,9 @@
-package conf;
+package chess;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.Main;
+import conf.Config;
 import defs.classes.Player;
 import defs.enums.Colors;
 import defs.enums.Ids;
@@ -22,18 +22,27 @@ import processing.core.PImage;
 public class Setup implements IRefs, ISetupAndRun {
 
 	/**
-	 * This is necessary, since main instance is needed to initiate the pieces
+	 * static intstance
 	 */
-	final Main main;
-
 	private static Setup instance = null;
 
+	/**
+	 * Getter for instance
+	 * 
+	 * @param main the Main(PApplet) object.
+	 * @return the static instance
+	 */
 	public static Setup getInstance(Main main) {
 		if (instance == null) {
 			return new Setup(main);
 		}
 		return instance;
 	}
+
+	/**
+	 * This is necessary, since main instance is needed to initiate the pieces
+	 */
+	final Main main;
 
 	/**
 	 * Constructor
@@ -66,23 +75,15 @@ public class Setup implements IRefs, ISetupAndRun {
 	// Preparations
 
 	/**
-	 * Setup players
+	 * Assignes an image to a set of pieces
+	 * 
+	 * @param pieces list of pieces
+	 * @param image  to be assigned
 	 */
-	final void setupPlayers() {
-		getGame().setup();
-	}
-
-	/**
-	 * Setup surface-attribute of papplet instance
-	 */
-	final void setupSurface() {
-
-		main.background(255);
-		main.frameRate(60);
-		main.getSurface().setResizable(true);
-		main.getSurface().setSize(15 * Config.SIZE, 8 * Config.SIZE);
-		main.getSurface().setLocation(main.displayWidth - main.width >> 1, main.displayHeight - main.height >> 1);
-
+	public void getImageForAllRelevant(List<IPiece> pieces, PImage image) {
+		for (IPiece piece : pieces) {
+			piece.setImage(image);
+		}
 	}
 
 	/**
@@ -104,29 +105,6 @@ public class Setup implements IRefs, ISetupAndRun {
 			}
 		}
 		return pieces;
-	}
-
-	/**
-	 * Assignes an image to a set of pieces
-	 * 
-	 * @param pieces list of pieces
-	 * @param image  to be assigned
-	 */
-	public void getImageForAllRelevant(List<IPiece> pieces, PImage image) {
-		for (IPiece piece : pieces) {
-			piece.setImage(image);
-		}
-	}
-
-	/**
-	 * Assignes an image to a set of pieces of same kind
-	 * 
-	 * @param id    the id corresponding to which the pieces will be selected
-	 * @param col   the col corresponding to which the pieces will be selected
-	 * @param image the image to be assigned
-	 */
-	public void initiateRelevant(Ids id, Colors col, PImage image) {
-		getImageForAllRelevant(getPiecesOfSameKind(id, col), image);
 	}
 
 	/**
@@ -171,6 +149,37 @@ public class Setup implements IRefs, ISetupAndRun {
 
 		main.setBlackPawn(main.loadImage(path + "black_pawn.png"));
 		initiateRelevant(Ids.PAWN, Colors.BLACK, main.getBlackPawn());
+
+	}
+
+	/**
+	 * Assignes an image to a set of pieces of same kind
+	 * 
+	 * @param id    the id corresponding to which the pieces will be selected
+	 * @param col   the col corresponding to which the pieces will be selected
+	 * @param image the image to be assigned
+	 */
+	public void initiateRelevant(Ids id, Colors col, PImage image) {
+		getImageForAllRelevant(getPiecesOfSameKind(id, col), image);
+	}
+
+	/**
+	 * Setup players
+	 */
+	final void setupPlayers() {
+		getGame().setup();
+	}
+
+	/**
+	 * Setup surface-attribute of papplet instance
+	 */
+	final void setupSurface() {
+
+		main.background(255);
+		main.frameRate(60);
+		main.getSurface().setResizable(true);
+		main.getSurface().setSize(15 * Config.SIZE, 8 * Config.SIZE);
+		main.getSurface().setLocation(main.displayWidth - main.width >> 1, main.displayHeight - main.height >> 1);
 
 	}
 
