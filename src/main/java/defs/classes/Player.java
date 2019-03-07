@@ -35,7 +35,7 @@ public class Player {
 	/**
 	 * player's color
 	 */
-	private final Colors col;;
+	private final Colors col;
 
 	/**
 	 * set of dead pieces
@@ -63,14 +63,14 @@ public class Player {
 	 * @param col the player's color
 	 */
 	public Player(Colors col) {
-		game = Game.getInstance();
+		Player.game = Game.getInstance();
 		this.col = col;
 		if (col == Colors.WHITE) {
-			this.king = new King(Colors.WHITE, game.getField(0, 4));
+			this.king = new King(Colors.WHITE, Player.game.getField(0, 4));
 		} else {
-			this.king = new King(Colors.BLACK, game.getField(Config.GAMESIZE, 4));
+			this.king = new King(Colors.BLACK, Player.game.getField(Config.GAMESIZE, 4));
 		}
-		initialGeneration();
+		this.initialGeneration();
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class Player {
 	 * @return allPieces
 	 */
 	public List<IPiece> getAllPieces() {
-		return AllPieces;
+		return this.AllPieces;
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class Player {
 	 * @return the color
 	 */
 	public Colors getCol() {
-		return col;
+		return this.col;
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class Player {
 	 * @return the list of dead pieces
 	 */
 	public List<IPiece> getDeadPieces() {
-		return deadPieces;
+		return this.deadPieces;
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class Player {
 	 * @return the king
 	 */
 	public King getKing() {
-		return king;
+		return this.king;
 	}
 
 	/**
@@ -115,9 +115,9 @@ public class Player {
 	 * @return the last move performed by the player
 	 */
 	public IMove getLastMove() {
-		int n = getMoveList().size();
+		final int n = this.getMoveList().size();
 		if (n > 0) {
-			return getMoveList().get(n - 1);
+			return this.getMoveList().get(n - 1);
 		}
 		return null;
 	}
@@ -128,7 +128,7 @@ public class Player {
 	 * @return MoveList
 	 */
 	public List<IMove> getMoveList() {
-		return MoveList;
+		return this.MoveList;
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class Player {
 	 * @return list of player's pieces
 	 */
 	public List<IPiece> getPieces() {
-		return Pieces;
+		return this.Pieces;
 	}
 
 	/**
@@ -145,25 +145,25 @@ public class Player {
 	 */
 	private void initialGeneration() {
 
-		Pieces.add(getKing());
+		this.Pieces.add(this.getKing());
 		int ersteReihe = 0;
 		int zweiteReihe = 1;
-		if (getCol() == Colors.BLACK) {
+		if (this.getCol() == Colors.BLACK) {
 			ersteReihe = Config.GAMESIZE;
 			zweiteReihe = 6;
 		}
 		for (int j = 0; j < 8; j++) {
-			Pieces.add(new Pawn(getCol(), game.getField(zweiteReihe, j)));
+			this.Pieces.add(new Pawn(this.getCol(), Player.game.getField(zweiteReihe, j)));
 		}
 
-		Pieces.add(new Knight(getCol(), game.getField(ersteReihe, 1)));
-		Pieces.add(new Knight(getCol(), game.getField(ersteReihe, 6)));
-		Pieces.add(new Bishop(getCol(), game.getField(ersteReihe, 2)));
-		Pieces.add(new Bishop(getCol(), game.getField(ersteReihe, 5)));
-		Pieces.add(new Rook(getCol(), game.getField(ersteReihe, 0)));
-		Pieces.add(new Rook(getCol(), game.getField(ersteReihe, Config.GAMESIZE)));
-		Pieces.add(new Queen(getCol(), game.getField(ersteReihe, 3)));
-		AllPieces.addAll(Pieces);
+		this.Pieces.add(new Knight(this.getCol(), Player.game.getField(ersteReihe, 1)));
+		this.Pieces.add(new Knight(this.getCol(), Player.game.getField(ersteReihe, 6)));
+		this.Pieces.add(new Bishop(this.getCol(), Player.game.getField(ersteReihe, 2)));
+		this.Pieces.add(new Bishop(this.getCol(), Player.game.getField(ersteReihe, 5)));
+		this.Pieces.add(new Rook(this.getCol(), Player.game.getField(ersteReihe, 0)));
+		this.Pieces.add(new Rook(this.getCol(), Player.game.getField(ersteReihe, Config.GAMESIZE)));
+		this.Pieces.add(new Queen(this.getCol(), Player.game.getField(ersteReihe, 3)));
+		this.AllPieces.addAll(this.Pieces);
 
 	}
 

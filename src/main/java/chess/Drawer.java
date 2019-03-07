@@ -34,10 +34,10 @@ public class Drawer implements ISetupAndRun {
 	 * @return drawer instance
 	 */
 	public static Drawer getInstance(Main main) {
-		if (instance == null) {
+		if (Drawer.instance == null) {
 			return new Drawer(main);
 		}
-		return instance;
+		return Drawer.instance;
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class Drawer implements ISetupAndRun {
 	 * @return whether click has been performed.
 	 */
 	public boolean checkForClick() {
-		boolean clicked = main.clicked() == 1;
+		final boolean clicked = this.main.clicked() == 1;
 		return clicked;
 	}
 
@@ -68,10 +68,10 @@ public class Drawer implements ISetupAndRun {
 	 * Draws the chess board. First draws the grid.
 	 */
 	public void drawChessboard() {
-		drawGrid();
-		drawPieces();
-		drawMarked();
-		drawTimeLine();
+		this.drawGrid();
+		this.drawPieces();
+		this.drawMarked();
+		this.drawTimeLine();
 	}
 
 	/**
@@ -80,12 +80,12 @@ public class Drawer implements ISetupAndRun {
 	public void drawGrid() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				main.stroke(0);
-				main.strokeWeight(3);
-				main.line(0, 0, 8 * (float) Config.SIZE, 0);
-				main.line(0, 0, 0, 8 * (float) Config.SIZE);
-				main.line(8 * (float) Config.SIZE, 0, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE);
-				main.line(0, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE);
+				this.main.stroke(0);
+				this.main.strokeWeight(3);
+				this.main.line(0, 0, 8 * (float) Config.SIZE, 0);
+				this.main.line(0, 0, 0, 8 * (float) Config.SIZE);
+				this.main.line(8 * (float) Config.SIZE, 0, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE);
+				this.main.line(0, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE);
 			}
 		}
 	}
@@ -96,22 +96,18 @@ public class Drawer implements ISetupAndRun {
 	 * draws all marked fields
 	 */
 	public void drawMarked() {
+		if (this.getReferee().getMarked() != null && this.getReferee().getMarked().getPiece() != null) {
 
-		if (getReferee().getMarked() != null && getReferee().getMarked().getPiece() != null) {
-
-			IPiece piece = getReferee().getMarked().getPiece();
-
-			drawMarkedFields(piece.convertMovesToFields(getReferee().getValidMoves(piece.getPossibleMoves())),
+			final IPiece piece = this.getReferee().getMarked().getPiece();
+			this.drawMarkedFields(piece.convertMovesToFields(this.getReferee().getValidMoves(piece.getPossibleMoves())),
 					Colors.GREEN);
-			drawMarkedFields(piece.getAttackers(), Colors.RED);
-			drawMarkedFields(piece.getSupporters(), Colors.BLUE);
-
-			List<Field> pos = new ArrayList<>();
-			pos.add(getReferee().getMarked());
-			drawMarkedFields(pos, Colors.YELLOW);
+			this.drawMarkedFields(piece.getAttackers(), Colors.RED);
+			this.drawMarkedFields(piece.getSupporters(), Colors.BLUE);
+			final List<Field> pos = new ArrayList<>();
+			pos.add(this.getReferee().getMarked());
+			this.drawMarkedFields(pos, Colors.YELLOW);
 
 		}
-
 	}
 
 	/**
@@ -122,8 +118,8 @@ public class Drawer implements ISetupAndRun {
 	 */
 	public void drawMarkedFields(List<Field> fields, Colors tmp) {
 		if (!fields.isEmpty()) {
-			for (Field fld : fields) {
-				mark(fld, tmp);
+			for (final Field fld : fields) {
+				this.mark(fld, tmp);
 			}
 		}
 	}
@@ -134,23 +130,8 @@ public class Drawer implements ISetupAndRun {
 	public void drawPieces() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				getGame().getField(i, j).draw(this.main);
+				this.getGame().getField(i, j).draw(this.main);
 			}
-		}
-	}
-
-	/**
-	 * Draws the timeline
-	 */
-	private void drawTimeLine() {
-		Timeline tl = getGame().getMoveList();
-		this.main.textSize(32);
-		this.main.fill(0);
-		this.main.text("Timeline:", (Config.GAMESIZE + 2) * Config.SIZE, Config.SIZE);
-		this.main.textSize(18);
-		int i = 2;
-		for (String str : tl.toStr()) {
-			this.main.text(str, Config.SIZE / 4 + (Config.GAMESIZE + 1) * Config.SIZE, Config.SIZE + i++ * 30);
 		}
 	}
 
@@ -161,40 +142,33 @@ public class Drawer implements ISetupAndRun {
 	public void execute() {
 
 		// check for interaction and mark field, if clicked
-		boolean cl = checkForClick();
-		setMark(cl);
+		final boolean cl = this.checkForClick();
+		this.setMark(cl);
 
-		if (getGame().getPlayer() instanceof RandomPlayer) {
-			getReferee().processMove(((RandomPlayer) getGame().getPlayer()).randomMove());
+		if (this.getGame().getPlayer() instanceof RandomPlayer) {
+			this.getReferee().processMove(((RandomPlayer) this.getGame().getPlayer()).randomMove());
 		} else {
 			if (cl) {
 
 				// use information on interaction to create next move
-				IMove move = getReferee().getMove();
+				final IMove move = this.getReferee().getMove();
 
 				// save move to list and statistics
-				getReferee().processMove(move);
+				this.getReferee().processMove(move);
+
+				// Draw the complete chess board
+				this.drawChessboard();
 
 			}
 		}
-		// Draw the complete chess board
-		drawChessboard();
 
-		if (main.pressed() == 1 && main.key == 'r') {
-			getReferee().rewindLastMove();
-			main.background(255);
-			getGame().getReferee().setMarked(null);
-			getGame().getReferee().setMarked2(null);
+		if (this.main.pressed() == 1 && this.main.key == 'r') {
+			this.getReferee().rewindLastMove();
+			this.main.background(255);
+			this.getGame().getReferee().setMarked(null);
+			this.getGame().getReferee().setMarked2(null);
+			this.drawChessboard();
 		}
-	}
-
-	/**
-	 * getter for the active player
-	 * 
-	 * @return the active player
-	 */
-	private Player getPlayer() {
-		return getGame().getPlayer();
 	}
 
 	/**
@@ -205,39 +179,39 @@ public class Drawer implements ISetupAndRun {
 	 */
 	public void mark(Field fld, Colors col) {
 
-		int thickness = 5;
-		main.strokeWeight(thickness);
-		int size = Config.SIZE;
+		final int thickness = 5;
+		this.main.strokeWeight(thickness);
+		final int size = Config.SIZE;
 		switch (col) {
 		case RED:
-			main.stroke(255, 0, 0);
-			main.noFill();
-			main.rect((fld.getJ() + 1) * size - size + (float) thickness,
+			this.main.stroke(255, 0, 0);
+			this.main.noFill();
+			this.main.rect((fld.getJ() + 1) * size - size + (float) thickness,
 					(fld.getI() + 1) * (float) size - size + thickness, (float) size - 2 * thickness,
 					(float) size - 2 * thickness);
 			break;
 		case BLUE:
-			main.stroke(0, 0, 255);
-			main.noFill();
-			main.rect((fld.getJ() + 1) * (float) size - size + 2 * thickness,
+			this.main.stroke(0, 0, 255);
+			this.main.noFill();
+			this.main.rect((fld.getJ() + 1) * (float) size - size + 2 * thickness,
 					(fld.getI() + 1) * (float) size - size + 2 * thickness, (float) size - 4 * thickness,
 					(float) size - 4 * thickness);
 			break;
 		case YELLOW:
-			main.stroke(255, 255, 0);
-			main.noFill();
-			main.rect((fld.getJ() + 1) * (float) size - size + thickness,
+			this.main.stroke(255, 255, 0);
+			this.main.noFill();
+			this.main.rect((fld.getJ() + 1) * (float) size - size + thickness,
 					(fld.getI() + 1) * (float) size - size + thickness, (float) size - 2 * thickness,
 					(float) size - 2 * thickness);
-			main.rect((fld.getJ() + 1) * (float) size - size + 2 * thickness,
+			this.main.rect((fld.getJ() + 1) * (float) size - size + 2 * thickness,
 					(fld.getI() + 1) * (float) size - size + 2 * thickness, (float) size - 4 * thickness,
 					(float) size - 4 * thickness);
-			main.rect((fld.getJ() + 1) * (float) size - size, (fld.getI() + 1) * (float) size - size, size, size);
+			this.main.rect((fld.getJ() + 1) * (float) size - size, (fld.getI() + 1) * (float) size - size, size, size);
 			break;
 		default:
-			main.stroke(0, 255, 0);
-			main.noFill();
-			main.rect((fld.getJ() + 1) * (float) size - size, (fld.getI() + 1) * (float) size - size, size, size);
+			this.main.stroke(0, 255, 0);
+			this.main.noFill();
+			this.main.rect((fld.getJ() + 1) * (float) size - size, (fld.getI() + 1) * (float) size - size, size, size);
 			break;
 
 		}
@@ -252,18 +226,44 @@ public class Drawer implements ISetupAndRun {
 		if (!clicked) {
 			return;
 		}
-		if (!getReferee().isMarked()) {
-			int i = Config.GAMESIZE - main.getPosI();
-			int j = main.getPosJ();
+		if (!this.getReferee().isMarked()) {
+			final int i = Config.GAMESIZE - this.main.getPosI();
+			final int j = this.main.getPosJ();
 			if (i >= 0 && i <= Config.GAMESIZE && j >= 0 && j <= Config.GAMESIZE
-					&& getGame().getField(i, j).getPiece() != null
-					&& getGame().getField(Config.GAMESIZE - main.getPosI(), main.getPosJ()).getPiece()
-							.getCol() == getPlayer().getCol()) {
-				getReferee().setMarked(getGame().getField(Config.GAMESIZE - main.getPosI(), main.getPosJ()));
+					&& this.getGame().getField(i, j).getPiece() != null
+					&& this.getGame().getField(Config.GAMESIZE - this.main.getPosI(), this.main.getPosJ()).getPiece()
+							.getCol() == this.getPlayer().getCol()) {
+				this.getReferee()
+						.setMarked(this.getGame().getField(Config.GAMESIZE - this.main.getPosI(), this.main.getPosJ()));
 			}
 		} else {
-			getReferee().setMarked2(getGame().getField(Config.GAMESIZE - main.getPosI(), main.getPosJ()));
+			this.getReferee()
+					.setMarked2(this.getGame().getField(Config.GAMESIZE - this.main.getPosI(), this.main.getPosJ()));
 		}
+	}
+
+	/**
+	 * Draws the timeline
+	 */
+	private void drawTimeLine() {
+		final Timeline tl = this.getGame().getMoveList();
+		this.main.textSize(32);
+		this.main.fill(0);
+		this.main.text("Timeline:", (Config.GAMESIZE + 2) * Config.SIZE, Config.SIZE);
+		this.main.textSize(18);
+		int i = 2;
+		for (final String str : tl.toStr()) {
+			this.main.text(str, Config.SIZE / 4 + (Config.GAMESIZE + 1) * Config.SIZE, Config.SIZE + i++ * 30);
+		}
+	}
+
+	/**
+	 * getter for the active player
+	 * 
+	 * @return the active player
+	 */
+	private Player getPlayer() {
+		return this.getGame().getPlayer();
 	}
 
 }

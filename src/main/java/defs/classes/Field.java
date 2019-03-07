@@ -56,12 +56,12 @@ public class Field implements IColors, IDraw, IRefs {
 	 */
 	@Override
 	public void draw(Main main) {
-		int size = Config.SIZE;
+		final int size = Config.SIZE;
 		main.noStroke();
-		main.fill(getColAsInt());
-		main.rect((float) size * getJ(), (float) size * getI(), size, size);
-		if (getPiece() != null) {
-			getPiece().draw(main);
+		main.fill(this.getColAsInt());
+		main.rect((float) size * this.getJ(), (float) size * this.getI(), size, size);
+		if (this.getPiece() != null) {
+			this.getPiece().draw(main);
 		}
 	}
 
@@ -70,7 +70,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 */
 	@Override
 	public Colors getCol() {
-		return col;
+		return this.col;
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return the corresponding color value as integer
 	 */
 	public int getColAsInt() {
-		if (getCol() == Colors.WHITE) {
+		if (this.getCol() == Colors.WHITE) {
 			return 230;
 		}
 		return 100;
@@ -92,7 +92,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return vertical coordinate
 	 */
 	public int getI() {
-		return i;
+		return this.i;
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return horizontal coordinate
 	 */
 	public int getJ() {
-		return j;
+		return this.j;
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return the piece
 	 */
 	public IPiece getPiece() {
-		return piece;
+		return this.piece;
 	}
 
 	/**
@@ -186,9 +186,9 @@ public class Field implements IColors, IDraw, IRefs {
 	 */
 	@Override
 	public String toString() {
-		String ans = "(" + toChessNotation() + "): " + getCol() + " FIELD";
+		String ans = "(" + this.toChessNotation() + "): " + this.getCol() + " FIELD";
 		if (this.getPiece() != null) {
-			ans += " (" + getPiece().toString() + ")";
+			ans += " (" + this.getPiece().toString() + ")";
 		}
 		return ans;
 	}

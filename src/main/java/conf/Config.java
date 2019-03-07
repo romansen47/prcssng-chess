@@ -14,6 +14,11 @@ final public class Config {
 	public final static int GAMESIZE = 7;
 
 	/**
+	 * the stanard size of a field
+	 */
+	public final static int SIZE = 100;
+
+	/**
 	 * static instance of Config
 	 */
 	private static Config instance = null;
@@ -24,20 +29,15 @@ final public class Config {
 	private static boolean RandomPlayer = false;
 
 	/**
-	 * the stanard size of a field
-	 */
-	public final static int SIZE = 100;
-
-	/**
 	 * getter for the static instance
 	 * 
 	 * @return the static instance
 	 */
 	public static Config getInstance() {
-		if (instance == null) {
-			instance = new Config();
+		if (Config.instance == null) {
+			Config.instance = new Config();
 		}
-		return instance;
+		return Config.instance;
 	}
 
 	/**
@@ -46,7 +46,7 @@ final public class Config {
 	 * @return the random player
 	 */
 	public static boolean isRandomPlayer() {
-		return RandomPlayer;
+		return Config.RandomPlayer;
 	}
 
 	/**
@@ -61,7 +61,7 @@ final public class Config {
 	 * @param randomPlayer instance of RandomPlayer
 	 */
 	public void setRandomPlayer(boolean randomPlayer) {
-		RandomPlayer = randomPlayer;
+		Config.RandomPlayer = randomPlayer;
 	}
 
 }

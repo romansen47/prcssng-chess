@@ -58,32 +58,32 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	@Override
 	public void draw(Main main) {
 		final int size = Config.SIZE;
-		main.image(getImage(), size * getField().getJ(), size * getField().getI(), size, size);
+		main.image(this.getImage(), size * this.getField().getJ(), size * this.getField().getI(), size, size);
 	}
 
 	@Override
 	public Colors getCol() {
-		return col;
+		return this.col;
 	}
 
 	@Override
 	public Field getField() {
-		return field;
+		return this.field;
 	}
 
 	@Override
 	public Field getFirstField() {
-		return firstField;
+		return this.firstField;
 	}
 
 	@Override
 	public Ids getId() {
-		return id;
+		return this.id;
 	}
 
 	@Override
 	public PImage getImage() {
-		return image;
+		return this.image;
 	}
 
 	@Override
@@ -93,19 +93,19 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 
 	@Override
 	public int getPosI() {
-		return getField().getI();
+		return this.getField().getI();
 	}
 
 	@Override
 	public int getPosJ() {
-		return getField().getJ();
+		return this.getField().getJ();
 	}
 
 	@Override
 	public void reset() {
 		this.getField().setPiece(null);
 		this.setField(this.getFirstField());
-		getField().setPiece(this);
+		this.getField().setPiece(this);
 	}
 
 	@Override
@@ -123,7 +123,7 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 
 	@Override
 	public String toString() {
-		return getCol() + " " + getId();
+		return this.getCol() + " " + this.getId();
 	}
 
 }

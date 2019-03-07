@@ -25,10 +25,10 @@ public class Castling extends Move {
 
 	@Override
 	public void execute() {
-		IPiece piece = getNext().getPiece();
-		if (piece.getId() == Ids.ROOK && getFig().getCol() == getNext().getPiece().getCol()) {
-			int k = getPrev().getJ();
-			int r = getNext().getJ();
+		final IPiece piece = this.getNext().getPiece();
+		if (piece.getId() == Ids.ROOK && this.getFig().getCol() == this.getNext().getPiece().getCol()) {
+			int k = this.getPrev().getJ();
+			int r = this.getNext().getJ();
 			if (k > r) {
 				r = k - 1;
 				k = r - 1;
@@ -36,14 +36,14 @@ public class Castling extends Move {
 				r = k + 1;
 				k = r + 1;
 			}
-			getPrev().setPiece(null);
-			getFig().setField(getGame().getField(getPrev().getI(), k));
-			getGame().getField(getPrev().getI(), k).setPiece(getFig());
-			getNext().setPiece(null);
-			rook.setField(getGame().getField(getPrev().getI(), r));
-			getGame().getField(getPrev().getI(), r).setPiece(rook);
+			this.getPrev().setPiece(null);
+			this.getFig().setField(this.getGame().getField(this.getPrev().getI(), k));
+			this.getGame().getField(this.getPrev().getI(), k).setPiece(this.getFig());
+			this.getNext().setPiece(null);
+			this.rook.setField(this.getGame().getField(this.getPrev().getI(), r));
+			this.getGame().getField(this.getPrev().getI(), r).setPiece(this.rook);
 		}
-		((King) getFig()).setValidForCastling(false);
-		getReferee().switchMainPlayer();
+		((King) this.getFig()).setValidForCastling(false);
+		this.getReferee().switchMainPlayer();
 	}
 }

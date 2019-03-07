@@ -29,11 +29,11 @@ public class Referee implements IRefs {
 	 * @return static instance
 	 */
 	public static Referee getInstance() {
-		if (instance == null) {
-			instance = new Referee();
-			return instance;
+		if (Referee.instance == null) {
+			Referee.instance = new Referee();
+			return Referee.instance;
 		}
-		return instance;
+		return Referee.instance;
 	}
 
 	/**
@@ -53,36 +53,12 @@ public class Referee implements IRefs {
 	}
 
 	/**
-	 * Validity check
-	 * 
-	 * @param move the move to check for validity
-	 * @return true if move is valid, false otherwise
-	 */
-	private boolean checkForValidity(IMove move) {
-		if (move == null) {
-			return false;
-		}
-		boolean ans = true;
-		getGame().getMoveList().add(move);
-		getGame().getPlayer().getMoveList().add(move);
-		move.execute();
-		for (IPiece piece : move.getFig().getOpponent().getPieces()) {
-			if (piece.getPossibleFields().contains(move.getFig().getOwner().getKing().getField())) {
-				ans = false;
-			}
-		}
-		rewindLastMove();
-		setMarked(move.getPrev());
-		return ans;
-	}
-
-	/**
 	 * Getter for marked field
 	 * 
 	 * @return the field that has been marked
 	 */
 	public Field getMarked() {
-		return marked;
+		return this.marked;
 	}
 
 	/**
@@ -91,7 +67,7 @@ public class Referee implements IRefs {
 	 * @return the field that has been marked
 	 */
 	public Field getMarked2() {
-		return marked2;
+		return this.marked2;
 	}
 
 	/**
@@ -100,12 +76,12 @@ public class Referee implements IRefs {
 	 * @return a move in case of validity. null otherwise
 	 */
 	public IMove getMove() {
-		if (this.isMarked2() && getMarked().getPiece() != null) {
-			IPiece piece = getMarked().getPiece();
-			if (piece.convertMovesToFields(piece.getPossibleMoves()).contains(getMarked2())) {
-				IMove move = getMarked().getPiece().getMove(getMarked2());
-				setMarked2(null);
-				setMarked(null);
+		if (this.isMarked2() && this.getMarked().getPiece() != null) {
+			final IPiece piece = this.getMarked().getPiece();
+			if (piece.convertMovesToFields(piece.getPossibleMoves()).contains(this.getMarked2())) {
+				final IMove move = this.getMarked().getPiece().getMove(this.getMarked2());
+				this.setMarked2(null);
+				this.setMarked(null);
 				return move;
 			}
 		}
@@ -119,7 +95,7 @@ public class Referee implements IRefs {
 	 * @return the move in case of validity, null otherwise
 	 */
 	public IMove getValidMove(IMove move) {
-		if (checkForValidity(move)) {
+		if (this.checkForValidity(move)) {
 			return move;
 		}
 		return null;
@@ -132,9 +108,9 @@ public class Referee implements IRefs {
 	 * @return list of valid moves contained in the list
 	 */
 	public List<IMove> getValidMoves(List<IMove> moves) {
-		List<IMove> ans = new ArrayList<>();
-		for (IMove move : moves) {
-			if (checkForValidity(move)) {
+		final List<IMove> ans = new ArrayList<>();
+		for (final IMove move : moves) {
+			if (this.checkForValidity(move)) {
 				ans.add(move);
 			}
 		}
@@ -147,10 +123,10 @@ public class Referee implements IRefs {
 	 * @return true, if a field has been marked
 	 */
 	public boolean isMarked() {
-		if (getMarked() != null) {
+		if (this.getMarked() != null) {
 			return true;
 		}
-		setMarked2(null);
+		this.setMarked2(null);
 		return false;
 	}
 
@@ -160,10 +136,10 @@ public class Referee implements IRefs {
 	 * @return true, if a second field has been marked
 	 */
 	public boolean isMarked2() {
-		if (getMarked() != null) {
-			return (getMarked2() != null);
+		if (this.getMarked() != null) {
+			return (this.getMarked2() != null);
 		}
-		setMarked2(null);
+		this.setMarked2(null);
 		return false;
 	}
 
@@ -174,25 +150,14 @@ public class Referee implements IRefs {
 	 * @param move the given move
 	 */
 	public void processMove(IMove move) {
-		if (getValidMove(move) != null) {
-			getGame().getMoveList().add(move);
-			getGame().getPlayer().getMoveList().add(move);
+		if (this.getValidMove(move) != null) {
+			this.getGame().getMoveList().add(move);
+			this.getGame().getPlayer().getMoveList().add(move);
 			/**
 			 * Print move: System.out.println((getGame().getMoveList()).toStr());
 			 */
 			move.execute();
-		}
-	}
-
-	/**
-	 * Resets the pieces to their fields in the beginning of a match
-	 */
-	private void resetPieces() {
-		for (IPiece piece : getGame().getWhite().getAllPieces()) {
-			piece.reset();
-		}
-		for (IPiece piece : getGame().getBlack().getAllPieces()) {
-			piece.reset();
+			this.getReferee().setMarked(null);
 		}
 	}
 
@@ -200,13 +165,13 @@ public class Referee implements IRefs {
 	 * Resets the game and execute all moves, but not the last one.
 	 */
 	public void rewindLastMove() {
-		getGame().setPlayer(getGame().getWhite());
-		Timeline tl = getGame().getMoveList();
-		resetPieces();
-		int last = tl.size() - 1;
+		this.getGame().setPlayer(this.getGame().getWhite());
+		final Timeline tl = this.getGame().getMoveList();
+		this.resetPieces();
+		final int last = tl.size() - 1;
 		if (last >= 0) {
 			tl.remove(last);
-			for (IMove move : tl) {
+			for (final IMove move : tl) {
 				move.execute();
 			}
 		}
@@ -220,6 +185,7 @@ public class Referee implements IRefs {
 	public void setMarked(Field marked) {
 		if (marked == null || marked.getPiece() == null) {
 			this.marked = null;
+			this.marked2 = null;
 		} else {
 			if (marked.getPiece().getCol() == Game.getInstance().getPlayer().getCol()) {
 				this.marked = marked;
@@ -233,10 +199,10 @@ public class Referee implements IRefs {
 	 * @param marked2 the marked field
 	 */
 	public void setMarked2(Field marked2) {
-		if (marked2 != getMarked()) {
+		if (marked2 != this.getMarked()) {
 			this.marked2 = marked2;
 		} else {
-			setMarked(null);
+			this.setMarked(null);
 		}
 	}
 
@@ -248,6 +214,42 @@ public class Referee implements IRefs {
 			Game.getInstance().setPlayer(Game.getInstance().getBlack());
 		} else {
 			Game.getInstance().setPlayer(Game.getInstance().getWhite());
+		}
+	}
+
+	/**
+	 * Validity check
+	 * 
+	 * @param move the move to check for validity
+	 * @return true if move is valid, false otherwise
+	 */
+	private boolean checkForValidity(IMove move) {
+		if (move == null) {
+			return false;
+		}
+		boolean ans = true;
+		this.getGame().getMoveList().add(move);
+		this.getGame().getPlayer().getMoveList().add(move);
+		move.execute();
+		for (final IPiece piece : move.getFig().getOpponent().getPieces()) {
+			if (piece.getPossibleFields().contains(move.getFig().getOwner().getKing().getField())) {
+				ans = false;
+			}
+		}
+		this.rewindLastMove();
+		this.setMarked(move.getPrev());
+		return ans;
+	}
+
+	/**
+	 * Resets the pieces to their fields in the beginning of a match
+	 */
+	private void resetPieces() {
+		for (final IPiece piece : this.getGame().getWhite().getAllPieces()) {
+			piece.reset();
+		}
+		for (final IPiece piece : this.getGame().getBlack().getAllPieces()) {
+			piece.reset();
 		}
 	}
 

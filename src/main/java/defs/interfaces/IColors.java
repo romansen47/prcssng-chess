@@ -14,6 +14,6 @@ public interface IColors {
 	/**
 	 * @return the color
 	 */
-	public Colors getCol();
+	Colors getCol();
 
 }

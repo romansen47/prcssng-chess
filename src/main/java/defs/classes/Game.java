@@ -32,10 +32,10 @@ final public class Game implements IRefs {
 	 * @return the static instance
 	 */
 	public static Game getInstance() {
-		if (instance == null) {
-			instance = new Game();
+		if (Game.instance == null) {
+			Game.instance = new Game();
 		}
-		return instance;
+		return Game.instance;
 	}
 
 	/**
@@ -53,13 +53,13 @@ final public class Game implements IRefs {
 	 */
 	private Game() {
 		// Generate the chess board
-		Chessboard = new Field[8][8];
+		this.Chessboard = new Field[8][8];
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if ((i + j) % 2 == 0) {
-					Chessboard[i][j] = new Field(Colors.BLACK, i, j);
+					this.Chessboard[i][j] = new Field(Colors.BLACK, i, j);
 				} else {
-					Chessboard[i][j] = new Field(Colors.WHITE, i, j);
+					this.Chessboard[i][j] = new Field(Colors.WHITE, i, j);
 				}
 			}
 		}
@@ -72,7 +72,7 @@ final public class Game implements IRefs {
 	 * @return the black player
 	 */
 	public Player getBlack() {
-		return Black;
+		return Game.Black;
 	}
 
 	/**
@@ -83,7 +83,7 @@ final public class Game implements IRefs {
 	 * @return the field at given coordinates
 	 */
 	public Field getField(int i, int j) {
-		return Chessboard[i][j];
+		return this.Chessboard[i][j];
 	}
 
 	/**
@@ -92,7 +92,7 @@ final public class Game implements IRefs {
 	 * @return the timeline
 	 */
 	public Timeline getMoveList() {
-		return MoveList;
+		return this.MoveList;
 	}
 
 	/**
@@ -101,10 +101,10 @@ final public class Game implements IRefs {
 	 * @return the passive player
 	 */
 	public Player getOpponent() {
-		if (getPlayer() == getWhite()) {
-			return getBlack();
+		if (this.getPlayer() == this.getWhite()) {
+			return this.getBlack();
 		}
-		return getWhite();
+		return this.getWhite();
 	}
 
 	/**
@@ -113,7 +113,7 @@ final public class Game implements IRefs {
 	 * @return the acting player
 	 */
 	public Player getPlayer() {
-		return Player;
+		return Game.Player;
 	}
 
 	/**
@@ -122,7 +122,7 @@ final public class Game implements IRefs {
 	 * @return the white player
 	 */
 	public Player getWhite() {
-		return White;
+		return Game.White;
 	}
 
 	/**
@@ -131,7 +131,7 @@ final public class Game implements IRefs {
 	 * @param black the black player
 	 */
 	public void setBlack(Player black) {
-		Black = black;
+		Game.Black = black;
 	}
 
 	/**
@@ -140,7 +140,7 @@ final public class Game implements IRefs {
 	 * @param player the player
 	 */
 	public void setPlayer(Player player) {
-		Player = player;
+		Game.Player = player;
 	}
 
 	/**
@@ -148,13 +148,13 @@ final public class Game implements IRefs {
 	 * the acting player to perform the first move
 	 */
 	public void setup() {
-		setWhite(new Player(Colors.WHITE));
+		this.setWhite(new Player(Colors.WHITE));
 		if (Config.isRandomPlayer()) {
-			setBlack(new RandomPlayer());
+			this.setBlack(new RandomPlayer());
 		} else {
-			setBlack(new Player(Colors.BLACK));
+			this.setBlack(new Player(Colors.BLACK));
 		}
-		setPlayer(getWhite());
+		this.setPlayer(this.getWhite());
 	}
 
 	/**
@@ -163,7 +163,7 @@ final public class Game implements IRefs {
 	 * @param white the white player
 	 */
 	public void setWhite(Player white) {
-		White = white;
+		Game.White = white;
 	}
 
 }

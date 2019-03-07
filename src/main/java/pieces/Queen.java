@@ -23,15 +23,15 @@ public class Queen extends Piece implements ILongDist {
 	@Override
 	public void checkDirections(List<Field> lst) {
 
-		checkDirection(lst, new int[] { 1, 1 });
-		checkDirection(lst, new int[] { -1, 1 });
-		checkDirection(lst, new int[] { 1, -1 });
-		checkDirection(lst, new int[] { -1, -1 });
+		this.checkDirection(lst, new int[] { 1, 1 });
+		this.checkDirection(lst, new int[] { -1, 1 });
+		this.checkDirection(lst, new int[] { 1, -1 });
+		this.checkDirection(lst, new int[] { -1, -1 });
 
-		checkDirection(lst, new int[] { 1, 0 });
-		checkDirection(lst, new int[] { -1, 0 });
-		checkDirection(lst, new int[] { 0, 1 });
-		checkDirection(lst, new int[] { 0, -1 });
+		this.checkDirection(lst, new int[] { 1, 0 });
+		this.checkDirection(lst, new int[] { -1, 0 });
+		this.checkDirection(lst, new int[] { 0, 1 });
+		this.checkDirection(lst, new int[] { 0, -1 });
 
 	}
 

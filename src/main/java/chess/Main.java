@@ -27,7 +27,7 @@ public class Main extends Gui implements IRefs {
 	 * @return the main class as string
 	 */
 	public static String getMainClass() {
-		return MAINCLASS;
+		return Main.MAINCLASS;
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class Main extends Gui implements IRefs {
 	 * @param args some options
 	 */
 	public static void main(String[] args) {
-		(new Gui()).run(MAINCLASS);
+		(new Gui()).run(Main.MAINCLASS);
 	}
 
 	/**
@@ -73,6 +73,14 @@ public class Main extends Gui implements IRefs {
 	 */
 	private PImage blackTower;
 	/**
+	 * a drawer instance
+	 */
+	private final ISetupAndRun drawer = Drawer.getInstance(this);
+	/**
+	 * a setup instance
+	 */
+	private final ISetupAndRun setup = Setup.getInstance(this);
+	/**
 	 * image for the piece
 	 */
 	private PImage whiteBishop;
@@ -88,6 +96,7 @@ public class Main extends Gui implements IRefs {
 	 * image for the piece
 	 */
 	private PImage whitePawn;
+
 	/**
 	 * image for the piece
 	 */
@@ -98,20 +107,11 @@ public class Main extends Gui implements IRefs {
 	private PImage whiteTower;
 
 	/**
-	 * a drawer instance
-	 */
-	private ISetupAndRun drawer = Drawer.getInstance(this);
-	/**
-	 * a setup instance
-	 */
-	private ISetupAndRun setup = Setup.getInstance(this);
-
-	/**
 	 * functionality outsourced to Drawer class
 	 */
 	@Override
 	public void draw() {
-		drawer.execute();
+		this.drawer.execute();
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getBlackBishop() {
-		return blackBishop;
+		return this.blackBishop;
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getBlackKing() {
-		return blackKing;
+		return this.blackKing;
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getBlackKnight() {
-		return blackKnight;
+		return this.blackKnight;
 	}
 
 	/**
@@ -147,7 +147,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getBlackPawn() {
-		return blackPawn;
+		return this.blackPawn;
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getBlackQueen() {
-		return blackQueen;
+		return this.blackQueen;
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getBlackTower() {
-		return blackTower;
+		return this.blackTower;
 	}
 
 	/**
@@ -176,7 +176,7 @@ public class Main extends Gui implements IRefs {
 	 * @return the field at position (i,j)
 	 */
 	public Field getField(int i, int j) {
-		return getGame().getField(i, j);
+		return this.getGame().getField(i, j);
 	}
 
 	/**
@@ -185,7 +185,7 @@ public class Main extends Gui implements IRefs {
 	 * @return the inactive player
 	 */
 	public Player getOtherPlayer() {
-		return getGame().getOpponent();
+		return this.getGame().getOpponent();
 	}
 
 	/**
@@ -194,7 +194,7 @@ public class Main extends Gui implements IRefs {
 	 * @return the path to main class as string
 	 */
 	public String getPath() {
-		return PATH;
+		return Main.PATH;
 	}
 
 	/**
@@ -203,7 +203,7 @@ public class Main extends Gui implements IRefs {
 	 * @return the vertical position
 	 */
 	public int getPosI() {
-		return Config.GAMESIZE - (mouseY - mouseY % Config.SIZE) / Config.SIZE;
+		return Config.GAMESIZE - (this.mouseY - this.mouseY % Config.SIZE) / Config.SIZE;
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class Main extends Gui implements IRefs {
 	 * @return the horizontal position
 	 */
 	public int getPosJ() {
-		return (mouseX - mouseX % Config.SIZE) / Config.SIZE;
+		return (this.mouseX - this.mouseX % Config.SIZE) / Config.SIZE;
 	}
 
 	/**
@@ -221,7 +221,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getWhiteBishop() {
-		return whiteBishop;
+		return this.whiteBishop;
 	}
 
 	/**
@@ -230,7 +230,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getWhiteKing() {
-		return whiteKing;
+		return this.whiteKing;
 	}
 
 	/**
@@ -239,7 +239,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getWhiteKnight() {
-		return whiteKnight;
+		return this.whiteKnight;
 	}
 
 	/**
@@ -248,7 +248,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getWhitePawn() {
-		return whitePawn;
+		return this.whitePawn;
 	}
 
 	/**
@@ -257,7 +257,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getWhiteQueen() {
-		return whiteQueen;
+		return this.whiteQueen;
 	}
 
 	/**
@@ -266,7 +266,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getWhiteTower() {
-		return whiteTower;
+		return this.whiteTower;
 	}
 
 	/**
@@ -335,8 +335,8 @@ public class Main extends Gui implements IRefs {
 	 */
 	@Override
 	public void setup() {
-		setup.execute();
-		stroke(0);
+		this.setup.execute();
+		this.stroke(0);
 	}
 
 	/**

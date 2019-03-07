@@ -11,5 +11,5 @@ public interface ISetupAndRun extends IRefs {
 	/**
 	 * main method of Setup and Drawer
 	 */
-	public void execute();
+	void execute();
 }

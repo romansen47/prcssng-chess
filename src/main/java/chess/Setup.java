@@ -33,16 +33,16 @@ public class Setup implements IRefs, ISetupAndRun {
 	 * @return the static instance
 	 */
 	public static Setup getInstance(Main main) {
-		if (instance == null) {
+		if (Setup.instance == null) {
 			return new Setup(main);
 		}
-		return instance;
+		return Setup.instance;
 	}
 
 	/**
 	 * This is necessary, since main instance is needed to initiate the pieces
 	 */
-	final Main main;
+	private final Main main;
 
 	/**
 	 * Constructor
@@ -60,15 +60,15 @@ public class Setup implements IRefs, ISetupAndRun {
 	public void execute() {
 
 		// setup the surface
-		setupSurface();
+		this.setupSurface();
 
 		// setup for the players
-		setupPlayers();
+		this.setupPlayers();
 
 		// create pieces
-		initiatePieces(main.getPath());
+		this.initiatePieces(this.getMain().getPath());
 
-		getReferee();
+		this.getReferee();
 
 	}
 
@@ -81,9 +81,16 @@ public class Setup implements IRefs, ISetupAndRun {
 	 * @param image  to be assigned
 	 */
 	public void getImageForAllRelevant(List<IPiece> pieces, PImage image) {
-		for (IPiece piece : pieces) {
+		for (final IPiece piece : pieces) {
 			piece.setImage(image);
 		}
+	}
+
+	/**
+	 * @return the main
+	 */
+	public Main getMain() {
+		return this.main;
 	}
 
 	/**
@@ -94,62 +101,17 @@ public class Setup implements IRefs, ISetupAndRun {
 	 * @return the list of pieces of same color and id
 	 */
 	public List<IPiece> getPiecesOfSameKind(Ids id, Colors col) {
-		List<IPiece> pieces = new ArrayList<>();
-		Player pl = getGame().getWhite();
+		final List<IPiece> pieces = new ArrayList<>();
+		Player pl = this.getGame().getWhite();
 		if (col == Colors.BLACK) {
-			pl = getGame().getBlack();
+			pl = this.getGame().getBlack();
 		}
-		for (IPiece piece : pl.getPieces()) {
+		for (final IPiece piece : pl.getPieces()) {
 			if (piece.getId() == id) {
 				pieces.add(piece);
 			}
 		}
 		return pieces;
-	}
-
-	/**
-	 * Initiates the pimage objects and assignes them to the pieces
-	 * 
-	 * @param path the path where the images are stored
-	 */
-	final void initiatePieces(String path) {
-
-		main.setWhiteKing(main.loadImage(path + "white_king.png"));
-		initiateRelevant(Ids.KING, Colors.WHITE, main.getWhiteKing());
-
-		main.setBlackKing(main.loadImage(path + "black_king.png"));
-		initiateRelevant(Ids.KING, Colors.BLACK, main.getBlackKing());
-
-		main.setWhiteQueen(main.loadImage(path + "white_queen.png"));
-		initiateRelevant(Ids.QUEEN, Colors.WHITE, main.getWhiteQueen());
-
-		main.setBlackQueen(main.loadImage(path + "black_queen.png"));
-		initiateRelevant(Ids.QUEEN, Colors.BLACK, main.getBlackQueen());
-
-		main.setWhiteKnight(main.loadImage(path + "white_knight.png"));
-		initiateRelevant(Ids.KNIGHT, Colors.WHITE, main.getWhiteKnight());
-
-		main.setBlackKnight(main.loadImage(path + "black_knight.png"));
-		initiateRelevant(Ids.KNIGHT, Colors.BLACK, main.getBlackKnight());
-
-		main.setWhiteBishop(main.loadImage(path + "white_bishop.png"));
-		initiateRelevant(Ids.BISHOP, Colors.WHITE, main.getWhiteBishop());
-
-		main.setBlackBishop(main.loadImage(path + "black_bishop.png"));
-		initiateRelevant(Ids.BISHOP, Colors.BLACK, main.getBlackBishop());
-
-		main.setWhiteTower(main.loadImage(path + "white_rook.png"));
-		initiateRelevant(Ids.ROOK, Colors.WHITE, main.getWhiteTower());
-
-		main.setBlackTower(main.loadImage(path + "black_rook.png"));
-		initiateRelevant(Ids.ROOK, Colors.BLACK, main.getBlackTower());
-
-		main.setWhitePawn(main.loadImage(path + "white_pawn.png"));
-		initiateRelevant(Ids.PAWN, Colors.WHITE, main.getWhitePawn());
-
-		main.setBlackPawn(main.loadImage(path + "black_pawn.png"));
-		initiateRelevant(Ids.PAWN, Colors.BLACK, main.getBlackPawn());
-
 	}
 
 	/**
@@ -160,14 +122,59 @@ public class Setup implements IRefs, ISetupAndRun {
 	 * @param image the image to be assigned
 	 */
 	public void initiateRelevant(Ids id, Colors col, PImage image) {
-		getImageForAllRelevant(getPiecesOfSameKind(id, col), image);
+		this.getImageForAllRelevant(this.getPiecesOfSameKind(id, col), image);
+	}
+
+	/**
+	 * Initiates the pimage objects and assignes them to the pieces
+	 * 
+	 * @param path the path where the images are stored
+	 */
+	final void initiatePieces(String path) {
+
+		this.getMain().setWhiteKing(this.getMain().loadImage(path + "white_king.png"));
+		this.initiateRelevant(Ids.KING, Colors.WHITE, this.getMain().getWhiteKing());
+
+		this.getMain().setBlackKing(this.getMain().loadImage(path + "black_king.png"));
+		this.initiateRelevant(Ids.KING, Colors.BLACK, this.getMain().getBlackKing());
+
+		this.getMain().setWhiteQueen(this.getMain().loadImage(path + "white_queen.png"));
+		this.initiateRelevant(Ids.QUEEN, Colors.WHITE, this.getMain().getWhiteQueen());
+
+		this.getMain().setBlackQueen(this.getMain().loadImage(path + "black_queen.png"));
+		this.initiateRelevant(Ids.QUEEN, Colors.BLACK, this.getMain().getBlackQueen());
+
+		this.getMain().setWhiteKnight(this.getMain().loadImage(path + "white_knight.png"));
+		this.initiateRelevant(Ids.KNIGHT, Colors.WHITE, this.getMain().getWhiteKnight());
+
+		this.getMain().setBlackKnight(this.getMain().loadImage(path + "black_knight.png"));
+		this.initiateRelevant(Ids.KNIGHT, Colors.BLACK, this.getMain().getBlackKnight());
+
+		this.getMain().setWhiteBishop(this.getMain().loadImage(path + "white_bishop.png"));
+		this.initiateRelevant(Ids.BISHOP, Colors.WHITE, this.getMain().getWhiteBishop());
+
+		this.getMain().setBlackBishop(this.getMain().loadImage(path + "black_bishop.png"));
+		this.initiateRelevant(Ids.BISHOP, Colors.BLACK, this.getMain().getBlackBishop());
+
+		this.getMain().setWhiteTower(this.getMain().loadImage(path + "white_rook.png"));
+		this.initiateRelevant(Ids.ROOK, Colors.WHITE, this.getMain().getWhiteTower());
+
+		this.getMain().setBlackTower(this.getMain().loadImage(path + "black_rook.png"));
+		this.initiateRelevant(Ids.ROOK, Colors.BLACK, this.getMain().getBlackTower());
+
+		this.getMain().setWhitePawn(this.getMain().loadImage(path + "white_pawn.png"));
+		this.initiateRelevant(Ids.PAWN, Colors.WHITE, this.getMain().getWhitePawn());
+
+		this.getMain().setBlackPawn(this.getMain().loadImage(path + "black_pawn.png"));
+		this.initiateRelevant(Ids.PAWN, Colors.BLACK, this.getMain().getBlackPawn());
+
 	}
 
 	/**
 	 * Setup players
 	 */
 	final void setupPlayers() {
-		getGame().setup();
+		this.getGame().setup();
 	}
 
 	/**
@@ -175,11 +182,12 @@ public class Setup implements IRefs, ISetupAndRun {
 	 */
 	final void setupSurface() {
 
-		main.background(255);
-		main.frameRate(60);
-		main.getSurface().setResizable(true);
-		main.getSurface().setSize(15 * Config.SIZE, 8 * Config.SIZE);
-		main.getSurface().setLocation(main.displayWidth - main.width >> 1, main.displayHeight - main.height >> 1);
+		this.getMain().background(255);
+		this.getMain().frameRate(60);
+		this.getMain().getSurface().setResizable(true);
+		this.getMain().getSurface().setSize(15 * Config.SIZE, 8 * Config.SIZE);
+		this.getMain().getSurface().setLocation(this.getMain().displayWidth - this.getMain().width >> 1,
+				this.getMain().displayHeight - this.getMain().height >> 1);
 
 	}
 

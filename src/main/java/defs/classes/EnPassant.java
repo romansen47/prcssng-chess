@@ -18,12 +18,12 @@ public class EnPassant extends Move {
 	 */
 	public EnPassant(Pawn fig, Pawn fig2, Field fld) {
 		super(fig, fld);
-		pawn = fig2;
+		this.pawn = fig2;
 	}
 
 	@Override
 	public void execute() {
-		pawn.die();
+		this.pawn.die();
 		super.execute();
 	}
 

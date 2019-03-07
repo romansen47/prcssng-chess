@@ -34,19 +34,15 @@ public class Move implements IMove, IRefs {
 	 */
 	public Move(Piece fig, Field fld) {
 		this.fig = fig;
-		col = fig.getCol();
-		prev = fig.getField();
-		prevId = fig.getId();
-		next = fld;
-		if (getNext().getPiece() != null) {
-			nextId = getNext().getPiece().getId();
+		this.col = fig.getCol();
+		this.prev = fig.getField();
+		this.prevId = fig.getId();
+		this.next = fld;
+		if (this.getNext().getPiece() != null) {
+			this.nextId = this.getNext().getPiece().getId();
 		} else {
-			nextId = null;
+			this.nextId = null;
 		}
-	}
-
-	private boolean checkForChess() {
-		return !getFig().getOpponent().getKing().getAttackers().isEmpty();
 	}
 
 	/**
@@ -54,54 +50,53 @@ public class Move implements IMove, IRefs {
 	 */
 	@Override
 	public void execute() {
-		IPiece fig1 = fig;
-		IPiece fig2 = getNext().getPiece();
-		getPrev().setPiece(null);
-		fig1.setField(getNext());
-		getNext().setPiece(fig1);
+		final IPiece fig1 = this.fig;
+		final IPiece fig2 = this.getNext().getPiece();
+		this.getPrev().setPiece(null);
+		fig1.setField(this.getNext());
+		this.getNext().setPiece(fig1);
 		if (fig2 != null) {
-			getGame().getOpponent().getPieces().remove(fig2);
-			getGame().getOpponent().getDeadPieces().add(fig2);
+			this.getGame().getOpponent().getPieces().remove(fig2);
+			this.getGame().getOpponent().getDeadPieces().add(fig2);
 		}
-		getReferee().setMarked(null);
-		if (fig instanceof King) {
-			((King) fig).setValidForCastling(false);
+		if (this.fig instanceof King) {
+			((King) this.fig).setValidForCastling(false);
 		}
-		if (checkForChess()) {
-			King opKing = fig1.getOpponent().getKing();
+		if (this.checkForChess()) {
+			final King opKing = fig1.getOpponent().getKing();
 			opKing.setState(State.Chess);
 		}
-		getReferee().switchMainPlayer();
+		this.getReferee().switchMainPlayer();
 	}
 
 	@Override
 	public Colors getCol() {
-		return col;
+		return this.col;
 	}
 
 	@Override
 	public Piece getFig() {
-		return fig;
+		return this.fig;
 	}
 
 	@Override
 	public Field getNext() {
-		return next;
+		return this.next;
 	}
 
 	@Override
 	public Ids getNextId() {
-		return nextId;
+		return this.nextId;
 	}
 
 	@Override
 	public Field getPrev() {
-		return prev;
+		return this.prev;
 	}
 
 	@Override
 	public Ids getPrevId() {
-		return prevId;
+		return this.prevId;
 	}
 
 	/**
@@ -111,12 +106,16 @@ public class Move implements IMove, IRefs {
 	public String toString() {
 		String str = "";
 		// str+=super.toString()+": ";
-		str += getPrevId();
-		if (getNextId() != null) {
-			str += " -> " + getNextId() + ":  ";
+		str += this.getPrevId();
+		if (this.getNextId() != null) {
+			str += " -> " + this.getNextId() + ":  ";
 		}
-		str += "(" + getPrev().toChessNotation() + ":" + getNext().toChessNotation() + ")";
+		str += "(" + this.getPrev().toChessNotation() + ":" + this.getNext().toChessNotation() + ")";
 		return str;
+	}
+
+	private boolean checkForChess() {
+		return !this.getFig().getOpponent().getKing().getAttackers().isEmpty();
 	}
 
 }

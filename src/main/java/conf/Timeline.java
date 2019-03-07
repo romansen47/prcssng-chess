@@ -31,10 +31,10 @@ public class Timeline extends ArrayList<IMove> implements IRefs {
 	 * @return the static instance
 	 */
 	public static Timeline getInstance() {
-		if (instance == null) {
-			instance = new Timeline();
+		if (Timeline.instance == null) {
+			Timeline.instance = new Timeline();
 		}
-		return instance;
+		return Timeline.instance;
 	}
 
 	/**
@@ -49,10 +49,10 @@ public class Timeline extends ArrayList<IMove> implements IRefs {
 	 * @return a list of strings
 	 */
 	public List<String> toStr() {
-		List<String> ans = new ArrayList<>();
+		final List<String> ans = new ArrayList<>();
 		String tmp;
 		int i = 1;
-		for (IMove move : instance) {
+		for (final IMove move : Timeline.instance) {
 			tmp = i++ + ": " + move.toString();
 			if (move.getCol() == Colors.WHITE) {
 				ans.add(tmp);

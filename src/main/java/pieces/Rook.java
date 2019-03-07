@@ -24,10 +24,10 @@ public class Rook extends Piece implements ILongDist {
 
 	@Override
 	public void checkDirections(List<Field> lst) {
-		checkDirection(lst, new int[] { 1, 0 });
-		checkDirection(lst, new int[] { -1, 0 });
-		checkDirection(lst, new int[] { 0, 1 });
-		checkDirection(lst, new int[] { 0, -1 });
+		this.checkDirection(lst, new int[] { 1, 0 });
+		this.checkDirection(lst, new int[] { -1, 0 });
+		this.checkDirection(lst, new int[] { 0, 1 });
+		this.checkDirection(lst, new int[] { 0, -1 });
 	}
 
 	/**
@@ -37,16 +37,16 @@ public class Rook extends Piece implements ILongDist {
 	 */
 	public boolean isValidForCastling() {
 		boolean hasBeenMoved = false;
-		for (IMove move : getOwner().getMoveList()) {
-			IPiece fig = move.getFig();
+		for (final IMove move : this.getOwner().getMoveList()) {
+			final IPiece fig = move.getFig();
 			if (fig instanceof Rook && (Rook) fig == this) {
 				hasBeenMoved = true;
 			}
 		}
-		King king = getOpponent().getKing();
-		boolean validForCastling = king.isValidForCastling();
+		final King king = this.getOpponent().getKing();
+		final boolean validForCastling = king.isValidForCastling();
 		king.setValidForCastling(false);
-		List<Field> attackers = getAttackers();
+		final List<Field> attackers = this.getAttackers();
 		king.setValidForCastling(validForCastling);
 		return attackers.isEmpty() && !hasBeenMoved;
 	}

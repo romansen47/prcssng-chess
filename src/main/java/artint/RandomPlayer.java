@@ -36,16 +36,16 @@ public class RandomPlayer extends Player {
 	 * @return a random valid move
 	 */
 	public IMove randomMove() {
-		List<IMove> moves = new ArrayList<>();
-		for (IPiece piece : getPieces()) {
-			List<IMove> tmpmoves = piece.getPossibleMoves();
-			for (IMove move : tmpmoves) {
+		final List<IMove> moves = new ArrayList<>();
+		for (final IPiece piece : this.getPieces()) {
+			final List<IMove> tmpmoves = piece.getPossibleMoves();
+			for (final IMove move : tmpmoves) {
 				if (move.getNext() != piece.getField()) {
 					moves.addAll(tmpmoves);
 				}
 			}
 		}
-		int i = random.nextInt(moves.size() - 1);
+		final int i = this.random.nextInt(moves.size() - 1);
 		return moves.get(i);
 	}
 

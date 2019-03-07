@@ -23,15 +23,15 @@ public class Bishop extends Piece implements ILongDist {
 
 	@Override
 	public void checkDirections(List<Field> lst) {
-		checkDirection(lst, new int[] { 1, 1 });
-		checkDirection(lst, new int[] { -1, 1 });
-		checkDirection(lst, new int[] { 1, -1 });
-		checkDirection(lst, new int[] { -1, -1 });
+		this.checkDirection(lst, new int[] { 1, 1 });
+		this.checkDirection(lst, new int[] { -1, 1 });
+		this.checkDirection(lst, new int[] { 1, -1 });
+		this.checkDirection(lst, new int[] { -1, -1 });
 	}
 
 	@Override
 	public List<Field> createList() {
-		List<Field> lst = new ArrayList<Field>();
+		final List<Field> lst = new ArrayList<>();
 		lst.add(this.getField());
 		return lst;
 	}

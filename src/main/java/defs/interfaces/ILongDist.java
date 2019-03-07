@@ -21,14 +21,15 @@ public interface ILongDist extends IPiece, IValidityChecker {
 	 * @param lst       the list to be filled with possible moves
 	 * @param direction the direction to check
 	 */
-	public default void checkDirection(List<Field> lst, int[] direction) {
-		List<Field> tmpList = new ArrayList<>();
-		tmpList.add(getField());
+	default void checkDirection(List<Field> lst, int[] direction) {
+		final List<Field> tmpList = new ArrayList<>();
+		tmpList.add(this.getField());
 		int i = 1;
-		while (getPosI() + i * direction[0] >= 0 && getPosI() + i * direction[0] <= Config.GAMESIZE
-				&& getPosJ() + i * direction[1] >= 0 && getPosJ() + i * direction[1] <= Config.GAMESIZE
-				&& checkIfOccupiedByFriend(
-						getGame().getField(getPosI() + i * direction[0], getPosJ() + i * direction[1]), tmpList)) {
+		while (this.getPosI() + i * direction[0] >= 0 && this.getPosI() + i * direction[0] <= Config.GAMESIZE
+				&& this.getPosJ() + i * direction[1] >= 0 && this.getPosJ() + i * direction[1] <= Config.GAMESIZE
+				&& this.checkIfOccupiedByFriend(
+						this.getGame().getField(this.getPosI() + i * direction[0], this.getPosJ() + i * direction[1]),
+						tmpList)) {
 			i += 1;
 		}
 		tmpList.remove(0);
@@ -39,10 +40,10 @@ public interface ILongDist extends IPiece, IValidityChecker {
 	 * 
 	 * @param lst an empty list, which will be filled with possible moves.
 	 */
-	public void checkDirections(List<Field> lst);
+	void checkDirections(List<Field> lst);
 
 	@Override
-	public Field getField();
+	Field getField();
 
 	@Override
 	int getPosI();
@@ -52,7 +53,7 @@ public interface ILongDist extends IPiece, IValidityChecker {
 
 	@Override
 	default List<IMove> getPossibleMoves() {
-		List<IMove> tmp = convertFieldsToMoves(longDistCheck());
+		final List<IMove> tmp = this.convertFieldsToMoves(this.longDistCheck());
 		tmp.remove(null);
 		return tmp;
 	}
@@ -63,9 +64,9 @@ public interface ILongDist extends IPiece, IValidityChecker {
 	 * @return list of possible moves
 	 */
 	default List<Field> longDistCheck() {
-		List<Field> lst = createList();
-		checkDirections(lst);
-		lst.remove(getField());
+		final List<Field> lst = this.createList();
+		this.checkDirections(lst);
+		lst.remove(this.getField());
 		return lst;
 	}
 

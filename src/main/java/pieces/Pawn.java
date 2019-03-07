@@ -30,8 +30,8 @@ public class Pawn extends Piece {
 	 */
 	@Override
 	public IMove getMove(Field field) {
-		IPiece fig = getGame().getField(getPosI(), field.getJ()).getPiece();
-		if (fig instanceof Pawn && fig.getCol() != getCol()) {
+		final IPiece fig = this.getGame().getField(this.getPosI(), field.getJ()).getPiece();
+		if (fig instanceof Pawn && fig.getCol() != this.getCol()) {
 			return new EnPassant(this, (Pawn) fig, field);
 		}
 		return super.getMove(field);
@@ -39,62 +39,70 @@ public class Pawn extends Piece {
 
 	@Override
 	public List<IMove> getPossibleMoves() {
-		List<Field> lst = new ArrayList<>();
+		final List<Field> lst = new ArrayList<>();
 		// lst.add(this.getField());
 		if (this.getCol() == Colors.WHITE) {
-			if (getField().getI() < Config.GAMESIZE) {
-				if (getPosJ() < Config.GAMESIZE && getGame().getField(getPosI() + 1, getPosJ() + 1).getPiece() != null
-						&& getGame().getField(getPosI() + 1, getPosJ() + 1).getPiece().getCol() == Colors.BLACK) {
-					lst.add(getGame().getField(getPosI() + 1, getPosJ() + 1));
+			if (this.getField().getI() < Config.GAMESIZE) {
+				if (this.getPosJ() < Config.GAMESIZE
+						&& this.getGame().getField(this.getPosI() + 1, this.getPosJ() + 1).getPiece() != null
+						&& this.getGame().getField(this.getPosI() + 1, this.getPosJ() + 1).getPiece()
+								.getCol() == Colors.BLACK) {
+					lst.add(this.getGame().getField(this.getPosI() + 1, this.getPosJ() + 1));
 				}
-				if (getPosJ() > 0 && getGame().getField(getPosI() + 1, getPosJ() - 1).getPiece() != null
-						&& getGame().getField(getPosI() + 1, getPosJ() - 1).getPiece().getCol() == Colors.BLACK) {
-					lst.add(getGame().getField(getPosI() + 1, getPosJ() - 1));
+				if (this.getPosJ() > 0
+						&& this.getGame().getField(this.getPosI() + 1, this.getPosJ() - 1).getPiece() != null
+						&& this.getGame().getField(this.getPosI() + 1, this.getPosJ() - 1).getPiece()
+								.getCol() == Colors.BLACK) {
+					lst.add(this.getGame().getField(this.getPosI() + 1, this.getPosJ() - 1));
 				}
-				if (getGame().getField(getPosI() + 1, getPosJ()).getPiece() == null) {
-					lst.add(getGame().getField(getPosI() + 1, getPosJ()));
-					if (getField().getI() == 1) {
-						if (getGame().getField(getPosI() + 2, getPosJ()).getPiece() == null) {
-							lst.add(getGame().getField(getPosI() + 2, getPosJ()));
+				if (this.getGame().getField(this.getPosI() + 1, this.getPosJ()).getPiece() == null) {
+					lst.add(this.getGame().getField(this.getPosI() + 1, this.getPosJ()));
+					if (this.getField().getI() == 1) {
+						if (this.getGame().getField(this.getPosI() + 2, this.getPosJ()).getPiece() == null) {
+							lst.add(this.getGame().getField(this.getPosI() + 2, this.getPosJ()));
 						}
 					}
 				}
 			}
 		} else {
-			if (getField().getI() > 0) {
-				if (getPosJ() < Config.GAMESIZE && getGame().getField(getPosI() - 1, getPosJ() + 1).getPiece() != null
-						&& getGame().getField(getPosI() - 1, getPosJ() + 1).getPiece().getCol() == Colors.WHITE) {
-					lst.add(getGame().getField(getPosI() - 1, getPosJ() + 1));
+			if (this.getField().getI() > 0) {
+				if (this.getPosJ() < Config.GAMESIZE
+						&& this.getGame().getField(this.getPosI() - 1, this.getPosJ() + 1).getPiece() != null
+						&& this.getGame().getField(this.getPosI() - 1, this.getPosJ() + 1).getPiece()
+								.getCol() == Colors.WHITE) {
+					lst.add(this.getGame().getField(this.getPosI() - 1, this.getPosJ() + 1));
 				}
-				if (getPosJ() > 0 && getGame().getField(getPosI() - 1, getPosJ() - 1).getPiece() != null
-						&& getGame().getField(getPosI() - 1, getPosJ() - 1).getPiece().getCol() == Colors.WHITE) {
-					lst.add(getGame().getField(getPosI() - 1, getPosJ() - 1));
+				if (this.getPosJ() > 0
+						&& this.getGame().getField(this.getPosI() - 1, this.getPosJ() - 1).getPiece() != null
+						&& this.getGame().getField(this.getPosI() - 1, this.getPosJ() - 1).getPiece()
+								.getCol() == Colors.WHITE) {
+					lst.add(this.getGame().getField(this.getPosI() - 1, this.getPosJ() - 1));
 				}
-				if (getGame().getField(getPosI() - 1, getPosJ()).getPiece() == null) {
-					lst.add(getGame().getField(getPosI() - 1, getPosJ()));
-					if (getField().getI() == 6) {
-						if (getGame().getField(getPosI() - 2, getPosJ()).getPiece() == null) {
-							lst.add(getGame().getField(getPosI() - 2, getPosJ()));
+				if (this.getGame().getField(this.getPosI() - 1, this.getPosJ()).getPiece() == null) {
+					lst.add(this.getGame().getField(this.getPosI() - 1, this.getPosJ()));
+					if (this.getField().getI() == 6) {
+						if (this.getGame().getField(this.getPosI() - 2, this.getPosJ()).getPiece() == null) {
+							lst.add(this.getGame().getField(this.getPosI() - 2, this.getPosJ()));
 						}
 					}
 				}
 			}
 		}
-		IMove move = this.getOpponent().getLastMove();
-		if (move != null && move.getFig().getId() == Ids.PAWN && getPosI() == 4) {
+		final IMove move = this.getOpponent().getLastMove();
+		if (move != null && move.getFig().getId() == Ids.PAWN && this.getPosI() == 4) {
 			if (move.getPrev().getI() == 6 && move.getNext().getI() == 4) {
-				lst.add(getGame().getField(5, move.getNext().getJ()));
+				lst.add(this.getGame().getField(5, move.getNext().getJ()));
 			}
 		}
-		if (move != null && move.getFig().getId() == Ids.PAWN && getPosI() == 3) {
+		if (move != null && move.getFig().getId() == Ids.PAWN && this.getPosI() == 3) {
 			if (move.getPrev().getI() == 1 && move.getNext().getI() == 3) {
-				lst.add(getGame().getField(2, move.getNext().getJ()));
+				lst.add(this.getGame().getField(2, move.getNext().getJ()));
 			}
 		}
 
-		List<IMove> list = new ArrayList<>();
-		for (Field fld : lst) {
-			list.add(getMove(fld));
+		final List<IMove> list = new ArrayList<>();
+		for (final Field fld : lst) {
+			list.add(this.getMove(fld));
 		}
 		return list;
 	}
