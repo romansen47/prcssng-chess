@@ -173,7 +173,17 @@ public interface IPiece extends IRefs {
 	/**
 	 * @return returns the list of possible moves
 	 */
-	List<IMove> getPossibleMoves();
+	default List<IMove> getPossibleMoves() {
+		return getSimpleMoves();
+	}
+
+	/**
+	 * The list of simple moves the piece can perform. Castling and EnPassant are
+	 * excluded!
+	 * 
+	 * @return the list of simple moves the piece can perform.
+	 */
+	List<IMove> getSimpleMoves();
 
 	/**
 	 * 
@@ -208,7 +218,7 @@ public interface IPiece extends IRefs {
 	 * @return list of moves
 	 */
 	default List<IMove> getSpecialMoves() {
-		return this.getPossibleMoves();
+		return new ArrayList<>();
 	}
 
 	/**

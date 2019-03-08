@@ -31,7 +31,7 @@ public class Knight extends Piece {
 	}
 
 	@Override
-	public List<IMove> getPossibleMoves() {
+	public List<IMove> getSimpleMoves() {
 		final List<Field> lst = new ArrayList<>();
 		final int i = this.getField().getI();
 		final int j = this.getField().getJ();

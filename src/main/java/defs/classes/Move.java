@@ -45,6 +45,10 @@ public class Move implements IMove, IRefs {
 		}
 	}
 
+	private boolean checkForChess() {
+		return !this.getFig().getOpponent().getKing().getAttackers().isEmpty();
+	}
+
 	/**
 	 * default implementation
 	 */
@@ -112,10 +116,6 @@ public class Move implements IMove, IRefs {
 		}
 		str += "(" + this.getPrev().toChessNotation() + ":" + this.getNext().toChessNotation() + ")";
 		return str;
-	}
-
-	private boolean checkForChess() {
-		return !this.getFig().getOpponent().getKing().getAttackers().isEmpty();
 	}
 
 }

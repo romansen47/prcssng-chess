@@ -5,9 +5,9 @@ import pieces.Pawn;
 public class EnPassant extends Move {
 
 	/**
-	 * The piece we move is a pawn. for sure.
+	 * the piece killed while moving to next field is a pawn.. for sure!
 	 */
-	final Pawn pawn;
+	final Pawn slaughtered;
 
 	/**
 	 * Constructor of an EnPassant
@@ -18,12 +18,12 @@ public class EnPassant extends Move {
 	 */
 	public EnPassant(Pawn fig, Pawn fig2, Field fld) {
 		super(fig, fld);
-		this.pawn = fig2;
+		this.slaughtered = fig2;
 	}
 
 	@Override
 	public void execute() {
-		this.pawn.die();
+		this.slaughtered.die();
 		super.execute();
 	}
 

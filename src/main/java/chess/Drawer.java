@@ -46,9 +46,9 @@ public class Drawer implements ISetupAndRun {
 	final Main main;
 
 	/**
-	 * private construcor.
+	 * private constructor.
 	 * 
-	 * @param main the main papplet object.
+	 * @param main the main {@inheritDoc}PApplet object.
 	 */
 	private Drawer(Main main) {
 		this.main = main;
@@ -82,10 +82,11 @@ public class Drawer implements ISetupAndRun {
 			for (int j = 0; j < 8; j++) {
 				this.main.stroke(0);
 				this.main.strokeWeight(3);
-				this.main.line(0, 0, 8 * (float) Config.SIZE, 0);
-				this.main.line(0, 0, 0, 8 * (float) Config.SIZE);
-				this.main.line(8 * (float) Config.SIZE, 0, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE);
-				this.main.line(0, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE, 8 * (float) Config.SIZE);
+				float tmp = 8 * (float) Config.SIZE;
+				this.main.line(0, 0, tmp, 0);
+				this.main.line(0, 0, 0, tmp);
+				this.main.line(tmp, 0, tmp, tmp);
+				this.main.line(0, tmp, tmp, tmp);
 			}
 		}
 	}
@@ -97,7 +98,6 @@ public class Drawer implements ISetupAndRun {
 	 */
 	public void drawMarked() {
 		if (this.getReferee().getMarked() != null && this.getReferee().getMarked().getPiece() != null) {
-
 			final IPiece piece = this.getReferee().getMarked().getPiece();
 			this.drawMarkedFields(piece.convertMovesToFields(this.getReferee().getValidMoves(piece.getPossibleMoves())),
 					Colors.GREEN);
@@ -106,7 +106,6 @@ public class Drawer implements ISetupAndRun {
 			final List<Field> pos = new ArrayList<>();
 			pos.add(this.getReferee().getMarked());
 			this.drawMarkedFields(pos, Colors.YELLOW);
-
 		}
 	}
 
@@ -132,6 +131,21 @@ public class Drawer implements ISetupAndRun {
 			for (int j = 0; j < 8; j++) {
 				this.getGame().getField(i, j).draw(this.main);
 			}
+		}
+	}
+
+	/**
+	 * Draws the timeline
+	 */
+	private void drawTimeLine() {
+		final Timeline tl = this.getGame().getMoveList();
+		this.main.textSize(32);
+		this.main.fill(0);
+		this.main.text("Timeline:", (Config.GAMESIZE + 2) * Config.SIZE, Config.SIZE);
+		this.main.textSize(18);
+		int i = 2;
+		for (final String str : tl.toStr()) {
+			this.main.text(str, Config.SIZE / 4 + (Config.GAMESIZE + 1) * Config.SIZE, Config.SIZE + i++ * 30);
 		}
 	}
 
@@ -169,6 +183,15 @@ public class Drawer implements ISetupAndRun {
 			this.getGame().getReferee().setMarked2(null);
 			this.drawChessboard();
 		}
+	}
+
+	/**
+	 * getter for the active player
+	 * 
+	 * @return the active player
+	 */
+	private Player getPlayer() {
+		return this.getGame().getPlayer();
 	}
 
 	/**
@@ -240,30 +263,6 @@ public class Drawer implements ISetupAndRun {
 			this.getReferee()
 					.setMarked2(this.getGame().getField(Config.GAMESIZE - this.main.getPosI(), this.main.getPosJ()));
 		}
-	}
-
-	/**
-	 * Draws the timeline
-	 */
-	private void drawTimeLine() {
-		final Timeline tl = this.getGame().getMoveList();
-		this.main.textSize(32);
-		this.main.fill(0);
-		this.main.text("Timeline:", (Config.GAMESIZE + 2) * Config.SIZE, Config.SIZE);
-		this.main.textSize(18);
-		int i = 2;
-		for (final String str : tl.toStr()) {
-			this.main.text(str, Config.SIZE / 4 + (Config.GAMESIZE + 1) * Config.SIZE, Config.SIZE + i++ * 30);
-		}
-	}
-
-	/**
-	 * getter for the active player
-	 * 
-	 * @return the active player
-	 */
-	private Player getPlayer() {
-		return this.getGame().getPlayer();
 	}
 
 }

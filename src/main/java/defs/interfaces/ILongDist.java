@@ -52,7 +52,7 @@ public interface ILongDist extends IPiece, IValidityChecker {
 	int getPosJ();
 
 	@Override
-	default List<IMove> getPossibleMoves() {
+	public default List<IMove> getSimpleMoves() {
 		final List<IMove> tmp = this.convertFieldsToMoves(this.longDistCheck());
 		tmp.remove(null);
 		return tmp;

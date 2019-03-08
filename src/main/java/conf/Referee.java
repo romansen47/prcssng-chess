@@ -53,6 +53,30 @@ public class Referee implements IRefs {
 	}
 
 	/**
+	 * Validity check
+	 * 
+	 * @param move the move to check for validity
+	 * @return true if move is valid, false otherwise
+	 */
+	private boolean checkForValidity(IMove move) {
+		if (move == null) {
+			return false;
+		}
+		boolean ans = true;
+		this.getGame().getMoveList().add(move);
+		this.getGame().getPlayer().getMoveList().add(move);
+		move.execute();
+		for (final IPiece piece : move.getFig().getOpponent().getPieces()) {
+			if (piece.getPossibleFields().contains(move.getFig().getOwner().getKing().getField())) {
+				ans = false;
+			}
+		}
+		this.rewindLastMove();
+		this.setMarked(move.getPrev());
+		return ans;
+	}
+
+	/**
 	 * Getter for marked field
 	 * 
 	 * @return the field that has been marked
@@ -153,11 +177,20 @@ public class Referee implements IRefs {
 		if (this.getValidMove(move) != null) {
 			this.getGame().getMoveList().add(move);
 			this.getGame().getPlayer().getMoveList().add(move);
-			/**
-			 * Print move: System.out.println((getGame().getMoveList()).toStr());
-			 */
 			move.execute();
 			this.getReferee().setMarked(null);
+		}
+	}
+
+	/**
+	 * Resets the pieces to their fields in the beginning of a match
+	 */
+	private void resetPieces() {
+		for (final IPiece piece : this.getGame().getWhite().getAllPieces()) {
+			piece.reset();
+		}
+		for (final IPiece piece : this.getGame().getBlack().getAllPieces()) {
+			piece.reset();
 		}
 	}
 
@@ -166,12 +199,12 @@ public class Referee implements IRefs {
 	 */
 	public void rewindLastMove() {
 		this.getGame().setPlayer(this.getGame().getWhite());
-		final Timeline tl = this.getGame().getMoveList();
+		final Timeline timeLine = this.getGame().getMoveList();
 		this.resetPieces();
-		final int last = tl.size() - 1;
+		final int last = timeLine.size() - 1;
 		if (last >= 0) {
-			tl.remove(last);
-			for (final IMove move : tl) {
+			timeLine.remove(last);
+			for (final IMove move : timeLine) {
 				move.execute();
 			}
 		}
@@ -214,42 +247,6 @@ public class Referee implements IRefs {
 			Game.getInstance().setPlayer(Game.getInstance().getBlack());
 		} else {
 			Game.getInstance().setPlayer(Game.getInstance().getWhite());
-		}
-	}
-
-	/**
-	 * Validity check
-	 * 
-	 * @param move the move to check for validity
-	 * @return true if move is valid, false otherwise
-	 */
-	private boolean checkForValidity(IMove move) {
-		if (move == null) {
-			return false;
-		}
-		boolean ans = true;
-		this.getGame().getMoveList().add(move);
-		this.getGame().getPlayer().getMoveList().add(move);
-		move.execute();
-		for (final IPiece piece : move.getFig().getOpponent().getPieces()) {
-			if (piece.getPossibleFields().contains(move.getFig().getOwner().getKing().getField())) {
-				ans = false;
-			}
-		}
-		this.rewindLastMove();
-		this.setMarked(move.getPrev());
-		return ans;
-	}
-
-	/**
-	 * Resets the pieces to their fields in the beginning of a match
-	 */
-	private void resetPieces() {
-		for (final IPiece piece : this.getGame().getWhite().getAllPieces()) {
-			piece.reset();
-		}
-		for (final IPiece piece : this.getGame().getBlack().getAllPieces()) {
-			piece.reset();
 		}
 	}
 

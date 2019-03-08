@@ -14,11 +14,6 @@ final public class Config {
 	public final static int GAMESIZE = 7;
 
 	/**
-	 * the stanard size of a field
-	 */
-	public final static int SIZE = 100;
-
-	/**
 	 * static instance of Config
 	 */
 	private static Config instance = null;
@@ -27,6 +22,11 @@ final public class Config {
 	 * Do we use a random player?
 	 */
 	private static boolean RandomPlayer = false;
+
+	/**
+	 * the stanard size of a field
+	 */
+	public final static int SIZE = 100;
 
 	/**
 	 * getter for the static instance

@@ -38,7 +38,7 @@ public class Pawn extends Piece {
 	}
 
 	@Override
-	public List<IMove> getPossibleMoves() {
+	public List<IMove> getSimpleMoves() {
 		final List<Field> lst = new ArrayList<>();
 		// lst.add(this.getField());
 		if (this.getCol() == Colors.WHITE) {
@@ -94,12 +94,27 @@ public class Pawn extends Piece {
 				lst.add(this.getGame().getField(5, move.getNext().getJ()));
 			}
 		}
+		final List<IMove> list = new ArrayList<>();
+		for (final Field fld : lst) {
+			list.add(this.getMove(fld));
+		}
+		return list;
+	}
+
+	@Override
+	public List<IMove> getSpecialMoves() {
+		final List<Field> lst = new ArrayList<>();
+		final IMove move = this.getOpponent().getLastMove();
+		if (move != null && move.getFig().getId() == Ids.PAWN && this.getPosI() == 4) {
+			if (move.getPrev().getI() == 6 && move.getNext().getI() == 4) {
+				lst.add(this.getGame().getField(5, move.getNext().getJ()));
+			}
+		}
 		if (move != null && move.getFig().getId() == Ids.PAWN && this.getPosI() == 3) {
 			if (move.getPrev().getI() == 1 && move.getNext().getI() == 3) {
 				lst.add(this.getGame().getField(2, move.getNext().getJ()));
 			}
 		}
-
 		final List<IMove> list = new ArrayList<>();
 		for (final Field fld : lst) {
 			list.add(this.getMove(fld));

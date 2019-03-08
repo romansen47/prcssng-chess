@@ -60,7 +60,7 @@ public class King extends Piece {
 	public List<Field> getAllAttackedFields() {
 		final List<Field> fields = new ArrayList<>();
 		for (final IPiece piece : this.getOpponent().getPieces()) {
-			fields.addAll(piece.convertMovesToFields(piece.getSpecialMoves()));
+			fields.addAll(piece.convertMovesToFields(piece.getSimpleMoves()));
 		}
 		return fields;
 	}
@@ -114,24 +114,12 @@ public class King extends Piece {
 	}
 
 	/**
-	 * @return returns the list of possible moves excluding the castling moves
+	 * Must be rewritten in order to avoid cycles
 	 */
 	@Override
 	public List<IMove> getPossibleMoves() {
 		final List<IMove> lst = this.getSpecialMoves();
-		final int tempI = this.getField().getI();
-		final int tempJ = this.getField().getJ();
-		if (this.isValidForCastling()) {
-			if (tempJ + 2 <= Config.GAMESIZE && this.getGame().getField(tempI, tempJ + 1).getPiece() == null
-					&& this.isValidForCastling(this.getGame().getField(tempI, tempJ + 2))) {
-				lst.add(this.getMove(this.getGame().getField(tempI, tempJ + 2)));
-			}
-			if (tempJ - 2 >= 0 && this.getGame().getField(tempI, tempJ - 1).getPiece() == null
-					&& this.isValidForCastling(this.getGame().getField(tempI, tempJ - 2))) {
-				lst.add(this.getMove((this.getGame().getField(tempI, tempJ - 2))));
-			}
-		}
-		lst.remove(null);
+		lst.addAll(getSimpleMoves());
 		return lst;
 	}
 
@@ -162,10 +150,12 @@ public class King extends Piece {
 	}
 
 	/**
-	 * Must be rewritten in order to avoid cycles
+	 * Returns all valid moves to a nearby field
+	 * 
+	 * @return Returns all valid moves to a nearby field
 	 */
 	@Override
-	public List<IMove> getSpecialMoves() {
+	public List<IMove> getSimpleMoves() {
 		final List<Field> lst = new ArrayList<>();
 		final int tempI = this.getField().getI();
 		final int tempJ = this.getField().getJ();
@@ -194,7 +184,28 @@ public class King extends Piece {
 			this.checkIfOccupiedByFriend(this.getGame().getField(tempI, tempJ - 1), lst);
 		}
 		return this.convertFieldsToMoves(lst);
+	}
 
+	/**
+	 * @return returns the list of possible moves excluding the castling moves
+	 */
+	@Override
+	public List<IMove> getSpecialMoves() {
+		final List<IMove> lst = new ArrayList<>();
+		final int tempI = this.getField().getI();
+		final int tempJ = this.getField().getJ();
+		if (this.isValidForCastling()) {
+			if (tempJ + 2 <= Config.GAMESIZE && this.getGame().getField(tempI, tempJ + 1).getPiece() == null
+					&& this.isValidForCastling(this.getGame().getField(tempI, tempJ + 2))) {
+				lst.add(this.getMove(this.getGame().getField(tempI, tempJ + 2)));
+			}
+			if (tempJ - 2 >= 0 && this.getGame().getField(tempI, tempJ - 1).getPiece() == null
+					&& this.isValidForCastling(this.getGame().getField(tempI, tempJ - 2))) {
+				lst.add(this.getMove((this.getGame().getField(tempI, tempJ - 2))));
+			}
+		}
+		lst.remove(null);
+		return lst;
 	}
 
 	/**

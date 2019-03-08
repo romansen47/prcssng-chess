@@ -115,17 +115,6 @@ public class Setup implements IRefs, ISetupAndRun {
 	}
 
 	/**
-	 * Assignes an image to a set of pieces of same kind
-	 * 
-	 * @param id    the id corresponding to which the pieces will be selected
-	 * @param col   the col corresponding to which the pieces will be selected
-	 * @param image the image to be assigned
-	 */
-	public void initiateRelevant(Ids id, Colors col, PImage image) {
-		this.getImageForAllRelevant(this.getPiecesOfSameKind(id, col), image);
-	}
-
-	/**
 	 * Initiates the pimage objects and assignes them to the pieces
 	 * 
 	 * @param path the path where the images are stored
@@ -168,6 +157,17 @@ public class Setup implements IRefs, ISetupAndRun {
 		this.getMain().setBlackPawn(this.getMain().loadImage(path + "black_pawn.png"));
 		this.initiateRelevant(Ids.PAWN, Colors.BLACK, this.getMain().getBlackPawn());
 
+	}
+
+	/**
+	 * Assignes an image to a set of pieces of same kind
+	 * 
+	 * @param id    the id corresponding to which the pieces will be selected
+	 * @param col   the col corresponding to which the pieces will be selected
+	 * @param image the image to be assigned
+	 */
+	public void initiateRelevant(Ids id, Colors col, PImage image) {
+		this.getImageForAllRelevant(this.getPiecesOfSameKind(id, col), image);
 	}
 
 	/**
