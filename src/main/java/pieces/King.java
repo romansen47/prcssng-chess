@@ -65,6 +65,14 @@ public class King extends Piece {
 		return fields;
 	}
 
+	public List<IMove> getAllMovesToAvoidChess() {
+		List<IMove> list = getPossibleMoves();
+		for (IPiece piece : getOwner().getPieces()) {
+			list.addAll(piece.getPossibleMoves());
+		}
+		return list;
+	}
+
 	@Override
 	public List<Field> getAttackers() {
 		final Player pl = this.getOpponent();

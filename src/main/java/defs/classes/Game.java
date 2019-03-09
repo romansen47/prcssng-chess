@@ -1,6 +1,7 @@
 package defs.classes;
 
-import artint.RandomPlayer;
+import artint.BlackRandomPlayer;
+import artint.WhiteRandomPlayer;
 import conf.Config;
 import conf.Referee;
 import conf.Timeline;
@@ -157,11 +158,15 @@ public final class Game implements IRefs {
 	 * the acting player to perform the first move
 	 */
 	public void setup() {
-		setWhite(new Player(Colors.WHITE));
-		if (Config.isRandomPlayer()) {
-			setBlack(new RandomPlayer());
+		if (Config.isRandomBlackPlayer()) {
+			setBlack(new BlackRandomPlayer());
 		} else {
 			setBlack(new Player(Colors.BLACK));
+		}
+		if (Config.isRandomWhitePlayer()) {
+			setWhite(new WhiteRandomPlayer());
+		} else {
+			setWhite(new Player(Colors.WHITE));
 		}
 		setPlayer(getWhite());
 	}

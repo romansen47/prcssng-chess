@@ -3,11 +3,14 @@ package conf;
 import java.util.ArrayList;
 import java.util.List;
 
+import artint.RandomPlayer;
 import defs.classes.Field;
 import defs.classes.Game;
+import defs.enums.State;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
 import defs.interfaces.IRefs;
+import pieces.King;
 
 /**
  * 
@@ -77,6 +80,21 @@ public class Referee implements IRefs {
 	}
 
 	/**
+	 * Check what situation we have after this move
+	 */
+	public void checkState() {
+		King king = Game.getPlayer().getKing();
+		List<IMove> moves = king.getAllMovesToAvoidChess();
+		if (moves.isEmpty()) {
+			if (king.getState() == State.REGULAR) {
+				king.setState(State.MATE);
+			} else {
+				king.setState(State.STALEMATE);
+			}
+		}
+	}
+
+	/**
 	 * Getter for marked field
 	 * 
 	 * @return the field that has been marked
@@ -100,6 +118,9 @@ public class Referee implements IRefs {
 	 * @return a move in case of validity. null otherwise
 	 */
 	public IMove getMove() {
+		if(Game.getPlayer() instanceof RandomPlayer) {
+			return ((RandomPlayer)Game.getPlayer()).randomMove();
+		}
 		if (this.isMarked2() && this.getMarked().getPiece() != null) {
 			final IPiece piece = this.getMarked().getPiece();
 			if (piece.convertMovesToFields(piece.getPossibleMoves()).contains(this.getMarked2())) {

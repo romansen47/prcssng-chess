@@ -182,14 +182,12 @@ public class Setup implements IRefs, ISetupAndRun {
 	 * Setup surface-attribute of papplet instance
 	 */
 	final void setupSurface() {
-
 		this.getMain().background(255);
 		this.getMain().frameRate(60);
 		this.getMain().getSurface().setResizable(true);
 		this.getMain().getSurface().setSize(15 * Config.SIZE, 8 * Config.SIZE);
 		this.getMain().getSurface().setLocation(this.getMain().displayWidth - this.getMain().width >> 1,
 				this.getMain().displayHeight - this.getMain().height >> 1);
-
 	}
 
 }

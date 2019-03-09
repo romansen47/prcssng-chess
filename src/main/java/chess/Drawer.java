@@ -3,6 +3,7 @@ package chess;
 import java.util.ArrayList;
 import java.util.List;
 
+import artint.BlackRandomPlayer;
 import artint.RandomPlayer;
 import conf.Config;
 import conf.Timeline;
@@ -24,7 +25,7 @@ import defs.interfaces.ISetupAndRun;
 public class Drawer implements ISetupAndRun {
 
 	/**
-	 * Implementation as a singletn class
+	 * Implementation as a singleton class
 	 */
 	private static Drawer instance = null;
 
@@ -160,11 +161,12 @@ public class Drawer implements ISetupAndRun {
 		final boolean cl = this.checkForClick();
 		this.setMark(cl);
 
-		getGame();
+		boolean reDraw=false;
 		if (Game.getPlayer() instanceof RandomPlayer) {
-			this.getGame();
 			this.getReferee().processMove(((RandomPlayer) Game.getPlayer()).randomMove());
-		} else {
+			reDraw=true;
+		} 
+		else {
 			if (cl) {
 
 				// use information on interaction to create next move
@@ -172,13 +174,16 @@ public class Drawer implements ISetupAndRun {
 
 				// save move to list and statistics
 				this.getReferee().processMove(move);
-
-				// Draw the complete chess board
-				this.drawChessboard();
-
+				
+				reDraw=true;
 			}
 		}
-
+		
+		if (reDraw) {
+			// Draw the complete chess board
+			this.drawChessboard();
+		}
+		
 		if (this.main.pressed() == 1 && this.main.key == 'r') {
 			this.getReferee().rewindLastMove();
 			this.main.background(255);

@@ -19,12 +19,17 @@ public final class Config {
 	private static Config instance = null;
 
 	/**
-	 * Do we use a random player?
+	 * Do we use a random black player?
 	 */
-	private static boolean randomPlayer = false;
+	private static boolean randomBlackPlayer = true;
+	
+	/**
+	 * Do we use a random black player?
+	 */
+	private static boolean randomWhitePlayer = true;
 
 	/**
-	 * the stanard size of a field
+	 * the standard size of a field
 	 */
 	public static final int SIZE = 100;
 
@@ -41,21 +46,39 @@ public final class Config {
 	}
 
 	/**
-	 * Getter for RandomPlayer
+	 * Getter for RandomBlackPlayer
 	 * 
-	 * @return the random player
+	 * @return the black random player
 	 */
-	public static boolean isRandomPlayer() {
-		return Config.randomPlayer;
+	public static boolean isRandomBlackPlayer() {
+		return Config.randomBlackPlayer;
+	}
+	
+	/**
+	 * Getter for RandomWhitePlayer
+	 * 
+	 * @return the white random player
+	 */
+	public static boolean isRandomWhitePlayer() {
+		return Config.randomWhitePlayer;
 	}
 
 	/**
-	 * Setter for RandomPlayer
+	 * Setter for RandomBlackPlayer
 	 * 
 	 * @param randomPlayer instance of RandomPlayer
 	 */
-	public static void setRandomPlayer(boolean randomPlayer) {
-		Config.randomPlayer = randomPlayer;
+	public static void setRandomBlackPlayer(boolean randomPlayer) {
+		Config.randomBlackPlayer = randomPlayer;
+	}
+	
+	/**
+	 * Setter for RandomPlayer
+	 * 
+	 * @param randomPlayer instance of RandomWhitePlayer
+	 */
+	public static void setRandomWhitePlayer(boolean randomPlayer) {
+		Config.randomWhitePlayer = randomPlayer;
 	}
 
 	/**

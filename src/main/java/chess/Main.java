@@ -113,6 +113,7 @@ public class Main extends Gui implements IRefs {
 	@Override
 	public void draw() {
 		this.drawer.execute();
+		getReferee().checkState();
 	}
 
 	/**

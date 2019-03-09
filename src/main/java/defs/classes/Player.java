@@ -2,24 +2,21 @@ package defs.classes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import conf.Config;
 import defs.enums.Colors;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
-import pieces.Bishop;
+import defs.interfaces.IPlayer;
 import pieces.King;
-import pieces.Knight;
-import pieces.Pawn;
-import pieces.Queen;
-import pieces.Rook;
 
 /**
  * 
  * @author roman
  *
  */
-public class Player {
+public class Player implements IPlayer {
 
 	/**
 	 * The game
@@ -35,7 +32,7 @@ public class Player {
 	/**
 	 * player's color
 	 */
-	private final Colors col;
+	protected final Colors col;
 
 	/**
 	 * set of dead pieces
@@ -73,98 +70,38 @@ public class Player {
 		this.initialGeneration();
 	}
 
-	/**
-	 * Get all pieces, the living and the dead
-	 * 
-	 * @return allPieces
-	 */
+	@Override
 	public List<IPiece> getAllPieces() {
-		return this.allPieces;
+		return allPieces;
 	}
 
-	/**
-	 * Getter for color
-	 * 
-	 * @return the color
-	 */
+	@Override
 	public Colors getCol() {
-		return this.col;
+		return col;
 	}
 
-	/**
-	 * getter for list of dead pieces
-	 * 
-	 * @return the list of dead pieces
-	 */
+	@Override
 	public List<IPiece> getDeadPieces() {
-		return this.deadPieces;
+		return deadPieces;
 	}
 
-	/**
-	 * Getter for the king
-	 * 
-	 * @return the king
-	 */
+	@Override
 	public King getKing() {
-		return this.king;
+		return king;
 	}
 
-	/**
-	 * method to get the last move the player performed
-	 * 
-	 * @return the last move performed by the player
-	 */
-	public IMove getLastMove() {
-		final int n = this.getMoveList().size();
-		if (n > 0) {
-			return this.getMoveList().get(n - 1);
-		}
+	@Override
+	public List<IMove> getMoveList() {
+		return moveList;
+	}
+
+	@Override
+	public List<IPiece> getPieces() {
+		return pieces;
+	}
+
+	@Override
+	public Random getRandom() {
 		return null;
 	}
-
-	/**
-	 * Getter for the list of moves
-	 * 
-	 * @return MoveList
-	 */
-	public List<IMove> getMoveList() {
-		return this.moveList;
-	}
-
-	/**
-	 * Getter of player's pieces
-	 * 
-	 * @return list of player's pieces
-	 */
-	public List<IPiece> getPieces() {
-		return this.pieces;
-	}
-
-	/**
-	 * First setup
-	 */
-	private void initialGeneration() {
-
-		this.pieces.add(this.getKing());
-		int ersteReihe = 0;
-		int zweiteReihe = 1;
-		if (this.getCol() == Colors.BLACK) {
-			ersteReihe = Config.GAMESIZE;
-			zweiteReihe = 6;
-		}
-		for (int j = 0; j < 8; j++) {
-			this.pieces.add(new Pawn(this.getCol(), Player.game.getField(zweiteReihe, j)));
-		}
-
-		this.pieces.add(new Knight(this.getCol(), Player.game.getField(ersteReihe, 1)));
-		this.pieces.add(new Knight(this.getCol(), Player.game.getField(ersteReihe, 6)));
-		this.pieces.add(new Bishop(this.getCol(), Player.game.getField(ersteReihe, 2)));
-		this.pieces.add(new Bishop(this.getCol(), Player.game.getField(ersteReihe, 5)));
-		this.pieces.add(new Rook(this.getCol(), Player.game.getField(ersteReihe, 0)));
-		this.pieces.add(new Rook(this.getCol(), Player.game.getField(ersteReihe, Config.GAMESIZE)));
-		this.pieces.add(new Queen(this.getCol(), Player.game.getField(ersteReihe, 3)));
-		this.allPieces.addAll(this.pieces);
-
-	}
-
 }

@@ -87,11 +87,6 @@ public class Pawn extends Piece {
 				}
 			}
 		}
-		final IMove move = this.getOpponent().getLastMove();
-		if (move != null && move.getFig().getId() == Ids.PAWN && this.getPosI() == 4 && move.getPrev().getI() == 6
-				&& move.getNext().getI() == 4) {
-			lst.add(this.getGame().getField(5, move.getNext().getJ()));
-		}
 		final List<IMove> list = new ArrayList<>();
 		for (final Field fld : lst) {
 			list.add(this.getMove(fld));
