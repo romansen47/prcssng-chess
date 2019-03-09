@@ -124,7 +124,7 @@ public interface IPiece extends IRefs {
 	 * 
 	 * @return the opponent of the player the piece belongs to
 	 */
-	default Player getOpponent() {
+	default IPlayer getOpponent() {
 		if (this.getCol() == Colors.WHITE) {
 			return Game.getBlack();
 		}
@@ -136,7 +136,7 @@ public interface IPiece extends IRefs {
 	 * 
 	 * @return the player the piece belongs to
 	 */
-	default Player getOwner() {
+	default IPlayer getOwner() {
 		if (this.getCol() == Colors.WHITE) {
 			return Game.getWhite();
 		}
@@ -174,7 +174,9 @@ public interface IPiece extends IRefs {
 	 * @return returns the list of possible moves
 	 */
 	default List<IMove> getPossibleMoves() {
-		return getSimpleMoves();
+		List<IMove> moves=getSimpleMoves();
+		moves.addAll(getSpecialMoves());
+		return moves;
 	}
 
 	/**
@@ -187,28 +189,11 @@ public interface IPiece extends IRefs {
 
 	/**
 	 * 
-	 * @param pl the player
-	 * @return list including the special moves
+	 * @param Player the player
+	 * @return list of special moves
 	 */
-	default List<Field> getSpecialFields(Player pl) {
-		final List<Field> fields = new ArrayList<>();
-		final List<IPiece> pieces = pl.getPieces();
-		for (final IPiece piece : pieces) {
-			King king = null;
-			boolean castling = true;
-			if (piece instanceof King) {
-				king = (King) piece;
-				castling = king.isValidForCastling();
-				king.setValidForCastling(false);
-			}
-			if (piece.getPossibleFields().contains(this.getField())) {
-				fields.add(piece.getField());
-			}
-			if (piece instanceof King && king != null) {
-				king.setValidForCastling(castling);
-			}
-		}
-		return fields;
+	default List<Field> getSpecialFields(IPlayer Player) {
+		return new ArrayList<>();
 	}
 
 	/**

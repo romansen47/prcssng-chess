@@ -68,12 +68,9 @@ public class Referee implements IRefs {
 		boolean ans = true;
 		this.getGame().getMoveList().add(move);
 		Game.getPlayer().getMoveList().add(move);
+		King king=Game.getPlayer().getKing();
 		move.execute();
-		for (final IPiece piece : move.getFig().getOpponent().getPieces()) {
-			if (piece.getPossibleFields().contains(move.getFig().getOwner().getKing().getField())) {
-				ans = false;
-			}
-		}
+		ans=!king.isChecked();
 		this.rewindLastMove();
 		this.setMarked(move.getPrev());
 		return ans;

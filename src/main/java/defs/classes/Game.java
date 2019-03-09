@@ -6,6 +6,7 @@ import conf.Config;
 import conf.Referee;
 import conf.Timeline;
 import defs.enums.Colors;
+import defs.interfaces.IPlayer;
 import defs.interfaces.IRefs;
 
 public final class Game implements IRefs {
@@ -13,7 +14,7 @@ public final class Game implements IRefs {
 	/**
 	 * the black player
 	 */
-	private static Player black;
+	private static IPlayer black;
 	/**
 	 * static instance
 	 */
@@ -21,18 +22,18 @@ public final class Game implements IRefs {
 	/**
 	 * the acting player
 	 */
-	private static Player player;
+	private static IPlayer player;
 	/**
 	 * the white player
 	 */
-	private static Player white;
+	private static IPlayer white;
 
 	/**
 	 * getter for the black player
 	 * 
 	 * @return the black player
 	 */
-	public static Player getBlack() {
+	public static IPlayer getBlack() {
 		return Game.black;
 	}
 
@@ -53,7 +54,7 @@ public final class Game implements IRefs {
 	 * 
 	 * @return the acting player
 	 */
-	public static Player getPlayer() {
+	public static IPlayer getPlayer() {
 		return Game.player;
 	}
 
@@ -62,7 +63,7 @@ public final class Game implements IRefs {
 	 * 
 	 * @return the white player
 	 */
-	public static Player getWhite() {
+	public static IPlayer getWhite() {
 		return Game.white;
 	}
 
@@ -71,7 +72,7 @@ public final class Game implements IRefs {
 	 * 
 	 * @param black the black player
 	 */
-	public static void setBlack(Player black) {
+	public static void setBlack(IPlayer black) {
 		Game.black = black;
 	}
 
@@ -80,7 +81,7 @@ public final class Game implements IRefs {
 	 * 
 	 * @param player the player
 	 */
-	public static void setPlayer(Player player) {
+	public static void setPlayer(IPlayer player) {
 		Game.player = player;
 	}
 
@@ -146,7 +147,7 @@ public final class Game implements IRefs {
 	 * 
 	 * @return the passive player
 	 */
-	public Player getOpponent() {
+	public IPlayer getOpponent() {
 		if (getPlayer() == getWhite()) {
 			return getBlack();
 		}

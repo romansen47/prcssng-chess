@@ -9,6 +9,7 @@ import defs.classes.Player;
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.interfaces.IPiece;
+import defs.interfaces.IPlayer;
 import defs.interfaces.IRefs;
 import defs.interfaces.ISetupAndRun;
 import processing.core.PImage;
@@ -103,7 +104,7 @@ public class Setup implements IRefs, ISetupAndRun {
 	 */
 	public List<IPiece> getPiecesOfSameKind(Ids id, Colors col) {
 		final List<IPiece> pieces = new ArrayList<>();
-		Player pl = Game.getWhite();
+		IPlayer pl = Game.getWhite();
 		if (col == Colors.BLACK) {
 			pl = Game.getBlack();
 		}

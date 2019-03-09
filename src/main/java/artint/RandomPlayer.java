@@ -13,6 +13,7 @@ import defs.enums.Colors;
  */
 
 public class RandomPlayer extends Player {
+	
 	/**
 	 * The random number generator
 	 */

@@ -13,6 +13,7 @@ import defs.classes.Player;
 import defs.enums.Colors;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
+import defs.interfaces.IPlayer;
 import defs.interfaces.ISetupAndRun;
 
 /**
@@ -198,7 +199,7 @@ public class Drawer implements ISetupAndRun {
 	 * 
 	 * @return the active player
 	 */
-	private Player getPlayer() {
+	private IPlayer getPlayer() {
 		getGame();
 		return Game.getPlayer();
 	}

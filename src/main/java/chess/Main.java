@@ -4,6 +4,7 @@ import conf.Config;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.classes.Player;
+import defs.interfaces.IPlayer;
 import defs.interfaces.IRefs;
 import defs.interfaces.ISetupAndRun;
 import processing.core.PImage;
@@ -35,7 +36,7 @@ public class Main extends Gui implements IRefs {
 	 * 
 	 * @return the acting player
 	 */
-	public static Player getPlayer() {
+	public static IPlayer getPlayer() {
 		Game.getInstance();
 		return Game.getPlayer();
 	}
@@ -186,7 +187,7 @@ public class Main extends Gui implements IRefs {
 	 * 
 	 * @return the inactive player
 	 */
-	public Player getOtherPlayer() {
+	public IPlayer getOtherPlayer() {
 		return this.getGame().getOpponent();
 	}
 

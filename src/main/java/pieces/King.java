@@ -13,6 +13,7 @@ import defs.enums.Ids;
 import defs.enums.State;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
+import defs.interfaces.IPlayer;
 
 public class King extends Piece {
 
@@ -75,7 +76,7 @@ public class King extends Piece {
 
 	@Override
 	public List<Field> getAttackers() {
-		final Player pl = this.getOpponent();
+		final IPlayer pl = this.getOpponent();
 		final List<Field> fields = new ArrayList<>();
 		final List<IPiece> pieces = pl.getPieces();
 		for (final IPiece piece : pieces) {
@@ -95,7 +96,7 @@ public class King extends Piece {
 	 * @param fld2 second field
 	 * @return the fields in between
 	 */
-	public List<Field> getFieldsInBetween(Field fld1, Field fld2) {
+	private List<Field> getFieldsInBetween(Field fld1, Field fld2) {
 		final int k = fld1.getJ();
 		final int r = fld2.getJ();
 		if (r <= k) {
@@ -136,7 +137,7 @@ public class King extends Piece {
 	 * @param field rooks field
 	 * @return the rook
 	 */
-	public Rook getRook(Field field) {
+	private Rook getRook(Field field) {
 		Rook rook = null;
 		if (this.isValidForCastling()) {
 			final int k = this.getPosJ();
@@ -238,7 +239,12 @@ public class King extends Piece {
 	 * @return returns, whether king already has been moved or checked
 	 */
 	public boolean isValidForCastling() {
-		return this.isValidForCastling;
+		/**
+		 * 
+		 * This is wrong...
+		 * return this.isValidForCastling;
+		 */
+		return true;
 	}
 
 	/**
@@ -287,5 +293,27 @@ public class King extends Piece {
 	 */
 	public void setValidForCastling(boolean isValidForCastling) {
 		this.isValidForCastling = isValidForCastling;
+	}
+	
+	@Override
+	public List<Field> getSpecialFields(IPlayer Player) {
+		final List<Field> fields = new ArrayList<>();
+		final List<IPiece> pieces = Player.getPieces();
+		for (final IPiece piece : pieces) {
+			King king = null;
+			boolean castling = true;
+			if (piece instanceof King) {
+				king = (King) piece;
+				castling = king.isValidForCastling();
+				king.setValidForCastling(false);
+			}
+			if (piece.getPossibleFields().contains(this.getField())) {
+				fields.add(piece.getField());
+			}
+			if (piece instanceof King && king != null) {
+				king.setValidForCastling(castling);
+			}
+		}
+		return fields;
 	}
 }
