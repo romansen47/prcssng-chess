@@ -5,7 +5,6 @@ import java.util.List;
 
 import conf.Config;
 import defs.classes.Game;
-import defs.classes.Player;
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.interfaces.IPiece;
@@ -15,7 +14,7 @@ import defs.interfaces.ISetupAndRun;
 import processing.core.PImage;
 
 /**
- * 
+ *
  * @author roman
  *
  *         The functionality of the main setup method is being outsourced to an
@@ -30,7 +29,7 @@ public class Setup implements IRefs, ISetupAndRun {
 
 	/**
 	 * Getter for instance
-	 * 
+	 *
 	 * @param main the Main(PApplet) object.
 	 * @return the static instance
 	 */
@@ -48,7 +47,7 @@ public class Setup implements IRefs, ISetupAndRun {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param main the papplet object
 	 */
 	private Setup(Main main) {
@@ -78,7 +77,7 @@ public class Setup implements IRefs, ISetupAndRun {
 
 	/**
 	 * Assignes an image to a set of pieces
-	 * 
+	 *
 	 * @param pieces list of pieces
 	 * @param image  to be assigned
 	 */
@@ -97,7 +96,7 @@ public class Setup implements IRefs, ISetupAndRun {
 
 	/**
 	 * Returns e.g. all black rooks.
-	 * 
+	 *
 	 * @param id  the id the pieces in the returned list should have
 	 * @param col the color the pieces in the returned list should have
 	 * @return the list of pieces of same color and id
@@ -118,7 +117,7 @@ public class Setup implements IRefs, ISetupAndRun {
 
 	/**
 	 * Initiates the pimage objects and assignes them to the pieces
-	 * 
+	 *
 	 * @param path the path where the images are stored
 	 */
 	final void initiatePieces(String path) {
@@ -163,7 +162,7 @@ public class Setup implements IRefs, ISetupAndRun {
 
 	/**
 	 * Assignes an image to a set of pieces of same kind
-	 * 
+	 *
 	 * @param id    the id corresponding to which the pieces will be selected
 	 * @param col   the col corresponding to which the pieces will be selected
 	 * @param image the image to be assigned
@@ -187,8 +186,8 @@ public class Setup implements IRefs, ISetupAndRun {
 		this.getMain().frameRate(60);
 		this.getMain().getSurface().setResizable(true);
 		this.getMain().getSurface().setSize(15 * Config.SIZE, 8 * Config.SIZE);
-		this.getMain().getSurface().setLocation(this.getMain().displayWidth - this.getMain().width >> 1,
-				this.getMain().displayHeight - this.getMain().height >> 1);
+		this.getMain().getSurface().setLocation((this.getMain().displayWidth - this.getMain().width) >> 1,
+				(this.getMain().displayHeight - this.getMain().height) >> 1);
 	}
 
 }

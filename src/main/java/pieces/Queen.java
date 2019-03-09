@@ -12,7 +12,7 @@ public class Queen extends Piece implements ILongDist {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param col   the color
 	 * @param field the field
 	 */

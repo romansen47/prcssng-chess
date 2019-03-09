@@ -13,7 +13,7 @@ import defs.interfaces.IRefs;
 import pieces.King;
 
 /**
- * 
+ *
  * @author Ro Mansen
  *
  *         Referee class, modelled as a singleton class. This class performs the
@@ -28,7 +28,7 @@ public class Referee implements IRefs {
 
 	/**
 	 * Getter for instance
-	 * 
+	 *
 	 * @return static instance
 	 */
 	public static Referee getInstance() {
@@ -57,7 +57,7 @@ public class Referee implements IRefs {
 
 	/**
 	 * Validity check
-	 * 
+	 *
 	 * @param move the move to check for validity
 	 * @return true if move is valid, false otherwise
 	 */
@@ -68,9 +68,9 @@ public class Referee implements IRefs {
 		boolean ans = true;
 		this.getGame().getMoveList().add(move);
 		Game.getPlayer().getMoveList().add(move);
-		King king=Game.getPlayer().getKing();
+		final King king = Game.getPlayer().getKing();
 		move.execute();
-		ans=!king.isChecked();
+		ans = !king.isChecked();
 		this.rewindLastMove();
 		this.setMarked(move.getPrev());
 		return ans;
@@ -80,8 +80,8 @@ public class Referee implements IRefs {
 	 * Check what situation we have after this move
 	 */
 	public void checkState() {
-		King king = Game.getPlayer().getKing();
-		List<IMove> moves = king.getAllMovesToAvoidChess();
+		final King king = Game.getPlayer().getKing();
+		final List<IMove> moves = king.getAllMovesToAvoidChess();
 		if (moves.isEmpty()) {
 			if (king.getState() == State.REGULAR) {
 				king.setState(State.MATE);
@@ -93,7 +93,7 @@ public class Referee implements IRefs {
 
 	/**
 	 * Getter for marked field
-	 * 
+	 *
 	 * @return the field that has been marked
 	 */
 	public Field getMarked() {
@@ -102,7 +102,7 @@ public class Referee implements IRefs {
 
 	/**
 	 * Getter for second marked field
-	 * 
+	 *
 	 * @return the field that has been marked
 	 */
 	public Field getMarked2() {
@@ -111,14 +111,14 @@ public class Referee implements IRefs {
 
 	/**
 	 * Constructs a move and checks for validity
-	 * 
+	 *
 	 * @return a move in case of validity. null otherwise
 	 */
 	public IMove getMove() {
-		if(Game.getPlayer() instanceof RandomPlayer) {
-			return ((RandomPlayer)Game.getPlayer()).randomMove();
+		if (Game.getPlayer() instanceof RandomPlayer) {
+			return ((RandomPlayer) Game.getPlayer()).randomMove();
 		}
-		if (this.isMarked2() && this.getMarked().getPiece() != null) {
+		if (this.isMarked2() && (this.getMarked().getPiece() != null)) {
 			final IPiece piece = this.getMarked().getPiece();
 			if (piece.convertMovesToFields(piece.getPossibleMoves()).contains(this.getMarked2())) {
 				final IMove move = this.getMarked().getPiece().getMove(this.getMarked2());
@@ -132,7 +132,7 @@ public class Referee implements IRefs {
 
 	/**
 	 * Checks whether move is valid
-	 * 
+	 *
 	 * @param move the move to check
 	 * @return the move in case of validity, null otherwise
 	 */
@@ -145,7 +145,7 @@ public class Referee implements IRefs {
 
 	/**
 	 * Checks a list of moves for valid moves
-	 * 
+	 *
 	 * @param moves list of yet unchecked moves
 	 * @return list of valid moves contained in the list
 	 */
@@ -161,7 +161,7 @@ public class Referee implements IRefs {
 
 	/**
 	 * Checks whether a field has already been marked
-	 * 
+	 *
 	 * @return true, if a field has been marked
 	 */
 	public boolean isMarked() {
@@ -174,7 +174,7 @@ public class Referee implements IRefs {
 
 	/**
 	 * Checks whether two fields have already been marked
-	 * 
+	 *
 	 * @return true, if a second field has been marked
 	 */
 	public boolean isMarked2() {
@@ -188,7 +188,7 @@ public class Referee implements IRefs {
 	/**
 	 * adds the move to the movelists, prints the move and switches the active
 	 * player
-	 * 
+	 *
 	 * @param move the given move
 	 */
 	public void processMove(IMove move) {
@@ -230,11 +230,11 @@ public class Referee implements IRefs {
 
 	/**
 	 * Setter for marked field
-	 * 
+	 *
 	 * @param marked the marked field
 	 */
 	public void setMarked(Field marked) {
-		if (marked == null || marked.getPiece() == null) {
+		if ((marked == null) || (marked.getPiece() == null)) {
 			this.marked = null;
 			this.marked2 = null;
 		} else {
@@ -247,7 +247,7 @@ public class Referee implements IRefs {
 
 	/**
 	 * Setter for second marked field
-	 * 
+	 *
 	 * @param marked2 the marked field
 	 */
 	public void setMarked2(Field marked2) {

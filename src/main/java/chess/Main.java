@@ -3,7 +3,6 @@ package chess;
 import conf.Config;
 import defs.classes.Field;
 import defs.classes.Game;
-import defs.classes.Player;
 import defs.interfaces.IPlayer;
 import defs.interfaces.IRefs;
 import defs.interfaces.ISetupAndRun;
@@ -24,7 +23,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for MainClass
-	 * 
+	 *
 	 * @return the main class as string
 	 */
 	public static String getMainClass() {
@@ -33,7 +32,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for the acting player
-	 * 
+	 *
 	 * @return the acting player
 	 */
 	public static IPlayer getPlayer() {
@@ -43,7 +42,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Initial main method
-	 * 
+	 *
 	 * @param args some options
 	 */
 	public static void main(String[] args) {
@@ -119,7 +118,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for pimage
-	 * 
+	 *
 	 * @return pimage
 	 */
 	public PImage getBlackBishop() {
@@ -128,7 +127,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for pimage
-	 * 
+	 *
 	 * @return pimage
 	 */
 	public PImage getBlackKing() {
@@ -137,7 +136,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for pimage
-	 * 
+	 *
 	 * @return pimage
 	 */
 	public PImage getBlackKnight() {
@@ -146,7 +145,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for pimage
-	 * 
+	 *
 	 * @return pimage
 	 */
 	public PImage getBlackPawn() {
@@ -155,7 +154,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for pimage
-	 * 
+	 *
 	 * @return pimage
 	 */
 	public PImage getBlackQueen() {
@@ -164,7 +163,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for pimage
-	 * 
+	 *
 	 * @return pimage
 	 */
 	public PImage getBlackTower() {
@@ -173,7 +172,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for fields
-	 * 
+	 *
 	 * @param i the column number
 	 * @param j the row number
 	 * @return the field at position (i,j)
@@ -184,7 +183,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for inactive player
-	 * 
+	 *
 	 * @return the inactive player
 	 */
 	public IPlayer getOtherPlayer() {
@@ -193,7 +192,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for PATH
-	 * 
+	 *
 	 * @return the path to main class as string
 	 */
 	public String getPath() {
@@ -202,25 +201,25 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for Position
-	 * 
+	 *
 	 * @return the vertical position
 	 */
 	public int getPosI() {
-		return Config.GAMESIZE - (this.mouseY - this.mouseY % Config.SIZE) / Config.SIZE;
+		return Config.GAMESIZE - ((this.mouseY - (this.mouseY % Config.SIZE)) / Config.SIZE);
 	}
 
 	/**
 	 * Getter for Position
-	 * 
+	 *
 	 * @return the horizontal position
 	 */
 	public int getPosJ() {
-		return (this.mouseX - this.mouseX % Config.SIZE) / Config.SIZE;
+		return (this.mouseX - (this.mouseX % Config.SIZE)) / Config.SIZE;
 	}
 
 	/**
 	 * Getter for pimage
-	 * 
+	 *
 	 * @return pimage
 	 */
 	public PImage getWhiteBishop() {
@@ -229,7 +228,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for pimage
-	 * 
+	 *
 	 * @return pimage
 	 */
 	public PImage getWhiteKing() {
@@ -238,7 +237,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for pimage
-	 * 
+	 *
 	 * @return pimage
 	 */
 	public PImage getWhiteKnight() {
@@ -247,7 +246,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for pimage
-	 * 
+	 *
 	 * @return pimage
 	 */
 	public PImage getWhitePawn() {
@@ -256,7 +255,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for pimage
-	 * 
+	 *
 	 * @return pimage
 	 */
 	public PImage getWhiteQueen() {
@@ -265,7 +264,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Getter for pimage
-	 * 
+	 *
 	 * @return pimage
 	 */
 	public PImage getWhiteTower() {
@@ -274,7 +273,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Setter for pimage
-	 * 
+	 *
 	 * @param blackBishop pimage
 	 */
 	public void setBlackBishop(PImage blackBishop) {
@@ -283,7 +282,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Setter for pimage
-	 * 
+	 *
 	 * @param blackKing pimage
 	 */
 	public void setBlackKing(PImage blackKing) {
@@ -292,7 +291,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Setter for pimage
-	 * 
+	 *
 	 * @param blackKnight pimage
 	 */
 	public void setBlackKnight(PImage blackKnight) {
@@ -301,7 +300,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Setter for pimage
-	 * 
+	 *
 	 * @param blackPawn pimage
 	 */
 	public void setBlackPawn(PImage blackPawn) {
@@ -310,7 +309,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Setter for pimage
-	 * 
+	 *
 	 * @param blackQueen pimage
 	 */
 	public void setBlackQueen(PImage blackQueen) {
@@ -319,7 +318,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Setter for pimage
-	 * 
+	 *
 	 * @param blackTower pimage
 	 */
 	public void setBlackTower(PImage blackTower) {
@@ -344,7 +343,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Setter for pimage
-	 * 
+	 *
 	 * @param whiteBishop pimage
 	 */
 	public void setWhiteBishop(PImage whiteBishop) {
@@ -353,7 +352,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Setter for pimage
-	 * 
+	 *
 	 * @param whiteKing pimage
 	 */
 	public void setWhiteKing(PImage whiteKing) {
@@ -362,7 +361,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Setter for pimage
-	 * 
+	 *
 	 * @param whiteKnight pimage
 	 */
 	public void setWhiteKnight(PImage whiteKnight) {
@@ -371,7 +370,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Setter for pimage
-	 * 
+	 *
 	 * @param whitePawn pimage
 	 */
 	public void setWhitePawn(PImage whitePawn) {
@@ -380,7 +379,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Setter for pimage
-	 * 
+	 *
 	 * @param whiteQueen pimage
 	 */
 	public void setWhiteQueen(PImage whiteQueen) {
@@ -389,7 +388,7 @@ public class Main extends Gui implements IRefs {
 
 	/**
 	 * Setter for pimage
-	 * 
+	 *
 	 * @param whiteTower pimage
 	 */
 	public void setWhiteTower(PImage whiteTower) {

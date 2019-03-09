@@ -8,7 +8,7 @@ import defs.interfaces.IMove;
 import defs.interfaces.IRefs;
 
 /**
- * 
+ *
  * @author RoMansen
  *
  */
@@ -26,7 +26,7 @@ public class Timeline extends ArrayList<IMove> implements IRefs {
 
 	/**
 	 * Getter for static instance
-	 * 
+	 *
 	 * @return the static instance
 	 */
 	public static Timeline getInstance() {
@@ -44,7 +44,7 @@ public class Timeline extends ArrayList<IMove> implements IRefs {
 
 	/**
 	 * gives a list with all moves in chess notation
-	 * 
+	 *
 	 * @return a list of strings
 	 */
 	public List<String> toStr() {

@@ -1,7 +1,7 @@
 package conf;
 
 /**
- * 
+ *
  * @author roman
  *
  *         final config, modelled as a singleton class
@@ -22,7 +22,7 @@ public final class Config {
 	 * Do we use a random black player?
 	 */
 	private static boolean randomBlackPlayer = true;
-	
+
 	/**
 	 * Do we use a random black player?
 	 */
@@ -35,7 +35,7 @@ public final class Config {
 
 	/**
 	 * getter for the static instance
-	 * 
+	 *
 	 * @return the static instance
 	 */
 	public static Config getInstance() {
@@ -47,16 +47,16 @@ public final class Config {
 
 	/**
 	 * Getter for RandomBlackPlayer
-	 * 
+	 *
 	 * @return the black random player
 	 */
 	public static boolean isRandomBlackPlayer() {
 		return Config.randomBlackPlayer;
 	}
-	
+
 	/**
 	 * Getter for RandomWhitePlayer
-	 * 
+	 *
 	 * @return the white random player
 	 */
 	public static boolean isRandomWhitePlayer() {
@@ -65,16 +65,16 @@ public final class Config {
 
 	/**
 	 * Setter for RandomBlackPlayer
-	 * 
+	 *
 	 * @param randomPlayer instance of RandomPlayer
 	 */
 	public static void setRandomBlackPlayer(boolean randomPlayer) {
 		Config.randomBlackPlayer = randomPlayer;
 	}
-	
+
 	/**
 	 * Setter for RandomPlayer
-	 * 
+	 *
 	 * @param randomPlayer instance of RandomWhitePlayer
 	 */
 	public static void setRandomWhitePlayer(boolean randomPlayer) {

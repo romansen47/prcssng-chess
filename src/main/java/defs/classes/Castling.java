@@ -6,7 +6,7 @@ import pieces.King;
 import pieces.Rook;
 
 /**
- * 
+ *
  * @author roman
  *
  *         Subtype of Move.
@@ -26,7 +26,7 @@ public class Castling extends Move {
 	@Override
 	public void execute() {
 		final IPiece piece = this.getNext().getPiece();
-		if (piece.getId() == Ids.ROOK && this.getFig().getCol() == this.getNext().getPiece().getCol()) {
+		if ((piece.getId() == Ids.ROOK) && (this.getFig().getCol() == this.getNext().getPiece().getCol())) {
 			int k = this.getPrev().getJ();
 			int r = this.getNext().getJ();
 			if (k > r) {

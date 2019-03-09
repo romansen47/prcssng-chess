@@ -30,7 +30,7 @@ public final class Game implements IRefs {
 
 	/**
 	 * getter for the black player
-	 * 
+	 *
 	 * @return the black player
 	 */
 	public static IPlayer getBlack() {
@@ -39,7 +39,7 @@ public final class Game implements IRefs {
 
 	/**
 	 * Getter for static instance
-	 * 
+	 *
 	 * @return the static instance
 	 */
 	public static Game getInstance() {
@@ -51,7 +51,7 @@ public final class Game implements IRefs {
 
 	/**
 	 * getter for the acting player
-	 * 
+	 *
 	 * @return the acting player
 	 */
 	public static IPlayer getPlayer() {
@@ -60,7 +60,7 @@ public final class Game implements IRefs {
 
 	/**
 	 * getter for the white player
-	 * 
+	 *
 	 * @return the white player
 	 */
 	public static IPlayer getWhite() {
@@ -69,7 +69,7 @@ public final class Game implements IRefs {
 
 	/**
 	 * setter for the black player
-	 * 
+	 *
 	 * @param black the black player
 	 */
 	public static void setBlack(IPlayer black) {
@@ -78,7 +78,7 @@ public final class Game implements IRefs {
 
 	/**
 	 * setter for the active player
-	 * 
+	 *
 	 * @param player the player
 	 */
 	public static void setPlayer(IPlayer player) {
@@ -87,7 +87,7 @@ public final class Game implements IRefs {
 
 	/**
 	 * setter for the white player
-	 * 
+	 *
 	 * @param white the white player
 	 */
 	public static void setWhite(Player white) {
@@ -112,7 +112,7 @@ public final class Game implements IRefs {
 		this.chessboard = new Field[8][8];
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				if ((i + j) % 2 == 0) {
+				if (((i + j) % 2) == 0) {
 					this.chessboard[i][j] = new Field(Colors.BLACK, i, j);
 				} else {
 					this.chessboard[i][j] = new Field(Colors.WHITE, i, j);
@@ -124,7 +124,7 @@ public final class Game implements IRefs {
 
 	/**
 	 * Getter for fields from the chessboard
-	 * 
+	 *
 	 * @param i coordinate for the row
 	 * @param j coordinate for the column
 	 * @return the field at given coordinates
@@ -135,7 +135,7 @@ public final class Game implements IRefs {
 
 	/**
 	 * getter for the timeline
-	 * 
+	 *
 	 * @return the timeline
 	 */
 	public Timeline getMoveList() {
@@ -144,7 +144,7 @@ public final class Game implements IRefs {
 
 	/**
 	 * getter for the passive player
-	 * 
+	 *
 	 * @return the passive player
 	 */
 	public IPlayer getOpponent() {

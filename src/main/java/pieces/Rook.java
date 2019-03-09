@@ -14,7 +14,7 @@ public class Rook extends Piece implements ILongDist {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param col   the color
 	 * @param field the field
 	 */
@@ -32,14 +32,14 @@ public class Rook extends Piece implements ILongDist {
 
 	/**
 	 * computes whether rook already has been moved
-	 * 
+	 *
 	 * @return whether rook is still valid for castling
 	 */
 	public boolean isValidForCastling() {
 		boolean hasBeenMoved = false;
 		for (final IMove move : this.getOwner().getMoveList()) {
 			final IPiece fig = move.getFig();
-			if (fig instanceof Rook && (Rook) fig == this) {
+			if ((fig instanceof Rook) && ((Rook) fig == this)) {
 				hasBeenMoved = true;
 			}
 		}

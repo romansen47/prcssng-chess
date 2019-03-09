@@ -1,7 +1,7 @@
 package defs.interfaces;
 
 /**
- * 
+ *
  * @author RoMansen
  *
  *         the singleton classes setup and drawer use an execute method

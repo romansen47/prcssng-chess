@@ -12,7 +12,7 @@ import defs.interfaces.IValidityChecker;
 import processing.core.PImage;
 
 /**
- * 
+ *
  * @author roman
  *
  *         The blueprint for the pieces
@@ -43,7 +43,7 @@ public abstract class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 
 	/**
 	 * Constructor for piece
-	 * 
+	 *
 	 * @param id    the id
 	 * @param col   the color
 	 * @param field the field

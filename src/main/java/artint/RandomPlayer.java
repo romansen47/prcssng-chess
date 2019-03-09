@@ -6,14 +6,14 @@ import defs.classes.Player;
 import defs.enums.Colors;
 
 /**
- * 
+ *
  * @author RoMansen
  *
  *         Implementation of a player moving randomly
  */
 
 public class RandomPlayer extends Player {
-	
+
 	/**
 	 * The random number generator
 	 */
@@ -30,5 +30,5 @@ public class RandomPlayer extends Player {
 	public final Random getRandom() {
 		return random;
 	}
-	
+
 }

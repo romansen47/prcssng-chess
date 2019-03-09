@@ -13,7 +13,7 @@ public class Bishop extends Piece implements ILongDist {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param col   the color of the bishop
 	 * @param field the field of the bishop
 	 */

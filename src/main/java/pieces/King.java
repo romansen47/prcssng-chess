@@ -7,7 +7,6 @@ import conf.Config;
 import defs.classes.Castling;
 import defs.classes.Field;
 import defs.classes.Piece;
-import defs.classes.Player;
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.enums.State;
@@ -29,7 +28,7 @@ public class King extends Piece {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param col   the color
 	 * @param field the field
 	 */
@@ -40,13 +39,13 @@ public class King extends Piece {
 	/**
 	 * @param fld the field to be checked for validity
 	 * @param lst the list of fields already validated
-	 * 
+	 *
 	 * @return returns true, if field is valid and adds field to the list of valid
 	 *         fields. returns false and does nothing, otherwise.
 	 */
 	@Override
 	public boolean checkIfOccupiedByFriend(Field fld, List<Field> lst) {
-		if (fld.getPiece() != null && fld.getPiece().getCol() == this.getCol()) {
+		if ((fld.getPiece() != null) && (fld.getPiece().getCol() == this.getCol())) {
 			return false;
 		}
 		lst.add(fld);
@@ -55,7 +54,7 @@ public class King extends Piece {
 
 	/**
 	 * the forecast for the king which fields he may not enter
-	 * 
+	 *
 	 * @return the fields the king may not enter
 	 */
 	public List<Field> getAllAttackedFields() {
@@ -67,8 +66,8 @@ public class King extends Piece {
 	}
 
 	public List<IMove> getAllMovesToAvoidChess() {
-		List<IMove> list = getPossibleMoves();
-		for (IPiece piece : getOwner().getPieces()) {
+		final List<IMove> list = getPossibleMoves();
+		for (final IPiece piece : getOwner().getPieces()) {
 			list.addAll(piece.getPossibleMoves());
 		}
 		return list;
@@ -91,7 +90,7 @@ public class King extends Piece {
 	/**
 	 * in a check for validity for a castling the fields between the king and the
 	 * rook must not be being attacked
-	 * 
+	 *
 	 * @param fld1 first field
 	 * @param fld2 second field
 	 * @return the fields in between
@@ -103,7 +102,7 @@ public class King extends Piece {
 			return this.getFieldsInBetween(fld2, fld1);
 		}
 		final List<Field> fields = new ArrayList<>();
-		for (int i = 1; i < r - k; i++) {
+		for (int i = 1; i < (r - k); i++) {
 			fields.add(this.getGame().getField(fld1.getI(), k + i));
 		}
 		return fields;
@@ -133,7 +132,7 @@ public class King extends Piece {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param field rooks field
 	 * @return the rook
 	 */
@@ -150,8 +149,8 @@ public class King extends Piece {
 				}
 			}
 			final Field tmpField = this.getGame().getField(this.getPosI(), r);
-			if (tmpField.getPiece() != null && tmpField.getPiece().getId() == Ids.ROOK
-					&& tmpField.getPiece().getCol() == this.getCol()) {
+			if ((tmpField.getPiece() != null) && (tmpField.getPiece().getId() == Ids.ROOK)
+					&& (tmpField.getPiece().getCol() == this.getCol())) {
 				rook = (Rook) tmpField.getPiece();
 			}
 		}
@@ -160,7 +159,7 @@ public class King extends Piece {
 
 	/**
 	 * Returns all valid moves to a nearby field
-	 * 
+	 *
 	 * @return Returns all valid moves to a nearby field
 	 */
 	@Override
@@ -168,28 +167,28 @@ public class King extends Piece {
 		final List<Field> lst = new ArrayList<>();
 		final int tempI = this.getField().getI();
 		final int tempJ = this.getField().getJ();
-		if (tempI - 1 >= 0) {
+		if ((tempI - 1) >= 0) {
 			this.checkIfOccupiedByFriend(this.getGame().getField(tempI - 1, tempJ), lst);
-			if (tempJ - 1 >= 0) {
+			if ((tempJ - 1) >= 0) {
 				this.checkIfOccupiedByFriend(this.getGame().getField(tempI - 1, tempJ - 1), lst);
 			}
-			if (tempJ + 1 <= Config.GAMESIZE) {
+			if ((tempJ + 1) <= Config.GAMESIZE) {
 				this.checkIfOccupiedByFriend(this.getGame().getField(tempI - 1, tempJ + 1), lst);
 			}
 		}
-		if (tempI + 1 <= Config.GAMESIZE) {
+		if ((tempI + 1) <= Config.GAMESIZE) {
 			this.checkIfOccupiedByFriend(this.getGame().getField(tempI + 1, tempJ), lst);
-			if (tempJ - 1 >= 0) {
+			if ((tempJ - 1) >= 0) {
 				this.checkIfOccupiedByFriend(this.getGame().getField(tempI + 1, tempJ - 1), lst);
 			}
-			if (tempJ + 1 <= Config.GAMESIZE) {
+			if ((tempJ + 1) <= Config.GAMESIZE) {
 				this.checkIfOccupiedByFriend(this.getGame().getField(tempI + 1, tempJ + 1), lst);
 			}
 		}
-		if (tempJ + 1 <= Config.GAMESIZE) {
+		if ((tempJ + 1) <= Config.GAMESIZE) {
 			this.checkIfOccupiedByFriend(this.getGame().getField(tempI, tempJ + 1), lst);
 		}
-		if (tempJ - 1 >= 0) {
+		if ((tempJ - 1) >= 0) {
 			this.checkIfOccupiedByFriend(this.getGame().getField(tempI, tempJ - 1), lst);
 		}
 		return this.convertFieldsToMoves(lst);
@@ -204,11 +203,11 @@ public class King extends Piece {
 		final int tempI = this.getField().getI();
 		final int tempJ = this.getField().getJ();
 		if (this.isValidForCastling()) {
-			if (tempJ + 2 <= Config.GAMESIZE && this.getGame().getField(tempI, tempJ + 1).getPiece() == null
+			if (((tempJ + 2) <= Config.GAMESIZE) && (this.getGame().getField(tempI, tempJ + 1).getPiece() == null)
 					&& this.isValidForCastling(this.getGame().getField(tempI, tempJ + 2))) {
 				lst.add(this.getMove(this.getGame().getField(tempI, tempJ + 2)));
 			}
-			if (tempJ - 2 >= 0 && this.getGame().getField(tempI, tempJ - 1).getPiece() == null
+			if (((tempJ - 2) >= 0) && (this.getGame().getField(tempI, tempJ - 1).getPiece() == null)
 					&& this.isValidForCastling(this.getGame().getField(tempI, tempJ - 2))) {
 				lst.add(this.getMove((this.getGame().getField(tempI, tempJ - 2))));
 			}
@@ -219,7 +218,7 @@ public class King extends Piece {
 
 	/**
 	 * getter for the state
-	 * 
+	 *
 	 * @return the state
 	 */
 	public State getState() {
@@ -227,7 +226,7 @@ public class King extends Piece {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return returns, whether king is under enemy attack
 	 */
 	public boolean isChecked() {
@@ -235,20 +234,19 @@ public class King extends Piece {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return returns, whether king already has been moved or checked
 	 */
 	public boolean isValidForCastling() {
 		/**
-		 * 
-		 * This is wrong...
-		 * return this.isValidForCastling;
+		 *
+		 * This is wrong... return this.isValidForCastling;
 		 */
 		return true;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param field the field to be checked for validity
 	 * @return returns, whether the field contains a rook of same color, whether
 	 *         rook has already been attacked and if one of the fields in between is
@@ -256,10 +254,10 @@ public class King extends Piece {
 	 */
 	public boolean isValidForCastling(Field field) {
 		final Rook rook = this.getRook(field);
-		if (rook != null && rook.isValidForCastling()) {
+		if ((rook != null) && rook.isValidForCastling()) {
 			final List<Field> fields = this.getFieldsInBetween(this.getField(), rook.getField());
 			for (final Field fld : fields) {
-				if (fld.getPiece() != null || this.getAllAttackedFields().contains(fld)) {
+				if ((fld.getPiece() != null) || this.getAllAttackedFields().contains(fld)) {
 					return false;
 				}
 			}
@@ -276,7 +274,7 @@ public class King extends Piece {
 
 	/**
 	 * setter for the state
-	 * 
+	 *
 	 * @param state the state
 	 */
 	public void setState(State state) {
@@ -288,13 +286,13 @@ public class King extends Piece {
 
 	/**
 	 * setter for isValidForCastling
-	 * 
+	 *
 	 * @param isValidForCastling isValidForCastling
 	 */
 	public void setValidForCastling(boolean isValidForCastling) {
 		this.isValidForCastling = isValidForCastling;
 	}
-	
+
 	@Override
 	public List<Field> getSpecialFields(IPlayer Player) {
 		final List<Field> fields = new ArrayList<>();
@@ -310,7 +308,7 @@ public class King extends Piece {
 			if (piece.getPossibleFields().contains(this.getField())) {
 				fields.add(piece.getField());
 			}
-			if (piece instanceof King && king != null) {
+			if ((piece instanceof King) && (king != null)) {
 				king.setValidForCastling(castling);
 			}
 		}

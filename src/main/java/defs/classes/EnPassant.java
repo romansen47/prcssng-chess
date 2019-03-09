@@ -11,7 +11,7 @@ public class EnPassant extends Move {
 
 	/**
 	 * Constructor of an EnPassant
-	 * 
+	 *
 	 * @param fig  first pawn
 	 * @param fig2 second pawn
 	 * @param fld  the field of the moving pawn

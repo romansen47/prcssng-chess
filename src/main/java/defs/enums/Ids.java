@@ -1,9 +1,9 @@
 package defs.enums;
 
 /**
- * 
+ *
  * @author RoMansen
- * 
+ *
  *         This enum privides key words for the names of the pieces
  *
  */

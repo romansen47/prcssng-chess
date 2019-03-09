@@ -12,7 +12,7 @@ import defs.interfaces.IPlayer;
 import pieces.King;
 
 /**
- * 
+ *
  * @author roman
  *
  */
@@ -56,7 +56,7 @@ public class Player implements IPlayer {
 
 	/**
 	 * Constructor for the player
-	 * 
+	 *
 	 * @param col the player's color
 	 */
 	public Player(Colors col) {

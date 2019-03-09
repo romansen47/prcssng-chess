@@ -3,13 +3,11 @@ package chess;
 import java.util.ArrayList;
 import java.util.List;
 
-import artint.BlackRandomPlayer;
 import artint.RandomPlayer;
 import conf.Config;
 import conf.Timeline;
 import defs.classes.Field;
 import defs.classes.Game;
-import defs.classes.Player;
 import defs.enums.Colors;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
@@ -17,7 +15,7 @@ import defs.interfaces.IPlayer;
 import defs.interfaces.ISetupAndRun;
 
 /**
- * 
+ *
  * @author roman
  *
  *         Class for handling the main draw-function, constructed as a singleton
@@ -32,7 +30,7 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * instance getter
-	 * 
+	 *
 	 * @param main the main papplet object
 	 * @return drawer instance
 	 */
@@ -50,7 +48,7 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * private constructor.
-	 * 
+	 *
 	 * @param main the main {@inheritDoc}PApplet object.
 	 */
 	private Drawer(Main main) {
@@ -59,7 +57,7 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * Do we have a click?
-	 * 
+	 *
 	 * @return whether click has been performed.
 	 */
 	public boolean checkForClick() {
@@ -84,7 +82,7 @@ public class Drawer implements ISetupAndRun {
 			for (int j = 0; j < 8; j++) {
 				this.main.stroke(0);
 				this.main.strokeWeight(3);
-				float tmp = 8 * (float) Config.SIZE;
+				final float tmp = 8 * (float) Config.SIZE;
 				this.main.line(0, 0, tmp, 0);
 				this.main.line(0, 0, 0, tmp);
 				this.main.line(tmp, 0, tmp, tmp);
@@ -99,7 +97,7 @@ public class Drawer implements ISetupAndRun {
 	 * draws all marked fields
 	 */
 	public void drawMarked() {
-		if (this.getReferee().getMarked() != null && this.getReferee().getMarked().getPiece() != null) {
+		if ((this.getReferee().getMarked() != null) && (this.getReferee().getMarked().getPiece() != null)) {
 			final IPiece piece = this.getReferee().getMarked().getPiece();
 			this.drawMarkedFields(piece.convertMovesToFields(this.getReferee().getValidMoves(piece.getPossibleMoves())),
 					Colors.GREEN);
@@ -113,7 +111,7 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * draws specific marked fields
-	 * 
+	 *
 	 * @param fields the marked fields
 	 * @param tmp    the colors for the fields
 	 */
@@ -147,8 +145,8 @@ public class Drawer implements ISetupAndRun {
 		this.main.textSize(18);
 		int i = 2;
 		for (final String str : tl.toStr()) {
-			this.main.text(str, ((float) Config.SIZE) / 4 + (Config.GAMESIZE + 1) * Config.SIZE,
-					(float) Config.SIZE + i++ * 30);
+			this.main.text(str, (((float) Config.SIZE) / 4) + ((Config.GAMESIZE + 1) * Config.SIZE),
+					(float) Config.SIZE + (i++ * 30));
 		}
 	}
 
@@ -162,12 +160,11 @@ public class Drawer implements ISetupAndRun {
 		final boolean cl = this.checkForClick();
 		this.setMark(cl);
 
-		boolean reDraw=false;
+		boolean reDraw = false;
 		if (Game.getPlayer() instanceof RandomPlayer) {
 			this.getReferee().processMove(((RandomPlayer) Game.getPlayer()).randomMove());
-			reDraw=true;
-		} 
-		else {
+			reDraw = true;
+		} else {
 			if (cl) {
 
 				// use information on interaction to create next move
@@ -175,17 +172,17 @@ public class Drawer implements ISetupAndRun {
 
 				// save move to list and statistics
 				this.getReferee().processMove(move);
-				
-				reDraw=true;
+
+				reDraw = true;
 			}
 		}
-		
+
 		if (reDraw) {
 			// Draw the complete chess board
 			this.drawChessboard();
 		}
-		
-		if (this.main.pressed() == 1 && this.main.key == 'r') {
+
+		if ((this.main.pressed() == 1) && (this.main.key == 'r')) {
 			this.getReferee().rewindLastMove();
 			this.main.background(255);
 			this.getGame().getReferee().setMarked(null);
@@ -196,7 +193,7 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * getter for the active player
-	 * 
+	 *
 	 * @return the active player
 	 */
 	private IPlayer getPlayer() {
@@ -206,7 +203,7 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * Concrete drawing of a field mark
-	 * 
+	 *
 	 * @param fld the field to draw the mark for
 	 * @param col the color
 	 */
@@ -219,32 +216,34 @@ public class Drawer implements ISetupAndRun {
 		case RED:
 			this.main.stroke(255, 0, 0);
 			this.main.noFill();
-			this.main.rect((fld.getJ() + 1) * size - size + (float) thickness,
-					(fld.getI() + 1) * (float) size - size + thickness, (float) size - 2 * thickness,
-					(float) size - 2 * thickness);
+			this.main.rect((((fld.getJ() + 1) * size) - size) + (float) thickness,
+					(((fld.getI() + 1) * (float) size) - size) + thickness, (float) size - (2 * thickness),
+					(float) size - (2 * thickness));
 			break;
 		case BLUE:
 			this.main.stroke(0, 0, 255);
 			this.main.noFill();
-			this.main.rect((fld.getJ() + 1) * (float) size - size + 2 * thickness,
-					(fld.getI() + 1) * (float) size - size + 2 * thickness, (float) size - 4 * thickness,
-					(float) size - 4 * thickness);
+			this.main.rect((((fld.getJ() + 1) * (float) size) - size) + (2 * thickness),
+					(((fld.getI() + 1) * (float) size) - size) + (2 * thickness), (float) size - (4 * thickness),
+					(float) size - (4 * thickness));
 			break;
 		case YELLOW:
 			this.main.stroke(255, 255, 0);
 			this.main.noFill();
-			this.main.rect((fld.getJ() + 1) * (float) size - size + thickness,
-					(fld.getI() + 1) * (float) size - size + thickness, (float) size - 2 * thickness,
-					(float) size - 2 * thickness);
-			this.main.rect((fld.getJ() + 1) * (float) size - size + 2 * thickness,
-					(fld.getI() + 1) * (float) size - size + 2 * thickness, (float) size - 4 * thickness,
-					(float) size - 4 * thickness);
-			this.main.rect((fld.getJ() + 1) * (float) size - size, (fld.getI() + 1) * (float) size - size, size, size);
+			this.main.rect((((fld.getJ() + 1) * (float) size) - size) + thickness,
+					(((fld.getI() + 1) * (float) size) - size) + thickness, (float) size - (2 * thickness),
+					(float) size - (2 * thickness));
+			this.main.rect((((fld.getJ() + 1) * (float) size) - size) + (2 * thickness),
+					(((fld.getI() + 1) * (float) size) - size) + (2 * thickness), (float) size - (4 * thickness),
+					(float) size - (4 * thickness));
+			this.main.rect(((fld.getJ() + 1) * (float) size) - size, ((fld.getI() + 1) * (float) size) - size, size,
+					size);
 			break;
 		default:
 			this.main.stroke(0, 255, 0);
 			this.main.noFill();
-			this.main.rect((fld.getJ() + 1) * (float) size - size, (fld.getI() + 1) * (float) size - size, size, size);
+			this.main.rect(((fld.getJ() + 1) * (float) size) - size, ((fld.getI() + 1) * (float) size) - size, size,
+					size);
 			break;
 
 		}
@@ -252,7 +251,7 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * Marks the field, which has been cicked on
-	 * 
+	 *
 	 * @param clicked tells whether click has been performed
 	 */
 	public void setMark(boolean clicked) {
@@ -262,10 +261,10 @@ public class Drawer implements ISetupAndRun {
 		if (!this.getReferee().isMarked()) {
 			final int i = Config.GAMESIZE - this.main.getPosI();
 			final int j = this.main.getPosJ();
-			if (i >= 0 && i <= Config.GAMESIZE && j >= 0 && j <= Config.GAMESIZE
-					&& this.getGame().getField(i, j).getPiece() != null
-					&& this.getGame().getField(Config.GAMESIZE - this.main.getPosI(), this.main.getPosJ()).getPiece()
-							.getCol() == this.getPlayer().getCol()) {
+			if ((i >= 0) && (i <= Config.GAMESIZE) && (j >= 0) && (j <= Config.GAMESIZE)
+					&& (this.getGame().getField(i, j).getPiece() != null)
+					&& (this.getGame().getField(Config.GAMESIZE - this.main.getPosI(), this.main.getPosJ()).getPiece()
+							.getCol() == this.getPlayer().getCol())) {
 				this.getReferee()
 						.setMarked(this.getGame().getField(Config.GAMESIZE - this.main.getPosI(), this.main.getPosJ()));
 			}

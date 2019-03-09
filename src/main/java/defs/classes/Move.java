@@ -9,7 +9,7 @@ import defs.interfaces.IRefs;
 import pieces.King;
 
 /**
- * 
+ *
  * @author roman
  *
  *         The main information about the game is saved to a sequence of "moves"
@@ -28,7 +28,7 @@ public class Move implements IMove, IRefs {
 
 	/**
 	 * Constructor for a move
-	 * 
+	 *
 	 * @param fig the initial piece to move
 	 * @param fld the field, fig is to be moved to
 	 */

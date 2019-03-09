@@ -9,7 +9,7 @@ import pieces.King;
 public interface IValidityChecker extends IColors {
 
 	/**
-	 * 
+	 *
 	 * @param fld the field to check for validity
 	 * @param lst the list of valid moves the converted field will be added to in
 	 *            case for validity
@@ -18,11 +18,11 @@ public interface IValidityChecker extends IColors {
 	default boolean checkIfOccupiedByFriend(Field fld, List<Field> lst) {
 		boolean ans = false;
 		final Field last = lst.get(lst.size() - 1);
-		if ((last.getPiece() == null || last.getPiece() == this) && fld.getPiece() == null) {
+		if (((last.getPiece() == null) || (last.getPiece() == this)) && (fld.getPiece() == null)) {
 			ans = true;
 		}
-		if ((last.getPiece() == null || last.getPiece() == this) && fld.getPiece() != null
-				&& fld.getPiece().getCol() != this.getCol()) {
+		if (((last.getPiece() == null) || (last.getPiece() == this)) && (fld.getPiece() != null)
+				&& (fld.getPiece().getCol() != this.getCol())) {
 			ans = true;
 		}
 		if (ans) {
@@ -33,7 +33,7 @@ public interface IValidityChecker extends IColors {
 
 	/**
 	 * Checks move for validity.
-	 * 
+	 *
 	 * @param move the move to check
 	 * @return the move, if after the move the own king is not being chessed by any
 	 *         opponent piece. castling of the opponent is not checked as a threat!.
@@ -70,7 +70,7 @@ public interface IValidityChecker extends IColors {
 
 	/**
 	 * Checks a list of moves for valid moves
-	 * 
+	 *
 	 * @param moves list of moves to ckeck for validity
 	 * @return the list with valid moves
 	 */

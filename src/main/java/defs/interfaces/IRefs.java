@@ -6,7 +6,7 @@ import conf.Referee;
 import defs.classes.Game;
 
 /**
- * 
+ *
  * @author RoMansen
  *
  *         This interfaces provides default getters for static singleton
@@ -16,7 +16,7 @@ public interface IRefs {
 
 	/**
 	 * Getter for the drawer
-	 * 
+	 *
 	 * @param main the Main instance
 	 * @return static instance of drawer
 	 */
@@ -26,7 +26,7 @@ public interface IRefs {
 
 	/**
 	 * Getter for the game
-	 * 
+	 *
 	 * @return static instance of game
 	 */
 	default Game getGame() {
@@ -35,7 +35,7 @@ public interface IRefs {
 
 	/**
 	 * Getter for the Referee
-	 * 
+	 *
 	 * @return static instance of Referee
 	 */
 	default Referee getReferee() {

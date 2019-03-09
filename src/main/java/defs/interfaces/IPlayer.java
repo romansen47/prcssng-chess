@@ -1,7 +1,6 @@
 package defs.interfaces;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
@@ -20,35 +19,35 @@ public interface IPlayer extends IRefs {
 
 	/**
 	 * Get all pieces, the living and the dead
-	 * 
+	 *
 	 * @return allPieces
 	 */
 	List<IPiece> getAllPieces();
 
 	/**
 	 * Getter for color
-	 * 
+	 *
 	 * @return the color
 	 */
 	Colors getCol();
 
 	/**
 	 * getter for list of dead pieces
-	 * 
+	 *
 	 * @return the list of dead pieces
 	 */
 	List<IPiece> getDeadPieces();
 
 	/**
 	 * Getter for the king
-	 * 
+	 *
 	 * @return the king
 	 */
 	King getKing();
 
 	/**
 	 * method to get the last move the player performed
-	 * 
+	 *
 	 * @return the last move performed by the player
 	 */
 	default IMove getLastMove() {
@@ -61,14 +60,14 @@ public interface IPlayer extends IRefs {
 
 	/**
 	 * Getter for the list of moves
-	 * 
+	 *
 	 * @return MoveList
 	 */
 	List<IMove> getMoveList();
 
 	/**
 	 * Getter of player's pieces
-	 * 
+	 *
 	 * @return list of player's pieces
 	 */
 	List<IPiece> getPieces();
@@ -105,7 +104,7 @@ public interface IPlayer extends IRefs {
 	/**
 	 * Method to perform a random move. All possible moves are collected, random is
 	 * used to choose one randomly
-	 * 
+	 *
 	 * @return a random valid move
 	 */
 	default IMove randomMove() {
@@ -118,31 +117,29 @@ public interface IPlayer extends IRefs {
 				}
 			}
 		}
-		ArrayList<IMove> newMoves=removeDuplicates(moves);
+		final ArrayList<IMove> newMoves = removeDuplicates(moves);
 		final int i = getRandom().nextInt(newMoves.size() - 1);
 		return newMoves.get(i);
 	}
-	
-	// Function to remove duplicates from an ArrayList 
-    public static ArrayList<IMove> removeDuplicates(ArrayList<IMove> moves) 
-    { 
-  
-        // Create a new LinkedHashSet 
-        Set<IMove> set = new LinkedHashSet<>(); 
-  
-        // Add the elements to set 
-        set.addAll(moves); 
-  
-        // Clear the list 
-        moves.clear(); 
-  
-        // add the elements of set 
-        // with no duplicates to the list 
-        moves.addAll(set); 
-  
-        // return the list 
-        return moves; 
-    } 
-  
+
+	// Function to remove duplicates from an ArrayList
+	static ArrayList<IMove> removeDuplicates(ArrayList<IMove> moves) {
+
+		// Create a new LinkedHashSet
+		final Set<IMove> set = new LinkedHashSet<>();
+
+		// Add the elements to set
+		set.addAll(moves);
+
+		// Clear the list
+		moves.clear();
+
+		// add the elements of set
+		// with no duplicates to the list
+		moves.addAll(set);
+
+		// return the list
+		return moves;
+	}
 
 }

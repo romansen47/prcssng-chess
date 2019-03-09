@@ -3,7 +3,7 @@ package artint;
 import defs.enums.Colors;
 
 /**
- * 
+ *
  * @author RoMansen
  *
  */

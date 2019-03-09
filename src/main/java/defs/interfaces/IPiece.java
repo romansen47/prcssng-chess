@@ -7,10 +7,8 @@ import chess.Main;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.classes.Piece;
-import defs.classes.Player;
 import defs.enums.Colors;
 import defs.enums.Ids;
-import pieces.King;
 import pieces.Pawn;
 import processing.core.PImage;
 
@@ -18,7 +16,7 @@ public interface IPiece extends IRefs {
 
 	/**
 	 * Simple converter
-	 * 
+	 *
 	 * @param input List of fields to convert to moves
 	 * @return List of moves
 	 */
@@ -32,7 +30,7 @@ public interface IPiece extends IRefs {
 
 	/**
 	 * Simple converter
-	 * 
+	 *
 	 * @param input List of moves to extract the fields from
 	 * @return List of Fields
 	 */
@@ -46,7 +44,7 @@ public interface IPiece extends IRefs {
 
 	/**
 	 * creates an empty list of fields
-	 * 
+	 *
 	 * @return an empty list of fields
 	 */
 	default List<Field> createList() {
@@ -63,13 +61,13 @@ public interface IPiece extends IRefs {
 
 	/**
 	 * Draws the piece
-	 * 
+	 *
 	 * @param main the main papplet
 	 */
 	void draw(Main main);
 
 	/**
-	 * 
+	 *
 	 * @return returns list attacking fields
 	 */
 	default List<Field> getAttackers() {
@@ -78,42 +76,42 @@ public interface IPiece extends IRefs {
 
 	/**
 	 * Getter for the color
-	 * 
+	 *
 	 * @return the color
 	 */
 	Colors getCol();
 
 	/**
 	 * Getter for the field
-	 * 
+	 *
 	 * @return the field
 	 */
 	Field getField();
 
 	/**
 	 * Getter for the field the piece stood on before the game started
-	 * 
+	 *
 	 * @return firstField
 	 */
 	Field getFirstField();
 
 	/**
 	 * getter for the Id
-	 * 
+	 *
 	 * @return the id
 	 */
 	Ids getId();
 
 	/**
 	 * Getter for pimage of the piece
-	 * 
+	 *
 	 * @return the pimage
 	 */
 	PImage getImage();
 
 	/**
 	 * Creator of a move
-	 * 
+	 *
 	 * @param field the field to move on
 	 * @return the created move
 	 */
@@ -121,7 +119,7 @@ public interface IPiece extends IRefs {
 
 	/**
 	 * getter for the opponent
-	 * 
+	 *
 	 * @return the opponent of the player the piece belongs to
 	 */
 	default IPlayer getOpponent() {
@@ -133,7 +131,7 @@ public interface IPiece extends IRefs {
 
 	/**
 	 * getter for the player the piece belongs to. NOT the acting player
-	 * 
+	 *
 	 * @return the player the piece belongs to
 	 */
 	default IPlayer getOwner() {
@@ -145,7 +143,7 @@ public interface IPiece extends IRefs {
 
 	/**
 	 * the piece does not have any posotion but the underlying field does
-	 * 
+	 *
 	 * @return the row coordinate of the field the piece is standing on
 	 */
 	default int getPosI() {
@@ -154,7 +152,7 @@ public interface IPiece extends IRefs {
 
 	/**
 	 * the piece does not have any posotion but the underlying field does
-	 * 
+	 *
 	 * @return the column coordinate of the field the piece is standing on
 	 */
 	default int getPosJ() {
@@ -163,7 +161,7 @@ public interface IPiece extends IRefs {
 
 	/**
 	 * get possible moves as a list of fields
-	 * 
+	 *
 	 * @return list of fields
 	 */
 	default List<Field> getPossibleFields() {
@@ -174,7 +172,7 @@ public interface IPiece extends IRefs {
 	 * @return returns the list of possible moves
 	 */
 	default List<IMove> getPossibleMoves() {
-		List<IMove> moves=getSimpleMoves();
+		final List<IMove> moves = getSimpleMoves();
 		moves.addAll(getSpecialMoves());
 		return moves;
 	}
@@ -182,13 +180,13 @@ public interface IPiece extends IRefs {
 	/**
 	 * The list of simple moves the piece can perform. Castling and EnPassant are
 	 * excluded!
-	 * 
+	 *
 	 * @return the list of simple moves the piece can perform.
 	 */
 	List<IMove> getSimpleMoves();
 
 	/**
-	 * 
+	 *
 	 * @param Player the player
 	 * @return list of special moves
 	 */
@@ -199,7 +197,7 @@ public interface IPiece extends IRefs {
 	/**
 	 * get also special moves like castling or enpassant. the generic piece does not
 	 * have any special moves
-	 * 
+	 *
 	 * @return list of moves
 	 */
 	default List<IMove> getSpecialMoves() {
@@ -207,7 +205,7 @@ public interface IPiece extends IRefs {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return List of fields with friends on them guarding the piece
 	 */
 	default List<Field> getSupporters() {
@@ -235,14 +233,14 @@ public interface IPiece extends IRefs {
 
 	/**
 	 * Setter for the field
-	 * 
+	 *
 	 * @param field the field
 	 */
 	void setField(Field field);
 
 	/**
 	 * Setter for the pimage
-	 * 
+	 *
 	 * @param image the pimage
 	 */
 	void setImage(PImage image);

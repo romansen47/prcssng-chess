@@ -1,9 +1,9 @@
 package defs.enums;
 
 /**
- * 
+ *
  * @author RoMansen
- * 
+ *
  *         This enum privides key words for colors
  *
  */
