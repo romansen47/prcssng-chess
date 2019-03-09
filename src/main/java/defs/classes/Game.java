@@ -7,12 +7,12 @@ import conf.Timeline;
 import defs.enums.Colors;
 import defs.interfaces.IRefs;
 
-final public class Game implements IRefs {
+public final class Game implements IRefs {
 
 	/**
 	 * the black player
 	 */
-	private static Player Black;
+	private static Player black;
 	/**
 	 * static instance
 	 */
@@ -20,11 +20,20 @@ final public class Game implements IRefs {
 	/**
 	 * the acting player
 	 */
-	private static Player Player;
+	private static Player player;
 	/**
 	 * the white player
 	 */
-	private static Player White;
+	private static Player white;
+
+	/**
+	 * getter for the black player
+	 * 
+	 * @return the black player
+	 */
+	public static Player getBlack() {
+		return Game.black;
+	}
 
 	/**
 	 * Getter for static instance
@@ -39,40 +48,76 @@ final public class Game implements IRefs {
 	}
 
 	/**
+	 * getter for the acting player
+	 * 
+	 * @return the acting player
+	 */
+	public static Player getPlayer() {
+		return Game.player;
+	}
+
+	/**
+	 * getter for the white player
+	 * 
+	 * @return the white player
+	 */
+	public static Player getWhite() {
+		return Game.white;
+	}
+
+	/**
+	 * setter for the black player
+	 * 
+	 * @param black the black player
+	 */
+	public static void setBlack(Player black) {
+		Game.black = black;
+	}
+
+	/**
+	 * setter for the active player
+	 * 
+	 * @param player the player
+	 */
+	public static void setPlayer(Player player) {
+		Game.player = player;
+	}
+
+	/**
+	 * setter for the white player
+	 * 
+	 * @param white the white player
+	 */
+	public static void setWhite(Player white) {
+		Game.white = white;
+	}
+
+	/**
 	 * the chessboard
 	 */
-	private final Field[][] Chessboard;
+	private final Field[][] chessboard;
 
 	/**
 	 * the final timeline
 	 */
-	final private Timeline MoveList = Timeline.getInstance();
+	private final Timeline moveList = Timeline.getInstance();
 
 	/**
 	 * private constructor
 	 */
 	private Game() {
 		// Generate the chess board
-		this.Chessboard = new Field[8][8];
+		this.chessboard = new Field[8][8];
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if ((i + j) % 2 == 0) {
-					this.Chessboard[i][j] = new Field(Colors.BLACK, i, j);
+					this.chessboard[i][j] = new Field(Colors.BLACK, i, j);
 				} else {
-					this.Chessboard[i][j] = new Field(Colors.WHITE, i, j);
+					this.chessboard[i][j] = new Field(Colors.WHITE, i, j);
 				}
 			}
 		}
 		Referee.getInstance();
-	}
-
-	/**
-	 * getter for the black player
-	 * 
-	 * @return the black player
-	 */
-	public Player getBlack() {
-		return Game.Black;
 	}
 
 	/**
@@ -83,7 +128,7 @@ final public class Game implements IRefs {
 	 * @return the field at given coordinates
 	 */
 	public Field getField(int i, int j) {
-		return this.Chessboard[i][j];
+		return this.chessboard[i][j];
 	}
 
 	/**
@@ -92,7 +137,7 @@ final public class Game implements IRefs {
 	 * @return the timeline
 	 */
 	public Timeline getMoveList() {
-		return this.MoveList;
+		return this.moveList;
 	}
 
 	/**
@@ -101,46 +146,10 @@ final public class Game implements IRefs {
 	 * @return the passive player
 	 */
 	public Player getOpponent() {
-		if (this.getPlayer() == this.getWhite()) {
-			return this.getBlack();
+		if (getPlayer() == getWhite()) {
+			return getBlack();
 		}
-		return this.getWhite();
-	}
-
-	/**
-	 * getter for the acting player
-	 * 
-	 * @return the acting player
-	 */
-	public Player getPlayer() {
-		return Game.Player;
-	}
-
-	/**
-	 * getter for the white player
-	 * 
-	 * @return the white player
-	 */
-	public Player getWhite() {
-		return Game.White;
-	}
-
-	/**
-	 * setter for the black player
-	 * 
-	 * @param black the black player
-	 */
-	public void setBlack(Player black) {
-		Game.Black = black;
-	}
-
-	/**
-	 * setter for the active player
-	 * 
-	 * @param player the player
-	 */
-	public void setPlayer(Player player) {
-		Game.Player = player;
+		return getWhite();
 	}
 
 	/**
@@ -148,22 +157,13 @@ final public class Game implements IRefs {
 	 * the acting player to perform the first move
 	 */
 	public void setup() {
-		this.setWhite(new Player(Colors.WHITE));
+		setWhite(new Player(Colors.WHITE));
 		if (Config.isRandomPlayer()) {
-			this.setBlack(new RandomPlayer());
+			setBlack(new RandomPlayer());
 		} else {
-			this.setBlack(new Player(Colors.BLACK));
+			setBlack(new Player(Colors.BLACK));
 		}
-		this.setPlayer(this.getWhite());
-	}
-
-	/**
-	 * setter for the white player
-	 * 
-	 * @param white the white player
-	 */
-	public void setWhite(Player white) {
-		Game.White = white;
+		setPlayer(getWhite());
 	}
 
 }

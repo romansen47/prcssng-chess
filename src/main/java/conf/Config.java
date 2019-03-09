@@ -6,12 +6,12 @@ package conf;
  *
  *         final config, modelled as a singleton class
  */
-final public class Config {
+public final class Config {
 
 	/**
 	 * GAMESIZE+1 is the amount of fields in each directions
 	 */
-	public final static int GAMESIZE = 7;
+	public static final int GAMESIZE = 7;
 
 	/**
 	 * static instance of Config
@@ -21,12 +21,12 @@ final public class Config {
 	/**
 	 * Do we use a random player?
 	 */
-	private static boolean RandomPlayer = false;
+	private static boolean randomPlayer = false;
 
 	/**
 	 * the stanard size of a field
 	 */
-	public final static int SIZE = 100;
+	public static final int SIZE = 100;
 
 	/**
 	 * getter for the static instance
@@ -46,13 +46,7 @@ final public class Config {
 	 * @return the random player
 	 */
 	public static boolean isRandomPlayer() {
-		return Config.RandomPlayer;
-	}
-
-	/**
-	 * private Constructor
-	 */
-	private Config() {
+		return Config.randomPlayer;
 	}
 
 	/**
@@ -60,8 +54,14 @@ final public class Config {
 	 * 
 	 * @param randomPlayer instance of RandomPlayer
 	 */
-	public void setRandomPlayer(boolean randomPlayer) {
-		Config.RandomPlayer = randomPlayer;
+	public static void setRandomPlayer(boolean randomPlayer) {
+		Config.randomPlayer = randomPlayer;
+	}
+
+	/**
+	 * private Constructor
+	 */
+	private Config() {
 	}
 
 }

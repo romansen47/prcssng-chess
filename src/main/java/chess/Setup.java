@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import conf.Config;
+import defs.classes.Game;
 import defs.classes.Player;
 import defs.enums.Colors;
 import defs.enums.Ids;
@@ -102,9 +103,9 @@ public class Setup implements IRefs, ISetupAndRun {
 	 */
 	public List<IPiece> getPiecesOfSameKind(Ids id, Colors col) {
 		final List<IPiece> pieces = new ArrayList<>();
-		Player pl = this.getGame().getWhite();
+		Player pl = Game.getWhite();
 		if (col == Colors.BLACK) {
-			pl = this.getGame().getBlack();
+			pl = Game.getBlack();
 		}
 		for (final IPiece piece : pl.getPieces()) {
 			if (piece.getId() == id) {

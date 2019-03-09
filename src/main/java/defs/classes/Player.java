@@ -24,13 +24,13 @@ public class Player {
 	/**
 	 * The game
 	 */
-	private static Game game = null;
+	private static Game game = Game.getInstance();
 
 	/**
 	 * a list of all players of one color. this list stays allways the same. no
 	 * pieces are to be added or removed!
 	 */
-	final private List<IPiece> AllPieces = new ArrayList<>();
+	private final List<IPiece> allPieces = new ArrayList<>();
 
 	/**
 	 * player's color
@@ -40,7 +40,7 @@ public class Player {
 	/**
 	 * set of dead pieces
 	 */
-	final private List<IPiece> deadPieces = new ArrayList<>();
+	private final List<IPiece> deadPieces = new ArrayList<>();
 
 	/**
 	 * The king
@@ -50,12 +50,12 @@ public class Player {
 	/**
 	 * List of player's moves
 	 */
-	final private List<IMove> MoveList = new ArrayList<>();
+	private final List<IMove> moveList = new ArrayList<>();
 
 	/**
 	 * Player's set of pieces
 	 */
-	final private List<IPiece> Pieces = new ArrayList<>();
+	private final List<IPiece> pieces = new ArrayList<>();
 
 	/**
 	 * Constructor for the player
@@ -63,7 +63,7 @@ public class Player {
 	 * @param col the player's color
 	 */
 	public Player(Colors col) {
-		Player.game = Game.getInstance();
+		// Player.game = Game.getInstance();
 		this.col = col;
 		if (col == Colors.WHITE) {
 			this.king = new King(Colors.WHITE, Player.game.getField(0, 4));
@@ -79,7 +79,7 @@ public class Player {
 	 * @return allPieces
 	 */
 	public List<IPiece> getAllPieces() {
-		return this.AllPieces;
+		return this.allPieces;
 	}
 
 	/**
@@ -128,7 +128,7 @@ public class Player {
 	 * @return MoveList
 	 */
 	public List<IMove> getMoveList() {
-		return this.MoveList;
+		return this.moveList;
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class Player {
 	 * @return list of player's pieces
 	 */
 	public List<IPiece> getPieces() {
-		return this.Pieces;
+		return this.pieces;
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class Player {
 	 */
 	private void initialGeneration() {
 
-		this.Pieces.add(this.getKing());
+		this.pieces.add(this.getKing());
 		int ersteReihe = 0;
 		int zweiteReihe = 1;
 		if (this.getCol() == Colors.BLACK) {
@@ -153,17 +153,17 @@ public class Player {
 			zweiteReihe = 6;
 		}
 		for (int j = 0; j < 8; j++) {
-			this.Pieces.add(new Pawn(this.getCol(), Player.game.getField(zweiteReihe, j)));
+			this.pieces.add(new Pawn(this.getCol(), Player.game.getField(zweiteReihe, j)));
 		}
 
-		this.Pieces.add(new Knight(this.getCol(), Player.game.getField(ersteReihe, 1)));
-		this.Pieces.add(new Knight(this.getCol(), Player.game.getField(ersteReihe, 6)));
-		this.Pieces.add(new Bishop(this.getCol(), Player.game.getField(ersteReihe, 2)));
-		this.Pieces.add(new Bishop(this.getCol(), Player.game.getField(ersteReihe, 5)));
-		this.Pieces.add(new Rook(this.getCol(), Player.game.getField(ersteReihe, 0)));
-		this.Pieces.add(new Rook(this.getCol(), Player.game.getField(ersteReihe, Config.GAMESIZE)));
-		this.Pieces.add(new Queen(this.getCol(), Player.game.getField(ersteReihe, 3)));
-		this.AllPieces.addAll(this.Pieces);
+		this.pieces.add(new Knight(this.getCol(), Player.game.getField(ersteReihe, 1)));
+		this.pieces.add(new Knight(this.getCol(), Player.game.getField(ersteReihe, 6)));
+		this.pieces.add(new Bishop(this.getCol(), Player.game.getField(ersteReihe, 2)));
+		this.pieces.add(new Bishop(this.getCol(), Player.game.getField(ersteReihe, 5)));
+		this.pieces.add(new Rook(this.getCol(), Player.game.getField(ersteReihe, 0)));
+		this.pieces.add(new Rook(this.getCol(), Player.game.getField(ersteReihe, Config.GAMESIZE)));
+		this.pieces.add(new Queen(this.getCol(), Player.game.getField(ersteReihe, 3)));
+		this.allPieces.addAll(this.pieces);
 
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import chess.Main;
 import defs.classes.Field;
+import defs.classes.Game;
 import defs.classes.Piece;
 import defs.classes.Player;
 import defs.enums.Colors;
@@ -49,8 +50,7 @@ public interface IPiece extends IRefs {
 	 * @return an empty list of fields
 	 */
 	default List<Field> createList() {
-		final List<Field> lst = new ArrayList<>();
-		return lst;
+		return new ArrayList<>();
 	}
 
 	/**
@@ -126,9 +126,9 @@ public interface IPiece extends IRefs {
 	 */
 	default Player getOpponent() {
 		if (this.getCol() == Colors.WHITE) {
-			return this.getGame().getBlack();
+			return Game.getBlack();
 		}
-		return this.getGame().getWhite();
+		return Game.getWhite();
 	}
 
 	/**
@@ -138,9 +138,9 @@ public interface IPiece extends IRefs {
 	 */
 	default Player getOwner() {
 		if (this.getCol() == Colors.WHITE) {
-			return this.getGame().getWhite();
+			return Game.getWhite();
 		}
-		return this.getGame().getBlack();
+		return Game.getBlack();
 	}
 
 	/**
@@ -204,7 +204,7 @@ public interface IPiece extends IRefs {
 			if (piece.getPossibleFields().contains(this.getField())) {
 				fields.add(piece.getField());
 			}
-			if (piece instanceof King) {
+			if (piece instanceof King && king != null) {
 				king.setValidForCastling(castling);
 			}
 		}
@@ -226,7 +226,7 @@ public interface IPiece extends IRefs {
 	 * @return List of fields with friends on them guarding the piece
 	 */
 	default List<Field> getSupporters() {
-		final IPiece piece = this;// getReferee().getMarked().getPiece();
+		final IPiece piece = this;
 		Colors col = Colors.WHITE;
 		if (piece.getCol() == col) {
 			col = Colors.BLACK;

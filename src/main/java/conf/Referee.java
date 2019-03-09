@@ -64,7 +64,7 @@ public class Referee implements IRefs {
 		}
 		boolean ans = true;
 		this.getGame().getMoveList().add(move);
-		this.getGame().getPlayer().getMoveList().add(move);
+		Game.getPlayer().getMoveList().add(move);
 		move.execute();
 		for (final IPiece piece : move.getFig().getOpponent().getPieces()) {
 			if (piece.getPossibleFields().contains(move.getFig().getOwner().getKing().getField())) {
@@ -175,8 +175,8 @@ public class Referee implements IRefs {
 	 */
 	public void processMove(IMove move) {
 		if (this.getValidMove(move) != null) {
-			this.getGame().getMoveList().add(move);
-			this.getGame().getPlayer().getMoveList().add(move);
+			getGame().getMoveList().add(move);
+			Game.getPlayer().getMoveList().add(move);
 			move.execute();
 			this.getReferee().setMarked(null);
 		}
@@ -186,10 +186,10 @@ public class Referee implements IRefs {
 	 * Resets the pieces to their fields in the beginning of a match
 	 */
 	private void resetPieces() {
-		for (final IPiece piece : this.getGame().getWhite().getAllPieces()) {
+		for (final IPiece piece : Game.getWhite().getAllPieces()) {
 			piece.reset();
 		}
-		for (final IPiece piece : this.getGame().getBlack().getAllPieces()) {
+		for (final IPiece piece : Game.getBlack().getAllPieces()) {
 			piece.reset();
 		}
 	}
@@ -198,8 +198,8 @@ public class Referee implements IRefs {
 	 * Resets the game and execute all moves, but not the last one.
 	 */
 	public void rewindLastMove() {
-		this.getGame().setPlayer(this.getGame().getWhite());
-		final Timeline timeLine = this.getGame().getMoveList();
+		Game.setPlayer(Game.getWhite());
+		final Timeline timeLine = getGame().getMoveList();
 		this.resetPieces();
 		final int last = timeLine.size() - 1;
 		if (last >= 0) {
@@ -220,7 +220,8 @@ public class Referee implements IRefs {
 			this.marked = null;
 			this.marked2 = null;
 		} else {
-			if (marked.getPiece().getCol() == Game.getInstance().getPlayer().getCol()) {
+			Game.getInstance();
+			if (marked.getPiece().getCol() == Game.getPlayer().getCol()) {
 				this.marked = marked;
 			}
 		}
@@ -243,10 +244,12 @@ public class Referee implements IRefs {
 	 * After a move has been performed the players have to switch
 	 */
 	public void switchMainPlayer() {
-		if (Game.getInstance().getPlayer() == Game.getInstance().getWhite()) {
-			Game.getInstance().setPlayer(Game.getInstance().getBlack());
+		Game.getInstance();
+		if (Game.getPlayer() == Game.getWhite()) {
+			Game.getInstance();
+			Game.setPlayer(Game.getBlack());
 		} else {
-			Game.getInstance().setPlayer(Game.getInstance().getWhite());
+			Game.setPlayer(Game.getWhite());
 		}
 	}
 

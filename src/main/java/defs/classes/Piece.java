@@ -17,7 +17,7 @@ import processing.core.PImage;
  *
  *         The blueprint for the pieces
  */
-abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
+public abstract class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 
 	/**
 	 * the color
@@ -29,7 +29,7 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	 */
 	private Field field;
 
-	final private Field firstField;
+	private final Field firstField;
 
 	/**
 	 * The id
@@ -58,7 +58,8 @@ abstract public class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	@Override
 	public void draw(Main main) {
 		final int size = Config.SIZE;
-		main.image(this.getImage(), size * this.getField().getJ(), size * this.getField().getI(), size, size);
+		main.image(this.getImage(), (float) size * this.getField().getJ(), (float) size * this.getField().getI(), size,
+				size);
 	}
 
 	@Override

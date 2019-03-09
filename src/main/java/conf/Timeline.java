@@ -11,7 +11,6 @@ import defs.interfaces.IRefs;
  * 
  * @author RoMansen
  *
- *         TODO
  */
 public class Timeline extends ArrayList<IMove> implements IRefs {
 

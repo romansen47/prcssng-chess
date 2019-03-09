@@ -7,6 +7,7 @@ import artint.RandomPlayer;
 import conf.Config;
 import conf.Timeline;
 import defs.classes.Field;
+import defs.classes.Game;
 import defs.classes.Player;
 import defs.enums.Colors;
 import defs.interfaces.IMove;
@@ -60,8 +61,7 @@ public class Drawer implements ISetupAndRun {
 	 * @return whether click has been performed.
 	 */
 	public boolean checkForClick() {
-		final boolean clicked = this.main.clicked() == 1;
-		return clicked;
+		return this.main.clicked() == 1;
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class Drawer implements ISetupAndRun {
 	public void drawPieces() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				this.getGame().getField(i, j).draw(this.main);
+				getGame().getField(i, j).draw(this.main);
 			}
 		}
 	}
@@ -141,11 +141,12 @@ public class Drawer implements ISetupAndRun {
 		final Timeline tl = this.getGame().getMoveList();
 		this.main.textSize(32);
 		this.main.fill(0);
-		this.main.text("Timeline:", (Config.GAMESIZE + 2) * Config.SIZE, Config.SIZE);
+		this.main.text("Timeline:", (Config.GAMESIZE + 2) * (float) Config.SIZE, Config.SIZE);
 		this.main.textSize(18);
 		int i = 2;
 		for (final String str : tl.toStr()) {
-			this.main.text(str, Config.SIZE / 4 + (Config.GAMESIZE + 1) * Config.SIZE, Config.SIZE + i++ * 30);
+			this.main.text(str, ((float) Config.SIZE) / 4 + (Config.GAMESIZE + 1) * Config.SIZE,
+					(float) Config.SIZE + i++ * 30);
 		}
 	}
 
@@ -159,8 +160,10 @@ public class Drawer implements ISetupAndRun {
 		final boolean cl = this.checkForClick();
 		this.setMark(cl);
 
-		if (this.getGame().getPlayer() instanceof RandomPlayer) {
-			this.getReferee().processMove(((RandomPlayer) this.getGame().getPlayer()).randomMove());
+		getGame();
+		if (Game.getPlayer() instanceof RandomPlayer) {
+			this.getGame();
+			this.getReferee().processMove(((RandomPlayer) Game.getPlayer()).randomMove());
 		} else {
 			if (cl) {
 
@@ -191,7 +194,8 @@ public class Drawer implements ISetupAndRun {
 	 * @return the active player
 	 */
 	private Player getPlayer() {
-		return this.getGame().getPlayer();
+		getGame();
+		return Game.getPlayer();
 	}
 
 	/**

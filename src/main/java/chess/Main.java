@@ -14,12 +14,12 @@ public class Main extends Gui implements IRefs {
 	/**
 	 * the main class
 	 */
-	final static String MAINCLASS = "chess.Main";
+	static final String MAINCLASS = "chess.Main";
 
 	/**
 	 * the path for where the images are stored
 	 */
-	final static String PATH = "";
+	static final String PATH = "";
 
 	/**
 	 * Getter for MainClass
@@ -36,7 +36,8 @@ public class Main extends Gui implements IRefs {
 	 * @return the acting player
 	 */
 	public static Player getPlayer() {
-		return Game.getInstance().getPlayer();
+		Game.getInstance();
+		return Game.getPlayer();
 	}
 
 	/**

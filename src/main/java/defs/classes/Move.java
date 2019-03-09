@@ -60,15 +60,15 @@ public class Move implements IMove, IRefs {
 		fig1.setField(this.getNext());
 		this.getNext().setPiece(fig1);
 		if (fig2 != null) {
-			this.getGame().getOpponent().getPieces().remove(fig2);
-			this.getGame().getOpponent().getDeadPieces().add(fig2);
+			getGame().getOpponent().getPieces().remove(fig2);
+			getGame().getOpponent().getDeadPieces().add(fig2);
 		}
 		if (this.fig instanceof King) {
 			((King) this.fig).setValidForCastling(false);
 		}
 		if (this.checkForChess()) {
 			final King opKing = fig1.getOpponent().getKing();
-			opKing.setState(State.Chess);
+			opKing.setState(State.CHESS);
 		}
 		this.getReferee().switchMainPlayer();
 	}
@@ -109,7 +109,6 @@ public class Move implements IMove, IRefs {
 	@Override
 	public String toString() {
 		String str = "";
-		// str+=super.toString()+": ";
 		str += this.getPrevId();
 		if (this.getNextId() != null) {
 			str += " -> " + this.getNextId() + ":  ";

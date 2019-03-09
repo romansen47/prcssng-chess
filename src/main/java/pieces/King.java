@@ -24,7 +24,7 @@ public class King extends Piece {
 	/**
 	 * king has a state
 	 */
-	private State state = State.Plain;
+	private State state = State.REGULAR;
 
 	/**
 	 * Constructor
@@ -266,7 +266,7 @@ public class King extends Piece {
 	 * @param state the state
 	 */
 	public void setState(State state) {
-		if (state == State.Chess) {
+		if (state == State.CHESS) {
 			this.setValidForCastling(false);
 		}
 		this.state = state;
