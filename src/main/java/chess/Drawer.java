@@ -32,18 +32,17 @@ public class Drawer implements ISetupAndRun {
 		// check for interaction and mark field, if clicked
 		final boolean cl = this.checkForClick();
 		this.setMark(cl);
-		IMove move=null;
-		
+		IMove move = null;
+
 		if (Game.getPlayer() instanceof RandomPlayer) {
-			move=((RandomPlayer) Game.getPlayer()).randomMove();
-		} 
-		else {
+			move = ((RandomPlayer) Game.getPlayer()).randomMove();
+		} else {
 			if (cl) {
 				// use information on interaction to create next move
 				move = this.getReferee().getMove();
 			}
 		}
-		if (move!=null) {
+		if (move != null) {
 			// save move to list and statistics
 			this.getReferee().processMove(move);
 			// Draw the complete chess board
@@ -57,7 +56,7 @@ public class Drawer implements ISetupAndRun {
 			this.drawChessboard();
 		}
 	}
-	
+
 	/**
 	 * Implementation as a singleton class
 	 */
