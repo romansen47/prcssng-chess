@@ -45,8 +45,6 @@ public class Drawer implements ISetupAndRun {
 		if (move != null) {
 			// save move to list and statistics
 			this.getReferee().processMove(move);
-			// Draw the complete chess board
-			this.drawChessboard();
 		}
 		if ((this.main.pressed() == 1) && (this.main.key == 'r')) {
 			this.getReferee().rewindLastMove();
@@ -54,6 +52,11 @@ public class Drawer implements ISetupAndRun {
 			this.getGame().getReferee().setMarked(null);
 			this.getGame().getReferee().setMarked2(null);
 			this.drawChessboard();
+		}
+		if ( cl || move!=null || getReferee().isMarked()){
+			// Draw the complete chess board
+			this.drawChessboard();
+			getReferee().checkState();
 		}
 	}
 

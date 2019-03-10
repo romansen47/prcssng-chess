@@ -21,12 +21,12 @@ public final class Config {
 	/**
 	 * Do we use a random black player?
 	 */
-	private static boolean randomBlackPlayer = true;
+	private static boolean randomBlackPlayer = false;
 
 	/**
 	 * Do we use a random black player?
 	 */
-	private static boolean randomWhitePlayer = true;
+	private static boolean randomWhitePlayer = false;
 
 	/**
 	 * the standard size of a field

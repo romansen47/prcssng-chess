@@ -187,10 +187,10 @@ public interface IPiece extends IRefs {
 
 	/**
 	 *
-	 * @param Player the player
+	 * @param player the player
 	 * @return list of special moves
 	 */
-	default List<Field> getSpecialFields(IPlayer Player) {
+	default List<Field> getSpecialFields(IPlayer player) {
 		return new ArrayList<>();
 	}
 

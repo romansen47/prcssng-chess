@@ -69,7 +69,7 @@ public class Setup implements IRefs, ISetupAndRun {
 		// create pieces
 		this.initiatePieces(this.getMain().getPath());
 
-		this.getReferee();
+		this.getReferee().setMarked(Game.getPlayer().getKing().getField());
 
 	}
 

@@ -60,7 +60,6 @@ public class Player implements IPlayer {
 	 * @param col the player's color
 	 */
 	public Player(Colors col) {
-		// Player.game = Game.getInstance();
 		this.col = col;
 		if (col == Colors.WHITE) {
 			this.king = new King(Colors.WHITE, Player.game.getField(0, 4));
