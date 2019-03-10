@@ -24,6 +24,41 @@ import defs.interfaces.ISetupAndRun;
 public class Drawer implements ISetupAndRun {
 
 	/**
+	 * the main method executed whithin the main draw loop
+	 */
+	@Override
+	public void execute() {
+
+		// check for interaction and mark field, if clicked
+		final boolean cl = this.checkForClick();
+		this.setMark(cl);
+		IMove move=null;
+		
+		if (Game.getPlayer() instanceof RandomPlayer) {
+			move=((RandomPlayer) Game.getPlayer()).randomMove();
+		} 
+		else {
+			if (cl) {
+				// use information on interaction to create next move
+				move = this.getReferee().getMove();
+			}
+		}
+		if (move!=null) {
+			// save move to list and statistics
+			this.getReferee().processMove(move);
+			// Draw the complete chess board
+			this.drawChessboard();
+		}
+		if ((this.main.pressed() == 1) && (this.main.key == 'r')) {
+			this.getReferee().rewindLastMove();
+			this.main.background(255);
+			this.getGame().getReferee().setMarked(null);
+			this.getGame().getReferee().setMarked2(null);
+			this.drawChessboard();
+		}
+	}
+	
+	/**
 	 * Implementation as a singleton class
 	 */
 	private static Drawer instance = null;
@@ -147,47 +182,6 @@ public class Drawer implements ISetupAndRun {
 		for (final String str : tl.toStr()) {
 			this.main.text(str, (((float) Config.SIZE) / 4) + ((Config.GAMESIZE + 1) * Config.SIZE),
 					(float) Config.SIZE + (i++ * 30));
-		}
-	}
-
-	/**
-	 * the main method executed whithin the main draw loop
-	 */
-	@Override
-	public void execute() {
-
-		// check for interaction and mark field, if clicked
-		final boolean cl = this.checkForClick();
-		this.setMark(cl);
-
-		boolean reDraw = false;
-		if (Game.getPlayer() instanceof RandomPlayer) {
-			this.getReferee().processMove(((RandomPlayer) Game.getPlayer()).randomMove());
-			reDraw = true;
-		} else {
-			if (cl) {
-
-				// use information on interaction to create next move
-				final IMove move = this.getReferee().getMove();
-
-				// save move to list and statistics
-				this.getReferee().processMove(move);
-
-				reDraw = true;
-			}
-		}
-
-		if (reDraw) {
-			// Draw the complete chess board
-			this.drawChessboard();
-		}
-
-		if ((this.main.pressed() == 1) && (this.main.key == 'r')) {
-			this.getReferee().rewindLastMove();
-			this.main.background(255);
-			this.getGame().getReferee().setMarked(null);
-			this.getGame().getReferee().setMarked2(null);
-			this.drawChessboard();
 		}
 	}
 
