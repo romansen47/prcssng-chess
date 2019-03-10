@@ -1,9 +1,9 @@
-package artint;
+package defs.players.artint;
 
 import java.util.Random;
 
-import defs.classes.Player;
 import defs.enums.Colors;
+import defs.players.Player;
 
 /**
  *

@@ -3,7 +3,6 @@ package chess;
 import java.util.ArrayList;
 import java.util.List;
 
-import artint.RandomPlayer;
 import conf.Config;
 import conf.Timeline;
 import defs.classes.Field;
@@ -13,6 +12,7 @@ import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
 import defs.interfaces.IPlayer;
 import defs.interfaces.ISetupAndRun;
+import defs.players.artint.RandomPlayer;
 
 /**
  *
@@ -251,7 +251,7 @@ public class Drawer implements ISetupAndRun {
 	 * @param clicked tells whether click has been performed
 	 */
 	public void setMark(boolean clicked) {
-		if (!clicked) {
+		if (!clicked || (clicked && this.main.getPosJ()>Config.GAMESIZE)) {
 			return;
 		}
 		if (!this.getReferee().isMarked()) {

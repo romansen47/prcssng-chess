@@ -1,13 +1,14 @@
 package defs.classes;
 
-import artint.BlackRandomPlayer;
-import artint.WhiteRandomPlayer;
 import conf.Config;
 import conf.Referee;
 import conf.Timeline;
 import defs.enums.Colors;
 import defs.interfaces.IPlayer;
 import defs.interfaces.IRefs;
+import defs.players.Player;
+import defs.players.artint.BlackRandomPlayer;
+import defs.players.artint.WhiteRandomPlayer;
 
 public final class Game implements IRefs {
 

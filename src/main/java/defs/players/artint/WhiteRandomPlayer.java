@@ -1,7 +1,7 @@
 /**
  *
  */
-package artint;
+package defs.players.artint;
 
 import defs.enums.Colors;
 

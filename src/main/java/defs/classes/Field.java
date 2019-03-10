@@ -148,37 +148,11 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return the string in chess notation
 	 */
 	public String toChessNotation() {
-		String str = "";
-		switch (this.getJ()) {
-		case 0:
-			str += "A";
-			break;
-		case 1:
-			str += "B";
-			break;
-		case 2:
-			str += "C";
-			break;
-		case 3:
-			str += "D";
-			break;
-		case 4:
-			str += "E";
-			break;
-		case 5:
-			str += "F";
-			break;
-		case 6:
-			str += "G";
-			break;
-		case Config.GAMESIZE:
-			str += "H";
-			break;
-		default:
-			break;
-		}
-		str += 1 + this.getI();
-		return str;
+		final StringBuilder strBuilder=new StringBuilder();
+		char name= "ABCDEFGH".charAt(this.getJ());
+		strBuilder.append(name);
+		strBuilder.append(1 + this.getI());
+		return strBuilder.toString();
 	}
 
 	/**

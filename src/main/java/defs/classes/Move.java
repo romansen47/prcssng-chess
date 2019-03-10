@@ -109,11 +109,13 @@ public class Move implements IMove, IRefs {
 	@Override
 	public String toString() {
 		String str = "";
-		str += this.getPrevId();
+		str += this.getPrevId().toString().substring(0, 1);
 		if (this.getNextId() != null) {
-			str += " -> " + this.getNextId() + ":  ";
+			str += this.getPrev().toChessNotation() + "x" + this.getNextId().toString().substring(0, 1)+this.getNext().toChessNotation();
 		}
-		str += "(" + this.getPrev().toChessNotation() + ":" + this.getNext().toChessNotation() + ")";
+		else {
+			str += this.getPrev().toChessNotation() + "-" + this.getNext().toChessNotation();
+		}
 		return str;
 	}
 

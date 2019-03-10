@@ -3,13 +3,13 @@ package conf;
 import java.util.ArrayList;
 import java.util.List;
 
-import artint.RandomPlayer;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.enums.State;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
 import defs.interfaces.IRefs;
+import defs.players.artint.RandomPlayer;
 import pieces.King;
 
 /**

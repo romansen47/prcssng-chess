@@ -1,10 +1,11 @@
-package defs.classes;
+package defs.players;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import conf.Config;
+import defs.classes.Game;
 import defs.enums.Colors;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;

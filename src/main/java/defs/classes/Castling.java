@@ -16,7 +16,7 @@ public class Castling extends Move {
 	/**
 	 * Treating a castling like a (friendly) beat. Opponent is always a rook.
 	 */
-	final Rook rook;
+	private final Rook rook;
 
 	public Castling(King king, Rook rook) {
 		super(king, rook.getField());
@@ -40,10 +40,26 @@ public class Castling extends Move {
 			this.getFig().setField(this.getGame().getField(this.getPrev().getI(), k));
 			this.getGame().getField(this.getPrev().getI(), k).setPiece(this.getFig());
 			this.getNext().setPiece(null);
-			this.rook.setField(this.getGame().getField(this.getPrev().getI(), r));
-			this.getGame().getField(this.getPrev().getI(), r).setPiece(this.rook);
+			this.getRook().setField(this.getGame().getField(this.getPrev().getI(), r));
+			this.getGame().getField(this.getPrev().getI(), r).setPiece(this.getRook());
 		}
 		((King) this.getFig()).setValidForCastling(false);
 		this.getReferee().switchMainPlayer();
+	}
+	
+	@Override
+	public String toString() {
+		String str="0-0: ";
+		if (Math.abs(getPrev().getJ()-getNext().getJ())>3) {
+			str="0-"+str;
+		}
+		return str;
+	}
+
+	/**
+	 * @return the rook
+	 */
+	Rook getRook() {
+		return rook;
 	}
 }
