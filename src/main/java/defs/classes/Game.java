@@ -4,6 +4,7 @@ import conf.Config;
 import conf.Referee;
 import conf.Timeline;
 import defs.enums.Colors;
+import defs.interfaces.IMove;
 import defs.interfaces.IPlayer;
 import defs.interfaces.IRefs;
 import defs.players.Player;
@@ -178,6 +179,13 @@ public final class Game implements IRefs {
 	 */
 	public Field[][] getChessboard() {
 		return chessboard;
+	}
+
+	public void setMoveList(Timeline tl) {
+		getGame().getMoveList().clear();
+		for (IMove move:tl.getInstance()) {
+			getGame().getMoveList().add(move);
+		};
 	}
 
 }

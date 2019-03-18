@@ -9,6 +9,7 @@ import defs.classes.Field;
 import defs.classes.Game;
 import defs.classes.Move;
 import defs.classes.PrintableMove;
+import defs.classes.PrintableTimeline;
 import defs.enums.State;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
@@ -131,8 +132,6 @@ public class Referee implements IRefs {
 			}
 			if (lst.contains(this.getMarked2())) {
 				final IMove move = this.getMarked().getPiece().getMove(this.getMarked2());
-//				this.setMarked2(null);
-//				this.setMarked(null);
 				return move;
 			}
 		}
@@ -204,11 +203,9 @@ public class Referee implements IRefs {
 	 */
 	public void processMove(IMove move) throws Exception {
 		if (this.getValidMove(move) != null) {
-			// getGame().getMoveList().toXml();
-			new PrintableMove((Move) move).toXml();
-			// ((Move)move).toXml();
 			move.execute();
 			this.getReferee().setMarked(null);
+			new PrintableTimeline(getGame().getMoveList()).toXml();
 		}
 	}
 
@@ -338,6 +335,16 @@ public class Referee implements IRefs {
 			}
 		}
 		return possibleMovesMap;
+	}
+	
+	public IMove restoreMoveFromXml(PrintableMove pmove) {
+		Field prev=getGame().getField(pmove.getI1(),pmove.getJ1());
+		Field next=getGame().getField(pmove.getI2(),pmove.getJ2());
+		IMove move=prev.getPiece().getMove(next);
+		if (move.toString().equals(pmove.getStr())) {
+			return move;
+		}
+		else return null;
 	}
 
 }

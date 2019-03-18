@@ -112,6 +112,8 @@ public class Main extends Gui implements IRefs {
 	 */
 	private PImage whiteTower;
 
+	public boolean restore=true;
+
 	/**
 	 * functionality outsourced to Drawer class
 	 */

@@ -8,6 +8,7 @@ import conf.Config;
 import conf.Timeline;
 import defs.classes.Field;
 import defs.classes.Game;
+import defs.classes.PrintableTimeline;
 import defs.enums.Colors;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
@@ -63,9 +64,7 @@ public class Drawer implements ISetupAndRun {
 		}
 		if ((this.main.pressed() == 1) && (this.main.key == 'r')) {
 			this.getReferee().rewindLastMove();
-			// this.main.background(255);
-			// this.getGame().getReferee().setMarked(null);
-			// this.getGame().getReferee().setMarked2(null);
+			main.setRedraw(true);
 		}
 		if (cl || move != null) {
 			// Draw the complete chess board
@@ -74,10 +73,21 @@ public class Drawer implements ISetupAndRun {
 			allPossibleMoves = this.getReferee().createPossibleValidMovesForActivePieces();
 			allAttackers = this.getReferee().createAttackersOnActivePieces();
 			allSupporters = this.getReferee().createSupportersOfActivePieces();
-			// getReferee().checkState();
+			
 		}
-		this.drawChessboard(allPossibleMoves, allAttackers, allSupporters);
-
+		if (main.isRedraw()) {
+			main.background(255);
+			if(main.restore) {
+				PrintableTimeline.restoreFromXml();
+				for (IMove move:getGame().getMoveList()) {
+					move.execute();
+					//getReferee().switchMainPlayer();
+				}
+				main.restore=false;
+			}
+			this.drawChessboard(allPossibleMoves, allAttackers, allSupporters);
+			main.setRedraw(false);
+		}
 	}
 
 	/**
