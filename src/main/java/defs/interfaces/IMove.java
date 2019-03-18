@@ -1,7 +1,5 @@
 package defs.interfaces;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import defs.classes.Field;
 
 public interface IMove {
@@ -37,7 +35,7 @@ public interface IMove {
 	 *
 	 * @return Id of the piece on next field
 	 */
-	//Ids getNextId();
+	// Ids getNextId();
 
 	/**
 	 * Getter for prev, the previous field
@@ -46,13 +44,13 @@ public interface IMove {
 	 */
 	Field getPrev();
 
-	//void toXml() throws Exception;
+	// void toXml() throws Exception;
 
 	/**
 	 * Getter for the Id of the piece on previous field
 	 *
 	 * @return Id of the piece on previous field
 	 */
-	//Ids getPrevId();
+	// Ids getPrevId();
 
 }

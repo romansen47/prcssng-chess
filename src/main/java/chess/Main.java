@@ -52,8 +52,8 @@ public class Main extends Gui implements IRefs {
 	/**
 	 * True, if the frame should be redrawn
 	 */
-	private boolean redraw=true;
-	
+	private boolean redraw = true;
+
 	/**
 	 * image for the piece
 	 */

@@ -33,7 +33,7 @@ public class Queen extends Piece implements ILongDist {
 		this.checkDirection(lst, new int[] { 0, -1 });
 
 	}
-	
+
 	@Override
 	public List<Field> createList() {
 		final List<Field> lst = new ArrayList<>();

@@ -1,10 +1,5 @@
 package defs.classes;
 
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import chess.Main;
 import conf.Config;
 import defs.enums.Colors;
@@ -42,10 +37,11 @@ public class Field implements IColors, IDraw, IRefs {
 	private IPiece piece = null;
 
 	public Field() {
-		i=0;
-		j=0;
-		col=null;
+		i = 0;
+		j = 0;
+		col = null;
 	}
+
 	/**
 	 * Constructor of field.
 	 *
@@ -158,8 +154,8 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return the string in chess notation
 	 */
 	public String toChessNotation() {
-		final StringBuilder strBuilder=new StringBuilder();
-		char name= "ABCDEFGH".charAt(this.getJ());
+		final StringBuilder strBuilder = new StringBuilder();
+		char name = "ABCDEFGH".charAt(this.getJ());
 		strBuilder.append(name);
 		strBuilder.append(1 + this.getI());
 		return strBuilder.toString();

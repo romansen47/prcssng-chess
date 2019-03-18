@@ -25,7 +25,7 @@ public class Castling extends Move {
 
 	@Override
 	public void execute() {
-		IPiece king=this.getFig();
+		IPiece king = this.getFig();
 		if ((rook.getId() == Ids.ROOK) && (king.getCol() == rook.getCol())) {
 			int k = this.getPrev().getJ();
 			int r = this.getNext().getJ();
@@ -43,16 +43,16 @@ public class Castling extends Move {
 			rook.setField(this.getGame().getField(this.getPrev().getI(), r));
 			rook.getField().setPiece(this.getRook());
 		}
-		((King)king).setValidForCastling(false);
+		((King) king).setValidForCastling(false);
 		getGame().getMoveList().add(this);
 		this.getReferee().switchMainPlayer();
 	}
-	
+
 	@Override
 	public String toString() {
-		String str="0-0: ";
-		if (Math.abs(getPrev().getJ()-getNext().getJ())>3) {
-			str="0-"+str;
+		String str = "0-0: ";
+		if (Math.abs(getPrev().getJ() - getNext().getJ()) > 3) {
+			str = "0-" + str;
 		}
 		return str;
 	}

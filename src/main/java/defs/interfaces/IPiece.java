@@ -71,11 +71,11 @@ public interface IPiece extends IRefs {
 	 * @return returns list attacking fields
 	 */
 	default List<Field> getAttackers() {
-		List<Field> attackers=new ArrayList<>();
-		for (IPiece piece:Game.getOpponent().getPieces()) {
-			List<IMove> possibleMoves=piece.getSimpleMoves();
-			for(IMove move:possibleMoves) {
-				if (move.getNext()==this.getField()) {
+		List<Field> attackers = new ArrayList<>();
+		for (IPiece piece : Game.getOpponent().getPieces()) {
+			List<IMove> possibleMoves = piece.getSimpleMoves();
+			for (IMove move : possibleMoves) {
+				if (move.getNext() == this.getField()) {
 					attackers.add(piece.getField());
 				}
 			}

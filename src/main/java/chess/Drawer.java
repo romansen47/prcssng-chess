@@ -1,7 +1,6 @@
 package chess;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,28 +24,28 @@ import defs.players.artint.RandomPlayer;
  */
 public class Drawer implements ISetupAndRun {
 
-	private Map<IPiece,List<IMove>> allPossibleMoves=null;//new HashMap<IPiece,List<IMove>>();
-	private Map<IPiece,List<IMove>> allAttackers=null;//new HashMap<IPiece,List<IMove>>();
-	private Map<IPiece,List<IMove>> allSupporters=null;//new HashMap<IPiece,List<IMove>>();
-	
+	private Map<IPiece, List<IMove>> allPossibleMoves = null;// new HashMap<IPiece,List<IMove>>();
+	private Map<IPiece, List<IMove>> allAttackers = null;// new HashMap<IPiece,List<IMove>>();
+	private Map<IPiece, List<IMove>> allSupporters = null;// new HashMap<IPiece,List<IMove>>();
+
 	private IMove move = null;
-	
+
 	/**
 	 * the main method executed whithin the main draw loop
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	@Override
 	public void execute() throws Exception {
-		
+
 		// check for interaction and mark field, if clicked
 		final boolean cl = this.checkForClick();
 		this.setMark(cl);
-		
-		if (move!=null) {
-			move=null;
+
+		if (move != null) {
+			move = null;
 		}
-		
-		
+
 		if (Game.getPlayer() instanceof RandomPlayer) {
 			move = ((RandomPlayer) Game.getPlayer()).randomMove();
 		} else {
@@ -58,26 +57,26 @@ public class Drawer implements ISetupAndRun {
 		if (move != null) {
 			// save move to list and statistics
 			this.getReferee().processMove(move);
-			allPossibleMoves=null;
-			allAttackers=null;
-			allSupporters=null;
+			allPossibleMoves = null;
+			allAttackers = null;
+			allSupporters = null;
 		}
 		if ((this.main.pressed() == 1) && (this.main.key == 'r')) {
 			this.getReferee().rewindLastMove();
-			//this.main.background(255);
-			//this.getGame().getReferee().setMarked(null);
-			//this.getGame().getReferee().setMarked2(null);
+			// this.main.background(255);
+			// this.getGame().getReferee().setMarked(null);
+			// this.getGame().getReferee().setMarked2(null);
 		}
-		if ( cl || move!=null ){
+		if (cl || move != null) {
 			// Draw the complete chess board
 			this.main.setRedraw(true);
-			
-			allPossibleMoves=this.getReferee().createPossibleValidMovesForActivePieces();
-			allAttackers=this.getReferee().createAttackersOnActivePieces();
-			allSupporters=this.getReferee().createSupportersOfActivePieces();
-			//getReferee().checkState();
+
+			allPossibleMoves = this.getReferee().createPossibleValidMovesForActivePieces();
+			allAttackers = this.getReferee().createAttackersOnActivePieces();
+			allSupporters = this.getReferee().createSupportersOfActivePieces();
+			// getReferee().checkState();
 		}
-		this.drawChessboard(allPossibleMoves,allAttackers,allSupporters);
+		this.drawChessboard(allPossibleMoves, allAttackers, allSupporters);
 
 	}
 
@@ -124,14 +123,14 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * Draws the chess board. First draws the grid.
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
-	public void drawChessboard(	Map<IPiece,List<IMove>> allPossibleMoves,
-								Map<IPiece,List<IMove>> allAttackers,
-								Map<IPiece,List<IMove>> allSupporters) throws Exception {
+	public void drawChessboard(Map<IPiece, List<IMove>> allPossibleMoves, Map<IPiece, List<IMove>> allAttackers,
+			Map<IPiece, List<IMove>> allSupporters) throws Exception {
 		this.drawGrid();
 		this.drawPieces();
-		this.drawMarked(allPossibleMoves,allAttackers,allSupporters);
+		this.drawMarked(allPossibleMoves, allAttackers, allSupporters);
 		this.drawTimeLine();
 	}
 
@@ -157,14 +156,12 @@ public class Drawer implements ISetupAndRun {
 	/**
 	 * draws all marked fields
 	 */
-	public void drawMarked(	Map<IPiece,List<IMove>> allPossibleMoves,
-							Map<IPiece,List<IMove>> allAttackers,
-							Map<IPiece,List<IMove>> allSupporters) {
+	public void drawMarked(Map<IPiece, List<IMove>> allPossibleMoves, Map<IPiece, List<IMove>> allAttackers,
+			Map<IPiece, List<IMove>> allSupporters) {
 		if ((this.getReferee().getMarked() != null) && (this.getReferee().getMarked().getPiece() != null)) {
-			Field tmp=this.getReferee().getMarked();
+			Field tmp = this.getReferee().getMarked();
 			IPiece piece = tmp.getPiece();
-			this.drawMarkedFields(piece.convertMovesToFields((allPossibleMoves.get(piece))),
-					Colors.GREEN);
+			this.drawMarkedFields(piece.convertMovesToFields((allPossibleMoves.get(piece))), Colors.GREEN);
 			this.drawMarkedFields(piece.convertMovesToFields(allAttackers.get(piece)), Colors.RED);
 			this.drawMarkedFields(piece.convertMovesToFields(allSupporters.get(piece)), Colors.BLUE);
 			final List<Field> pos = new ArrayList<>();
@@ -201,7 +198,8 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * Draws the timeline
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	private void drawTimeLine() throws Exception {
 		final Timeline tl = this.getGame().getMoveList();
@@ -280,7 +278,7 @@ public class Drawer implements ISetupAndRun {
 	 * @param clicked tells whether click has been performed
 	 */
 	public void setMark(boolean clicked) {
-		if (!clicked || (clicked && this.main.getPosJ()>Config.GAMESIZE)) {
+		if (!clicked || (clicked && this.main.getPosJ() > Config.GAMESIZE)) {
 			return;
 		}
 		if (!this.getReferee().isMarked()) {

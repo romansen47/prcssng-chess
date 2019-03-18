@@ -1,14 +1,7 @@
 package conf;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import defs.classes.Move;
 import defs.interfaces.IMove;
@@ -53,18 +46,17 @@ public class Timeline extends ArrayList<IMove> implements IRefs {
 	 * gives a list with all moves in chess notation
 	 *
 	 * @return a list of strings
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	public List<String> toStr() throws Exception{
+	public List<String> toStr() throws Exception {
 		final List<String> ans = new ArrayList<>();
 		String tmp;
 		int i = 1;
 		for (final IMove move : Timeline.instance) {
 			tmp = i + ": " + move.toString();
-			if (i%2==1) {
+			if (i % 2 == 1) {
 				ans.add(tmp);
-			} 
-			else {
+			} else {
 				String last = ans.get(ans.size() - 1);
 				last = last + " ,  " + tmp;
 				ans.set(ans.size() - 1, last);
@@ -75,10 +67,10 @@ public class Timeline extends ArrayList<IMove> implements IRefs {
 	}
 
 	public Move[] toMoveList() {
-		Move[] list =new Move[instance.size()];
-		int i=0;
-		for (IMove move:instance) {
-			list[i]=((Move)move);
+		Move[] list = new Move[instance.size()];
+		int i = 0;
+		for (IMove move : instance) {
+			list[i] = ((Move) move);
 		}
 		return list;
 	}

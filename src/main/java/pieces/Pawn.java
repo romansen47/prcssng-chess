@@ -33,11 +33,10 @@ public class Pawn extends Piece {
 		final IPiece fig = this.getGame().getField(this.getPosI(), field.getJ()).getPiece();
 		if ((fig instanceof Pawn) && (fig.getCol() != this.getCol())) {
 			Field fld;
-			if (fig.getPosI()==3) {
-				fld=getReferee().getGame().getChessboard()[2][fig.getPosJ()];
-			}
-			else {
-				fld=getReferee().getGame().getChessboard()[5][fig.getPosJ()];
+			if (fig.getPosI() == 3) {
+				fld = getReferee().getGame().getChessboard()[2][fig.getPosJ()];
+			} else {
+				fld = getReferee().getGame().getChessboard()[5][fig.getPosJ()];
 			}
 			return new EnPassant(this, fld);
 		}
@@ -55,55 +54,53 @@ public class Pawn extends Piece {
 		return lst;
 	}
 
-	private List<IMove> getSimpleMovesForWhite(){
+	private List<IMove> getSimpleMovesForWhite() {
 		final List<IMove> lst = new ArrayList<>();
 		if (this.getField().getI() < Config.GAMESIZE) {
 			lst.addAll(getSimpleMoves(true));
 		}
 		return lst;
 	}
-	
-	private List<IMove> getSimpleMovesForBlack(){
+
+	private List<IMove> getSimpleMovesForBlack() {
 		final List<IMove> lst = new ArrayList<>();
 		if (this.getField().getI() > 0) {
 			lst.addAll(getSimpleMoves(false));
 		}
 		return lst;
 	}
-	
-	private List<IMove> getSimpleMoves(boolean iswhite){
+
+	private List<IMove> getSimpleMoves(boolean iswhite) {
 		final List<Field> lst = new ArrayList<>();
-		Colors color=Colors.BLACK;
-		int factor=1;
+		Colors color = Colors.BLACK;
+		int factor = 1;
 		if (!iswhite) {
-			factor=-1;
-			color=Colors.WHITE;
+			factor = -1;
+			color = Colors.WHITE;
 		}
 		if ((this.getPosJ() < Config.GAMESIZE)
-				&& (this.getGame().getField(this.getPosI() +factor, this.getPosJ() + 1).getPiece() != null)
-				&& (this.getGame().getField(this.getPosI() +factor, this.getPosJ() + 1).getPiece()
+				&& (this.getGame().getField(this.getPosI() + factor, this.getPosJ() + 1).getPiece() != null)
+				&& (this.getGame().getField(this.getPosI() + factor, this.getPosJ() + 1).getPiece()
 						.getCol() == color)) {
-			lst.add(this.getGame().getField(this.getPosI() +factor, this.getPosJ() + 1));
+			lst.add(this.getGame().getField(this.getPosI() + factor, this.getPosJ() + 1));
 		}
 		if ((this.getPosJ() > 0)
-				&& (this.getGame().getField(this.getPosI() +factor, this.getPosJ() - 1).getPiece() != null)
-				&& (this.getGame().getField(this.getPosI() +factor, this.getPosJ() - 1).getPiece()
+				&& (this.getGame().getField(this.getPosI() + factor, this.getPosJ() - 1).getPiece() != null)
+				&& (this.getGame().getField(this.getPosI() + factor, this.getPosJ() - 1).getPiece()
 						.getCol() == color)) {
-			lst.add(this.getGame().getField(this.getPosI() +factor, this.getPosJ() - 1));
+			lst.add(this.getGame().getField(this.getPosI() + factor, this.getPosJ() - 1));
 		}
-		if (this.getGame().getField(this.getPosI() +factor, this.getPosJ()).getPiece() == null) {
-			lst.add(this.getGame().getField(this.getPosI() +factor, this.getPosJ()));
+		if (this.getGame().getField(this.getPosI() + factor, this.getPosJ()).getPiece() == null) {
+			lst.add(this.getGame().getField(this.getPosI() + factor, this.getPosJ()));
 			if (this.getField().getI() == this.getFirstField().getI()) {
-				if (this.getGame().getField(this.getPosI() +2*factor, this.getPosJ()).getPiece() == null) {
-					lst.add(this.getGame().getField(this.getPosI() +2*factor, this.getPosJ()));
+				if (this.getGame().getField(this.getPosI() + 2 * factor, this.getPosJ()).getPiece() == null) {
+					lst.add(this.getGame().getField(this.getPosI() + 2 * factor, this.getPosJ()));
 				}
 			}
 		}
 		return convertFieldsToMoves(lst);
 	}
 
-	
-	
 	@Override
 	public List<IMove> getSpecialMoves() {
 		final List<Field> lst = new ArrayList<>();
