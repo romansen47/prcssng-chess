@@ -46,11 +46,6 @@ public class Player implements IPlayer {
 	private final King king;
 
 	/**
-	 * List of player's moves
-	 */
-	private final List<IMove> moveList = new ArrayList<>();
-
-	/**
 	 * Player's set of pieces
 	 */
 	private final List<IPiece> pieces = new ArrayList<>();
@@ -92,7 +87,7 @@ public class Player implements IPlayer {
 
 	@Override
 	public List<IMove> getMoveList() {
-		return moveList;
+		return getGame().getMoveList();
 	}
 
 	@Override

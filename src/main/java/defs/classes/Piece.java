@@ -89,7 +89,7 @@ public abstract class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 
 	@Override
 	public IMove getMove(Field field) {
-		return new Move(this, field);
+		return new Move(this.getField(), field);
 	}
 
 	@Override
@@ -106,6 +106,7 @@ public abstract class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	public void reset() {
 		this.getField().setPiece(null);
 		this.setField(this.getFirstField());
+		this.getOwner().getPieces().add(this);
 		this.getField().setPiece(this);
 	}
 

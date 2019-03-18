@@ -114,9 +114,9 @@ public final class Game implements IRefs {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (((i + j) % 2) == 0) {
-					this.chessboard[i][j] = new Field(Colors.BLACK, i, j);
+					this.getChessboard()[i][j] = new Field(Colors.BLACK, i, j);
 				} else {
-					this.chessboard[i][j] = new Field(Colors.WHITE, i, j);
+					this.getChessboard()[i][j] = new Field(Colors.WHITE, i, j);
 				}
 			}
 		}
@@ -131,7 +131,7 @@ public final class Game implements IRefs {
 	 * @return the field at given coordinates
 	 */
 	public Field getField(int i, int j) {
-		return this.chessboard[i][j];
+		return this.getChessboard()[i][j];
 	}
 
 	/**
@@ -148,7 +148,7 @@ public final class Game implements IRefs {
 	 *
 	 * @return the passive player
 	 */
-	public IPlayer getOpponent() {
+	public static IPlayer getOpponent() {
 		if (getPlayer() == getWhite()) {
 			return getBlack();
 		}
@@ -171,6 +171,13 @@ public final class Game implements IRefs {
 			setWhite(new Player(Colors.WHITE));
 		}
 		setPlayer(getWhite());
+	}
+
+	/**
+	 * @return the chessboard
+	 */
+	public Field[][] getChessboard() {
+		return chessboard;
 	}
 
 }

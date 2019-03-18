@@ -1,5 +1,6 @@
 package pieces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import defs.classes.Field;
@@ -31,6 +32,13 @@ public class Queen extends Piece implements ILongDist {
 		this.checkDirection(lst, new int[] { 0, 1 });
 		this.checkDirection(lst, new int[] { 0, -1 });
 
+	}
+	
+	@Override
+	public List<Field> createList() {
+		final List<Field> lst = new ArrayList<>();
+		lst.add(this.getField());
+		return lst;
 	}
 
 }

@@ -1,8 +1,8 @@
 package defs.interfaces;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import defs.classes.Field;
-import defs.enums.Colors;
-import defs.enums.Ids;
 
 public interface IMove {
 
@@ -11,12 +11,12 @@ public interface IMove {
 	 */
 	void execute();
 
-	/**
-	 * Getter for the color
-	 *
-	 * @return the color of the moved piece
-	 */
-	Colors getCol();
+//	/**
+//	 * Getter for the color
+//	 *
+//	 * @return the color of the moved piece
+//	 */
+//	Colors getCol();
 
 	/**
 	 * Getter for the moved piece
@@ -37,7 +37,7 @@ public interface IMove {
 	 *
 	 * @return Id of the piece on next field
 	 */
-	Ids getNextId();
+	//Ids getNextId();
 
 	/**
 	 * Getter for prev, the previous field
@@ -46,11 +46,13 @@ public interface IMove {
 	 */
 	Field getPrev();
 
+	//void toXml() throws Exception;
+
 	/**
 	 * Getter for the Id of the piece on previous field
 	 *
 	 * @return Id of the piece on previous field
 	 */
-	Ids getPrevId();
+	//Ids getPrevId();
 
 }

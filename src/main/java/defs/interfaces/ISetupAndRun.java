@@ -10,6 +10,7 @@ public interface ISetupAndRun extends IRefs {
 
 	/**
 	 * main method of Setup and Drawer
+	 * @throws Exception 
 	 */
-	void execute();
+	void execute() throws Exception;
 }

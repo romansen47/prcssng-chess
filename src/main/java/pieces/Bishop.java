@@ -28,6 +28,8 @@ public class Bishop extends Piece implements ILongDist {
 		this.checkDirection(lst, new int[] { 1, -1 });
 		this.checkDirection(lst, new int[] { -1, -1 });
 	}
+	
+
 
 	@Override
 	public List<Field> createList() {

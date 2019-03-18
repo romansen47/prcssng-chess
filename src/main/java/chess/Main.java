@@ -50,6 +50,11 @@ public class Main extends Gui implements IRefs {
 	}
 
 	/**
+	 * True, if the frame should be redrawn
+	 */
+	private boolean redraw=true;
+	
+	/**
 	 * image for the piece
 	 */
 	private PImage blackBishop;
@@ -112,7 +117,12 @@ public class Main extends Gui implements IRefs {
 	 */
 	@Override
 	public void draw() {
-		this.drawer.execute();
+		try {
+			this.drawer.execute();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -186,7 +196,7 @@ public class Main extends Gui implements IRefs {
 	 * @return the inactive player
 	 */
 	public IPlayer getOtherPlayer() {
-		return this.getGame().getOpponent();
+		return Game.getOpponent();
 	}
 
 	/**
@@ -336,7 +346,12 @@ public class Main extends Gui implements IRefs {
 	 */
 	@Override
 	public void setup() {
-		this.setup.execute();
+		try {
+			this.setup.execute();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.stroke(0);
 	}
 
@@ -392,5 +407,19 @@ public class Main extends Gui implements IRefs {
 	 */
 	public void setWhiteTower(PImage whiteTower) {
 		this.whiteTower = whiteTower;
+	}
+
+	/**
+	 * @return the redraw
+	 */
+	protected boolean isRedraw() {
+		return redraw;
+	}
+
+	/**
+	 * @param redraw the redraw to set
+	 */
+	protected void setRedraw(boolean redraw) {
+		this.redraw = redraw;
 	}
 }

@@ -32,7 +32,14 @@ public class Pawn extends Piece {
 	public IMove getMove(Field field) {
 		final IPiece fig = this.getGame().getField(this.getPosI(), field.getJ()).getPiece();
 		if ((fig instanceof Pawn) && (fig.getCol() != this.getCol())) {
-			return new EnPassant(this, (Pawn) fig, field);
+			Field fld;
+			if (fig.getPosI()==3) {
+				fld=getReferee().getGame().getChessboard()[2][fig.getPosJ()];
+			}
+			else {
+				fld=getReferee().getGame().getChessboard()[5][fig.getPosJ()];
+			}
+			return new EnPassant(this, fld);
 		}
 		return super.getMove(field);
 	}

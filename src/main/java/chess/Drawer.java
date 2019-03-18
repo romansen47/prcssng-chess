@@ -1,7 +1,9 @@
 package chess;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import conf.Config;
 import conf.Timeline;
@@ -23,41 +25,60 @@ import defs.players.artint.RandomPlayer;
  */
 public class Drawer implements ISetupAndRun {
 
+	private Map<IPiece,List<IMove>> allPossibleMoves=null;//new HashMap<IPiece,List<IMove>>();
+	private Map<IPiece,List<IMove>> allAttackers=null;//new HashMap<IPiece,List<IMove>>();
+	private Map<IPiece,List<IMove>> allSupporters=null;//new HashMap<IPiece,List<IMove>>();
+	
+	private IMove move = null;
+	
 	/**
 	 * the main method executed whithin the main draw loop
+	 * @throws Exception 
 	 */
 	@Override
-	public void execute() {
-
+	public void execute() throws Exception {
+		
 		// check for interaction and mark field, if clicked
 		final boolean cl = this.checkForClick();
 		this.setMark(cl);
-		IMove move = null;
-
+		
+		if (move!=null) {
+			move=null;
+		}
+		
+		
 		if (Game.getPlayer() instanceof RandomPlayer) {
 			move = ((RandomPlayer) Game.getPlayer()).randomMove();
 		} else {
 			if (cl) {
 				// use information on interaction to create next move
-				move = this.getReferee().getMove();
+				move = this.getReferee().getMove(allPossibleMoves);
 			}
 		}
 		if (move != null) {
 			// save move to list and statistics
 			this.getReferee().processMove(move);
+			allPossibleMoves=null;
+			allAttackers=null;
+			allSupporters=null;
 		}
 		if ((this.main.pressed() == 1) && (this.main.key == 'r')) {
 			this.getReferee().rewindLastMove();
-			this.main.background(255);
-			this.getGame().getReferee().setMarked(null);
-			this.getGame().getReferee().setMarked2(null);
-			this.drawChessboard();
+			//this.main.background(255);
+			//this.getGame().getReferee().setMarked(null);
+			//this.getGame().getReferee().setMarked2(null);
 		}
-		if ( cl || move!=null || getReferee().isMarked()){
+		if ( cl || move!=null ){
 			// Draw the complete chess board
-			this.drawChessboard();
-			getReferee().checkState();
+			this.main.setRedraw(true);
+			
+			allPossibleMoves=this.getReferee().createPossibleValidMovesForActivePieces();
+			allAttackers=this.getReferee().createAttackersOnActivePieces();
+			allSupporters=this.getReferee().createSupportersOfActivePieces();
+			//getReferee().checkState();
 		}
+		this.drawChessboard(allPossibleMoves,allAttackers,allSupporters);
+
 	}
 
 	/**
@@ -103,11 +124,14 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * Draws the chess board. First draws the grid.
+	 * @throws Exception 
 	 */
-	public void drawChessboard() {
+	public void drawChessboard(	Map<IPiece,List<IMove>> allPossibleMoves,
+								Map<IPiece,List<IMove>> allAttackers,
+								Map<IPiece,List<IMove>> allSupporters) throws Exception {
 		this.drawGrid();
 		this.drawPieces();
-		this.drawMarked();
+		this.drawMarked(allPossibleMoves,allAttackers,allSupporters);
 		this.drawTimeLine();
 	}
 
@@ -133,16 +157,20 @@ public class Drawer implements ISetupAndRun {
 	/**
 	 * draws all marked fields
 	 */
-	public void drawMarked() {
+	public void drawMarked(	Map<IPiece,List<IMove>> allPossibleMoves,
+							Map<IPiece,List<IMove>> allAttackers,
+							Map<IPiece,List<IMove>> allSupporters) {
 		if ((this.getReferee().getMarked() != null) && (this.getReferee().getMarked().getPiece() != null)) {
-			final IPiece piece = this.getReferee().getMarked().getPiece();
-			this.drawMarkedFields(piece.convertMovesToFields(this.getReferee().getValidMoves(piece.getPossibleMoves())),
+			Field tmp=this.getReferee().getMarked();
+			IPiece piece = tmp.getPiece();
+			this.drawMarkedFields(piece.convertMovesToFields((allPossibleMoves.get(piece))),
 					Colors.GREEN);
-			this.drawMarkedFields(piece.getAttackers(), Colors.RED);
-			this.drawMarkedFields(piece.getSupporters(), Colors.BLUE);
+			this.drawMarkedFields(piece.convertMovesToFields(allAttackers.get(piece)), Colors.RED);
+			this.drawMarkedFields(piece.convertMovesToFields(allSupporters.get(piece)), Colors.BLUE);
 			final List<Field> pos = new ArrayList<>();
-			pos.add(this.getReferee().getMarked());
+			pos.add(tmp);
 			this.drawMarkedFields(pos, Colors.YELLOW);
+			this.getReferee().setMarked(tmp);
 		}
 	}
 
@@ -173,8 +201,9 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * Draws the timeline
+	 * @throws Exception 
 	 */
-	private void drawTimeLine() {
+	private void drawTimeLine() throws Exception {
 		final Timeline tl = this.getGame().getMoveList();
 		this.main.textSize(32);
 		this.main.fill(0);

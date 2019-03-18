@@ -1,5 +1,10 @@
 package defs.classes;
 
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import chess.Main;
 import conf.Config;
 import defs.enums.Colors;
@@ -36,6 +41,11 @@ public class Field implements IColors, IDraw, IRefs {
 	 */
 	private IPiece piece = null;
 
+	public Field() {
+		i=0;
+		j=0;
+		col=null;
+	}
 	/**
 	 * Constructor of field.
 	 *
@@ -165,6 +175,10 @@ public class Field implements IColors, IDraw, IRefs {
 			ans += " (" + this.getPiece().toString() + ")";
 		}
 		return ans;
+	}
+
+	public void reset() {
+		this.setPiece(null);
 	}
 
 }

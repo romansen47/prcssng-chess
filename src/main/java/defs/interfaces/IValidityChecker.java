@@ -39,29 +39,29 @@ public interface IValidityChecker extends IColors {
 	 *         opponent piece. castling of the opponent is not checked as a threat!.
 	 */
 	default IMove getValidMove(IMove move) {
-		if (move.getNext().getPiece() == move.getFig()) {
+		if (move.getNext().getPiece() == move.getPrev().getPiece()) {
 			return move;
 		}
 		final IPiece deadPiece = move.getNext().getPiece();
-		move.getFig().setField(move.getNext());
-		move.getNext().setPiece(move.getFig());
-		move.getFig().getOpponent().getPieces().remove(deadPiece);
+		move.getPrev().getPiece().setField(move.getNext());
+		move.getNext().setPiece(move.getPrev().getPiece());
+		move.getPrev().getPiece().getOpponent().getPieces().remove(deadPiece);
 		move.getNext().setPiece(null);
 		boolean ans = false;
 		final List<Field> list = new ArrayList<>();
-		for (final IPiece piece : move.getFig().getOpponent().getPieces()) {
+		for (final IPiece piece : move.getPrev().getPiece().getOpponent().getPieces()) {
 			if (!(piece instanceof King)) {
 				list.addAll(piece.getPossibleFields());
 			}
 		}
-		if (!list.contains(move.getFig().getOwner().getKing().getField())) {
+		if (!list.contains(move.getPrev().getPiece().getOwner().getKing().getField())) {
 			ans = true;
 		}
-		move.getFig().setField(move.getPrev());
-		move.getPrev().setPiece(move.getFig());
+		move.getPrev().getPiece().setField(move.getPrev());
+		move.getPrev().setPiece(move.getPrev().getPiece());
 		move.getNext().setPiece(deadPiece);
 		deadPiece.setField(move.getNext());
-		move.getFig().getOpponent().getPieces().add(deadPiece);
+		move.getPrev().getPiece().getOpponent().getPieces().add(deadPiece);
 		if (ans) {
 			return move;
 		}

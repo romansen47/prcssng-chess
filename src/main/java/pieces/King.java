@@ -78,7 +78,7 @@ public class King extends Piece {
 		final IPlayer pl = this.getOpponent();
 		final List<Field> fields = new ArrayList<>();
 		final List<IPiece> pieces = pl.getPieces();
-		for (final IPiece piece : pieces) {
+		for (IPiece piece : pieces) {
 			if (!(piece instanceof King)
 					&& piece.convertMovesToFields(piece.getPossibleMoves()).contains(this.getField())) {
 				fields.add(piece.getField());
@@ -242,7 +242,7 @@ public class King extends Piece {
 		 *
 		 * This is wrong... return this.isValidForCastling;
 		 */
-		return true;
+		return this.isValidForCastling;
 	}
 
 	/**

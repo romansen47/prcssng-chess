@@ -38,7 +38,7 @@ public class Rook extends Piece implements ILongDist {
 	public boolean isValidForCastling() {
 		boolean hasBeenMoved = false;
 		for (final IMove move : this.getOwner().getMoveList()) {
-			final IPiece fig = move.getFig();
+			final IPiece fig = move.getPrev().getPiece();
 			if ((fig instanceof Rook) && ((Rook) fig == this)) {
 				hasBeenMoved = true;
 			}
