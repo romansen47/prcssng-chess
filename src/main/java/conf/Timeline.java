@@ -48,7 +48,7 @@ public class Timeline extends ArrayList<IMove> implements IRefs {
 	 * @return a list of strings
 	 * @throws Exception
 	 */
-	public List<String> toStr() throws Exception {
+	public List<String> toStr() {
 		final List<String> ans = new ArrayList<>();
 		String tmp;
 		int i = 1;

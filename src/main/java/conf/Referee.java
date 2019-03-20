@@ -7,8 +7,6 @@ import java.util.Map;
 
 import defs.classes.Field;
 import defs.classes.Game;
-import defs.classes.Move;
-import defs.classes.PrintableMove;
 import defs.enums.State;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
@@ -204,10 +202,9 @@ public class Referee implements IRefs {
 	 */
 	public void processMove(IMove move) throws Exception {
 		if (this.getValidMove(move) != null) {
-			// getGame().getMoveList().toXml();
-			new PrintableMove((Move) move).toXml();
-			// ((Move)move).toXml();
 			move.execute();
+			PrintableTimeline tl=new PrintableTimeline();
+			tl.toXml();
 			this.getReferee().setMarked(null);
 		}
 	}
@@ -234,16 +231,13 @@ public class Referee implements IRefs {
 	public void rewindLastMove() {
 		Game.setPlayer(Game.getWhite());
 		final Timeline timeLine = (Timeline) getGame().getMoveList().clone();
-		this.resetFields();
-		this.resetPieces();
+		reset();
 		timeLine.remove(timeLine.size() - 1);
 		rePlayGame(timeLine);
 	}
 
 	public void rePlayGame(Timeline timeLine) {
-		this.resetFields();
-		this.resetPieces();
-		getGame().getMoveList().clear();
+		reset();
 		for (IMove move : timeLine) {
 			move.execute();
 		}
@@ -255,6 +249,13 @@ public class Referee implements IRefs {
 				fld.reset();
 			}
 		}
+	}
+	
+	public void reset(){
+		this.resetFields();
+		this.resetPieces();
+		getGame().getMoveList().clear();
+		
 	}
 
 	/**
@@ -324,19 +325,18 @@ public class Referee implements IRefs {
 		return possibleMovesMap;
 	}
 
-	public Map<IPiece, List<IMove>> createSupportersOfActivePieces() {
-		Map<IPiece, List<IMove>> possibleMovesMap = new HashMap<IPiece, List<IMove>>();
-		List<IPiece> lst = Game.getPlayer().getAllPieces();
-		for (IPiece piece : lst) {
-			if (Game.getPlayer().getPieces().contains(piece)) {
-				List<IMove> movelist = piece.convertFieldsToMoves(piece.getSupporters());
-				if (movelist != null) {
-					possibleMovesMap.put(piece, movelist);
-				} else {
-					possibleMovesMap.put(piece, new ArrayList<IMove>());
-				}
-			}
-		}
+	public Map<IPiece, List<IMove>> createSupportersOfActivePieces(Map<IPiece, List<IMove>> possibleMovesMap) {
+//		List<IPiece> lst = Game.getPlayer().getAllPieces();
+//		for (IPiece piece : lst) {
+//			if (Game.getPlayer().getPieces().contains(piece)) {
+//				List<IMove> movelist = piece.convertFieldsToMoves(piece.getSupporters());
+//				if (movelist != null) {
+//					possibleMovesMap.put(piece, movelist);
+//				} else {
+//					possibleMovesMap.put(piece, new ArrayList<IMove>());
+//				}
+//			}
+//		}
 		return possibleMovesMap;
 	}
 

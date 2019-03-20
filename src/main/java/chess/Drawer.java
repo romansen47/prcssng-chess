@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.JAXBException;
+
 import conf.Config;
+import conf.PrintableTimeline;
 import conf.Timeline;
 import defs.classes.Field;
 import defs.classes.Game;
@@ -30,6 +33,7 @@ public class Drawer implements ISetupAndRun {
 
 	private IMove move = null;
 
+	private boolean startup=true;
 	/**
 	 * the main method executed whithin the main draw loop
 	 * 
@@ -38,6 +42,25 @@ public class Drawer implements ISetupAndRun {
 	@Override
 	public void execute() throws Exception {
 
+		if (Main.isRestore()){
+			Main.setRestore(false);
+			try {
+				Game.setPlayer(Game.getWhite());
+				//Timeline tl =Timeline.getInstance();
+				new PrintableTimeline().restoreFromXml();
+				return;
+			} catch (JAXBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		if (startup){
+			getMain().background(255);
+			this.drawChessboard(allPossibleMoves, allAttackers, allSupporters);
+			startup=false;
+		}
+		
 		// check for interaction and mark field, if clicked
 		final boolean cl = this.checkForClick();
 		this.setMark(cl);
@@ -61,23 +84,37 @@ public class Drawer implements ISetupAndRun {
 			allAttackers = null;
 			allSupporters = null;
 		}
-		if ((this.main.pressed() == 1) && (this.main.key == 'r')) {
-			this.getReferee().rewindLastMove();
-			// this.main.background(255);
-			// this.getGame().getReferee().setMarked(null);
-			// this.getGame().getReferee().setMarked2(null);
+		if ((getMain().pressed() == 1)){
+			if (getMain().key == 'r'){
+				this.getReferee().rewindLastMove();
+			}
+			if (getMain().key == 'c') {
+				Timeline.getInstance().clear();
+				getReferee().rePlayGame(Timeline.getInstance());
+			}
+			if (getMain().key == 's') {
+				new PrintableTimeline().toXml();
+			}
+			if (getMain().key == 'l') {
+				getReferee().reset();
+				move=null;
+				Main.setRestore(true);
+			}
+			getMain().background(255);
+			this.drawChessboard(allPossibleMoves, allAttackers, allSupporters);
+			move=null;
 		}
 		if (cl || move != null) {
 			// Draw the complete chess board
-			this.main.setRedraw(true);
+			getMain().setRedraw(true);
 
 			allPossibleMoves = this.getReferee().createPossibleValidMovesForActivePieces();
 			allAttackers = this.getReferee().createAttackersOnActivePieces();
-			allSupporters = this.getReferee().createSupportersOfActivePieces();
+			allSupporters = this.getReferee().createSupportersOfActivePieces(allPossibleMoves);
 			// getReferee().checkState();
+			getMain().background(255);
+			this.drawChessboard(allPossibleMoves, allAttackers, allSupporters);
 		}
-		this.drawChessboard(allPossibleMoves, allAttackers, allSupporters);
-
 	}
 
 	/**
@@ -101,15 +138,15 @@ public class Drawer implements ISetupAndRun {
 	/**
 	 * main instance is needed, since the drawer should be able to "draw" things.
 	 */
-	final Main main;
+	private static Main main;
 
 	/**
 	 * private constructor.
 	 *
 	 * @param main the main {@inheritDoc}PApplet object.
 	 */
-	private Drawer(Main main) {
-		this.main = main;
+	private Drawer(Main mn) {
+		main = mn;
 	}
 
 	/**
@@ -118,7 +155,7 @@ public class Drawer implements ISetupAndRun {
 	 * @return whether click has been performed.
 	 */
 	public boolean checkForClick() {
-		return this.main.clicked() == 1;
+		return getMain().clicked() == 1;
 	}
 
 	/**
@@ -127,7 +164,7 @@ public class Drawer implements ISetupAndRun {
 	 * @throws Exception
 	 */
 	public void drawChessboard(Map<IPiece, List<IMove>> allPossibleMoves, Map<IPiece, List<IMove>> allAttackers,
-			Map<IPiece, List<IMove>> allSupporters) throws Exception {
+			Map<IPiece, List<IMove>> allSupporters) {
 		this.drawGrid();
 		this.drawPieces();
 		this.drawMarked(allPossibleMoves, allAttackers, allSupporters);
@@ -140,13 +177,13 @@ public class Drawer implements ISetupAndRun {
 	public void drawGrid() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				this.main.stroke(0);
-				this.main.strokeWeight(3);
+				getMain().stroke(0);
+				getMain().strokeWeight(3);
 				final float tmp = 8 * (float) Config.SIZE;
-				this.main.line(0, 0, tmp, 0);
-				this.main.line(0, 0, 0, tmp);
-				this.main.line(tmp, 0, tmp, tmp);
-				this.main.line(0, tmp, tmp, tmp);
+				getMain().line(0, 0, tmp, 0);
+				getMain().line(0, 0, 0, tmp);
+				getMain().line(tmp, 0, tmp, tmp);
+				getMain().line(0, tmp, tmp, tmp);
 			}
 		}
 	}
@@ -191,7 +228,7 @@ public class Drawer implements ISetupAndRun {
 	public void drawPieces() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				getGame().getField(i, j).draw(this.main);
+				getGame().getField(i, j).draw(getMain());
 			}
 		}
 	}
@@ -201,15 +238,15 @@ public class Drawer implements ISetupAndRun {
 	 * 
 	 * @throws Exception
 	 */
-	private void drawTimeLine() throws Exception {
+	private void drawTimeLine() {
 		final Timeline tl = this.getGame().getMoveList();
-		this.main.textSize(32);
-		this.main.fill(0);
-		this.main.text("Timeline:", (Config.GAMESIZE + 2) * (float) Config.SIZE, Config.SIZE);
-		this.main.textSize(18);
+		getMain().textSize(32);
+		getMain().fill(0);
+		getMain().text("Timeline:", (Config.GAMESIZE + 2) * (float) Config.SIZE, Config.SIZE);
+		getMain().textSize(18);
 		int i = 2;
 		for (final String str : tl.toStr()) {
-			this.main.text(str, (((float) Config.SIZE) / 4) + ((Config.GAMESIZE + 1) * Config.SIZE),
+			getMain().text(str, (((float) Config.SIZE) / 4) + ((Config.GAMESIZE + 1) * Config.SIZE),
 					(float) Config.SIZE + (i++ * 30));
 		}
 	}
@@ -233,39 +270,39 @@ public class Drawer implements ISetupAndRun {
 	public void mark(Field fld, Colors col) {
 
 		final int thickness = 5;
-		this.main.strokeWeight(thickness);
+		getMain().strokeWeight(thickness);
 		final int size = Config.SIZE;
 		switch (col) {
 		case RED:
-			this.main.stroke(255, 0, 0);
-			this.main.noFill();
-			this.main.rect((((fld.getJ() + 1) * size) - size) + (float) thickness,
+			getMain().stroke(255, 0, 0);
+			getMain().noFill();
+			getMain().rect((((fld.getJ() + 1) * size) - size) + (float) thickness,
 					(((fld.getI() + 1) * (float) size) - size) + thickness, (float) size - (2 * thickness),
 					(float) size - (2 * thickness));
 			break;
 		case BLUE:
-			this.main.stroke(0, 0, 255);
-			this.main.noFill();
-			this.main.rect((((fld.getJ() + 1) * (float) size) - size) + (2 * thickness),
+			getMain().stroke(0, 0, 255);
+			getMain().noFill();
+			getMain().rect((((fld.getJ() + 1) * (float) size) - size) + (2 * thickness),
 					(((fld.getI() + 1) * (float) size) - size) + (2 * thickness), (float) size - (4 * thickness),
 					(float) size - (4 * thickness));
 			break;
 		case YELLOW:
-			this.main.stroke(255, 255, 0);
-			this.main.noFill();
-			this.main.rect((((fld.getJ() + 1) * (float) size) - size) + thickness,
+			getMain().stroke(255, 255, 0);
+			getMain().noFill();
+			getMain().rect((((fld.getJ() + 1) * (float) size) - size) + thickness,
 					(((fld.getI() + 1) * (float) size) - size) + thickness, (float) size - (2 * thickness),
 					(float) size - (2 * thickness));
-			this.main.rect((((fld.getJ() + 1) * (float) size) - size) + (2 * thickness),
+			getMain().rect((((fld.getJ() + 1) * (float) size) - size) + (2 * thickness),
 					(((fld.getI() + 1) * (float) size) - size) + (2 * thickness), (float) size - (4 * thickness),
 					(float) size - (4 * thickness));
-			this.main.rect(((fld.getJ() + 1) * (float) size) - size, ((fld.getI() + 1) * (float) size) - size, size,
+			getMain().rect(((fld.getJ() + 1) * (float) size) - size, ((fld.getI() + 1) * (float) size) - size, size,
 					size);
 			break;
 		default:
-			this.main.stroke(0, 255, 0);
-			this.main.noFill();
-			this.main.rect(((fld.getJ() + 1) * (float) size) - size, ((fld.getI() + 1) * (float) size) - size, size,
+			getMain().stroke(0, 255, 0);
+			getMain().noFill();
+			getMain().rect(((fld.getJ() + 1) * (float) size) - size, ((fld.getI() + 1) * (float) size) - size, size,
 					size);
 			break;
 
@@ -278,23 +315,30 @@ public class Drawer implements ISetupAndRun {
 	 * @param clicked tells whether click has been performed
 	 */
 	public void setMark(boolean clicked) {
-		if (!clicked || (clicked && this.main.getPosJ() > Config.GAMESIZE)) {
+		if (!clicked || (clicked && getMain().getPosJ() > Config.GAMESIZE)) {
 			return;
 		}
 		if (!this.getReferee().isMarked()) {
-			final int i = Config.GAMESIZE - this.main.getPosI();
-			final int j = this.main.getPosJ();
+			final int i = Config.GAMESIZE - getMain().getPosI();
+			final int j = getMain().getPosJ();
 			if ((i >= 0) && (i <= Config.GAMESIZE) && (j >= 0) && (j <= Config.GAMESIZE)
 					&& (this.getGame().getField(i, j).getPiece() != null)
-					&& (this.getGame().getField(Config.GAMESIZE - this.main.getPosI(), this.main.getPosJ()).getPiece()
+					&& (this.getGame().getField(Config.GAMESIZE - getMain().getPosI(), getMain().getPosJ()).getPiece()
 							.getCol() == this.getPlayer().getCol())) {
 				this.getReferee()
-						.setMarked(this.getGame().getField(Config.GAMESIZE - this.main.getPosI(), this.main.getPosJ()));
+						.setMarked(this.getGame().getField(Config.GAMESIZE - getMain().getPosI(), getMain().getPosJ()));
 			}
 		} else {
 			this.getReferee()
-					.setMarked2(this.getGame().getField(Config.GAMESIZE - this.main.getPosI(), this.main.getPosJ()));
+					.setMarked2(this.getGame().getField(Config.GAMESIZE - getMain().getPosI(), getMain().getPosJ()));
 		}
+	}
+
+	/**
+	 * @return the main
+	 */
+	static Main getMain() {
+		return main;
 	}
 
 }

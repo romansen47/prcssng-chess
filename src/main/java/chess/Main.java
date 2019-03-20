@@ -11,6 +11,7 @@ import processing.template.Gui;
 
 public class Main extends Gui implements IRefs {
 
+	private static boolean restore=true;
 	/**
 	 * the main class
 	 */
@@ -52,7 +53,7 @@ public class Main extends Gui implements IRefs {
 	/**
 	 * True, if the frame should be redrawn
 	 */
-	private boolean redraw = true;
+	private boolean redrawCustom = true;
 
 	/**
 	 * image for the piece
@@ -413,13 +414,27 @@ public class Main extends Gui implements IRefs {
 	 * @return the redraw
 	 */
 	protected boolean isRedraw() {
-		return redraw;
+		return redrawCustom;
 	}
 
 	/**
 	 * @param redraw the redraw to set
 	 */
 	protected void setRedraw(boolean redraw) {
-		this.redraw = redraw;
+		this.redrawCustom = redraw;
+	}
+
+	/**
+	 * @return the restore
+	 */
+	public static boolean isRestore() {
+		return restore;
+	}
+
+	/**
+	 * @param restore the restore to set
+	 */
+	public static void setRestore(boolean restore) {
+		Main.restore = restore;
 	}
 }
