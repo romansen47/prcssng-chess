@@ -128,10 +128,7 @@ public class Referee implements IRefs {
 				lst.add(move.getNext());
 			}
 			if (lst.contains(this.getMarked2())) {
-				final IMove move = this.getMarked().getPiece().getMove(this.getMarked2());
-//				this.setMarked2(null);
-//				this.setMarked(null);
-				return move;
+				return this.getMarked().getPiece().getMove(this.getMarked2());
 			}
 		}
 		return null;
@@ -203,8 +200,6 @@ public class Referee implements IRefs {
 	public void processMove(IMove move) throws Exception {
 		if (this.getValidMove(move) != null) {
 			move.execute();
-			PrintableTimeline tl=new PrintableTimeline();
-			tl.toXml();
 			this.getReferee().setMarked(null);
 		}
 	}
@@ -250,12 +245,12 @@ public class Referee implements IRefs {
 			}
 		}
 	}
-	
-	public void reset(){
+
+	public void reset() {
 		this.resetFields();
 		this.resetPieces();
 		getGame().getMoveList().clear();
-		
+
 	}
 
 	/**

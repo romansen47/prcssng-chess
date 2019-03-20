@@ -2,12 +2,12 @@ package defs.classes;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import defs.classes.Move;
+import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name="Move")
+@XmlRootElement(name = "Move")
+@XmlType(propOrder = { "id", "str", "i1", "j1", "i2", "j2" })
 public class PrintableMove {
 
-	
 	private int id;
 	private int j1;
 	private int i1;
@@ -19,7 +19,7 @@ public class PrintableMove {
 		setStr(null);
 	}
 
-	public PrintableMove(Move move,int id) {
+	public PrintableMove(Move move, int id) {
 		this.setId(id);
 		setI1(move.getPrev().getI());
 		setJ1(move.getPrev().getJ());
@@ -93,9 +93,9 @@ public class PrintableMove {
 	public void setStr(String str) {
 		this.str = str;
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return str;
 	}
 }

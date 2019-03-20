@@ -12,6 +12,7 @@ import conf.Timeline;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.enums.Colors;
+import defs.enums.Ids;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
 import defs.interfaces.IPlayer;
@@ -20,55 +21,71 @@ import defs.players.artint.RandomPlayer;
 
 /**
  *
- * @author roman
+ * @author Ro Mansen
  *
  *         Class for handling the main draw-function, constructed as a singleton
  *         class.
  */
 public class Drawer implements ISetupAndRun {
 
-	private Map<IPiece, List<IMove>> allPossibleMoves = null;// new HashMap<IPiece,List<IMove>>();
-	private Map<IPiece, List<IMove>> allAttackers = null;// new HashMap<IPiece,List<IMove>>();
-	private Map<IPiece, List<IMove>> allSupporters = null;// new HashMap<IPiece,List<IMove>>();
+	/**
+	 * true if match is to be restarted
+	 */
+	private boolean startup = true;
 
+	/**
+	 * map containing all possible valid moves for each piece
+	 */
+	private Map<IPiece, List<IMove>> allPossibleMoves = null;
+
+	/**
+	 * map containing all attackers for each piece
+	 */
+	private Map<IPiece, List<IMove>> allAttackers = null;
+
+	/**
+	 * map containing all supporters for each piece
+	 */
+	private Map<IPiece, List<IMove>> allSupporters = null;
+
+	/**
+	 * the move to be created
+	 */
 	private IMove move = null;
 
-	private boolean startup=true;
 	/**
-	 * the main method executed whithin the main draw loop
-	 * 
-	 * @throws Exception
+	 * method to restore a match from a separate xml file
 	 */
-	@Override
-	public void execute() throws Exception {
-
-		if (Main.isRestore()){
+	public void restoreFromXml() {
+		if (Main.isRestore()) {
 			Main.setRestore(false);
 			try {
 				Game.setPlayer(Game.getWhite());
-				//Timeline tl =Timeline.getInstance();
 				new PrintableTimeline().restoreFromXml();
 				return;
 			} catch (JAXBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println("Failed to load timeline from xml. Does the file exist?");
 			}
 		}
-		
-		if (startup){
+	}
+
+	/**
+	 * the correct method to prepare the start of the match
+	 */
+	public void startUp() {
+		if (isStartup()) {
 			getMain().background(255);
 			this.drawChessboard(allPossibleMoves, allAttackers, allSupporters);
-			startup=false;
+			setStartup(false);
 		}
-		
-		// check for interaction and mark field, if clicked
-		final boolean cl = this.checkForClick();
-		this.setMark(cl);
+	}
 
-		if (move != null) {
-			move = null;
-		}
-
+	/**
+	 * creates the move
+	 * 
+	 * @param cl true on mouse button
+	 */
+	public void checkForNewMove(boolean cl) {
 		if (Game.getPlayer() instanceof RandomPlayer) {
 			move = ((RandomPlayer) Game.getPlayer()).randomMove();
 		} else {
@@ -77,6 +94,14 @@ public class Drawer implements ISetupAndRun {
 				move = this.getReferee().getMove(allPossibleMoves);
 			}
 		}
+	}
+
+	/**
+	 * resets the move maps end executes the move
+	 * 
+	 * @throws Exception from marshaller when loading fails
+	 */
+	public void processMove() throws Exception {
 		if (move != null) {
 			// save move to list and statistics
 			this.getReferee().processMove(move);
@@ -84,8 +109,16 @@ public class Drawer implements ISetupAndRun {
 			allAttackers = null;
 			allSupporters = null;
 		}
-		if ((getMain().pressed() == 1)){
-			if (getMain().key == 'r'){
+	}
+
+	/**
+	 * does various thing when r,s,c or l are hit
+	 * 
+	 * @throws Exception from (un)marshaller
+	 */
+	public void checkForPressedKey() throws Exception {
+		if ((getMain().pressed() == 1)) {
+			if (getMain().key == 'r') {
 				this.getReferee().rewindLastMove();
 			}
 			if (getMain().key == 'c') {
@@ -97,13 +130,21 @@ public class Drawer implements ISetupAndRun {
 			}
 			if (getMain().key == 'l') {
 				getReferee().reset();
-				move=null;
+				move = null;
 				Main.setRestore(true);
 			}
 			getMain().background(255);
 			this.drawChessboard(allPossibleMoves, allAttackers, allSupporters);
-			move=null;
+			move = null;
 		}
+	}
+
+	/**
+	 * draw everything if clicked or non-trivial move exists
+	 * 
+	 * @param cl true on mouse button hit
+	 */
+	public void drawChessboardPiecesAndMarks(boolean cl) {
 		if (cl || move != null) {
 			// Draw the complete chess board
 			getMain().setRedraw(true);
@@ -111,10 +152,41 @@ public class Drawer implements ISetupAndRun {
 			allPossibleMoves = this.getReferee().createPossibleValidMovesForActivePieces();
 			allAttackers = this.getReferee().createAttackersOnActivePieces();
 			allSupporters = this.getReferee().createSupportersOfActivePieces(allPossibleMoves);
-			// getReferee().checkState();
 			getMain().background(255);
 			this.drawChessboard(allPossibleMoves, allAttackers, allSupporters);
+			move = null;
 		}
+	}
+
+	/**
+	 * the main method executed whithin the main draw loop
+	 * 
+	 * @throws Exception
+	 */
+	@Override
+	public void execute() throws Exception {
+
+		// restore, if Main.restore is true
+		restoreFromXml();
+
+		// start up correctly, if startup is true
+		startUp();
+
+		// check keyboard for interaction
+		checkForPressedKey();
+
+		// check mouse for interaction
+		final boolean cl = this.checkForClick();
+
+		// mark field and create next move, if clicked
+		this.setMark(cl);
+		checkForNewMove(cl);
+
+		// process the move
+		processMove();
+
+		// create marks and draw everything
+		drawChessboardPiecesAndMarks(cl);
 	}
 
 	/**
@@ -128,10 +200,21 @@ public class Drawer implements ISetupAndRun {
 	 * @param main the main papplet object
 	 * @return drawer instance
 	 */
-	public static Drawer getInstance(Main main) {
+	public static Drawer getInstance(Main mn) {
 		if (Drawer.instance == null) {
-			return new Drawer(main);
+			main = mn;
+			return new Drawer();
 		}
+		return Drawer.instance;
+	}
+
+	/**
+	 * instance getter
+	 *
+	 * @param main the main papplet object
+	 * @return drawer instance
+	 */
+	public static Drawer getInstance() {
 		return Drawer.instance;
 	}
 
@@ -145,8 +228,7 @@ public class Drawer implements ISetupAndRun {
 	 *
 	 * @param main the main {@inheritDoc}PApplet object.
 	 */
-	private Drawer(Main mn) {
-		main = mn;
+	private Drawer() {
 	}
 
 	/**
@@ -339,6 +421,25 @@ public class Drawer implements ISetupAndRun {
 	 */
 	static Main getMain() {
 		return main;
+	}
+
+	/**
+	 * @return the startup
+	 */
+	private boolean isStartup() {
+		return startup;
+	}
+
+	/**
+	 * @param startup the startup to set
+	 */
+	private void setStartup(boolean startup) {
+		this.startup = startup;
+	}
+
+	public Ids choose() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

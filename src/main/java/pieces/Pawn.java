@@ -3,6 +3,7 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import chess.Drawer;
 import conf.Config;
 import defs.classes.EnPassant;
 import defs.classes.Field;
@@ -39,6 +40,10 @@ public class Pawn extends Piece {
 				fld = getReferee().getGame().getChessboard()[5][fig.getPosJ()];
 			}
 			return new EnPassant(this, fld);
+		} else if (field.getI() == 0 || field.getI() == 7) {
+			final Drawer drawer = Drawer.getInstance();
+			Ids id = drawer.choose();
+			return new Promotion(getField(), field, id);
 		}
 		return super.getMove(field);
 	}

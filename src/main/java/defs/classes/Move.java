@@ -4,7 +4,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import defs.enums.Ids;
-import defs.enums.State;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
 import defs.interfaces.IRefs;
@@ -22,16 +21,32 @@ public class Move implements IMove, IRefs {
 	/**
 	 * private attributes
 	 */
+
+	/**
+	 * the piece to be moved
+	 */
 	private final IPiece fig;
 
+	/**
+	 * the field the piece stands on before move has been executed
+	 */
 	@XmlElement
 	private final Field prev;
 
+	/**
+	 * the field after execution
+	 */
 	@XmlElement
 	private final Field next;
 
+	/**
+	 * chess notation
+	 */
 	private final String chessNot;
 
+	/**
+	 * plain constructor
+	 */
 	public Move() {
 		prev = null;
 		next = null;
@@ -40,7 +55,7 @@ public class Move implements IMove, IRefs {
 	}
 
 	/**
-	 * Constructor for a move
+	 * Concrete constructor for a move
 	 *
 	 * @param prev the initial piece to move
 	 * @param next the field, fig is to be moved to
@@ -52,6 +67,11 @@ public class Move implements IMove, IRefs {
 		chessNot = this.getString();
 	}
 
+	/**
+	 * check if the move is a check for opponent's king
+	 * 
+	 * @return
+	 */
 	private boolean checkForChess() {
 		return !this.next.getPiece().getOpponent().getKing().getAttackers().isEmpty();
 	}
@@ -77,7 +97,7 @@ public class Move implements IMove, IRefs {
 		}
 		if (this.checkForChess()) {
 			final King opKing = fig1.getOpponent().getKing();
-			opKing.setState(State.CHESS);
+			// opKing.setState(State.CHESS);
 		}
 		getGame().getMoveList().add(this);
 		this.getReferee().switchMainPlayer();

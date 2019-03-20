@@ -11,7 +11,7 @@ import processing.template.Gui;
 
 public class Main extends Gui implements IRefs {
 
-	private static boolean restore=true;
+	private static boolean restore = true;
 	/**
 	 * the main class
 	 */

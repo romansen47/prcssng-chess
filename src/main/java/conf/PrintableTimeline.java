@@ -15,24 +15,23 @@ import defs.classes.PrintableMove;
 import defs.interfaces.IMove;
 import defs.interfaces.IPiece;
 
-@XmlRootElement(name="TheTimeline")
-public class PrintableTimeline{
-	
+@XmlRootElement(name = "TheTimeline")
+public class PrintableTimeline {
+
 	private PrintableMove[] moves;
 
 	/**
 	 * private Constructor
 	 */
-	public PrintableTimeline(){
-		Timeline tl=Timeline.getInstance();
+	public PrintableTimeline() {
+		Timeline tl = Timeline.getInstance();
 		setMoves(new PrintableMove[tl.size()]);
-		int i=0;
-		for (IMove move: tl){
-			getMoves()[i]=new PrintableMove((defs.classes.Move)move,++i);
+		int i = 0;
+		for (IMove move : tl) {
+			getMoves()[i] = new PrintableMove((defs.classes.Move) move, ++i);
 		}
 	}
 
-	
 	public void toXml() throws Exception {
 		File file = new File("target/TimeLine.xml");
 		JAXBContext jaxbContext = JAXBContext.newInstance(conf.PrintableTimeline.class);
@@ -41,19 +40,19 @@ public class PrintableTimeline{
 		jaxbMarshaller.marshal(this, file);
 		jaxbMarshaller.marshal(this, System.out);
 	}
-	
-	public void restoreFromXml() throws JAXBException{
-	    File file = new File("target/TimeLine.xml");
-	    JAXBContext jContext = JAXBContext.newInstance(PrintableTimeline.class);
-	    Unmarshaller unmarshallerObj = jContext.createUnmarshaller();
-	    PrintableTimeline ptl=((PrintableTimeline)(unmarshallerObj.unmarshal(file)));
-	    PrintableMove[] newMoves=ptl.getMoves();
+
+	public void restoreFromXml() throws JAXBException {
+		File file = new File("target/TimeLine.xml");
+		JAXBContext jContext = JAXBContext.newInstance(PrintableTimeline.class);
+		Unmarshaller unmarshallerObj = jContext.createUnmarshaller();
+		PrintableTimeline ptl = ((PrintableTimeline) (unmarshallerObj.unmarshal(file)));
+		PrintableMove[] newMoves = ptl.getMoves();
 		Timeline.getInstance().clear();
 		IPiece piece;
-		for (PrintableMove move:newMoves){
-			Field fld1=Game.getInstance().getField(move.getI1(),move.getJ1());
-			Field fld2=Game.getInstance().getField(move.getI2(),move.getJ2());
-			piece=fld1.getPiece();
+		for (PrintableMove move : newMoves) {
+			Field fld1 = Game.getInstance().getField(move.getI1(), move.getJ1());
+			Field fld2 = Game.getInstance().getField(move.getI2(), move.getJ2());
+			piece = fld1.getPiece();
 			piece.getMove(fld2).execute();
 		}
 	}
@@ -61,7 +60,7 @@ public class PrintableTimeline{
 	/**
 	 * @return the moves
 	 */
-	@XmlElement(name="Move")
+	@XmlElement(name = "Move")
 	public PrintableMove[] getMoves() {
 		return this.moves;
 	}
