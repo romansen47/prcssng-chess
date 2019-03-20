@@ -161,7 +161,7 @@ public class Drawer implements ISetupAndRun {
 	/**
 	 * the main method executed whithin the main draw loop
 	 * 
-	 * @throws Exception
+	 * @throws Exception file does not exist
 	 */
 	@Override
 	public void execute() throws Exception {
@@ -196,8 +196,8 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * instance getter
-	 *
-	 * @param main the main papplet object
+	 * 
+	 * @param mn the main papplet object
 	 * @return drawer instance
 	 */
 	public static Drawer getInstance(Main mn) {
@@ -211,7 +211,6 @@ public class Drawer implements ISetupAndRun {
 	/**
 	 * instance getter
 	 *
-	 * @param main the main papplet object
 	 * @return drawer instance
 	 */
 	public static Drawer getInstance() {
@@ -225,8 +224,6 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * private constructor.
-	 *
-	 * @param main the main {@inheritDoc}PApplet object.
 	 */
 	private Drawer() {
 	}
@@ -243,7 +240,9 @@ public class Drawer implements ISetupAndRun {
 	/**
 	 * Draws the chess board. First draws the grid.
 	 * 
-	 * @throws Exception
+	 * @param allPossibleMoves map containing all possible moves for all players
+	 * @param allAttackers     map containing all attackers
+	 * @param allSupporters    map containing all supporters
 	 */
 	public void drawChessboard(Map<IPiece, List<IMove>> allPossibleMoves, Map<IPiece, List<IMove>> allAttackers,
 			Map<IPiece, List<IMove>> allSupporters) {
@@ -274,6 +273,10 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * draws all marked fields
+	 * 
+	 * @param allPossibleMoves map containing all possible moves for all players
+	 * @param allAttackers     map containing all attackers
+	 * @param allSupporters    map containing all supporters
 	 */
 	public void drawMarked(Map<IPiece, List<IMove>> allPossibleMoves, Map<IPiece, List<IMove>> allAttackers,
 			Map<IPiece, List<IMove>> allSupporters) {
@@ -317,8 +320,6 @@ public class Drawer implements ISetupAndRun {
 
 	/**
 	 * Draws the timeline
-	 * 
-	 * @throws Exception
 	 */
 	private void drawTimeLine() {
 		final Timeline tl = this.getGame().getMoveList();
@@ -397,7 +398,7 @@ public class Drawer implements ISetupAndRun {
 	 * @param clicked tells whether click has been performed
 	 */
 	public void setMark(boolean clicked) {
-		if (!clicked || (clicked && getMain().getPosJ() > Config.GAMESIZE)) {
+		if (!clicked || (getMain().getPosJ() > Config.GAMESIZE)) {
 			return;
 		}
 		if (!this.getReferee().isMarked()) {

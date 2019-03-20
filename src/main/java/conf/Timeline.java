@@ -46,7 +46,6 @@ public class Timeline extends ArrayList<IMove> implements IRefs {
 	 * gives a list with all moves in chess notation
 	 *
 	 * @return a list of strings
-	 * @throws Exception
 	 */
 	public List<String> toStr() {
 		final List<String> ans = new ArrayList<>();

@@ -112,7 +112,7 @@ public class Referee implements IRefs {
 	/**
 	 * Constructs a move and checks for validity
 	 * 
-	 * @param allPossibleMoves
+	 * @param allPossibleMoves takes an element from possibleMovesMap
 	 *
 	 * @return a move in case of validity. null otherwise
 	 */
@@ -195,9 +195,8 @@ public class Referee implements IRefs {
 	 * player
 	 *
 	 * @param move the given move
-	 * @throws Exception
 	 */
-	public void processMove(IMove move) throws Exception {
+	public void processMove(IMove move) {
 		if (this.getValidMove(move) != null) {
 			move.execute();
 			this.getReferee().setMarked(null);

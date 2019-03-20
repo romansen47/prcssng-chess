@@ -70,7 +70,7 @@ public class Move implements IMove, IRefs {
 	/**
 	 * check if the move is a check for opponent's king
 	 * 
-	 * @return
+	 * @return true if opponent's king is not chessed
 	 */
 	private boolean checkForChess() {
 		return !this.next.getPiece().getOpponent().getKing().getAttackers().isEmpty();
