@@ -1,11 +1,11 @@
 package defs.classes;
 
+import chess.Config;
 import chess.Main;
-import conf.Config;
+import chess.pieces.IPiece;
 import defs.enums.Colors;
 import defs.interfaces.IColors;
 import defs.interfaces.IDraw;
-import defs.interfaces.IPiece;
 import defs.interfaces.IRefs;
 
 /**

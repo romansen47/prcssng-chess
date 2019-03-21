@@ -1,4 +1,4 @@
-package conf;
+package chess.moves;
 
 import java.io.File;
 
@@ -9,11 +9,9 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import chess.pieces.IPiece;
 import defs.classes.Field;
 import defs.classes.Game;
-import defs.classes.PrintableMove;
-import defs.interfaces.IMove;
-import defs.interfaces.IPiece;
 
 @XmlRootElement(name = "TheTimeline")
 public class PrintableTimeline {
@@ -28,13 +26,13 @@ public class PrintableTimeline {
 		setMoves(new PrintableMove[tl.size()]);
 		int i = 0;
 		for (IMove move : tl) {
-			getMoves()[i] = new PrintableMove((defs.classes.Move) move, ++i);
+			getMoves()[i] = new PrintableMove((chess.moves.Move) move, ++i);
 		}
 	}
 
 	public void toXml() throws Exception {
 		File file = new File("target/TimeLine.xml");
-		JAXBContext jaxbContext = JAXBContext.newInstance(conf.PrintableTimeline.class);
+		JAXBContext jaxbContext = JAXBContext.newInstance(chess.moves.PrintableTimeline.class);
 		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		jaxbMarshaller.marshal(this, file);

@@ -1,10 +1,8 @@
-package conf;
+package chess.moves;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import defs.classes.Move;
-import defs.interfaces.IMove;
 import defs.interfaces.IRefs;
 
 /**

@@ -1,13 +1,15 @@
-package defs.classes;
+package chess.moves;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import chess.pieces.IPiece;
+import chess.pieces.King;
+import defs.classes.Field;
+import defs.classes.Game;
 import defs.enums.Ids;
-import defs.interfaces.IMove;
-import defs.interfaces.IPiece;
+import defs.enums.State;
 import defs.interfaces.IRefs;
-import pieces.King;
 
 /**
  *
@@ -77,7 +79,8 @@ public class Move implements IMove, IRefs {
 	}
 
 	/**
-	 * default implementation
+	 * default implementation of the execution of a simple move. to be extended for
+	 * castling, en passant and promotion
 	 */
 	@Override
 	public void execute() {
@@ -97,7 +100,7 @@ public class Move implements IMove, IRefs {
 		}
 		if (this.checkForChess()) {
 			final King opKing = fig1.getOpponent().getKing();
-			// opKing.setState(State.CHESS);
+			opKing.setState(State.CHESS);
 		}
 		getGame().getMoveList().add(this);
 		this.getReferee().switchMainPlayer();
@@ -114,14 +117,14 @@ public class Move implements IMove, IRefs {
 	}
 
 	/**
-	 * @return String in order to present the move
+	 * @return String in order to present the move in chess notation
 	 */
 	public String getString() {
 		String str = "";
-		if (getFig() != null && getFig().getId() == Ids.KNIGHT) {
-			str += getFig().getId().toString().substring(1, 2);
+		if (getPiece() != null && getPiece().getId() == Ids.KNIGHT) {
+			str += getPiece().getId().toString().substring(1, 2);
 		} else {
-			str += this.getFig().getId().toString().substring(0, 1);
+			str += this.getPiece().getId().toString().substring(0, 1);
 		}
 		if (this.next.getPiece() != null) {
 			str += this.getPrev().toChessNotation() + "x" + this.next.getPiece().getId().toString().substring(0, 1)
@@ -133,6 +136,8 @@ public class Move implements IMove, IRefs {
 	}
 
 	/**
+	 * getter for chess notation
+	 * 
 	 * @return the chessNot
 	 */
 	@Override
@@ -141,10 +146,12 @@ public class Move implements IMove, IRefs {
 	}
 
 	/**
-	 * @return the fig
+	 * getter for the piece
+	 * 
+	 * @return the piece
 	 */
 	@Override
-	public IPiece getFig() {
+	public IPiece getPiece() {
 		return fig;
 	}
 

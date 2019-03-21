@@ -6,17 +6,16 @@ import java.util.Map;
 
 import javax.xml.bind.JAXBException;
 
-import conf.Config;
-import conf.PrintableTimeline;
-import conf.Timeline;
+import chess.moves.IMove;
+import chess.moves.PrintableTimeline;
+import chess.moves.Timeline;
+import chess.pieces.IPiece;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.enums.Colors;
 import defs.enums.Ids;
-import defs.interfaces.IMove;
-import defs.interfaces.IPiece;
-import defs.interfaces.IPlayer;
 import defs.interfaces.ISetupAndRun;
+import defs.players.IPlayer;
 import defs.players.artint.RandomPlayer;
 
 /**
@@ -26,7 +25,7 @@ import defs.players.artint.RandomPlayer;
  *         Class for handling the main draw-function, constructed as a singleton
  *         class.
  */
-public class Drawer implements ISetupAndRun {
+public final class Drawer implements ISetupAndRun {
 
 	/**
 	 * true if match is to be restarted
@@ -438,9 +437,13 @@ public class Drawer implements ISetupAndRun {
 		this.startup = startup;
 	}
 
+	/**
+	 * The player should have the ability to choose from queen,bishop,knight or rook
+	 * 
+	 * @return the chosen id
+	 */
 	public Ids choose() {
-		// TODO Auto-generated method stub
-		return null;
+		return Game.getPlayer().choose();
 	}
 
 }

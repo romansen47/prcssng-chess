@@ -1,14 +1,13 @@
-package pieces;
+package chess.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import conf.Config;
+import chess.Config;
+import chess.moves.IMove;
 import defs.classes.Field;
-import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
-import defs.interfaces.IMove;
 
 public class Knight extends Piece {
 

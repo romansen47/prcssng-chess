@@ -1,4 +1,4 @@
-package defs.interfaces;
+package defs.players;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -6,14 +6,18 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import conf.Config;
+import chess.Config;
+import chess.moves.IMove;
+import chess.pieces.Bishop;
+import chess.pieces.IPiece;
+import chess.pieces.King;
+import chess.pieces.Knight;
+import chess.pieces.Pawn;
+import chess.pieces.Queen;
+import chess.pieces.Rook;
 import defs.enums.Colors;
-import pieces.Bishop;
-import pieces.King;
-import pieces.Knight;
-import pieces.Pawn;
-import pieces.Queen;
-import pieces.Rook;
+import defs.enums.Ids;
+import defs.interfaces.IRefs;
 
 public interface IPlayer extends IRefs {
 
@@ -140,6 +144,20 @@ public interface IPlayer extends IRefs {
 
 		// return the list
 		return moves;
+	}
+
+	/**
+	 * the player chooses the piece on promotion
+	 * 
+	 * @return the id of the piece
+	 */
+	default Ids choose() {
+//		List<Ids> ids=new ArrayList<>();
+//		ids.add(Ids.BISHOP);
+//		ids.add(Ids.KNIGHT);
+//		ids.add(Ids.QUEEN);
+//		ids.add(Ids.ROOK);
+		return Ids.QUEEN;
 	}
 
 }

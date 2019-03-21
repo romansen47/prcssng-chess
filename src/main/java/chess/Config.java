@@ -1,4 +1,4 @@
-package conf;
+package chess;
 
 /**
  *
@@ -21,10 +21,10 @@ public final class Config {
 	/**
 	 * Do we use a random black player?
 	 */
-	private static boolean randomBlackPlayer = false;
+	private static boolean randomBlackPlayer = true;
 
 	/**
-	 * Do we use a random black player?
+	 * Do we use a random white player?
 	 */
 	private static boolean randomWhitePlayer = false;
 

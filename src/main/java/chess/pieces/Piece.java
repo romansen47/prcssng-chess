@@ -1,12 +1,13 @@
-package defs.classes;
+package chess.pieces;
 
+import chess.Config;
 import chess.Main;
-import conf.Config;
+import chess.moves.IMove;
+import chess.moves.Move;
+import defs.classes.Field;
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.interfaces.IDraw;
-import defs.interfaces.IMove;
-import defs.interfaces.IPiece;
 import defs.interfaces.IRefs;
 import defs.interfaces.IValidityChecker;
 import processing.core.PImage;

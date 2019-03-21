@@ -1,13 +1,11 @@
-package pieces;
+package chess.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import defs.classes.Field;
-import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
-import defs.interfaces.ILongDist;
 
 public class Bishop extends Piece implements ILongDist {
 

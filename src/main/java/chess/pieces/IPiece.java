@@ -1,15 +1,16 @@
-package defs.interfaces;
+package chess.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import chess.Main;
+import chess.moves.IMove;
 import defs.classes.Field;
 import defs.classes.Game;
-import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
-import pieces.Pawn;
+import defs.interfaces.IRefs;
+import defs.players.IPlayer;
 import processing.core.PImage;
 
 public interface IPiece extends IRefs {

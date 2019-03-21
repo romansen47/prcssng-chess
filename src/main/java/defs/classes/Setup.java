@@ -1,16 +1,16 @@
-package chess;
+package defs.classes;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import conf.Config;
-import defs.classes.Game;
+import chess.Config;
+import chess.Main;
+import chess.pieces.IPiece;
 import defs.enums.Colors;
 import defs.enums.Ids;
-import defs.interfaces.IPiece;
-import defs.interfaces.IPlayer;
 import defs.interfaces.IRefs;
 import defs.interfaces.ISetupAndRun;
+import defs.players.IPlayer;
 import processing.core.PImage;
 
 /**

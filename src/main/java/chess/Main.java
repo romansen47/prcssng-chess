@@ -1,11 +1,11 @@
 package chess;
 
-import conf.Config;
 import defs.classes.Field;
 import defs.classes.Game;
-import defs.interfaces.IPlayer;
+import defs.classes.Setup;
 import defs.interfaces.IRefs;
 import defs.interfaces.ISetupAndRun;
+import defs.players.IPlayer;
 import processing.core.PImage;
 import processing.template.Gui;
 

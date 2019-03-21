@@ -1,6 +1,7 @@
-package defs.classes;
+package chess.moves;
 
-import pieces.Pawn;
+import chess.pieces.Pawn;
+import defs.classes.Field;
 
 public class EnPassant extends Move {
 

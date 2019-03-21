@@ -1,10 +1,12 @@
-package defs.interfaces;
+package chess.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import conf.Config;
+import chess.Config;
+import chess.moves.IMove;
 import defs.classes.Field;
+import defs.interfaces.IValidityChecker;
 
 /**
  *

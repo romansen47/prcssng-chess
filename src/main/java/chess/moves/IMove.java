@@ -1,5 +1,6 @@
-package defs.interfaces;
+package chess.moves;
 
+import chess.pieces.IPiece;
 import defs.classes.Field;
 
 public interface IMove {
@@ -21,7 +22,7 @@ public interface IMove {
 	 *
 	 * @return the moved piece
 	 */
-	IPiece getFig();
+	IPiece getPiece();
 
 	/**
 	 * Getter for next, the field to move on

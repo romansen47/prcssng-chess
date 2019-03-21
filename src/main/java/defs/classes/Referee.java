@@ -1,18 +1,17 @@
-package conf;
+package defs.classes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import defs.classes.Field;
-import defs.classes.Game;
+import chess.moves.IMove;
+import chess.moves.Timeline;
+import chess.pieces.IPiece;
+import chess.pieces.King;
 import defs.enums.State;
-import defs.interfaces.IMove;
-import defs.interfaces.IPiece;
 import defs.interfaces.IRefs;
 import defs.players.artint.RandomPlayer;
-import pieces.King;
 
 /**
  *
@@ -21,7 +20,7 @@ import pieces.King;
  *         Referee class, modelled as a singleton class. This class performs the
  *         main logical steps.
  */
-public class Referee implements IRefs {
+public final class Referee implements IRefs {
 
 	/**
 	 * static instance of Referee
@@ -320,8 +319,8 @@ public class Referee implements IRefs {
 	}
 
 	public Map<IPiece, List<IMove>> createSupportersOfActivePieces(Map<IPiece, List<IMove>> possibleMovesMap) {
-//		List<IPiece> lst = Game.getPlayer().getAllPieces();
-//		for (IPiece piece : lst) {
+//		List<IPiece> pieces = Game.getPlayer().getAllPieces();
+//		for (IPiece piece : pieces) {
 //			if (Game.getPlayer().getPieces().contains(piece)) {
 //				List<IMove> movelist = piece.convertFieldsToMoves(piece.getSupporters());
 //				if (movelist != null) {

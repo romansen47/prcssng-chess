@@ -1,18 +1,16 @@
-package pieces;
+package chess.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import conf.Config;
-import defs.classes.Castling;
+import chess.Config;
+import chess.moves.Castling;
+import chess.moves.IMove;
 import defs.classes.Field;
-import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.enums.State;
-import defs.interfaces.IMove;
-import defs.interfaces.IPiece;
-import defs.interfaces.IPlayer;
+import defs.players.IPlayer;
 
 public class King extends Piece {
 

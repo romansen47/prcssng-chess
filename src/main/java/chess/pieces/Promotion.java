@@ -1,12 +1,12 @@
 /**
  * 
  */
-package pieces;
+package chess.pieces;
 
+import chess.moves.IMove;
+import chess.moves.Move;
 import defs.classes.Field;
-import defs.classes.Move;
 import defs.enums.Ids;
-import defs.interfaces.IMove;
 
 /**
  * @author ro

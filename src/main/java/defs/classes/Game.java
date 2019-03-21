@@ -1,11 +1,10 @@
 package defs.classes;
 
-import conf.Config;
-import conf.Referee;
-import conf.Timeline;
+import chess.Config;
+import chess.moves.Timeline;
 import defs.enums.Colors;
-import defs.interfaces.IPlayer;
 import defs.interfaces.IRefs;
+import defs.players.IPlayer;
 import defs.players.Player;
 import defs.players.artint.BlackRandomPlayer;
 import defs.players.artint.WhiteRandomPlayer;

@@ -1,17 +1,15 @@
-package pieces;
+package chess.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import chess.Config;
 import chess.Drawer;
-import conf.Config;
-import defs.classes.EnPassant;
+import chess.moves.EnPassant;
+import chess.moves.IMove;
 import defs.classes.Field;
-import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
-import defs.interfaces.IMove;
-import defs.interfaces.IPiece;
 
 public class Pawn extends Piece {
 
@@ -110,11 +108,11 @@ public class Pawn extends Piece {
 	public List<IMove> getSpecialMoves() {
 		final List<Field> lst = new ArrayList<>();
 		final IMove move = this.getOpponent().getLastMove();
-		if ((move != null) && (move.getFig().getId() == Ids.PAWN) && (this.getPosI() == 4)
+		if ((move != null) && (move.getPiece().getId() == Ids.PAWN) && (this.getPosI() == 4)
 				&& (move.getPrev().getI() == 6) && (move.getNext().getI() == 4)) {
 			lst.add(this.getGame().getField(5, move.getNext().getJ()));
 		}
-		if ((move != null) && (move.getFig().getId() == Ids.PAWN) && (this.getPosI() == 3)
+		if ((move != null) && (move.getPiece().getId() == Ids.PAWN) && (this.getPosI() == 3)
 				&& (move.getPrev().getI() == 1) && (move.getNext().getI() == 3)) {
 			lst.add(this.getGame().getField(2, move.getNext().getJ()));
 		}

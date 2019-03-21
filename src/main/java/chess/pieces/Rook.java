@@ -1,14 +1,11 @@
-package pieces;
+package chess.pieces;
 
 import java.util.List;
 
+import chess.moves.IMove;
 import defs.classes.Field;
-import defs.classes.Piece;
 import defs.enums.Colors;
 import defs.enums.Ids;
-import defs.interfaces.ILongDist;
-import defs.interfaces.IMove;
-import defs.interfaces.IPiece;
 
 public class Rook extends Piece implements ILongDist {
 

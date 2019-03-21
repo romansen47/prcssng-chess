@@ -2,8 +2,8 @@ package defs.interfaces;
 
 import chess.Drawer;
 import chess.Main;
-import conf.Referee;
 import defs.classes.Game;
+import defs.classes.Referee;
 
 /**
  *

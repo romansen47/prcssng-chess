@@ -1,9 +1,9 @@
-package defs.classes;
+package chess.moves;
 
+import chess.pieces.IPiece;
+import chess.pieces.King;
+import chess.pieces.Rook;
 import defs.enums.Ids;
-import defs.interfaces.IPiece;
-import pieces.King;
-import pieces.Rook;
 
 /**
  *
@@ -25,7 +25,7 @@ public class Castling extends Move {
 
 	@Override
 	public void execute() {
-		IPiece king = this.getFig();
+		IPiece king = this.getPiece();
 		if ((rook.getId() == Ids.ROOK) && (king.getCol() == rook.getCol())) {
 			int k = this.getPrev().getJ();
 			int r = this.getNext().getJ();

@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import conf.Config;
+import chess.Config;
+import chess.moves.IMove;
+import chess.pieces.IPiece;
+import chess.pieces.King;
 import defs.classes.Game;
 import defs.enums.Colors;
-import defs.interfaces.IMove;
-import defs.interfaces.IPiece;
-import defs.interfaces.IPlayer;
-import pieces.King;
 
 /**
  *
