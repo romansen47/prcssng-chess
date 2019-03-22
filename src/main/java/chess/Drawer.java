@@ -117,23 +117,20 @@ public final class Drawer implements ISetupAndRun {
 	 */
 	public void checkForPressedKey() throws Exception {
 		if ((getMain().pressed() == 1)) {
-			switch (getMain().key) {
-				case 'r':
-					this.getReferee().rewindLastMove(); 
-					break;
-				case 'c':
-					Timeline.getInstance().clear();
-					getReferee().rePlayGame(Timeline.getInstance()); 
-					break;
-				case 's':
-					new PrintableTimeline().toXml();
-					break;
-				case 'l':
-					getReferee().reset();
-					move = null;
-					Main.setRestore(true);
-					break;
-				default: return;		
+			if (getMain().key == 'r') {
+				this.getReferee().rewindLastMove();
+			}
+			if (getMain().key == 'c') {
+				Timeline.getInstance().clear();
+				getReferee().rePlayGame(Timeline.getInstance());
+			}
+			if (getMain().key == 's') {
+				new PrintableTimeline().toXml();
+			}
+			if (getMain().key == 'l') {
+				getReferee().reset();
+				move = null;
+				Main.setRestore(true);
 			}
 			getMain().background(255);
 			this.drawChessboard(allPossibleMoves, allAttackers, allSupporters);
@@ -256,6 +253,7 @@ public final class Drawer implements ISetupAndRun {
 		this.drawPieces();
 		this.drawMarked(allPossibleMoves, allAttackers, allSupporters);
 		this.drawTimeLine();
+		this.drawServiceWindow();
 	}
 
 	/**
@@ -329,7 +327,7 @@ public final class Drawer implements ISetupAndRun {
 	 */
 	private void drawTimeLine() {
 		final Timeline tl = this.getGame().getMoveList();
-		getMain().textSize(32);
+		getMain().textSize(24);
 		getMain().fill(0);
 		getMain().text("Timeline:", (Config.GAMESIZE + 2) * (float) Config.SIZE, Config.SIZE);
 		getMain().textSize(18);
@@ -338,6 +336,15 @@ public final class Drawer implements ISetupAndRun {
 			getMain().text(str, (((float) Config.SIZE) / 4) + ((Config.GAMESIZE + 1) * Config.SIZE),
 					(float) Config.SIZE + (i++ * 30));
 		}
+	}
+	
+	/**
+	 * Draws the timeline
+	 */
+	private void drawServiceWindow() {
+		getMain().textSize(32);
+		getMain().fill(255);
+		getMain().rect((Config.GAMESIZE + 1) * (float) Config.SIZE, 4*Config.SIZE,Config.SIZE,Config.SIZE);
 	}
 
 	/**
@@ -351,48 +358,43 @@ public final class Drawer implements ISetupAndRun {
 	}
 
 	/**
+	 * draws the concrete field with all marks
+	 * @param fld the field to draw
+	 * @param red how much red?
+	 * @param green how much green?
+	 * @param blue how much blue?
+	 * @param pos position of the mark within the field
+	 */
+	private void drawColoredField(Field fld,int red,int green, int blue, int pos) {
+		getMain().stroke(red,green,blue);
+		final int size = Config.SIZE;
+		final int thickness = 5;
+		getMain().strokeWeight(thickness);
+		getMain().noFill();
+		getMain().rect((((fld.getJ() + 1) * size) - size) + (float) thickness,
+				(((fld.getI() + 1) * (float) size) - size) + thickness, (float) size - (2 * thickness),
+				(float) size - (2 * thickness));
+	}
+	
+	/**
 	 * Concrete drawing of a field mark
 	 *
 	 * @param fld the field to draw the mark for
 	 * @param col the color
 	 */
 	public void mark(Field fld, Colors col) {
-
-		final int thickness = 5;
-		getMain().strokeWeight(thickness);
-		final int size = Config.SIZE;
 		switch (col) {
 		case RED:
-			getMain().stroke(255, 0, 0);
-			getMain().noFill();
-			getMain().rect((((fld.getJ() + 1) * size) - size) + (float) thickness,
-					(((fld.getI() + 1) * (float) size) - size) + thickness, (float) size - (2 * thickness),
-					(float) size - (2 * thickness));
+			this.drawColoredField(fld,255,0,0,2);
 			break;
 		case BLUE:
-			getMain().stroke(0, 0, 255);
-			getMain().noFill();
-			getMain().rect((((fld.getJ() + 1) * (float) size) - size) + (2 * thickness),
-					(((fld.getI() + 1) * (float) size) - size) + (2 * thickness), (float) size - (4 * thickness),
-					(float) size - (4 * thickness));
+			this.drawColoredField(fld,0,0,255,3);
 			break;
 		case YELLOW:
-			getMain().stroke(255, 255, 0);
-			getMain().noFill();
-			getMain().rect((((fld.getJ() + 1) * (float) size) - size) + thickness,
-					(((fld.getI() + 1) * (float) size) - size) + thickness, (float) size - (2 * thickness),
-					(float) size - (2 * thickness));
-			getMain().rect((((fld.getJ() + 1) * (float) size) - size) + (2 * thickness),
-					(((fld.getI() + 1) * (float) size) - size) + (2 * thickness), (float) size - (4 * thickness),
-					(float) size - (4 * thickness));
-			getMain().rect(((fld.getJ() + 1) * (float) size) - size, ((fld.getI() + 1) * (float) size) - size, size,
-					size);
+			this.drawColoredField(fld,255,255,0,4);
 			break;
 		default:
-			getMain().stroke(0, 255, 0);
-			getMain().noFill();
-			getMain().rect(((fld.getJ() + 1) * (float) size) - size, ((fld.getI() + 1) * (float) size) - size, size,
-					size);
+			this.drawColoredField(fld,0,255,0,1);
 			break;
 
 		}
