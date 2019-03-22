@@ -31,7 +31,7 @@ public final class Config {
 	/**
 	 * the standard size of a field
 	 */
-	public static final int SIZE = 100;
+	public static final int SIZE = 80;
 
 	/**
 	 * getter for the static instance
