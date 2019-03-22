@@ -10,6 +10,7 @@ import chess.moves.IMove;
 import chess.moves.PrintableTimeline;
 import chess.moves.Timeline;
 import chess.pieces.IPiece;
+import chess.pieces.Pawn;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.enums.Colors;
@@ -202,7 +203,11 @@ public final class Drawer implements ISetupAndRun {
 	public static Drawer getInstance(Main mn) {
 		if (Drawer.instance == null) {
 			main = mn;
-			return new Drawer();
+			Drawer inst = new Drawer();
+			if (Pawn.getDrawer() == null) {
+				Pawn.setDrawer(inst);
+			}
+			return inst;
 		}
 		return Drawer.instance;
 	}

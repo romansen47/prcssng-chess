@@ -13,6 +13,8 @@ import defs.enums.Ids;
 
 public class Pawn extends Piece {
 
+	private static Drawer drawer;
+
 	/**
 	 * Constructor
 	 *
@@ -39,7 +41,6 @@ public class Pawn extends Piece {
 			}
 			return new EnPassant(this, fld);
 		} else if (field.getI() == 0 || field.getI() == 7) {
-			final Drawer drawer = Drawer.getInstance();
 			Ids id = drawer.choose();
 			return new Promotion(getField(), field, id);
 		}
@@ -121,6 +122,20 @@ public class Pawn extends Piece {
 			list.add(this.getMove(fld));
 		}
 		return list;
+	}
+
+	/**
+	 * @return the drawer
+	 */
+	public static Drawer getDrawer() {
+		return drawer;
+	}
+
+	/**
+	 * @param drawer the drawer to set
+	 */
+	public static void setDrawer(Drawer drawer) {
+		Pawn.drawer = drawer;
 	}
 
 }
