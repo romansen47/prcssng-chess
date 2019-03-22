@@ -3,13 +3,13 @@ package chess.moves;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import chess.IRefs;
 import chess.pieces.IPiece;
 import chess.pieces.King;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.enums.Ids;
 import defs.enums.State;
-import defs.interfaces.IRefs;
 
 /**
  *

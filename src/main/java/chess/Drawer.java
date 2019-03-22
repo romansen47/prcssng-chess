@@ -15,7 +15,6 @@ import defs.classes.Field;
 import defs.classes.Game;
 import defs.enums.Colors;
 import defs.enums.Ids;
-import defs.interfaces.ISetupAndRun;
 import defs.players.IPlayer;
 import defs.players.artint.RandomPlayer;
 
@@ -118,20 +117,23 @@ public final class Drawer implements ISetupAndRun {
 	 */
 	public void checkForPressedKey() throws Exception {
 		if ((getMain().pressed() == 1)) {
-			if (getMain().key == 'r') {
-				this.getReferee().rewindLastMove();
-			}
-			if (getMain().key == 'c') {
-				Timeline.getInstance().clear();
-				getReferee().rePlayGame(Timeline.getInstance());
-			}
-			if (getMain().key == 's') {
-				new PrintableTimeline().toXml();
-			}
-			if (getMain().key == 'l') {
-				getReferee().reset();
-				move = null;
-				Main.setRestore(true);
+			switch (getMain().key) {
+				case 'r':
+					this.getReferee().rewindLastMove(); 
+					break;
+				case 'c':
+					Timeline.getInstance().clear();
+					getReferee().rePlayGame(Timeline.getInstance()); 
+					break;
+				case 's':
+					new PrintableTimeline().toXml();
+					break;
+				case 'l':
+					getReferee().reset();
+					move = null;
+					Main.setRestore(true);
+					break;
+				default: return;		
 			}
 			getMain().background(255);
 			this.drawChessboard(allPossibleMoves, allAttackers, allSupporters);

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chess.Config;
+import chess.IRefs;
+import chess.ISetupAndRun;
 import chess.Main;
 import chess.pieces.IPiece;
 import defs.enums.Colors;
 import defs.enums.Ids;
-import defs.interfaces.IRefs;
-import defs.interfaces.ISetupAndRun;
 import defs.players.IPlayer;
 import processing.core.PImage;
 

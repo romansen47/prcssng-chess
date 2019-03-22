@@ -1,9 +1,9 @@
 package defs.classes;
 
 import chess.Config;
+import chess.IRefs;
 import chess.moves.Timeline;
 import defs.enums.Colors;
-import defs.interfaces.IRefs;
 import defs.players.IPlayer;
 import defs.players.Player;
 import defs.players.artint.BlackRandomPlayer;

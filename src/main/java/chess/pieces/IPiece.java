@@ -3,13 +3,13 @@ package chess.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import chess.IRefs;
 import chess.Main;
 import chess.moves.IMove;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.enums.Colors;
 import defs.enums.Ids;
-import defs.interfaces.IRefs;
 import defs.players.IPlayer;
 import processing.core.PImage;
 

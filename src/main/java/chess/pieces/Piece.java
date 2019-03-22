@@ -1,14 +1,14 @@
 package chess.pieces;
 
 import chess.Config;
+import chess.IDraw;
+import chess.IRefs;
 import chess.Main;
 import chess.moves.IMove;
 import chess.moves.Move;
 import defs.classes.Field;
 import defs.enums.Colors;
 import defs.enums.Ids;
-import defs.interfaces.IDraw;
-import defs.interfaces.IRefs;
 import defs.interfaces.IValidityChecker;
 import processing.core.PImage;
 

@@ -1,7 +1,5 @@
-package defs.interfaces;
+package chess;
 
-import chess.Drawer;
-import chess.Main;
 import defs.classes.Game;
 import defs.classes.Referee;
 

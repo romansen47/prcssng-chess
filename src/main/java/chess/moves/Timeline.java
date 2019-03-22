@@ -3,7 +3,7 @@ package chess.moves;
 import java.util.ArrayList;
 import java.util.List;
 
-import defs.interfaces.IRefs;
+import chess.IRefs;
 
 /**
  *

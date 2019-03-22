@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import chess.IRefs;
 import chess.moves.IMove;
 import chess.moves.Timeline;
 import chess.pieces.IPiece;
 import chess.pieces.King;
 import defs.enums.State;
-import defs.interfaces.IRefs;
 import defs.players.artint.RandomPlayer;
 
 /**

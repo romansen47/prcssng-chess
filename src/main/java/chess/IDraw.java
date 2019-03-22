@@ -1,6 +1,4 @@
-package defs.interfaces;
-
-import chess.Main;
+package chess;
 
 /**
  *

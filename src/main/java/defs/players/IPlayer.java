@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.Set;
 
 import chess.Config;
+import chess.IRefs;
 import chess.moves.IMove;
 import chess.pieces.Bishop;
 import chess.pieces.IPiece;
@@ -17,7 +18,6 @@ import chess.pieces.Queen;
 import chess.pieces.Rook;
 import defs.enums.Colors;
 import defs.enums.Ids;
-import defs.interfaces.IRefs;
 
 public interface IPlayer extends IRefs {
 

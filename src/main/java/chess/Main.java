@@ -3,8 +3,6 @@ package chess;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.classes.Setup;
-import defs.interfaces.IRefs;
-import defs.interfaces.ISetupAndRun;
 import defs.players.IPlayer;
 import processing.core.PImage;
 import processing.template.Gui;
