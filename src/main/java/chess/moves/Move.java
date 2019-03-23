@@ -27,7 +27,7 @@ public class Move implements IMove, IRefs {
 	/**
 	 * the piece to be moved
 	 */
-	private final IPiece fig;
+	private final IPiece piece;
 
 	/**
 	 * the field the piece stands on before move has been executed
@@ -52,7 +52,7 @@ public class Move implements IMove, IRefs {
 	public Move() {
 		prev = null;
 		next = null;
-		fig = null;
+		piece = null;
 		chessNot = null;
 	}
 
@@ -63,7 +63,7 @@ public class Move implements IMove, IRefs {
 	 * @param next the field, fig is to be moved to
 	 */
 	public Move(Field prev, Field next) {
-		this.fig = prev.getPiece();
+		this.piece = prev.getPiece();
 		this.prev = prev;
 		this.next = next;
 		chessNot = this.getString();
@@ -152,7 +152,7 @@ public class Move implements IMove, IRefs {
 	 */
 	@Override
 	public IPiece getPiece() {
-		return fig;
+		return piece;
 	}
 
 }

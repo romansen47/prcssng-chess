@@ -63,6 +63,7 @@ public class King extends Piece {
 		return fields;
 	}
 
+	
 	public List<IMove> getAllMovesToAvoidChess() {
 		final List<IMove> list = getPossibleMoves();
 		for (final IPiece piece : getOwner().getPieces()) {
@@ -240,7 +241,7 @@ public class King extends Piece {
 		 *
 		 * This is wrong... return this.isValidForCastling;
 		 */
-		return this.isValidForCastling;
+		return true;
 	}
 
 	/**

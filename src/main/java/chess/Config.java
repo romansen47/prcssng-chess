@@ -21,7 +21,7 @@ public final class Config {
 	/**
 	 * Do we use a random black player?
 	 */
-	private static boolean randomBlackPlayer = true;
+	private static boolean randomBlackPlayer = false;
 
 	/**
 	 * Do we use a random white player?

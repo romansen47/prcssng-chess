@@ -7,6 +7,7 @@ import chess.Config;
 import chess.Drawer;
 import chess.moves.EnPassant;
 import chess.moves.IMove;
+import chess.moves.Move;
 import defs.classes.Field;
 import defs.enums.Colors;
 import defs.enums.Ids;
@@ -32,7 +33,7 @@ public class Pawn extends Piece {
 	@Override
 	public IMove getMove(Field field) {
 		final IPiece fig = this.getGame().getField(this.getPosI(), field.getJ()).getPiece();
-		if ((fig instanceof Pawn) && (fig.getCol() != this.getCol())) {
+		if (lastMoveValidForEnPassant(fig)) {
 			Field fld;
 			if (fig.getPosI() == 3) {
 				fld = getReferee().getGame().getChessboard()[2][fig.getPosJ()];
@@ -45,6 +46,26 @@ public class Pawn extends Piece {
 			return new Promotion(getField(), field, id);
 		}
 		return super.getMove(field);
+	}
+
+	private boolean lastMoveValidForEnPassant(IPiece fig) {
+		
+		/**
+		 * get the last move, if exists
+		 */
+		boolean movedTwoFields;
+		IMove lastMove;
+		if (fig==null || getGame().getMoveList().isEmpty()) {
+			return false;
+		}
+		else {
+			lastMove=getGame().getMoveList().get(getGame().getMoveList().size()-1);
+			movedTwoFields=Math.abs(lastMove.getPrev().getI()-lastMove.getNext().getI())==2;
+		}
+		boolean isPawn=fig instanceof Pawn;
+		boolean differentColor= fig.getCol() != this.getCol();
+		boolean lastMovedIsPawn=lastMove.getPiece()==fig;
+		return isPawn&& differentColor && lastMovedIsPawn && movedTwoFields;
 	}
 
 	@Override

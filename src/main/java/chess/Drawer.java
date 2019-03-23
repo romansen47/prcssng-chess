@@ -145,9 +145,6 @@ public final class Drawer implements ISetupAndRun {
 	 */
 	public void drawChessboardPiecesAndMarks(boolean cl) {
 		if (cl || move != null) {
-			// Draw the complete chess board
-			getMain().setRedraw(true);
-
 			allPossibleMoves = this.getReferee().createPossibleValidMovesForActivePieces();
 			allAttackers = this.getReferee().createAttackersOnActivePieces();
 			allSupporters = this.getReferee().createSupportersOfActivePieces(allPossibleMoves);
@@ -368,7 +365,7 @@ public final class Drawer implements ISetupAndRun {
 	private void drawColoredField(Field fld,int red,int green, int blue, int pos) {
 		getMain().stroke(red,green,blue);
 		final int size = Config.SIZE;
-		final int thickness = 5;
+		final int thickness = 5-pos;
 		getMain().strokeWeight(thickness);
 		getMain().noFill();
 		getMain().rect((((fld.getJ() + 1) * size) - size) + (float) thickness,
@@ -385,13 +382,13 @@ public final class Drawer implements ISetupAndRun {
 	public void mark(Field fld, Colors col) {
 		switch (col) {
 		case RED:
-			this.drawColoredField(fld,255,0,0,2);
+			this.drawColoredField(fld,255,0,0,3);
 			break;
 		case BLUE:
-			this.drawColoredField(fld,0,0,255,3);
+			this.drawColoredField(fld,0,0,255,4);
 			break;
 		case YELLOW:
-			this.drawColoredField(fld,255,255,0,4);
+			this.drawColoredField(fld,255,255,0,2);
 			break;
 		default:
 			this.drawColoredField(fld,0,255,0,1);
