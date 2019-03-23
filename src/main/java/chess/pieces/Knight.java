@@ -23,8 +23,8 @@ public class Knight extends Piece {
 
 	// TODO: An das Interface IValidityChecker anpassen
 	public boolean checkForValidity(int tmpI, int tmpJ) {
-		if (this.getGame().getField(tmpI, tmpJ).getPiece() != null) {
-			return this.getCol() != this.getGame().getField(tmpI, tmpJ).getPiece().getCol();
+		if (getGame().getField(tmpI, tmpJ).getPiece() != null) {
+			return getCol() != getGame().getField(tmpI, tmpJ).getPiece().getCol();
 		}
 		return true;
 	}
@@ -32,34 +32,34 @@ public class Knight extends Piece {
 	@Override
 	public List<IMove> getSimpleMoves() {
 		final List<Field> lst = new ArrayList<>();
-		final int i = this.getField().getI();
-		final int j = this.getField().getJ();
-		if (((i + 1) <= Config.GAMESIZE) && ((j + 2) <= Config.GAMESIZE) && this.checkForValidity(i + 1, j + 2)) {
-			lst.add(this.getGame().getField(i + 1, j + 2));
+		final int i = getField().getI();
+		final int j = getField().getJ();
+		if (((i + 1) <= Config.GAMESIZE) && ((j + 2) <= Config.GAMESIZE) && checkForValidity(i + 1, j + 2)) {
+			lst.add(getGame().getField(i + 1, j + 2));
 		}
-		if (((i + 1) <= Config.GAMESIZE) && ((j - 2) >= 0) && this.checkForValidity(i + 1, j - 2)) {
-			lst.add(this.getGame().getField(i + 1, j - 2));
+		if (((i + 1) <= Config.GAMESIZE) && ((j - 2) >= 0) && checkForValidity(i + 1, j - 2)) {
+			lst.add(getGame().getField(i + 1, j - 2));
 		}
-		if (((i - 1) >= 0) && ((j + 2) <= Config.GAMESIZE) && this.checkForValidity(i - 1, j + 2)) {
-			lst.add(this.getGame().getField(i - 1, j + 2));
+		if (((i - 1) >= 0) && ((j + 2) <= Config.GAMESIZE) && checkForValidity(i - 1, j + 2)) {
+			lst.add(getGame().getField(i - 1, j + 2));
 		}
-		if (((i - 1) >= 0) && ((j - 2) >= 0) && this.checkForValidity(i - 1, j - 2)) {
-			lst.add(this.getGame().getField(i - 1, j - 2));
+		if (((i - 1) >= 0) && ((j - 2) >= 0) && checkForValidity(i - 1, j - 2)) {
+			lst.add(getGame().getField(i - 1, j - 2));
 		}
-		if (((i + 2) <= Config.GAMESIZE) && ((j + 1) <= Config.GAMESIZE) && this.checkForValidity(i + 2, j + 1)) {
-			lst.add(this.getGame().getField(i + 2, j + 1));
+		if (((i + 2) <= Config.GAMESIZE) && ((j + 1) <= Config.GAMESIZE) && checkForValidity(i + 2, j + 1)) {
+			lst.add(getGame().getField(i + 2, j + 1));
 		}
-		if (((i + 2) <= Config.GAMESIZE) && ((j - 1) >= 0) && this.checkForValidity(i + 2, j - 1)) {
-			lst.add(this.getGame().getField(i + 2, j - 1));
+		if (((i + 2) <= Config.GAMESIZE) && ((j - 1) >= 0) && checkForValidity(i + 2, j - 1)) {
+			lst.add(getGame().getField(i + 2, j - 1));
 		}
-		if (((i - 2) >= 0) && ((j + 1) <= Config.GAMESIZE) && this.checkForValidity(i - 2, j + 1)) {
-			lst.add(this.getGame().getField(i - 2, j + 1));
+		if (((i - 2) >= 0) && ((j + 1) <= Config.GAMESIZE) && checkForValidity(i - 2, j + 1)) {
+			lst.add(getGame().getField(i - 2, j + 1));
 		}
-		if (((i - 2) >= 0) && ((j - 1) >= 0) && this.checkForValidity(i - 2, j - 1)) {
-			lst.add(this.getGame().getField(i - 2, j - 1));
+		if (((i - 2) >= 0) && ((j - 1) >= 0) && checkForValidity(i - 2, j - 1)) {
+			lst.add(getGame().getField(i - 2, j - 1));
 		}
 		lst.remove(null);
-		return this.convertFieldsToMoves(lst);
+		return convertFieldsToMoves(lst);
 	}
 
 }

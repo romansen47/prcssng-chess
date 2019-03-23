@@ -63,19 +63,19 @@ public class Move implements IMove, IRefs {
 	 * @param next the field, fig is to be moved to
 	 */
 	public Move(Field prev, Field next) {
-		this.piece = prev.getPiece();
+		piece = prev.getPiece();
 		this.prev = prev;
 		this.next = next;
-		chessNot = this.getString();
+		chessNot = getString();
 	}
 
 	/**
 	 * check if the move is a check for opponent's king
-	 * 
+	 *
 	 * @return true if opponent's king is not chessed
 	 */
 	private boolean checkForChess() {
-		return !this.next.getPiece().getOpponent().getKing().getAttackers().isEmpty();
+		return !next.getPiece().getOpponent().getKing().getAttackers().isEmpty();
 	}
 
 	/**
@@ -90,30 +90,30 @@ public class Move implements IMove, IRefs {
 		}
 		final IPiece fig2 = next.getPiece();
 		prev.setPiece(null);
-		fig1.setField(this.getNext());
-		this.getNext().setPiece(fig1);
+		fig1.setField(getNext());
+		getNext().setPiece(fig1);
 		if (fig2 != null) {
 			Game.getOpponent().getPieces().remove(fig2);
 		}
 		if (fig1 instanceof King) {
 			((King) fig1).setValidForCastling(false);
 		}
-		if (this.checkForChess()) {
+		if (checkForChess()) {
 			final King opKing = fig1.getOpponent().getKing();
 			opKing.setState(State.CHESS);
 		}
 		getGame().getMoveList().add(this);
-		this.getReferee().switchMainPlayer();
+		getReferee().switchMainPlayer();
 	}
 
 	@Override
 	public Field getNext() {
-		return this.next;
+		return next;
 	}
 
 	@Override
 	public Field getPrev() {
-		return this.prev;
+		return prev;
 	}
 
 	/**
@@ -124,20 +124,20 @@ public class Move implements IMove, IRefs {
 		if (getPiece() != null && getPiece().getId() == Ids.KNIGHT) {
 			str += getPiece().getId().toString().substring(1, 2);
 		} else {
-			str += this.getPiece().getId().toString().substring(0, 1);
+			str += getPiece().getId().toString().substring(0, 1);
 		}
-		if (this.next.getPiece() != null) {
-			str += this.getPrev().toChessNotation() + "x" + this.next.getPiece().getId().toString().substring(0, 1)
-					+ this.getNext().toChessNotation();
+		if (next.getPiece() != null) {
+			str += getPrev().toChessNotation() + "x" + next.getPiece().getId().toString().substring(0, 1)
+					+ getNext().toChessNotation();
 		} else {
-			str += this.getPrev().toChessNotation() + "-" + this.getNext().toChessNotation();
+			str += getPrev().toChessNotation() + "-" + getNext().toChessNotation();
 		}
 		return str;
 	}
 
 	/**
 	 * getter for chess notation
-	 * 
+	 *
 	 * @return the chessNot
 	 */
 	@Override
@@ -147,7 +147,7 @@ public class Move implements IMove, IRefs {
 
 	/**
 	 * getter for the piece
-	 * 
+	 *
 	 * @return the piece
 	 */
 	@Override

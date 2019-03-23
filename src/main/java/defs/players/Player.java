@@ -57,11 +57,11 @@ public class Player implements IPlayer {
 	public Player(Colors col) {
 		this.col = col;
 		if (col == Colors.WHITE) {
-			this.king = new King(Colors.WHITE, Player.game.getField(0, 4));
+			king = new King(Colors.WHITE, Player.game.getField(0, 4));
 		} else {
-			this.king = new King(Colors.BLACK, Player.game.getField(Config.GAMESIZE, 4));
+			king = new King(Colors.BLACK, Player.game.getField(Config.GAMESIZE, 4));
 		}
-		this.initialGeneration();
+		initialGeneration();
 	}
 
 	@Override

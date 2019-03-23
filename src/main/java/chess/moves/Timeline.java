@@ -64,9 +64,9 @@ public class Timeline extends ArrayList<IMove> implements IRefs {
 	}
 
 	public Move[] toMoveList() {
-		Move[] list = new Move[instance.size()];
-		int i = 0;
-		for (IMove move : instance) {
+		final Move[] list = new Move[instance.size()];
+		final int i = 0;
+		for (final IMove move : instance) {
 			list[i] = ((Move) move);
 		}
 		return list;

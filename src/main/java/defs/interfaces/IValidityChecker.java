@@ -24,7 +24,7 @@ public interface IValidityChecker extends IColors {
 			ans = true;
 		}
 		if (((last.getPiece() == null) || (last.getPiece() == this)) && (fld.getPiece() != null)
-				&& (fld.getPiece().getCol() != this.getCol())) {
+				&& (fld.getPiece().getCol() != getCol())) {
 			ans = true;
 		}
 		if (ans) {
@@ -79,7 +79,7 @@ public interface IValidityChecker extends IColors {
 	default List<IMove> getValidMoves(List<IMove> moves) {
 		final List<IMove> validMoves = new ArrayList<>();
 		for (final IMove move : moves) {
-			validMoves.add(this.getValidMove(move));
+			validMoves.add(getValidMove(move));
 		}
 		return validMoves;
 	}

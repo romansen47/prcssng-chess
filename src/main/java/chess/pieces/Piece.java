@@ -52,63 +52,62 @@ public abstract class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	public Piece(Ids id, Colors col, Field field) {
 		this.id = id;
 		this.col = col;
-		this.setField(field);
-		this.firstField = field;
+		setField(field);
+		firstField = field;
 	}
 
 	@Override
 	public void draw(Main main) {
 		final int size = Config.SIZE;
-		main.image(this.getImage(), (float) size * this.getField().getJ(), (float) size * this.getField().getI(), size,
-				size);
+		main.image(getImage(), (float) size * getField().getJ(), (float) size * getField().getI(), size, size);
 	}
 
 	@Override
 	public Colors getCol() {
-		return this.col;
+		return col;
 	}
 
 	@Override
 	public Field getField() {
-		return this.field;
+		return field;
 	}
 
 	@Override
 	public Field getFirstField() {
-		return this.firstField;
+		return firstField;
 	}
 
 	@Override
 	public Ids getId() {
-		return this.id;
+		return id;
 	}
 
 	@Override
 	public PImage getImage() {
-		return this.image;
+		return image;
 	}
 
 	@Override
 	public IMove getMove(Field field) {
-		return new Move(this.getField(), field);
+		return new Move(getField(), field);
 	}
 
 	@Override
 	public int getPosI() {
-		return this.getField().getI();
+		return getField().getI();
 	}
 
 	@Override
 	public int getPosJ() {
-		return this.getField().getJ();
+		return getField().getJ();
 	}
 
 	@Override
 	public void reset() {
-		this.getField().setPiece(null);
-		this.setField(this.getFirstField());
-		this.getOwner().getPieces().add(this);
-		this.getField().setPiece(this);
+		getField().setPiece(null);
+		setField(getFirstField());
+		getOwner().getPieces().add(this);
+		getField().setPiece(this);
 	}
 
 	@Override
@@ -126,7 +125,7 @@ public abstract class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 
 	@Override
 	public String toString() {
-		return this.getCol() + " " + this.getId();
+		return getCol() + " " + getId();
 	}
 
 }

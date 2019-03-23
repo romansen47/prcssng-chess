@@ -43,7 +43,7 @@ public class King extends Piece {
 	 */
 	@Override
 	public boolean checkIfOccupiedByFriend(Field fld, List<Field> lst) {
-		if ((fld.getPiece() != null) && (fld.getPiece().getCol() == this.getCol())) {
+		if ((fld.getPiece() != null) && (fld.getPiece().getCol() == getCol())) {
 			return false;
 		}
 		lst.add(fld);
@@ -57,13 +57,12 @@ public class King extends Piece {
 	 */
 	public List<Field> getAllAttackedFields() {
 		final List<Field> fields = new ArrayList<>();
-		for (final IPiece piece : this.getOpponent().getPieces()) {
+		for (final IPiece piece : getOpponent().getPieces()) {
 			fields.addAll(piece.convertMovesToFields(piece.getSimpleMoves()));
 		}
 		return fields;
 	}
 
-	
 	public List<IMove> getAllMovesToAvoidChess() {
 		final List<IMove> list = getPossibleMoves();
 		for (final IPiece piece : getOwner().getPieces()) {
@@ -74,12 +73,11 @@ public class King extends Piece {
 
 	@Override
 	public List<Field> getAttackers() {
-		final IPlayer pl = this.getOpponent();
+		final IPlayer pl = getOpponent();
 		final List<Field> fields = new ArrayList<>();
 		final List<IPiece> pieces = pl.getPieces();
-		for (IPiece piece : pieces) {
-			if (!(piece instanceof King)
-					&& piece.convertMovesToFields(piece.getPossibleMoves()).contains(this.getField())) {
+		for (final IPiece piece : pieces) {
+			if (!(piece instanceof King) && piece.convertMovesToFields(piece.getPossibleMoves()).contains(getField())) {
 				fields.add(piece.getField());
 			}
 		}
@@ -98,11 +96,11 @@ public class King extends Piece {
 		final int k = fld1.getJ();
 		final int r = fld2.getJ();
 		if (r <= k) {
-			return this.getFieldsInBetween(fld2, fld1);
+			return getFieldsInBetween(fld2, fld1);
 		}
 		final List<Field> fields = new ArrayList<>();
 		for (int i = 1; i < (r - k); i++) {
-			fields.add(this.getGame().getField(fld1.getI(), k + i));
+			fields.add(getGame().getField(fld1.getI(), k + i));
 		}
 		return fields;
 	}
@@ -113,7 +111,7 @@ public class King extends Piece {
 	 */
 	@Override
 	public IMove getMove(Field field) {
-		final Rook rook = this.getRook(field);
+		final Rook rook = getRook(field);
 		if (rook != null) {
 			return new Castling(this, rook);
 		}
@@ -125,7 +123,7 @@ public class King extends Piece {
 	 */
 	@Override
 	public List<IMove> getPossibleMoves() {
-		final List<IMove> lst = this.getSpecialMoves();
+		final List<IMove> lst = getSpecialMoves();
 		lst.addAll(getSimpleMoves());
 		return lst;
 	}
@@ -138,7 +136,7 @@ public class King extends Piece {
 	private Rook getRook(Field field) {
 		Rook rook = null;
 		if (this.isValidForCastling()) {
-			final int k = this.getPosJ();
+			final int k = getPosJ();
 			int r = field.getJ();
 			if (Math.abs(r - k) > 1) {
 				if (r < k) {
@@ -147,9 +145,9 @@ public class King extends Piece {
 					r = Config.GAMESIZE;
 				}
 			}
-			final Field tmpField = this.getGame().getField(this.getPosI(), r);
+			final Field tmpField = getGame().getField(getPosI(), r);
 			if ((tmpField.getPiece() != null) && (tmpField.getPiece().getId() == Ids.ROOK)
-					&& (tmpField.getPiece().getCol() == this.getCol())) {
+					&& (tmpField.getPiece().getCol() == getCol())) {
 				rook = (Rook) tmpField.getPiece();
 			}
 		}
@@ -164,33 +162,33 @@ public class King extends Piece {
 	@Override
 	public List<IMove> getSimpleMoves() {
 		final List<Field> lst = new ArrayList<>();
-		final int tempI = this.getField().getI();
-		final int tempJ = this.getField().getJ();
+		final int tempI = getField().getI();
+		final int tempJ = getField().getJ();
 		if ((tempI - 1) >= 0) {
-			this.checkIfOccupiedByFriend(this.getGame().getField(tempI - 1, tempJ), lst);
+			checkIfOccupiedByFriend(getGame().getField(tempI - 1, tempJ), lst);
 			if ((tempJ - 1) >= 0) {
-				this.checkIfOccupiedByFriend(this.getGame().getField(tempI - 1, tempJ - 1), lst);
+				checkIfOccupiedByFriend(getGame().getField(tempI - 1, tempJ - 1), lst);
 			}
 			if ((tempJ + 1) <= Config.GAMESIZE) {
-				this.checkIfOccupiedByFriend(this.getGame().getField(tempI - 1, tempJ + 1), lst);
+				checkIfOccupiedByFriend(getGame().getField(tempI - 1, tempJ + 1), lst);
 			}
 		}
 		if ((tempI + 1) <= Config.GAMESIZE) {
-			this.checkIfOccupiedByFriend(this.getGame().getField(tempI + 1, tempJ), lst);
+			checkIfOccupiedByFriend(getGame().getField(tempI + 1, tempJ), lst);
 			if ((tempJ - 1) >= 0) {
-				this.checkIfOccupiedByFriend(this.getGame().getField(tempI + 1, tempJ - 1), lst);
+				checkIfOccupiedByFriend(getGame().getField(tempI + 1, tempJ - 1), lst);
 			}
 			if ((tempJ + 1) <= Config.GAMESIZE) {
-				this.checkIfOccupiedByFriend(this.getGame().getField(tempI + 1, tempJ + 1), lst);
+				checkIfOccupiedByFriend(getGame().getField(tempI + 1, tempJ + 1), lst);
 			}
 		}
 		if ((tempJ + 1) <= Config.GAMESIZE) {
-			this.checkIfOccupiedByFriend(this.getGame().getField(tempI, tempJ + 1), lst);
+			checkIfOccupiedByFriend(getGame().getField(tempI, tempJ + 1), lst);
 		}
 		if ((tempJ - 1) >= 0) {
-			this.checkIfOccupiedByFriend(this.getGame().getField(tempI, tempJ - 1), lst);
+			checkIfOccupiedByFriend(getGame().getField(tempI, tempJ - 1), lst);
 		}
-		return this.convertFieldsToMoves(lst);
+		return convertFieldsToMoves(lst);
 	}
 
 	/**
@@ -199,16 +197,16 @@ public class King extends Piece {
 	@Override
 	public List<IMove> getSpecialMoves() {
 		final List<IMove> lst = new ArrayList<>();
-		final int tempI = this.getField().getI();
-		final int tempJ = this.getField().getJ();
+		final int tempI = getField().getI();
+		final int tempJ = getField().getJ();
 		if (this.isValidForCastling()) {
-			if (((tempJ + 2) <= Config.GAMESIZE) && (this.getGame().getField(tempI, tempJ + 1).getPiece() == null)
-					&& this.isValidForCastling(this.getGame().getField(tempI, tempJ + 2))) {
-				lst.add(this.getMove(this.getGame().getField(tempI, tempJ + 2)));
+			if (((tempJ + 2) <= Config.GAMESIZE) && (getGame().getField(tempI, tempJ + 1).getPiece() == null)
+					&& this.isValidForCastling(getGame().getField(tempI, tempJ + 2))) {
+				lst.add(getMove(getGame().getField(tempI, tempJ + 2)));
 			}
-			if (((tempJ - 2) >= 0) && (this.getGame().getField(tempI, tempJ - 1).getPiece() == null)
-					&& this.isValidForCastling(this.getGame().getField(tempI, tempJ - 2))) {
-				lst.add(this.getMove((this.getGame().getField(tempI, tempJ - 2))));
+			if (((tempJ - 2) >= 0) && (getGame().getField(tempI, tempJ - 1).getPiece() == null)
+					&& this.isValidForCastling(getGame().getField(tempI, tempJ - 2))) {
+				lst.add(getMove((getGame().getField(tempI, tempJ - 2))));
 			}
 		}
 		lst.remove(null);
@@ -221,7 +219,7 @@ public class King extends Piece {
 	 * @return the state
 	 */
 	public State getState() {
-		return this.state;
+		return state;
 	}
 
 	/**
@@ -229,7 +227,7 @@ public class King extends Piece {
 	 * @return returns, whether king is under enemy attack
 	 */
 	public boolean isChecked() {
-		return !this.getAttackers().isEmpty();
+		return !getAttackers().isEmpty();
 	}
 
 	/**
@@ -252,11 +250,11 @@ public class King extends Piece {
 	 *         under enemy attack.
 	 */
 	public boolean isValidForCastling(Field field) {
-		final Rook rook = this.getRook(field);
+		final Rook rook = getRook(field);
 		if ((rook != null) && rook.isValidForCastling()) {
-			final List<Field> fields = this.getFieldsInBetween(this.getField(), rook.getField());
+			final List<Field> fields = getFieldsInBetween(getField(), rook.getField());
 			for (final Field fld : fields) {
-				if ((fld.getPiece() != null) || this.getAllAttackedFields().contains(fld)) {
+				if ((fld.getPiece() != null) || getAllAttackedFields().contains(fld)) {
 					return false;
 				}
 			}
@@ -268,7 +266,7 @@ public class King extends Piece {
 	@Override
 	public void reset() {
 		super.reset();
-		this.setValidForCastling(true);
+		setValidForCastling(true);
 	}
 
 	/**
@@ -278,7 +276,7 @@ public class King extends Piece {
 	 */
 	public void setState(State state) {
 		if (state == State.CHESS) {
-			this.setValidForCastling(false);
+			setValidForCastling(false);
 		}
 		this.state = state;
 	}
@@ -304,7 +302,7 @@ public class King extends Piece {
 				castling = king.isValidForCastling();
 				king.setValidForCastling(false);
 			}
-			if (piece.getPossibleFields().contains(this.getField())) {
+			if (piece.getPossibleFields().contains(getField())) {
 				fields.add(piece.getField());
 			}
 			if ((piece instanceof King) && (king != null)) {

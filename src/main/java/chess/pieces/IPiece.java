@@ -24,7 +24,7 @@ public interface IPiece extends IRefs {
 	default List<IMove> convertFieldsToMoves(List<Field> input) {
 		final List<IMove> ans = new ArrayList<>();
 		for (final Field fld : input) {
-			ans.add(this.getMove(fld));
+			ans.add(getMove(fld));
 		}
 		return ans;
 	}
@@ -56,8 +56,8 @@ public interface IPiece extends IRefs {
 	 * Pieces can die, when they are hit. what happens then?
 	 */
 	default void die() {
-		this.getField().setPiece(null);
-		this.getOwner().getPieces().remove(this);
+		getField().setPiece(null);
+		getOwner().getPieces().remove(this);
 	}
 
 	/**
@@ -72,11 +72,11 @@ public interface IPiece extends IRefs {
 	 * @return returns list attacking fields
 	 */
 	default List<Field> getAttackers() {
-		List<Field> attackers = new ArrayList<>();
-		for (IPiece piece : Game.getOpponent().getPieces()) {
-			List<IMove> possibleMoves = piece.getSimpleMoves();
-			for (IMove move : possibleMoves) {
-				if (move.getNext() == this.getField()) {
+		final List<Field> attackers = new ArrayList<>();
+		for (final IPiece piece : Game.getOpponent().getPieces()) {
+			final List<IMove> possibleMoves = piece.getSimpleMoves();
+			for (final IMove move : possibleMoves) {
+				if (move.getNext() == getField()) {
 					attackers.add(piece.getField());
 				}
 			}
@@ -133,7 +133,7 @@ public interface IPiece extends IRefs {
 	 * @return the opponent of the player the piece belongs to
 	 */
 	default IPlayer getOpponent() {
-		if (this.getCol() == Colors.WHITE) {
+		if (getCol() == Colors.WHITE) {
 			return Game.getBlack();
 		}
 		return Game.getWhite();
@@ -145,7 +145,7 @@ public interface IPiece extends IRefs {
 	 * @return the player the piece belongs to
 	 */
 	default IPlayer getOwner() {
-		if (this.getCol() == Colors.WHITE) {
+		if (getCol() == Colors.WHITE) {
 			return Game.getWhite();
 		}
 		return Game.getBlack();
@@ -157,7 +157,7 @@ public interface IPiece extends IRefs {
 	 * @return the row coordinate of the field the piece is standing on
 	 */
 	default int getPosI() {
-		return this.getField().getI();
+		return getField().getI();
 	}
 
 	/**
@@ -166,7 +166,7 @@ public interface IPiece extends IRefs {
 	 * @return the column coordinate of the field the piece is standing on
 	 */
 	default int getPosJ() {
-		return this.getField().getJ();
+		return getField().getJ();
 	}
 
 	/**
@@ -175,7 +175,7 @@ public interface IPiece extends IRefs {
 	 * @return list of fields
 	 */
 	default List<Field> getPossibleFields() {
-		return this.convertMovesToFields(this.getPossibleMoves());
+		return convertMovesToFields(getPossibleMoves());
 	}
 
 	/**
@@ -227,11 +227,11 @@ public interface IPiece extends IRefs {
 		final Field field = piece.getField();
 		final Piece fakepiece = new Pawn(col, field);
 		field.setPiece(fakepiece);
-		this.getOwner().getPieces().remove(piece);
-		this.getOwner().getPieces().add(fakepiece);
-		final List<Field> tmpFields = piece.getSpecialFields(this.getOwner());
-		this.getOwner().getPieces().remove(fakepiece);
-		this.getOwner().getPieces().add(piece);
+		getOwner().getPieces().remove(piece);
+		getOwner().getPieces().add(fakepiece);
+		final List<Field> tmpFields = piece.getSpecialFields(getOwner());
+		getOwner().getPieces().remove(fakepiece);
+		getOwner().getPieces().add(piece);
 		field.setPiece(piece);
 		return tmpFields;
 	}

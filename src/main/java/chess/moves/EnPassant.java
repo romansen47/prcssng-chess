@@ -19,7 +19,7 @@ public class EnPassant extends Move {
 	 */
 	public EnPassant(Pawn fig, Field fld) {
 		super(fig.getField(), fld);
-		this.slaughtered = ((Pawn) getGame().getChessboard()[fig.getPosI()][fld.getJ()].getPiece());
+		slaughtered = ((Pawn) getGame().getChessboard()[fig.getPosI()][fld.getJ()].getPiece());
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class EnPassant extends Move {
 		slaughtered.getField().setPiece(null);
 		slaughtered.setField(fld);
 		fld.setPiece(slaughtered);
-		this.slaughtered.die();
+		slaughtered.die();
 		super.execute();
 	}
 

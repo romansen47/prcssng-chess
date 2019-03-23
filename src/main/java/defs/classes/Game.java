@@ -109,13 +109,13 @@ public final class Game implements IRefs {
 	 */
 	private Game() {
 		// Generate the chess board
-		this.chessboard = new Field[8][8];
+		chessboard = new Field[8][8];
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (((i + j) % 2) == 0) {
-					this.getChessboard()[i][j] = new Field(Colors.BLACK, i, j);
+					getChessboard()[i][j] = new Field(Colors.BLACK, i, j);
 				} else {
-					this.getChessboard()[i][j] = new Field(Colors.WHITE, i, j);
+					getChessboard()[i][j] = new Field(Colors.WHITE, i, j);
 				}
 			}
 		}
@@ -130,7 +130,7 @@ public final class Game implements IRefs {
 	 * @return the field at given coordinates
 	 */
 	public Field getField(int i, int j) {
-		return this.getChessboard()[i][j];
+		return getChessboard()[i][j];
 	}
 
 	/**
@@ -139,7 +139,7 @@ public final class Game implements IRefs {
 	 * @return the timeline
 	 */
 	public Timeline getMoveList() {
-		return this.moveList;
+		return moveList;
 	}
 
 	/**

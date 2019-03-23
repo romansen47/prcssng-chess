@@ -21,7 +21,7 @@ public class RandomPlayer extends Player {
 
 	/**
 	 * Constructor. The random Player is black
-	 * 
+	 *
 	 * @param col the color
 	 */
 	public RandomPlayer(Colors col) {

@@ -67,10 +67,10 @@ public final class Referee implements IRefs {
 			return false;
 		}
 		boolean ans = true;
-		King king = Game.getPlayer().getKing();
+		final King king = Game.getPlayer().getKing();
 		move.execute();
 		ans = !king.isChecked();
-		this.rewindLastMove();
+		rewindLastMove();
 		// this.setMarked(move.getPrev());
 		return ans;
 	}
@@ -96,7 +96,7 @@ public final class Referee implements IRefs {
 	 * @return the field that has been marked
 	 */
 	public Field getMarked() {
-		return this.marked;
+		return marked;
 	}
 
 	/**
@@ -105,12 +105,12 @@ public final class Referee implements IRefs {
 	 * @return the field that has been marked
 	 */
 	public Field getMarked2() {
-		return this.marked2;
+		return marked2;
 	}
 
 	/**
 	 * Constructs a move and checks for validity
-	 * 
+	 *
 	 * @param allPossibleMoves takes an element from possibleMovesMap
 	 *
 	 * @return a move in case of validity. null otherwise
@@ -119,15 +119,15 @@ public final class Referee implements IRefs {
 		if (Game.getPlayer() instanceof RandomPlayer) {
 			return ((RandomPlayer) Game.getPlayer()).randomMove();
 		}
-		if (this.isMarked2() && (this.getMarked().getPiece() != null)) {
-			final IPiece piece = this.getMarked().getPiece();
-			List<IMove> moves = allPossibleMoves.get(piece);
-			List<Field> lst = new ArrayList<>();
-			for (IMove move : moves) {
+		if (isMarked2() && (getMarked().getPiece() != null)) {
+			final IPiece piece = getMarked().getPiece();
+			final List<IMove> moves = allPossibleMoves.get(piece);
+			final List<Field> lst = new ArrayList<>();
+			for (final IMove move : moves) {
 				lst.add(move.getNext());
 			}
-			if (lst.contains(this.getMarked2())) {
-				return this.getMarked().getPiece().getMove(this.getMarked2());
+			if (lst.contains(getMarked2())) {
+				return getMarked().getPiece().getMove(getMarked2());
 			}
 		}
 		return null;
@@ -140,7 +140,7 @@ public final class Referee implements IRefs {
 	 * @return the move in case of validity, null otherwise
 	 */
 	public IMove getValidMove(IMove move) {
-		if (this.checkForValidity(move)) {
+		if (checkForValidity(move)) {
 			return move;
 		}
 		return null;
@@ -154,8 +154,8 @@ public final class Referee implements IRefs {
 	 */
 	public List<IMove> getValidMoves(List<IMove> moves) {
 		final List<IMove> ans = new ArrayList<>();
-		for (IMove move : moves) {
-			IMove mv = getValidMove(move);
+		for (final IMove move : moves) {
+			final IMove mv = getValidMove(move);
 			if (mv != null) {
 				ans.add(mv);
 			}
@@ -169,10 +169,10 @@ public final class Referee implements IRefs {
 	 * @return true, if a field has been marked
 	 */
 	public boolean isMarked() {
-		if (this.getMarked() != null) {
+		if (getMarked() != null) {
 			return true;
 		}
-		this.setMarked2(null);
+		setMarked2(null);
 		return false;
 	}
 
@@ -182,8 +182,8 @@ public final class Referee implements IRefs {
 	 * @return true, if a second field has been marked
 	 */
 	public boolean isMarked2() {
-		if (this.getMarked() != null) {
-			return (this.getMarked2() != null);
+		if (getMarked() != null) {
+			return (getMarked2() != null);
 		}
 		// this.setMarked2(null);
 		return false;
@@ -196,9 +196,9 @@ public final class Referee implements IRefs {
 	 * @param move the given move
 	 */
 	public void processMove(IMove move) {
-		if (this.getValidMove(move) != null) {
+		if (getValidMove(move) != null) {
 			move.execute();
-			this.getReferee().setMarked(null);
+			getReferee().setMarked(null);
 		}
 	}
 
@@ -231,22 +231,22 @@ public final class Referee implements IRefs {
 
 	public void rePlayGame(Timeline timeLine) {
 		reset();
-		for (IMove move : timeLine) {
+		for (final IMove move : timeLine) {
 			move.execute();
 		}
 	}
 
 	private void resetFields() {
-		for (Field[] row : getGame().getChessboard()) {
-			for (Field fld : row) {
+		for (final Field[] row : getGame().getChessboard()) {
+			for (final Field fld : row) {
 				fld.reset();
 			}
 		}
 	}
 
 	public void reset() {
-		this.resetFields();
-		this.resetPieces();
+		resetFields();
+		resetPieces();
 		getGame().getMoveList().clear();
 
 	}
@@ -259,7 +259,7 @@ public final class Referee implements IRefs {
 	public void setMarked(Field marked) {
 		if ((marked == null) || (marked.getPiece() == null)) {
 			this.marked = null;
-			this.marked2 = null;
+			marked2 = null;
 		} else {
 			if (marked.getPiece().getCol() == Game.getPlayer().getCol()) {
 				this.marked = marked;
@@ -273,10 +273,10 @@ public final class Referee implements IRefs {
 	 * @param marked2 the marked field
 	 */
 	public void setMarked2(Field marked2) {
-		if (marked2 != this.getMarked()) {
+		if (marked2 != getMarked()) {
 			this.marked2 = marked2;
 		} else {
-			this.setMarked(null);
+			setMarked(null);
 		}
 	}
 
@@ -294,25 +294,25 @@ public final class Referee implements IRefs {
 	}
 
 	public Map<IPiece, List<IMove>> createPossibleMovesForActivePieces() {
-		Map<IPiece, List<IMove>> possibleMovesMap = new HashMap<IPiece, List<IMove>>();
-		for (IPiece piece : Game.getPlayer().getPieces()) {
+		final Map<IPiece, List<IMove>> possibleMovesMap = new HashMap<IPiece, List<IMove>>();
+		for (final IPiece piece : Game.getPlayer().getPieces()) {
 			possibleMovesMap.put(piece, piece.getPossibleMoves());
 		}
 		return possibleMovesMap;
 	}
 
 	public Map<IPiece, List<IMove>> createPossibleValidMovesForActivePieces() {
-		Map<IPiece, List<IMove>> validMoves = new HashMap<>();
-		Map<IPiece, List<IMove>> possibleMoves = createPossibleMovesForActivePieces();
-		for (IPiece piece : possibleMoves.keySet()) {
+		final Map<IPiece, List<IMove>> validMoves = new HashMap<>();
+		final Map<IPiece, List<IMove>> possibleMoves = createPossibleMovesForActivePieces();
+		for (final IPiece piece : possibleMoves.keySet()) {
 			validMoves.put(piece, getValidMoves(possibleMoves.get(piece)));
 		}
 		return validMoves;
 	}
 
 	public Map<IPiece, List<IMove>> createAttackersOnActivePieces() {
-		Map<IPiece, List<IMove>> possibleMovesMap = new HashMap<IPiece, List<IMove>>();
-		for (IPiece piece : Game.getPlayer().getPieces()) {
+		final Map<IPiece, List<IMove>> possibleMovesMap = new HashMap<IPiece, List<IMove>>();
+		for (final IPiece piece : Game.getPlayer().getPieces()) {
 			possibleMovesMap.put(piece, piece.convertFieldsToMoves(piece.getAttackers()));
 		}
 		return possibleMovesMap;

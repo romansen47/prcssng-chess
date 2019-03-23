@@ -148,7 +148,7 @@ public interface IPlayer extends IRefs {
 
 	/**
 	 * the player chooses the piece on promotion
-	 * 
+	 *
 	 * @return the id of the piece
 	 */
 	default Ids choose() {

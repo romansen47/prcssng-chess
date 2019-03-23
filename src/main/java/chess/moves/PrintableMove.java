@@ -20,7 +20,7 @@ public class PrintableMove {
 	}
 
 	public PrintableMove(Move move, int id) {
-		this.setId(id);
+		setId(id);
 		setI1(move.getPrev().getI());
 		setJ1(move.getPrev().getJ());
 		setI2(move.getNext().getI());

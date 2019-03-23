@@ -7,7 +7,6 @@ import chess.Config;
 import chess.Drawer;
 import chess.moves.EnPassant;
 import chess.moves.IMove;
-import chess.moves.Move;
 import defs.classes.Field;
 import defs.enums.Colors;
 import defs.enums.Ids;
@@ -32,7 +31,7 @@ public class Pawn extends Piece {
 	 */
 	@Override
 	public IMove getMove(Field field) {
-		final IPiece fig = this.getGame().getField(this.getPosI(), field.getJ()).getPiece();
+		final IPiece fig = getGame().getField(getPosI(), field.getJ()).getPiece();
 		if (lastMoveValidForEnPassant(fig)) {
 			Field fld;
 			if (fig.getPosI() == 3) {
@@ -42,36 +41,35 @@ public class Pawn extends Piece {
 			}
 			return new EnPassant(this, fld);
 		} else if (field.getI() == 0 || field.getI() == 7) {
-			Ids id = drawer.choose();
+			final Ids id = drawer.choose();
 			return new Promotion(getField(), field, id);
 		}
 		return super.getMove(field);
 	}
 
 	private boolean lastMoveValidForEnPassant(IPiece fig) {
-		
+
 		/**
 		 * get the last move, if exists
 		 */
 		boolean movedTwoFields;
 		IMove lastMove;
-		if (fig==null || getGame().getMoveList().isEmpty()) {
+		if (fig == null || getGame().getMoveList().isEmpty()) {
 			return false;
+		} else {
+			lastMove = getGame().getMoveList().get(getGame().getMoveList().size() - 1);
+			movedTwoFields = Math.abs(lastMove.getPrev().getI() - lastMove.getNext().getI()) == 2;
 		}
-		else {
-			lastMove=getGame().getMoveList().get(getGame().getMoveList().size()-1);
-			movedTwoFields=Math.abs(lastMove.getPrev().getI()-lastMove.getNext().getI())==2;
-		}
-		boolean isPawn=fig instanceof Pawn;
-		boolean differentColor= fig.getCol() != this.getCol();
-		boolean lastMovedIsPawn=lastMove.getPiece()==fig;
-		return isPawn&& differentColor && lastMovedIsPawn && movedTwoFields;
+		final boolean isPawn = fig instanceof Pawn;
+		final boolean differentColor = fig.getCol() != getCol();
+		final boolean lastMovedIsPawn = lastMove.getPiece() == fig;
+		return isPawn && differentColor && lastMovedIsPawn && movedTwoFields;
 	}
 
 	@Override
 	public List<IMove> getSimpleMoves() {
 		final List<IMove> lst = new ArrayList<>();
-		if (this.getCol() == Colors.WHITE) {
+		if (getCol() == Colors.WHITE) {
 			lst.addAll(getSimpleMovesForWhite());
 		} else {
 			lst.addAll(getSimpleMovesForBlack());
@@ -81,7 +79,7 @@ public class Pawn extends Piece {
 
 	private List<IMove> getSimpleMovesForWhite() {
 		final List<IMove> lst = new ArrayList<>();
-		if (this.getField().getI() < Config.GAMESIZE) {
+		if (getField().getI() < Config.GAMESIZE) {
 			lst.addAll(getSimpleMoves(true));
 		}
 		return lst;
@@ -89,7 +87,7 @@ public class Pawn extends Piece {
 
 	private List<IMove> getSimpleMovesForBlack() {
 		final List<IMove> lst = new ArrayList<>();
-		if (this.getField().getI() > 0) {
+		if (getField().getI() > 0) {
 			lst.addAll(getSimpleMoves(false));
 		}
 		return lst;
@@ -103,23 +101,19 @@ public class Pawn extends Piece {
 			factor = -1;
 			color = Colors.WHITE;
 		}
-		if ((this.getPosJ() < Config.GAMESIZE)
-				&& (this.getGame().getField(this.getPosI() + factor, this.getPosJ() + 1).getPiece() != null)
-				&& (this.getGame().getField(this.getPosI() + factor, this.getPosJ() + 1).getPiece()
-						.getCol() == color)) {
-			lst.add(this.getGame().getField(this.getPosI() + factor, this.getPosJ() + 1));
+		if ((getPosJ() < Config.GAMESIZE) && (getGame().getField(getPosI() + factor, getPosJ() + 1).getPiece() != null)
+				&& (getGame().getField(getPosI() + factor, getPosJ() + 1).getPiece().getCol() == color)) {
+			lst.add(getGame().getField(getPosI() + factor, getPosJ() + 1));
 		}
-		if ((this.getPosJ() > 0)
-				&& (this.getGame().getField(this.getPosI() + factor, this.getPosJ() - 1).getPiece() != null)
-				&& (this.getGame().getField(this.getPosI() + factor, this.getPosJ() - 1).getPiece()
-						.getCol() == color)) {
-			lst.add(this.getGame().getField(this.getPosI() + factor, this.getPosJ() - 1));
+		if ((getPosJ() > 0) && (getGame().getField(getPosI() + factor, getPosJ() - 1).getPiece() != null)
+				&& (getGame().getField(getPosI() + factor, getPosJ() - 1).getPiece().getCol() == color)) {
+			lst.add(getGame().getField(getPosI() + factor, getPosJ() - 1));
 		}
-		if (this.getGame().getField(this.getPosI() + factor, this.getPosJ()).getPiece() == null) {
-			lst.add(this.getGame().getField(this.getPosI() + factor, this.getPosJ()));
-			if (this.getField().getI() == this.getFirstField().getI()) {
-				if (this.getGame().getField(this.getPosI() + 2 * factor, this.getPosJ()).getPiece() == null) {
-					lst.add(this.getGame().getField(this.getPosI() + 2 * factor, this.getPosJ()));
+		if (getGame().getField(getPosI() + factor, getPosJ()).getPiece() == null) {
+			lst.add(getGame().getField(getPosI() + factor, getPosJ()));
+			if (getField().getI() == getFirstField().getI()) {
+				if (getGame().getField(getPosI() + 2 * factor, getPosJ()).getPiece() == null) {
+					lst.add(getGame().getField(getPosI() + 2 * factor, getPosJ()));
 				}
 			}
 		}
@@ -129,18 +123,18 @@ public class Pawn extends Piece {
 	@Override
 	public List<IMove> getSpecialMoves() {
 		final List<Field> lst = new ArrayList<>();
-		final IMove move = this.getOpponent().getLastMove();
-		if ((move != null) && (move.getPiece().getId() == Ids.PAWN) && (this.getPosI() == 4)
-				&& (move.getPrev().getI() == 6) && (move.getNext().getI() == 4)) {
-			lst.add(this.getGame().getField(5, move.getNext().getJ()));
+		final IMove move = getOpponent().getLastMove();
+		if ((move != null) && (move.getPiece().getId() == Ids.PAWN) && (getPosI() == 4) && (move.getPrev().getI() == 6)
+				&& (move.getNext().getI() == 4)) {
+			lst.add(getGame().getField(5, move.getNext().getJ()));
 		}
-		if ((move != null) && (move.getPiece().getId() == Ids.PAWN) && (this.getPosI() == 3)
-				&& (move.getPrev().getI() == 1) && (move.getNext().getI() == 3)) {
-			lst.add(this.getGame().getField(2, move.getNext().getJ()));
+		if ((move != null) && (move.getPiece().getId() == Ids.PAWN) && (getPosI() == 3) && (move.getPrev().getI() == 1)
+				&& (move.getNext().getI() == 3)) {
+			lst.add(getGame().getField(2, move.getNext().getJ()));
 		}
 		final List<IMove> list = new ArrayList<>();
 		for (final Field fld : lst) {
-			list.add(this.getMove(fld));
+			list.add(getMove(fld));
 		}
 		return list;
 	}

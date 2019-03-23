@@ -117,8 +117,8 @@ public class Main extends Gui implements IRefs {
 	@Override
 	public void draw() {
 		try {
-			this.drawer.execute();
-		} catch (Exception e) {
+			drawer.execute();
+		} catch (final Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -130,7 +130,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getBlackBishop() {
-		return this.blackBishop;
+		return blackBishop;
 	}
 
 	/**
@@ -139,7 +139,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getBlackKing() {
-		return this.blackKing;
+		return blackKing;
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getBlackKnight() {
-		return this.blackKnight;
+		return blackKnight;
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getBlackPawn() {
-		return this.blackPawn;
+		return blackPawn;
 	}
 
 	/**
@@ -166,7 +166,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getBlackQueen() {
-		return this.blackQueen;
+		return blackQueen;
 	}
 
 	/**
@@ -175,7 +175,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getBlackTower() {
-		return this.blackTower;
+		return blackTower;
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class Main extends Gui implements IRefs {
 	 * @return the field at position (i,j)
 	 */
 	public Field getField(int i, int j) {
-		return this.getGame().getField(i, j);
+		return getGame().getField(i, j);
 	}
 
 	/**
@@ -213,7 +213,7 @@ public class Main extends Gui implements IRefs {
 	 * @return the vertical position
 	 */
 	public int getPosI() {
-		return Config.GAMESIZE - ((this.mouseY - (this.mouseY % Config.SIZE)) / Config.SIZE);
+		return Config.GAMESIZE - ((mouseY - (mouseY % Config.SIZE)) / Config.SIZE);
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class Main extends Gui implements IRefs {
 	 * @return the horizontal position
 	 */
 	public int getPosJ() {
-		return (this.mouseX - (this.mouseX % Config.SIZE)) / Config.SIZE;
+		return (mouseX - (mouseX % Config.SIZE)) / Config.SIZE;
 	}
 
 	/**
@@ -231,7 +231,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getWhiteBishop() {
-		return this.whiteBishop;
+		return whiteBishop;
 	}
 
 	/**
@@ -240,7 +240,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getWhiteKing() {
-		return this.whiteKing;
+		return whiteKing;
 	}
 
 	/**
@@ -249,7 +249,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getWhiteKnight() {
-		return this.whiteKnight;
+		return whiteKnight;
 	}
 
 	/**
@@ -258,7 +258,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getWhitePawn() {
-		return this.whitePawn;
+		return whitePawn;
 	}
 
 	/**
@@ -267,7 +267,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getWhiteQueen() {
-		return this.whiteQueen;
+		return whiteQueen;
 	}
 
 	/**
@@ -276,7 +276,7 @@ public class Main extends Gui implements IRefs {
 	 * @return pimage
 	 */
 	public PImage getWhiteTower() {
-		return this.whiteTower;
+		return whiteTower;
 	}
 
 	/**
@@ -346,8 +346,8 @@ public class Main extends Gui implements IRefs {
 	@Override
 	public void setup() {
 		try {
-			this.setup.execute();
-		} catch (Exception e) {
+			setup.execute();
+		} catch (final Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -419,7 +419,7 @@ public class Main extends Gui implements IRefs {
 	 * @param redraw the redraw to set
 	 */
 	protected void setRedraw(boolean redraw) {
-		this.redrawCustom = redraw;
+		redrawCustom = redraw;
 	}
 
 	/**
