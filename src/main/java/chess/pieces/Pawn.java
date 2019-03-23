@@ -7,6 +7,7 @@ import chess.Config;
 import chess.Drawer;
 import chess.moves.EnPassant;
 import chess.moves.IMove;
+import chess.moves.Promotion;
 import defs.classes.Field;
 import defs.enums.Colors;
 import defs.enums.Ids;

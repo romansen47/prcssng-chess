@@ -1,10 +1,8 @@
 /**
  *
  */
-package chess.pieces;
+package chess.moves;
 
-import chess.moves.IMove;
-import chess.moves.Move;
 import defs.classes.Field;
 import defs.enums.Ids;
 
@@ -15,12 +13,10 @@ import defs.enums.Ids;
 public class Promotion extends Move implements IMove {
 
 	/**
-	 * @param prev
-	 * @param next
+	 * TODO: Constructor
 	 */
 	public Promotion(Field prev, Field next, Ids id) {
 		super(prev, next);
-		// TODO Auto-generated constructor stub
 	}
 
 }
