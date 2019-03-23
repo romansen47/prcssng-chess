@@ -1,9 +1,9 @@
 /**
- * 
+ *
  */
 package chess.moves;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -22,27 +22,30 @@ class CastlingTest {
 	}
 
 	/**
-	 * Test method for {@link chess.moves.Move#getNext()}.
+	 * Test method for
+	 * {@link chess.moves.Move#getNext()}.
 	 */
 	@Test
 	void testGetNext() {
-		assertEquals(0,0);
+		assertEquals(0, 0);
 	}
 
 	/**
-	 * Test method for {@link chess.moves.Move#getPrev()}.
+	 * Test method for
+	 * {@link chess.moves.Move#getPrev()}.
 	 */
 	@Test
 	void testGetPrev() {
-		assertEquals(0,0);
+		assertEquals(0, 0);
 	}
 
 	/**
-	 * Test method for {@link chess.moves.Move#getString()}.
+	 * Test method for
+	 * {@link chess.moves.Move#getString()}.
 	 */
 	@Test
 	void testGetString() {
-		assertEquals(0,0);
+		assertEquals(0, 0);
 	}
 
 }

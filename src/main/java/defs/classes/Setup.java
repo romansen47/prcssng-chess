@@ -17,8 +17,10 @@ import processing.core.PImage;
  *
  * @author roman
  *
- *         The functionality of the main setup method is being outsourced to an
- *         own (singleton) class
+ *         The functionality of the main
+ *         setup method is being
+ *         outsourced to an own
+ *         (singleton) class
  */
 public class Setup implements IRefs, ISetupAndRun {
 
@@ -41,7 +43,9 @@ public class Setup implements IRefs, ISetupAndRun {
 	}
 
 	/**
-	 * This is necessary, since main instance is needed to initiate the pieces
+	 * This is necessary, since main
+	 * instance is needed to initiate the
+	 * pieces
 	 */
 	private final Main main;
 
@@ -97,13 +101,17 @@ public class Setup implements IRefs, ISetupAndRun {
 	/**
 	 * Returns e.g. all black rooks.
 	 *
-	 * @param id  the id the pieces in the returned list should have
-	 * @param col the color the pieces in the returned list should have
-	 * @return the list of pieces of same color and id
+	 * @param id  the id the pieces in the
+	 *            returned list should have
+	 * @param col the color the pieces in
+	 *            the returned list should
+	 *            have
+	 * @return the list of pieces of same
+	 *         color and id
 	 */
 	public List<IPiece> getPiecesOfSameKind(Ids id, Colors col) {
-		final List<IPiece> pieces = new ArrayList<>();
-		IPlayer pl = Game.getWhite();
+		final List<IPiece>	pieces	= new ArrayList<>();
+		IPlayer				pl		= Game.getWhite();
 		if (col == Colors.BLACK) {
 			pl = Game.getBlack();
 		}
@@ -116,9 +124,11 @@ public class Setup implements IRefs, ISetupAndRun {
 	}
 
 	/**
-	 * Initiates the pimage objects and assignes them to the pieces
+	 * Initiates the pimage objects and
+	 * assignes them to the pieces
 	 *
-	 * @param path the path where the images are stored
+	 * @param path the path where the images
+	 *             are stored
 	 */
 	final void initiatePieces(String path) {
 
@@ -161,10 +171,15 @@ public class Setup implements IRefs, ISetupAndRun {
 	}
 
 	/**
-	 * Assignes an image to a set of pieces of same kind
+	 * Assignes an image to a set of pieces
+	 * of same kind
 	 *
-	 * @param id    the id corresponding to which the pieces will be selected
-	 * @param col   the col corresponding to which the pieces will be selected
+	 * @param id    the id corresponding to
+	 *              which the pieces will be
+	 *              selected
+	 * @param col   the col corresponding to
+	 *              which the pieces will be
+	 *              selected
 	 * @param image the image to be assigned
 	 */
 	public void initiateRelevant(Ids id, Colors col, PImage image) {
@@ -179,7 +194,8 @@ public class Setup implements IRefs, ISetupAndRun {
 	}
 
 	/**
-	 * Setup surface-attribute of papplet instance
+	 * Setup surface-attribute of papplet
+	 * instance
 	 */
 	final void setupSurface() {
 		getMain().background(255);

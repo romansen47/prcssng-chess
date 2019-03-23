@@ -22,8 +22,9 @@ import defs.players.artint.RandomPlayer;
  *
  * @author Ro Mansen
  *
- *         Class for handling the main draw-function, constructed as a singleton
- *         class.
+ *         Class for handling the main
+ *         draw-function, constructed as
+ *         a singleton class.
  */
 public final class Drawer implements ISetupAndRun {
 
@@ -33,17 +34,20 @@ public final class Drawer implements ISetupAndRun {
 	private boolean startup = true;
 
 	/**
-	 * map containing all possible valid moves for each piece
+	 * map containing all possible valid
+	 * moves for each piece
 	 */
 	private Map<IPiece, List<IMove>> allPossibleMoves = null;
 
 	/**
-	 * map containing all attackers for each piece
+	 * map containing all attackers for each
+	 * piece
 	 */
 	private Map<IPiece, List<IMove>> allAttackers = null;
 
 	/**
-	 * map containing all supporters for each piece
+	 * map containing all supporters for
+	 * each piece
 	 */
 	private Map<IPiece, List<IMove>> allSupporters = null;
 
@@ -53,7 +57,8 @@ public final class Drawer implements ISetupAndRun {
 	private IMove move = null;
 
 	/**
-	 * method to restore a match from a separate xml file
+	 * method to restore a match from a
+	 * separate xml file
 	 */
 	public void restoreFromXml() {
 		if (Main.isRestore()) {
@@ -69,11 +74,13 @@ public final class Drawer implements ISetupAndRun {
 	}
 
 	/**
-	 * the correct method to prepare the start of the match
+	 * the correct method to prepare the
+	 * start of the match
 	 */
 	public void startUp() {
 		if (isStartup()) {
 			getMain().background(255);
+			createAllMoves();
 			drawChessboard(allPossibleMoves, allAttackers, allSupporters);
 			setStartup(false);
 		}
@@ -89,29 +96,45 @@ public final class Drawer implements ISetupAndRun {
 			move = ((RandomPlayer) Game.getPlayer()).randomMove();
 		} else {
 			if (cl) {
-				// use information on interaction to create next move
+				// use information on interaction to
+				// create next move
 				move = getReferee().getMove(allPossibleMoves);
 			}
 		}
 	}
 
 	/**
-	 * resets the move maps end executes the move
+	 * resets the move maps end executes the
+	 * move
 	 *
-	 * @throws Exception from marshaller when loading fails
+	 * @throws Exception from marshaller
+	 *                   when loading fails
 	 */
 	public void processMove() throws Exception {
+		checkForMate();
 		if (move != null) {
 			// save move to list and statistics
 			getReferee().processMove(move);
-			allPossibleMoves = null;
-			allAttackers = null;
-			allSupporters = null;
+			allPossibleMoves	= null;
+			allAttackers		= null;
+			allSupporters		= null;
+		}
+	}
+
+	private void checkForMate() {
+		boolean mate = true;
+		for (final Map.Entry<IPiece, List<IMove>> entry : allPossibleMoves.entrySet()) {
+			mate = entry.getValue().isEmpty();
+		}
+		if (mate) {
+			System.out.println("MATE!!!");
+			Game.setPlayer(null);
 		}
 	}
 
 	/**
-	 * does various thing when r,s,c or l are hit
+	 * does various thing when r,s,c or l
+	 * are hit
 	 *
 	 * @throws Exception from (un)marshaller
 	 */
@@ -139,23 +162,29 @@ public final class Drawer implements ISetupAndRun {
 	}
 
 	/**
-	 * draw everything if clicked or non-trivial move exists
+	 * draw everything if clicked or
+	 * non-trivial move exists
 	 *
 	 * @param cl true on mouse button hit
 	 */
 	public void drawChessboardPiecesAndMarks(boolean cl) {
 		if (cl || move != null) {
-			allPossibleMoves = getReferee().createPossibleValidMovesForActivePieces();
-			allAttackers = getReferee().createAttackersOnActivePieces();
-			allSupporters = getReferee().createSupportersOfActivePieces(allPossibleMoves);
+			createAllMoves();
 			getMain().background(255);
 			drawChessboard(allPossibleMoves, allAttackers, allSupporters);
 			move = null;
 		}
 	}
 
+	private void createAllMoves() {
+		allPossibleMoves	= getReferee().createPossibleValidMovesForActivePieces();
+		allAttackers		= getReferee().createAttackersOnActivePieces();
+		allSupporters		= getReferee().createSupportersOfActivePieces(allPossibleMoves);
+	}
+
 	/**
-	 * the main method executed whithin the main draw loop
+	 * the main method executed whithin the
+	 * main draw loop
 	 *
 	 * @throws Exception file does not exist
 	 */
@@ -165,7 +194,8 @@ public final class Drawer implements ISetupAndRun {
 		// restore, if Main.restore is true
 		restoreFromXml();
 
-		// start up correctly, if startup is true
+		// start up correctly, if startup is
+		// true
 		startUp();
 
 		// check keyboard for interaction
@@ -174,7 +204,8 @@ public final class Drawer implements ISetupAndRun {
 		// check mouse for interaction
 		final boolean cl = checkForClick();
 
-		// mark field and create next move, if clicked
+		// mark field and create next move, if
+		// clicked
 		setMark(cl);
 		checkForNewMove(cl);
 
@@ -218,7 +249,9 @@ public final class Drawer implements ISetupAndRun {
 	}
 
 	/**
-	 * main instance is needed, since the drawer should be able to "draw" things.
+	 * main instance is needed, since the
+	 * drawer should be able to "draw"
+	 * things.
 	 */
 	private static Main main;
 
@@ -231,18 +264,29 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * Do we have a click?
 	 *
-	 * @return whether click has been performed.
+	 * @return whether click has been
+	 *         performed.
 	 */
 	public boolean checkForClick() {
 		return getMain().clicked() == 1;
 	}
 
 	/**
-	 * Draws the chess board. First draws the grid.
+	 * Draws the chess board. First draws
+	 * the grid.
 	 *
-	 * @param allPossibleMoves map containing all possible moves for all players
-	 * @param allAttackers     map containing all attackers
-	 * @param allSupporters    map containing all supporters
+	 * @param allPossibleMoves map
+	 *                         containing
+	 *                         all possible
+	 *                         moves for all
+	 *                         players
+	 * @param allAttackers     map
+	 *                         containing
+	 *                         all attackers
+	 * @param allSupporters    map
+	 *                         containing
+	 *                         all
+	 *                         supporters
 	 */
 	public void drawChessboard(Map<IPiece, List<IMove>> allPossibleMoves, Map<IPiece, List<IMove>> allAttackers,
 			Map<IPiece, List<IMove>> allSupporters) {
@@ -275,15 +319,24 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * draws all marked fields
 	 *
-	 * @param allPossibleMoves map containing all possible moves for all players
-	 * @param allAttackers     map containing all attackers
-	 * @param allSupporters    map containing all supporters
+	 * @param allPossibleMoves map
+	 *                         containing
+	 *                         all possible
+	 *                         moves for all
+	 *                         players
+	 * @param allAttackers     map
+	 *                         containing
+	 *                         all attackers
+	 * @param allSupporters    map
+	 *                         containing
+	 *                         all
+	 *                         supporters
 	 */
 	public void drawMarked(Map<IPiece, List<IMove>> allPossibleMoves, Map<IPiece, List<IMove>> allAttackers,
 			Map<IPiece, List<IMove>> allSupporters) {
 		if ((getReferee().getMarked() != null) && (getReferee().getMarked().getPiece() != null)) {
-			final Field tmp = getReferee().getMarked();
-			final IPiece piece = tmp.getPiece();
+			final Field		tmp		= getReferee().getMarked();
+			final IPiece	piece	= tmp.getPiece();
 			drawMarkedFields(piece.convertMovesToFields((allPossibleMoves.get(piece))), Colors.GREEN);
 			drawMarkedFields(piece.convertMovesToFields(allAttackers.get(piece)), Colors.RED);
 			drawMarkedFields(piece.convertMovesToFields(allSupporters.get(piece)), Colors.BLUE);
@@ -298,7 +351,8 @@ public final class Drawer implements ISetupAndRun {
 	 * draws specific marked fields
 	 *
 	 * @param fields the marked fields
-	 * @param tmp    the colors for the fields
+	 * @param tmp    the colors for the
+	 *               fields
 	 */
 	public void drawMarkedFields(List<Field> fields, Colors tmp) {
 		if (!fields.isEmpty()) {
@@ -355,18 +409,20 @@ public final class Drawer implements ISetupAndRun {
 	}
 
 	/**
-	 * draws the concrete field with all marks
+	 * draws the concrete field with all
+	 * marks
 	 *
 	 * @param fld   the field to draw
 	 * @param red   how much red?
 	 * @param green how much green?
 	 * @param blue  how much blue?
-	 * @param pos   position of the mark within the field
+	 * @param pos   position of the mark
+	 *              within the field
 	 */
 	private void drawColoredField(Field fld, int red, int green, int blue, int pos) {
 		getMain().stroke(red, green, blue);
-		final int size = Config.SIZE;
-		final int thickness = 5 - pos;
+		final int	size		= Config.SIZE;
+		final int	thickness	= 5 - pos;
 		getMain().strokeWeight(thickness);
 		getMain().noFill();
 		getMain().rect((((fld.getJ() + 1) * size) - size) + (float) thickness,
@@ -377,39 +433,42 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * Concrete drawing of a field mark
 	 *
-	 * @param fld the field to draw the mark for
+	 * @param fld the field to draw the mark
+	 *            for
 	 * @param col the color
 	 */
 	public void mark(Field fld, Colors col) {
 		switch (col) {
-		case RED:
-			drawColoredField(fld, 255, 0, 0, 3);
-			break;
-		case BLUE:
-			drawColoredField(fld, 0, 0, 255, 4);
-			break;
-		case YELLOW:
-			drawColoredField(fld, 255, 255, 0, 2);
-			break;
-		default:
-			drawColoredField(fld, 0, 255, 0, 1);
-			break;
+			case RED:
+				drawColoredField(fld, 255, 0, 0, 3);
+				break;
+			case BLUE:
+				drawColoredField(fld, 0, 0, 255, 4);
+				break;
+			case YELLOW:
+				drawColoredField(fld, 255, 255, 0, 2);
+				break;
+			default:
+				drawColoredField(fld, 0, 255, 0, 1);
+				break;
 
 		}
 	}
 
 	/**
-	 * Marks the field, which has been cicked on
+	 * Marks the field, which has been
+	 * cicked on
 	 *
-	 * @param clicked tells whether click has been performed
+	 * @param clicked tells whether click
+	 *                has been performed
 	 */
 	public void setMark(boolean clicked) {
 		if (!clicked || (getMain().getPosJ() > Config.GAMESIZE)) {
 			return;
 		}
 		if (!getReferee().isMarked()) {
-			final int i = Config.GAMESIZE - getMain().getPosI();
-			final int j = getMain().getPosJ();
+			final int	i	= Config.GAMESIZE - getMain().getPosI();
+			final int	j	= getMain().getPosJ();
 			if ((i >= 0) && (i <= Config.GAMESIZE) && (j >= 0) && (j <= Config.GAMESIZE)
 					&& (getGame().getField(i, j).getPiece() != null)
 					&& (getGame().getField(Config.GAMESIZE - getMain().getPosI(), getMain().getPosJ()).getPiece()
@@ -443,7 +502,9 @@ public final class Drawer implements ISetupAndRun {
 	}
 
 	/**
-	 * The player should have the ability to choose from queen,bishop,knight or rook
+	 * The player should have the ability to
+	 * choose from queen,bishop,knight or
+	 * rook
 	 *
 	 * @return the chosen id
 	 */

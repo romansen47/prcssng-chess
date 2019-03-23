@@ -41,14 +41,15 @@ public class Timeline extends ArrayList<IMove> implements IRefs {
 	}
 
 	/**
-	 * gives a list with all moves in chess notation
+	 * gives a list with all moves in chess
+	 * notation
 	 *
 	 * @return a list of strings
 	 */
 	public List<String> toStr() {
-		final List<String> ans = new ArrayList<>();
-		String tmp;
-		int i = 1;
+		final List<String>	ans	= new ArrayList<>();
+		String				tmp;
+		int					i	= 1;
 		for (final IMove move : Timeline.instance) {
 			tmp = i + ": " + move.toString();
 			if (i % 2 == 1) {
@@ -64,8 +65,8 @@ public class Timeline extends ArrayList<IMove> implements IRefs {
 	}
 
 	public Move[] toMoveList() {
-		final Move[] list = new Move[instance.size()];
-		final int i = 0;
+		final Move[]	list	= new Move[instance.size()];
+		final int		i		= 0;
 		for (final IMove move : instance) {
 			list[i] = ((Move) move);
 		}

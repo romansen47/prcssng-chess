@@ -7,8 +7,9 @@ import defs.classes.Referee;
  *
  * @author RoMansen
  *
- *         This interfaces provides default getters for static singleton
- *         instances
+ *         This interfaces provides
+ *         default getters for static
+ *         singleton instances
  */
 public interface IRefs {
 

@@ -21,7 +21,8 @@ public class Knight extends Piece {
 		super(Ids.KNIGHT, col, field);
 	}
 
-	// TODO: An das Interface IValidityChecker anpassen
+	// TODO: An das Interface
+	// IValidityChecker anpassen
 	public boolean checkForValidity(int tmpI, int tmpJ) {
 		if (getGame().getField(tmpI, tmpJ).getPiece() != null) {
 			return getCol() != getGame().getField(tmpI, tmpJ).getPiece().getCol();
@@ -31,9 +32,9 @@ public class Knight extends Piece {
 
 	@Override
 	public List<IMove> getSimpleMoves() {
-		final List<Field> lst = new ArrayList<>();
-		final int i = getField().getI();
-		final int j = getField().getJ();
+		final List<Field>	lst	= new ArrayList<>();
+		final int			i	= getField().getI();
+		final int			j	= getField().getJ();
 		if (((i + 1) <= Config.GAMESIZE) && ((j + 2) <= Config.GAMESIZE) && checkForValidity(i + 1, j + 2)) {
 			lst.add(getGame().getField(i + 1, j + 2));
 		}

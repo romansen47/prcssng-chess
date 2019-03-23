@@ -4,7 +4,8 @@ package chess;
  *
  * @author RoMansen
  *
- *         anyone who can draw is an IDrawer!
+ *         anyone who can draw is an
+ *         IDrawer!
  *
  */
 

@@ -4,12 +4,14 @@ package chess;
  *
  * @author roman
  *
- *         final config, modelled as a singleton class
+ *         final config, modelled as a
+ *         singleton class
  */
 public final class Config {
 
 	/**
-	 * GAMESIZE+1 is the amount of fields in each directions
+	 * GAMESIZE+1 is the amount of fields in
+	 * each directions
 	 */
 	public static final int GAMESIZE = 7;
 
@@ -66,7 +68,8 @@ public final class Config {
 	/**
 	 * Setter for RandomBlackPlayer
 	 *
-	 * @param randomPlayer instance of RandomPlayer
+	 * @param randomPlayer instance of
+	 *                     RandomPlayer
 	 */
 	public static void setRandomBlackPlayer(boolean randomPlayer) {
 		Config.randomBlackPlayer = randomPlayer;
@@ -75,7 +78,8 @@ public final class Config {
 	/**
 	 * Setter for RandomPlayer
 	 *
-	 * @param randomPlayer instance of RandomWhitePlayer
+	 * @param randomPlayer instance of
+	 *                     RandomWhitePlayer
 	 */
 	public static void setRandomWhitePlayer(boolean randomPlayer) {
 		Config.randomWhitePlayer = randomPlayer;

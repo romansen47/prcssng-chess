@@ -4,7 +4,8 @@ package defs.enums;
  *
  * @author RoMansen
  *
- *         This enum privides key words for colors
+ *         This enum privides key words
+ *         for colors
  *
  */
 public enum Colors {

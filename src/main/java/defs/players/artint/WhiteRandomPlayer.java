@@ -12,7 +12,8 @@ import defs.enums.Colors;
 public final class WhiteRandomPlayer extends RandomPlayer {
 
 	/**
-	 * Constructor. The random Player is black
+	 * Constructor. The random Player is
+	 * black
 	 */
 	public WhiteRandomPlayer() {
 		super(Colors.WHITE);

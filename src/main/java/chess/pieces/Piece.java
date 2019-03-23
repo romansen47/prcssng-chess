@@ -50,8 +50,8 @@ public abstract class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	 * @param field the field
 	 */
 	public Piece(Ids id, Colors col, Field field) {
-		this.id = id;
-		this.col = col;
+		this.id		= id;
+		this.col	= col;
 		setField(field);
 		firstField = field;
 	}

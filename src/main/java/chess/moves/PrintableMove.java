@@ -8,12 +8,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "id", "str", "i1", "j1", "i2", "j2" })
 public class PrintableMove {
 
-	private int id;
-	private int j1;
-	private int i1;
-	private int j2;
-	private int i2;
-	private String str;
+	private int		id;
+	private int		j1;
+	private int		i1;
+	private int		j2;
+	private int		i2;
+	private String	str;
 
 	public PrintableMove() {
 		setStr(null);

@@ -12,16 +12,21 @@ import defs.interfaces.IValidityChecker;
  *
  * @author RoMansen
  *
- *         the pieces queen, rook and bishop need specal checks!
+ *         the pieces queen, rook and
+ *         bishop need specal checks!
  *
  */
 public interface ILongDist extends IPiece, IValidityChecker {
 
 	/**
-	 * method to check ONE direction, e.g. south
+	 * method to check ONE direction, e.g.
+	 * south
 	 *
-	 * @param lst       the list to be filled with possible moves
-	 * @param direction the direction to check
+	 * @param lst       the list to be
+	 *                  filled with possible
+	 *                  moves
+	 * @param direction the direction to
+	 *                  check
 	 */
 	default void checkDirection(List<Field> lst, int[] direction) {
 		final List<Field> tmpList = new ArrayList<>();
@@ -39,7 +44,9 @@ public interface ILongDist extends IPiece, IValidityChecker {
 
 	/**
 	 *
-	 * @param lst an empty list, which will be filled with possible moves.
+	 * @param lst an empty list, which will
+	 *            be filled with possible
+	 *            moves.
 	 */
 	void checkDirections(List<Field> lst);
 
@@ -60,7 +67,9 @@ public interface ILongDist extends IPiece, IValidityChecker {
 	}
 
 	/**
-	 * creates an empty list and fills it with valid moves along possible directions
+	 * creates an empty list and fills it
+	 * with valid moves along possible
+	 * directions
 	 *
 	 * @return list of possible moves
 	 */

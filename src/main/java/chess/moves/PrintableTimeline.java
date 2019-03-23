@@ -31,25 +31,25 @@ public class PrintableTimeline {
 	}
 
 	public void toXml() throws Exception {
-		final File file = new File("target/TimeLine.xml");
-		final JAXBContext jaxbContext = JAXBContext.newInstance(chess.moves.PrintableTimeline.class);
-		final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+		final File			file			= new File("target/TimeLine.xml");
+		final JAXBContext	jaxbContext		= JAXBContext.newInstance(chess.moves.PrintableTimeline.class);
+		final Marshaller	jaxbMarshaller	= jaxbContext.createMarshaller();
 		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		jaxbMarshaller.marshal(this, file);
 		jaxbMarshaller.marshal(this, System.out);
 	}
 
 	public void restoreFromXml() throws JAXBException {
-		final File file = new File("target/TimeLine.xml");
-		final JAXBContext jContext = JAXBContext.newInstance(PrintableTimeline.class);
-		final Unmarshaller unmarshallerObj = jContext.createUnmarshaller();
-		final PrintableTimeline ptl = ((PrintableTimeline) (unmarshallerObj.unmarshal(file)));
-		final PrintableMove[] newMoves = ptl.getMoves();
+		final File				file			= new File("target/TimeLine.xml");
+		final JAXBContext		jContext		= JAXBContext.newInstance(PrintableTimeline.class);
+		final Unmarshaller		unmarshallerObj	= jContext.createUnmarshaller();
+		final PrintableTimeline	ptl				= ((PrintableTimeline) (unmarshallerObj.unmarshal(file)));
+		final PrintableMove[]	newMoves		= ptl.getMoves();
 		Timeline.getInstance().clear();
 		IPiece piece;
 		for (final PrintableMove move : newMoves) {
-			final Field fld1 = Game.getInstance().getField(move.getI1(), move.getJ1());
-			final Field fld2 = Game.getInstance().getField(move.getI2(), move.getJ2());
+			final Field	fld1	= Game.getInstance().getField(move.getI1(), move.getJ1());
+			final Field	fld2	= Game.getInstance().getField(move.getI2(), move.getJ2());
 			piece = fld1.getPiece();
 			piece.getMove(fld2).execute();
 		}

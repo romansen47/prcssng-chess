@@ -24,7 +24,8 @@ public class Player implements IPlayer {
 	private static Game game = Game.getInstance();
 
 	/**
-	 * a list of all players of one color. this list stays allways the same. no
+	 * a list of all players of one color.
+	 * this list stays allways the same. no
 	 * pieces are to be added or removed!
 	 */
 	private final List<IPiece> allPieces = new ArrayList<>();

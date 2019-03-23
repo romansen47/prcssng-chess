@@ -22,7 +22,8 @@ import defs.enums.Ids;
 public interface IPlayer extends IRefs {
 
 	/**
-	 * Get all pieces, the living and the dead
+	 * Get all pieces, the living and the
+	 * dead
 	 *
 	 * @return allPieces
 	 */
@@ -50,9 +51,11 @@ public interface IPlayer extends IRefs {
 	King getKing();
 
 	/**
-	 * method to get the last move the player performed
+	 * method to get the last move the
+	 * player performed
 	 *
-	 * @return the last move performed by the player
+	 * @return the last move performed by
+	 *         the player
 	 */
 	default IMove getLastMove() {
 		final int n = getMoveList().size();
@@ -84,11 +87,11 @@ public interface IPlayer extends IRefs {
 	default void initialGeneration() {
 
 		getPieces().add(getKing());
-		int ersteReihe = 0;
-		int zweiteReihe = 1;
+		int	ersteReihe	= 0;
+		int	zweiteReihe	= 1;
 		if (getCol() == Colors.BLACK) {
-			ersteReihe = Config.GAMESIZE;
-			zweiteReihe = 6;
+			ersteReihe	= Config.GAMESIZE;
+			zweiteReihe	= 6;
 		}
 		for (int j = 0; j < 8; j++) {
 			getPieces().add(new Pawn(getCol(), getGame().getField(zweiteReihe, j)));
@@ -106,8 +109,9 @@ public interface IPlayer extends IRefs {
 	}
 
 	/**
-	 * Method to perform a random move. All possible moves are collected, random is
-	 * used to choose one randomly
+	 * Method to perform a random move. All
+	 * possible moves are collected, random
+	 * is used to choose one randomly
 	 *
 	 * @return a random valid move
 	 */
@@ -121,12 +125,13 @@ public interface IPlayer extends IRefs {
 				}
 			}
 		}
-		final ArrayList<IMove> newMoves = removeDuplicates(moves);
-		final int i = getRandom().nextInt(newMoves.size() - 1);
+		final ArrayList<IMove>	newMoves	= removeDuplicates(moves);
+		final int				i			= getRandom().nextInt(newMoves.size() - 1);
 		return newMoves.get(i);
 	}
 
-	// Function to remove duplicates from an ArrayList
+	// Function to remove duplicates from an
+	// ArrayList
 	static ArrayList<IMove> removeDuplicates(ArrayList<IMove> moves) {
 
 		// Create a new LinkedHashSet
@@ -147,7 +152,8 @@ public interface IPlayer extends IRefs {
 	}
 
 	/**
-	 * the player chooses the piece on promotion
+	 * the player chooses the piece on
+	 * promotion
 	 *
 	 * @return the id of the piece
 	 */

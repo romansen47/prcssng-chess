@@ -14,7 +14,8 @@ import defs.enums.Ids;
 public class Castling extends Move {
 
 	/**
-	 * Treating a castling like a (friendly) beat. Opponent is always a rook.
+	 * Treating a castling like a (friendly)
+	 * beat. Opponent is always a rook.
 	 */
 	private final Rook rook;
 
@@ -27,14 +28,14 @@ public class Castling extends Move {
 	public void execute() {
 		final IPiece king = getPiece();
 		if ((rook.getId() == Ids.ROOK) && (king.getCol() == rook.getCol())) {
-			int k = getPrev().getJ();
-			int r = getNext().getJ();
+			int	k	= getPrev().getJ();
+			int	r	= getNext().getJ();
 			if (k > r) {
-				r = k - 1;
-				k = r - 1;
+				r	= k - 1;
+				k	= r - 1;
 			} else {
-				r = k + 1;
-				k = r + 1;
+				r	= k + 1;
+				k	= r + 1;
 			}
 			getPrev().setPiece(null);
 			king.setField(getGame().getField(getPrev().getI(), k));

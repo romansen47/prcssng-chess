@@ -6,7 +6,8 @@ import defs.classes.Field;
 public class EnPassant extends Move {
 
 	/**
-	 * the piece killed while moving to next field is a pawn.. for sure!
+	 * the piece killed while moving to next
+	 * field is a pawn.. for sure!
 	 */
 	final Pawn slaughtered;
 
@@ -15,7 +16,8 @@ public class EnPassant extends Move {
 	 *
 	 * @param fig first pawn
 	 * @param fld second pawn
-	 * @param fld the field of the moving pawn
+	 * @param fld the field of the moving
+	 *            pawn
 	 */
 	public EnPassant(Pawn fig, Field fld) {
 		super(fig.getField(), fld);

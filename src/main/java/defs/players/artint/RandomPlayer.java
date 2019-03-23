@@ -9,7 +9,8 @@ import defs.players.Player;
  *
  * @author RoMansen
  *
- *         Implementation of a player moving randomly
+ *         Implementation of a player
+ *         moving randomly
  */
 
 public class RandomPlayer extends Player {
@@ -20,7 +21,8 @@ public class RandomPlayer extends Player {
 	final Random random = new Random();
 
 	/**
-	 * Constructor. The random Player is black
+	 * Constructor. The random Player is
+	 * black
 	 *
 	 * @param col the color
 	 */

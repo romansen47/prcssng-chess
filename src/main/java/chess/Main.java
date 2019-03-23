@@ -9,14 +9,15 @@ import processing.template.Gui;
 
 public class Main extends Gui implements IRefs {
 
-	private static boolean restore = true;
+	private static boolean	restore		= true;
 	/**
 	 * the main class
 	 */
-	static final String MAINCLASS = "chess.Main";
+	static final String		MAINCLASS	= "chess.Main";
 
 	/**
-	 * the path for where the images are stored
+	 * the path for where the images are
+	 * stored
 	 */
 	static final String PATH = "";
 
@@ -56,71 +57,80 @@ public class Main extends Gui implements IRefs {
 	/**
 	 * image for the piece
 	 */
-	private PImage blackBishop;
+	private PImage				blackBishop;
 	/**
 	 * image for the piece
 	 */
-	private PImage blackKing;
+	private PImage				blackKing;
 	/**
 	 * image for the piece
 	 */
-	private PImage blackKnight;
+	private PImage				blackKnight;
 	/**
 	 * image for the piece
 	 */
-	private PImage blackPawn;
+	private PImage				blackPawn;
 	/**
 	 * image for the piece
 	 */
-	private PImage blackQueen;
+	private PImage				blackQueen;
 	/**
 	 * image for the piece
 	 */
-	private PImage blackTower;
+	private PImage				blackTower;
 	/**
 	 * a drawer instance
 	 */
-	private final ISetupAndRun drawer = Drawer.getInstance(this);
+	private final ISetupAndRun	drawer	= Drawer.getInstance(this);
 	/**
 	 * a setup instance
 	 */
-	private final ISetupAndRun setup = Setup.getInstance(this);
+	private final ISetupAndRun	setup	= Setup.getInstance(this);
 	/**
 	 * image for the piece
 	 */
-	private PImage whiteBishop;
+	private PImage				whiteBishop;
 	/**
 	 * image for the piece
 	 */
-	private PImage whiteKing;
+	private PImage				whiteKing;
 	/**
 	 * image for the piece
 	 */
-	private PImage whiteKnight;
+	private PImage				whiteKnight;
 	/**
 	 * image for the piece
 	 */
-	private PImage whitePawn;
+	private PImage				whitePawn;
 
 	/**
 	 * image for the piece
 	 */
-	private PImage whiteQueen;
+	private PImage	whiteQueen;
 	/**
 	 * image for the piece
 	 */
-	private PImage whiteTower;
+	private PImage	whiteTower;
 
 	/**
-	 * functionality outsourced to Drawer class
+	 * functionality outsourced to Drawer
+	 * class
 	 */
 	@Override
 	public void draw() {
-		try {
-			drawer.execute();
-		} catch (final Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (getPlayer() != null) {
+			try {
+				drawer.execute();
+			} catch (final Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				Thread.sleep(300);
+				System.exit(0);
+			} catch (final InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -201,7 +211,8 @@ public class Main extends Gui implements IRefs {
 	/**
 	 * Getter for PATH
 	 *
-	 * @return the path to main class as string
+	 * @return the path to main class as
+	 *         string
 	 */
 	public String getPath() {
 		return Main.PATH;
@@ -341,7 +352,8 @@ public class Main extends Gui implements IRefs {
 	}
 
 	/**
-	 * functionality outsourced to Setup class
+	 * functionality outsourced to Setup
+	 * class
 	 */
 	@Override
 	public void setup() {
