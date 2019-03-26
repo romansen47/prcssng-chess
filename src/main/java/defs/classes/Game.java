@@ -4,9 +4,9 @@ import chess.Config;
 import chess.IRefs;
 import chess.moves.Timeline;
 import defs.enums.Colors;
+import defs.players.EasyPlayer;
 import defs.players.IPlayer;
 import defs.players.Player;
-import defs.players.artint.BlackRandomPlayer;
 import defs.players.artint.WhiteRandomPlayer;
 
 public final class Game implements IRefs {
@@ -162,8 +162,8 @@ public final class Game implements IRefs {
 	 * first move
 	 */
 	public void setup() {
-		if (Config.isRandomBlackPlayer()) {
-			setBlack(new BlackRandomPlayer());
+		if (Config.isEasyPlayer()) {
+			setBlack(new EasyPlayer(Colors.BLACK, 1));
 		} else {
 			setBlack(new Player(Colors.BLACK));
 		}

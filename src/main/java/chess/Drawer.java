@@ -37,7 +37,7 @@ public final class Drawer implements ISetupAndRun {
 	 * map containing all possible valid
 	 * moves for each piece
 	 */
-	private Map<IPiece, List<IMove>> allPossibleMoves = null;
+	private static Map<IPiece, List<IMove>> allPossibleMoves = null;
 
 	/**
 	 * map containing all attackers for each
@@ -81,7 +81,7 @@ public final class Drawer implements ISetupAndRun {
 		if (isStartup()) {
 			getMain().background(255);
 			createAllMoves();
-			drawChessboard(allPossibleMoves, allAttackers, allSupporters);
+			drawChessboard(getAllPossibleMoves(), allAttackers, allSupporters);
 			setStartup(false);
 		}
 	}
@@ -98,7 +98,7 @@ public final class Drawer implements ISetupAndRun {
 			if (cl) {
 				// use information on interaction to
 				// create next move
-				move = getReferee().getMove(allPossibleMoves);
+				move = getReferee().getMove(getAllPossibleMoves());
 			}
 		}
 	}
@@ -115,16 +115,18 @@ public final class Drawer implements ISetupAndRun {
 		if (move != null) {
 			// save move to list and statistics
 			getReferee().processMove(move);
-			allPossibleMoves	= null;
-			allAttackers		= null;
-			allSupporters		= null;
+			setAllPossibleMoves(null);
+			allAttackers	= null;
+			allSupporters	= null;
 		}
 	}
 
 	private void checkForMate() {
 		boolean mate = true;
-		for (final Map.Entry<IPiece, List<IMove>> entry : allPossibleMoves.entrySet()) {
-			mate = entry.getValue().isEmpty();
+		for (final Map.Entry<IPiece, List<IMove>> entry : getAllPossibleMoves().entrySet()) {
+			if (!entry.getValue().isEmpty()) {
+				mate = false;
+			}
 		}
 		if (mate) {
 			System.out.println("MATE!!!");
@@ -156,7 +158,7 @@ public final class Drawer implements ISetupAndRun {
 				Main.setRestore(true);
 			}
 			getMain().background(255);
-			drawChessboard(allPossibleMoves, allAttackers, allSupporters);
+			drawChessboard(getAllPossibleMoves(), allAttackers, allSupporters);
 			move = null;
 		}
 	}
@@ -171,15 +173,15 @@ public final class Drawer implements ISetupAndRun {
 		if (cl || move != null) {
 			createAllMoves();
 			getMain().background(255);
-			drawChessboard(allPossibleMoves, allAttackers, allSupporters);
+			drawChessboard(getAllPossibleMoves(), allAttackers, allSupporters);
 			move = null;
 		}
 	}
 
 	private void createAllMoves() {
-		allPossibleMoves	= getReferee().createPossibleValidMovesForActivePieces();
-		allAttackers		= getReferee().createAttackersOnActivePieces();
-		allSupporters		= getReferee().createSupportersOfActivePieces(allPossibleMoves);
+		setAllPossibleMoves(getReferee().createPossibleValidMovesForActivePieces());
+		allAttackers	= getReferee().createAttackersOnActivePieces();
+		allSupporters	= getReferee().createSupportersOfActivePieces(getAllPossibleMoves());
 	}
 
 	/**
@@ -510,6 +512,22 @@ public final class Drawer implements ISetupAndRun {
 	 */
 	public Ids choose() {
 		return Game.getPlayer().choose();
+	}
+
+	/**
+	 * @return the allPossibleMoves
+	 */
+	public static Map<IPiece, List<IMove>> getAllPossibleMoves() {
+		return allPossibleMoves;
+	}
+
+	/**
+	 * @param allPossibleMoves the
+	 *                         allPossibleMoves
+	 *                         to set
+	 */
+	public void setAllPossibleMoves(Map<IPiece, List<IMove>> allPossibleMoves) {
+		this.allPossibleMoves = allPossibleMoves;
 	}
 
 }

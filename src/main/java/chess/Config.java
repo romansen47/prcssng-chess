@@ -21,6 +21,11 @@ public final class Config {
 	private static Config instance = null;
 
 	/**
+	 * Do we use an easy player?
+	 */
+	private static boolean easyPlayer = true;
+
+	/**
 	 * Do we use a random black player?
 	 */
 	private static boolean randomBlackPlayer = false;
@@ -89,6 +94,20 @@ public final class Config {
 	 * private Constructor
 	 */
 	private Config() {
+	}
+
+	/**
+	 * @return the easyPlayer
+	 */
+	public static boolean isEasyPlayer() {
+		return easyPlayer;
+	}
+
+	/**
+	 * @param easyPlayer the easyPlayer to set
+	 */
+	public static void setEasyPlayer(boolean easyPlayer) {
+		Config.easyPlayer = easyPlayer;
 	}
 
 }

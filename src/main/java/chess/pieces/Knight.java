@@ -35,32 +35,23 @@ public class Knight extends Piece {
 		final List<Field>	lst	= new ArrayList<>();
 		final int			i	= getField().getI();
 		final int			j	= getField().getJ();
-		if (((i + 1) <= Config.GAMESIZE) && ((j + 2) <= Config.GAMESIZE) && checkForValidity(i + 1, j + 2)) {
-			lst.add(getGame().getField(i + 1, j + 2));
-		}
-		if (((i + 1) <= Config.GAMESIZE) && ((j - 2) >= 0) && checkForValidity(i + 1, j - 2)) {
-			lst.add(getGame().getField(i + 1, j - 2));
-		}
-		if (((i - 1) >= 0) && ((j + 2) <= Config.GAMESIZE) && checkForValidity(i - 1, j + 2)) {
-			lst.add(getGame().getField(i - 1, j + 2));
-		}
-		if (((i - 1) >= 0) && ((j - 2) >= 0) && checkForValidity(i - 1, j - 2)) {
-			lst.add(getGame().getField(i - 1, j - 2));
-		}
-		if (((i + 2) <= Config.GAMESIZE) && ((j + 1) <= Config.GAMESIZE) && checkForValidity(i + 2, j + 1)) {
-			lst.add(getGame().getField(i + 2, j + 1));
-		}
-		if (((i + 2) <= Config.GAMESIZE) && ((j - 1) >= 0) && checkForValidity(i + 2, j - 1)) {
-			lst.add(getGame().getField(i + 2, j - 1));
-		}
-		if (((i - 2) >= 0) && ((j + 1) <= Config.GAMESIZE) && checkForValidity(i - 2, j + 1)) {
-			lst.add(getGame().getField(i - 2, j + 1));
-		}
-		if (((i - 2) >= 0) && ((j - 1) >= 0) && checkForValidity(i - 2, j - 1)) {
-			lst.add(getGame().getField(i - 2, j - 1));
-		}
+		checkJump(i + 1, j + 2, lst);
+		checkJump(i + 1, j - 2, lst);
+		checkJump(i - 1, j + 2, lst);
+		checkJump(i - 1, j - 2, lst);
+		checkJump(i + 2, j + 1, lst);
+		checkJump(i + 2, j - 1, lst);
+		checkJump(i - 2, j + 1, lst);
+		checkJump(i - 2, j - 1, lst);
 		lst.remove(null);
 		return convertFieldsToMoves(lst);
+	}
+
+	public void checkJump(int alpha, int beta, List<Field> lst) {
+		if ((alpha >= 0) && (beta >= 0) && (alpha <= Config.GAMESIZE) && (beta <= Config.GAMESIZE)
+				&& checkForValidity(alpha, beta)) {
+			lst.add(getGame().getField(alpha, beta));
+		}
 	}
 
 }
