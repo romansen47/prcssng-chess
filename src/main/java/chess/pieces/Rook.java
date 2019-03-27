@@ -16,7 +16,7 @@ public class Rook extends Piece implements ILongDist {
 	 * @param field the field
 	 */
 	public Rook(Colors col, Field field) {
-		super(Ids.ROOK, col, field);
+		super(Ids.ROOK, col, field, 100);
 	}
 
 	@Override
@@ -28,11 +28,9 @@ public class Rook extends Piece implements ILongDist {
 	}
 
 	/**
-	 * computes whether rook already has
-	 * been moved
+	 * computes whether rook already has been moved
 	 *
-	 * @return whether rook is still valid
-	 *         for castling
+	 * @return whether rook is still valid for castling
 	 */
 	public boolean isValidForCastling() {
 		boolean hasBeenMoved = false;
@@ -42,8 +40,8 @@ public class Rook extends Piece implements ILongDist {
 				hasBeenMoved = true;
 			}
 		}
-		final King		king				= getOpponent().getKing();
-		final boolean	validForCastling	= king.isValidForCastling();
+		final King king = getOpponent().getKing();
+		final boolean validForCastling = king.isValidForCastling();
 		king.setValidForCastling(false);
 		final List<Field> attackers = getAttackers();
 		king.setValidForCastling(validForCastling);

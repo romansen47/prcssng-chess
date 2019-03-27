@@ -18,7 +18,7 @@ public class Knight extends Piece {
 	 * @param field the field
 	 */
 	public Knight(Colors col, Field field) {
-		super(Ids.KNIGHT, col, field);
+		super(Ids.KNIGHT, col, field, 50);
 	}
 
 	// TODO: An das Interface
@@ -32,9 +32,9 @@ public class Knight extends Piece {
 
 	@Override
 	public List<IMove> getSimpleMoves() {
-		final List<Field>	lst	= new ArrayList<>();
-		final int			i	= getField().getI();
-		final int			j	= getField().getJ();
+		final List<Field> lst = new ArrayList<>();
+		final int i = getField().getI();
+		final int j = getField().getJ();
 		checkJump(i + 1, j + 2, lst);
 		checkJump(i + 1, j - 2, lst);
 		checkJump(i - 1, j + 2, lst);

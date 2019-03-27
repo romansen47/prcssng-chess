@@ -23,14 +23,12 @@ public class Pawn extends Piece {
 	 * @param field the field
 	 */
 	public Pawn(Colors col, Field field) {
-		super(Ids.PAWN, col, field);
+		super(Ids.PAWN, col, field, 30);
 	}
 
 	/**
 	 * @param field the field to move on
-	 * @return returns the move. returns
-	 *         subtype enpassant in case of
-	 *         validity
+	 * @return returns the move. returns subtype enpassant in case of validity
 	 */
 	@Override
 	public IMove getMove(Field field) {
@@ -55,17 +53,17 @@ public class Pawn extends Piece {
 		/**
 		 * get the last move, if exists
 		 */
-		boolean	movedTwoFields;
-		IMove	lastMove;
+		boolean movedTwoFields;
+		IMove lastMove;
 		if (fig == null || getGame().getMoveList().isEmpty()) {
 			return false;
 		} else {
-			lastMove		= getGame().getMoveList().get(getGame().getMoveList().size() - 1);
-			movedTwoFields	= Math.abs(lastMove.getPrev().getI() - lastMove.getNext().getI()) == 2;
+			lastMove = getGame().getMoveList().get(getGame().getMoveList().size() - 1);
+			movedTwoFields = Math.abs(lastMove.getPrev().getI() - lastMove.getNext().getI()) == 2;
 		}
-		final boolean	isPawn			= fig instanceof Pawn;
-		final boolean	differentColor	= fig.getCol() != getCol();
-		final boolean	lastMovedIsPawn	= lastMove.getPiece() == fig;
+		final boolean isPawn = fig instanceof Pawn;
+		final boolean differentColor = fig.getCol() != getCol();
+		final boolean lastMovedIsPawn = lastMove.getPiece() == fig;
 		return isPawn && differentColor && lastMovedIsPawn && movedTwoFields;
 	}
 
@@ -97,12 +95,12 @@ public class Pawn extends Piece {
 	}
 
 	private List<IMove> getSimpleMoves(boolean iswhite) {
-		final List<Field>	lst		= new ArrayList<>();
-		Colors				color	= Colors.BLACK;
-		int					factor	= 1;
+		final List<Field> lst = new ArrayList<>();
+		Colors color = Colors.BLACK;
+		int factor = 1;
 		if (!iswhite) {
-			factor	= -1;
-			color	= Colors.WHITE;
+			factor = -1;
+			color = Colors.WHITE;
 		}
 		if ((getPosJ() < Config.GAMESIZE) && (getGame().getField(getPosI() + factor, getPosJ() + 1).getPiece() != null)
 				&& (getGame().getField(getPosI() + factor, getPosJ() + 1).getPiece().getCol() == color)) {
@@ -125,8 +123,8 @@ public class Pawn extends Piece {
 
 	@Override
 	public List<IMove> getSpecialMoves() {
-		final List<Field>	lst		= new ArrayList<>();
-		final IMove			move	= getOpponent().getLastMove();
+		final List<Field> lst = new ArrayList<>();
+		final IMove move = getOpponent().getLastMove();
 		if ((move != null) && (move.getPiece().getId() == Ids.PAWN) && (getPosI() == 4) && (move.getPrev().getI() == 6)
 				&& (move.getNext().getI() == 4)) {
 			lst.add(getGame().getField(5, move.getNext().getJ()));

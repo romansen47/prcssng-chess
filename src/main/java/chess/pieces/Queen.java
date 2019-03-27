@@ -16,7 +16,7 @@ public class Queen extends Piece implements ILongDist {
 	 * @param field the field
 	 */
 	public Queen(Colors col, Field field) {
-		super(Ids.QUEEN, col, field);
+		super(Ids.QUEEN, col, field, 450);
 	}
 
 	@Override

@@ -18,8 +18,7 @@ public interface IPiece extends IRefs {
 	/**
 	 * Simple converter
 	 *
-	 * @param input List of fields to
-	 *              convert to moves
+	 * @param input List of fields to convert to moves
 	 * @return List of moves
 	 */
 	default List<IMove> convertFieldsToMoves(List<Field> input) {
@@ -33,8 +32,7 @@ public interface IPiece extends IRefs {
 	/**
 	 * Simple converter
 	 *
-	 * @param input List of moves to extract
-	 *              the fields from
+	 * @param input List of moves to extract the fields from
 	 * @return List of Fields
 	 */
 	default List<Field> convertMovesToFields(List<IMove> input) {
@@ -55,8 +53,7 @@ public interface IPiece extends IRefs {
 	}
 
 	/**
-	 * Pieces can die, when they are hit.
-	 * what happens then?
+	 * Pieces can die, when they are hit. what happens then?
 	 */
 	default void die() {
 		getField().setPiece(null);
@@ -102,8 +99,7 @@ public interface IPiece extends IRefs {
 	Field getField();
 
 	/**
-	 * Getter for the field the piece stood
-	 * on before the game started
+	 * Getter for the field the piece stood on before the game started
 	 *
 	 * @return firstField
 	 */
@@ -134,8 +130,7 @@ public interface IPiece extends IRefs {
 	/**
 	 * getter for the opponent
 	 *
-	 * @return the opponent of the player
-	 *         the piece belongs to
+	 * @return the opponent of the player the piece belongs to
 	 */
 	default IPlayer getOpponent() {
 		if (getCol() == Colors.WHITE) {
@@ -145,11 +140,9 @@ public interface IPiece extends IRefs {
 	}
 
 	/**
-	 * getter for the player the piece
-	 * belongs to. NOT the acting player
+	 * getter for the player the piece belongs to. NOT the acting player
 	 *
-	 * @return the player the piece belongs
-	 *         to
+	 * @return the player the piece belongs to
 	 */
 	default IPlayer getOwner() {
 		if (getCol() == Colors.WHITE) {
@@ -159,32 +152,25 @@ public interface IPiece extends IRefs {
 	}
 
 	/**
-	 * the piece does not have any posotion
-	 * but the underlying field does
+	 * the piece does not have any posotion but the underlying field does
 	 *
-	 * @return the row coordinate of the
-	 *         field the piece is standing
-	 *         on
+	 * @return the row coordinate of the field the piece is standing on
 	 */
 	default int getPosI() {
 		return getField().getI();
 	}
 
 	/**
-	 * the piece does not have any posotion
-	 * but the underlying field does
+	 * the piece does not have any posotion but the underlying field does
 	 *
-	 * @return the column coordinate of the
-	 *         field the piece is standing
-	 *         on
+	 * @return the column coordinate of the field the piece is standing on
 	 */
 	default int getPosJ() {
 		return getField().getJ();
 	}
 
 	/**
-	 * get possible moves as a list of
-	 * fields
+	 * get possible moves as a list of fields
 	 *
 	 * @return list of fields
 	 */
@@ -193,8 +179,7 @@ public interface IPiece extends IRefs {
 	}
 
 	/**
-	 * @return returns the list of possible
-	 *         moves
+	 * @return returns the list of possible moves
 	 */
 	default List<IMove> getPossibleMoves() {
 		final List<IMove> moves = getSimpleMoves();
@@ -203,12 +188,10 @@ public interface IPiece extends IRefs {
 	}
 
 	/**
-	 * The list of simple moves the piece
-	 * can perform. Castling and EnPassant
-	 * are excluded!
+	 * The list of simple moves the piece can perform. Castling and EnPassant are
+	 * excluded!
 	 *
-	 * @return the list of simple moves the
-	 *         piece can perform.
+	 * @return the list of simple moves the piece can perform.
 	 */
 	List<IMove> getSimpleMoves();
 
@@ -222,9 +205,8 @@ public interface IPiece extends IRefs {
 	}
 
 	/**
-	 * get also special moves like castling
-	 * or enpassant. the generic piece does
-	 * not have any special moves
+	 * get also special moves like castling or enpassant. the generic piece does not
+	 * have any special moves
 	 *
 	 * @return list of moves
 	 */
@@ -234,17 +216,16 @@ public interface IPiece extends IRefs {
 
 	/**
 	 *
-	 * @return List of fields with friends
-	 *         on them guarding the piece
+	 * @return List of fields with friends on them guarding the piece
 	 */
 	default List<Field> getSupporters() {
-		final IPiece	piece	= this;
-		Colors			col		= Colors.WHITE;
+		final IPiece piece = this;
+		Colors col = Colors.WHITE;
 		if (piece.getCol() == col) {
 			col = Colors.BLACK;
 		}
-		final Field	field		= piece.getField();
-		final Piece	fakepiece	= new Pawn(col, field);
+		final Field field = piece.getField();
+		final Piece fakepiece = new Pawn(col, field);
 		field.setPiece(fakepiece);
 		getOwner().getPieces().remove(piece);
 		getOwner().getPieces().add(fakepiece);
@@ -273,4 +254,6 @@ public interface IPiece extends IRefs {
 	 * @param image the pimage
 	 */
 	void setImage(PImage image);
+
+	int getValue();
 }

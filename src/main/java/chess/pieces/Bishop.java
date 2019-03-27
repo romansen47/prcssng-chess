@@ -16,7 +16,7 @@ public class Bishop extends Piece implements ILongDist {
 	 * @param field the field of the bishop
 	 */
 	public Bishop(Colors col, Field field) {
-		super(Ids.BISHOP, col, field);
+		super(Ids.BISHOP, col, field, 70);
 	}
 
 	@Override

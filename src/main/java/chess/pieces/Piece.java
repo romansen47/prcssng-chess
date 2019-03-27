@@ -20,6 +20,8 @@ import processing.core.PImage;
  */
 public abstract class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 
+	private final int value;
+
 	/**
 	 * the color
 	 */
@@ -49,11 +51,12 @@ public abstract class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	 * @param col   the color
 	 * @param field the field
 	 */
-	public Piece(Ids id, Colors col, Field field) {
-		this.id		= id;
-		this.col	= col;
+	public Piece(Ids id, Colors col, Field field, int value) {
+		this.id = id;
+		this.col = col;
 		setField(field);
 		firstField = field;
+		this.value = value;
 	}
 
 	@Override
@@ -126,6 +129,14 @@ public abstract class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	@Override
 	public String toString() {
 		return getCol() + " " + getId();
+	}
+
+	/**
+	 * @return the value
+	 */
+	@Override
+	public int getValue() {
+		return value;
 	}
 
 }

@@ -8,7 +8,6 @@ import java.util.Map;
 
 import chess.moves.IMove;
 import chess.pieces.IPiece;
-import defs.classes.Game;
 import defs.enums.Colors;
 import defs.players.artint.RandomPlayer;
 
@@ -33,7 +32,7 @@ public class EasyPlayer extends RandomPlayer {
 			}
 		}
 		final ArrayList<IMove> newMoves = IPlayer.removeDuplicates(moves);
-		evaluateMoveList(moves);
+		List<Integer> list = evaluateMoveList(newMoves);
 		return newMoves.get(0);
 	}
 
@@ -47,22 +46,34 @@ public class EasyPlayer extends RandomPlayer {
 		}
 	}
 
-	private void evaluateMoveList(ArrayList<IMove> moves) {
+	private List<Integer> evaluateMoveList(ArrayList<IMove> moves) {
 		Collections.sort(moves, new SortByEval());
+		List<Integer> sortedMoves = new ArrayList<>();
+		for (IMove move : moves) {
+			sortedMoves.add(new Integer(evaluate(move)));
+		}
+		return sortedMoves;
 	}
 
 	public int evaluate(IMove a) {
 		a.execute();
 		getReferee().switchMainPlayer();
-		Map<IPiece, List<IMove>>	possibleMoves	= getReferee().createPossibleValidMovesForActivePieces();
-		List<IMove>					movesToList		= new ArrayList<>();
+		Map<IPiece, List<IMove>> possibleMoves = getReferee().createPossibleValidMovesForActivePieces();
+		List<IMove> movesToList = new ArrayList<>();
 		for (IPiece piece : possibleMoves.keySet()) {
 			movesToList.addAll(possibleMoves.get(piece));
 		}
-		int			AmountOfPossibleMovesAfterExecution	= movesToList.size();
-		int			DifferenceConcPieces				= getPieces().size() - Game.getOpponent().getPieces().size();
-		final int	ans									= AmountOfPossibleMovesAfterExecution + DifferenceConcPieces;
+		int AmountOfPossibleMovesAfterExecution = movesToList.size() * 50;
+		final int ans = AmountOfPossibleMovesAfterExecution + evaluatePieces(getPieces());
 		getReferee().rewindLastMove();
+		return -ans;
+	}
+
+	public int evaluatePieces(List<IPiece> list) {
+		int ans = 0;
+		for (IPiece piece : list) {
+			ans = ans + piece.getValue();
+		}
 		return ans;
 	}
 }
