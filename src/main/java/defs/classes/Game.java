@@ -1,13 +1,12 @@
 package defs.classes;
 
-import conf.Config;
-import conf.Referee;
-import conf.Timeline;
+import chess.Config;
+import chess.IRefs;
+import chess.moves.Timeline;
 import defs.enums.Colors;
-import defs.interfaces.IPlayer;
-import defs.interfaces.IRefs;
+import defs.players.EasyPlayer;
+import defs.players.IPlayer;
 import defs.players.Player;
-import defs.players.artint.BlackRandomPlayer;
 import defs.players.artint.WhiteRandomPlayer;
 
 public final class Game implements IRefs {
@@ -15,19 +14,19 @@ public final class Game implements IRefs {
 	/**
 	 * the black player
 	 */
-	private static IPlayer black;
+	private static IPlayer	black;
 	/**
 	 * static instance
 	 */
-	private static Game instance = null;
+	private static Game		instance	= null;
 	/**
 	 * the acting player
 	 */
-	private static IPlayer player;
+	private static IPlayer	player;
 	/**
 	 * the white player
 	 */
-	private static IPlayer white;
+	private static IPlayer	white;
 
 	/**
 	 * getter for the black player
@@ -110,13 +109,13 @@ public final class Game implements IRefs {
 	 */
 	private Game() {
 		// Generate the chess board
-		this.chessboard = new Field[8][8];
+		chessboard = new Field[8][8];
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (((i + j) % 2) == 0) {
-					this.getChessboard()[i][j] = new Field(Colors.BLACK, i, j);
+					getChessboard()[i][j] = new Field(Colors.BLACK, i, j);
 				} else {
-					this.getChessboard()[i][j] = new Field(Colors.WHITE, i, j);
+					getChessboard()[i][j] = new Field(Colors.WHITE, i, j);
 				}
 			}
 		}
@@ -128,10 +127,11 @@ public final class Game implements IRefs {
 	 *
 	 * @param i coordinate for the row
 	 * @param j coordinate for the column
-	 * @return the field at given coordinates
+	 * @return the field at given
+	 *         coordinates
 	 */
 	public Field getField(int i, int j) {
-		return this.getChessboard()[i][j];
+		return getChessboard()[i][j];
 	}
 
 	/**
@@ -140,7 +140,7 @@ public final class Game implements IRefs {
 	 * @return the timeline
 	 */
 	public Timeline getMoveList() {
-		return this.moveList;
+		return moveList;
 	}
 
 	/**
@@ -156,12 +156,14 @@ public final class Game implements IRefs {
 	}
 
 	/**
-	 * setup method for the game. creates the players and sets the white player as
-	 * the acting player to perform the first move
+	 * setup method for the game. creates
+	 * the players and sets the white player
+	 * as the acting player to perform the
+	 * first move
 	 */
 	public void setup() {
-		if (Config.isRandomBlackPlayer()) {
-			setBlack(new BlackRandomPlayer());
+		if (Config.isEasyPlayer()) {
+			setBlack(new EasyPlayer(Colors.BLACK, 1));
 		} else {
 			setBlack(new Player(Colors.BLACK));
 		}

@@ -10,7 +10,8 @@ import defs.enums.Colors;
 public class BlackRandomPlayer extends RandomPlayer {
 
 	/**
-	 * Constructor. The random Player is black
+	 * Constructor. The random Player is
+	 * black
 	 */
 	public BlackRandomPlayer() {
 		super(Colors.BLACK);

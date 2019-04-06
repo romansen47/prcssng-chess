@@ -1,12 +1,12 @@
 package defs.classes;
 
+import chess.Config;
+import chess.IDraw;
+import chess.IRefs;
 import chess.Main;
-import conf.Config;
+import chess.pieces.IPiece;
 import defs.enums.Colors;
 import defs.interfaces.IColors;
-import defs.interfaces.IDraw;
-import defs.interfaces.IPiece;
-import defs.interfaces.IRefs;
 
 /**
  *
@@ -37,9 +37,9 @@ public class Field implements IColors, IDraw, IRefs {
 	private IPiece piece = null;
 
 	public Field() {
-		i = 0;
-		j = 0;
-		col = null;
+		i	= 0;
+		j	= 0;
+		col	= null;
 	}
 
 	/**
@@ -50,24 +50,26 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @param j   the horizontal coordinate
 	 */
 	public Field(Colors col, int i, int j) {
-		this.col = col;
-		this.i = i;
-		this.j = j;
+		this.col	= col;
+		this.i		= i;
+		this.j		= j;
 	}
 
 	/*
 	 * + (non-Javadoc)
 	 *
-	 * @see defs.interfaces.IDraw#draw(chess.Main)
+	 * @see
+	 * defs.interfaces.IDraw#draw(chess.
+	 * Main)
 	 */
 	@Override
 	public void draw(Main main) {
 		final int size = Config.SIZE;
 		main.noStroke();
-		main.fill(this.getColAsInt());
-		main.rect((float) size * this.getJ(), (float) size * this.getI(), size, size);
-		if (this.getPiece() != null) {
-			this.getPiece().draw(main);
+		main.fill(getColAsInt());
+		main.rect((float) size * getJ(), (float) size * getI(), size, size);
+		if (getPiece() != null) {
+			getPiece().draw(main);
 		}
 	}
 
@@ -76,17 +78,20 @@ public class Field implements IColors, IDraw, IRefs {
 	 */
 	@Override
 	public Colors getCol() {
-		return this.col;
+		return col;
 	}
 
 	/**
-	 * We need some different colors, since the fields should not be only black and
-	 * white. In detail, e.e. white should rather be grey
+	 * We need some different colors, since
+	 * the fields should not be only black
+	 * and white. In detail, e.e. white
+	 * should rather be grey
 	 *
-	 * @return the corresponding color value as integer
+	 * @return the corresponding color value
+	 *         as integer
 	 */
 	public int getColAsInt() {
-		if (this.getCol() == Colors.WHITE) {
+		if (getCol() == Colors.WHITE) {
 			return 230;
 		}
 		return 100;
@@ -98,7 +103,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return vertical coordinate
 	 */
 	public int getI() {
-		return this.i;
+		return i;
 	}
 
 	/**
@@ -107,7 +112,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return horizontal coordinate
 	 */
 	public int getJ() {
-		return this.j;
+		return j;
 	}
 
 	/**
@@ -116,11 +121,12 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return the piece
 	 */
 	public IPiece getPiece() {
-		return this.piece;
+		return piece;
 	}
 
 	/**
-	 * The mouse position in chess game's native coordinates
+	 * The mouse position in chess game's
+	 * native coordinates
 	 *
 	 * @param main the main papplet
 	 * @return the vertical position
@@ -130,7 +136,8 @@ public class Field implements IColors, IDraw, IRefs {
 	}
 
 	/**
-	 * The mouse position in chess game's native coordinates
+	 * The mouse position in chess game's
+	 * native coordinates
 	 *
 	 * @param main the main papplet
 	 * @return the horizontal position
@@ -154,10 +161,10 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return the string in chess notation
 	 */
 	public String toChessNotation() {
-		final StringBuilder strBuilder = new StringBuilder();
-		char name = "ABCDEFGH".charAt(this.getJ());
+		final StringBuilder	strBuilder	= new StringBuilder();
+		final char			name		= "ABCDEFGH".charAt(getJ());
 		strBuilder.append(name);
-		strBuilder.append(1 + this.getI());
+		strBuilder.append(1 + getI());
 		return strBuilder.toString();
 	}
 
@@ -166,15 +173,15 @@ public class Field implements IColors, IDraw, IRefs {
 	 */
 	@Override
 	public String toString() {
-		String ans = "(" + this.toChessNotation() + "): " + this.getCol() + " FIELD";
-		if (this.getPiece() != null) {
-			ans += " (" + this.getPiece().toString() + ")";
+		String ans = "(" + toChessNotation() + "): " + getCol() + " FIELD";
+		if (getPiece() != null) {
+			ans += " (" + getPiece().toString() + ")";
 		}
 		return ans;
 	}
 
 	public void reset() {
-		this.setPiece(null);
+		setPiece(null);
 	}
 
 }

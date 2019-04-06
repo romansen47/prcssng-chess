@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import conf.Config;
+import chess.Config;
+import chess.moves.IMove;
+import chess.pieces.IPiece;
+import chess.pieces.King;
 import defs.classes.Game;
 import defs.enums.Colors;
-import defs.interfaces.IMove;
-import defs.interfaces.IPiece;
-import defs.interfaces.IPlayer;
-import pieces.King;
 
 /**
  *
@@ -25,7 +24,8 @@ public class Player implements IPlayer {
 	private static Game game = Game.getInstance();
 
 	/**
-	 * a list of all players of one color. this list stays allways the same. no
+	 * a list of all players of one color.
+	 * this list stays allways the same. no
 	 * pieces are to be added or removed!
 	 */
 	private final List<IPiece> allPieces = new ArrayList<>();
@@ -58,11 +58,11 @@ public class Player implements IPlayer {
 	public Player(Colors col) {
 		this.col = col;
 		if (col == Colors.WHITE) {
-			this.king = new King(Colors.WHITE, Player.game.getField(0, 4));
+			king = new King(Colors.WHITE, Player.game.getField(0, 4));
 		} else {
-			this.king = new King(Colors.BLACK, Player.game.getField(Config.GAMESIZE, 4));
+			king = new King(Colors.BLACK, Player.game.getField(Config.GAMESIZE, 4));
 		}
-		this.initialGeneration();
+		initialGeneration();
 	}
 
 	@Override
