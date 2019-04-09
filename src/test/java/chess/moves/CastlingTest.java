@@ -22,8 +22,7 @@ class CastlingTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link chess.moves.Move#getNext()}.
+	 * Test method for {@link chess.moves.Move#getNext()}.
 	 */
 	@Test
 	void testGetNext() {
@@ -31,8 +30,7 @@ class CastlingTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link chess.moves.Move#getPrev()}.
+	 * Test method for {@link chess.moves.Move#getPrev()}.
 	 */
 	@Test
 	void testGetPrev() {
@@ -40,8 +38,7 @@ class CastlingTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link chess.moves.Move#getString()}.
+	 * Test method for {@link chess.moves.Move#getString()}.
 	 */
 	@Test
 	void testGetString() {
