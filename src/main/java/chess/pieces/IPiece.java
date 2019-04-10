@@ -57,6 +57,7 @@ public interface IPiece extends IRefs {
 	 */
 	default void die() {
 		getField().setPiece(null);
+		setField(null);
 		getOwner().getPieces().remove(this);
 	}
 

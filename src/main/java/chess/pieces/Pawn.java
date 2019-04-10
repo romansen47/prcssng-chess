@@ -16,6 +16,11 @@ public class Pawn extends Piece {
 
 	private static Drawer drawer;
 
+	private final IPiece promotedQueen;
+	private final IPiece promotedRook;
+	private final IPiece promotedBishop;
+	private final IPiece promotedKnight;
+
 	/**
 	 * Constructor
 	 *
@@ -24,6 +29,10 @@ public class Pawn extends Piece {
 	 */
 	public Pawn(Colors col, Field field) {
 		super(Ids.PAWN, col, field, 30);
+		promotedQueen = new Queen(getCol(), null);
+		promotedRook = new Rook(getCol(), null);
+		promotedBishop = new Bishop(getCol(), null);
+		promotedKnight = new Knight(getCol(), null);
 	}
 
 	/**
@@ -41,9 +50,15 @@ public class Pawn extends Piece {
 				fld = getReferee().getGame().getChessboard()[5][fig.getPosJ()];
 			}
 			return new EnPassant(this, fld);
-		} else if (field.getI() == 0 || field.getI() == 7) {
-			final Ids id = drawer.choose();
-			return new Promotion(getField(), field, id);
+		} else {
+			if (field.getI() == 0) {
+				final Ids id = drawer.choose();
+				return new Promotion(getField(), field, id);
+			}
+			if (field.getI() == 7) {
+				final Ids id = drawer.choose();
+				return new Promotion(getField(), field, id);
+			}
 		}
 		return super.getMove(field);
 	}
@@ -152,6 +167,34 @@ public class Pawn extends Piece {
 	 */
 	public static void setDrawer(Drawer drawer) {
 		Pawn.drawer = drawer;
+	}
+
+	/**
+	 * @return the promotedQueen
+	 */
+	public IPiece getPromotedQueen() {
+		return promotedQueen;
+	}
+
+	/**
+	 * @return the promotedRook
+	 */
+	public IPiece getPromotedRook() {
+		return promotedRook;
+	}
+
+	/**
+	 * @return the promotedBishop
+	 */
+	public IPiece getPromotedBishop() {
+		return promotedBishop;
+	}
+
+	/**
+	 * @return the promotedKnight
+	 */
+	public IPiece getPromotedKnight() {
+		return promotedKnight;
 	}
 
 }

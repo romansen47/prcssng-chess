@@ -107,10 +107,10 @@ public abstract class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 
 	@Override
 	public void reset() {
-		getField().setPiece(null);
+		if (getField() != null) {
+			getField().setPiece(this);
+		}
 		setField(getFirstField());
-		getOwner().getPieces().add(this);
-		getField().setPiece(this);
 	}
 
 	@Override

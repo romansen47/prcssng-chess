@@ -21,6 +21,9 @@ public class Queen extends Piece implements ILongDist {
 
 	@Override
 	public void checkDirections(List<Field> lst) {
+		if (getField() == null) {
+			return;
+		}
 		checkDirection(lst, new int[] { 1, 1 });
 		checkDirection(lst, new int[] { -1, 1 });
 		checkDirection(lst, new int[] { 1, -1 });

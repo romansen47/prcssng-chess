@@ -37,9 +37,9 @@ public class Field implements IColors, IDraw, IRefs {
 	private IPiece piece = null;
 
 	public Field() {
-		i	= 0;
-		j	= 0;
-		col	= null;
+		i = 0;
+		j = 0;
+		col = null;
 	}
 
 	/**
@@ -50,17 +50,15 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @param j   the horizontal coordinate
 	 */
 	public Field(Colors col, int i, int j) {
-		this.col	= col;
-		this.i		= i;
-		this.j		= j;
+		this.col = col;
+		this.i = i;
+		this.j = j;
 	}
 
 	/*
 	 * + (non-Javadoc)
 	 *
-	 * @see
-	 * defs.interfaces.IDraw#draw(chess.
-	 * Main)
+	 * @see defs.interfaces.IDraw#draw(chess. Main)
 	 */
 	@Override
 	public void draw(Main main) {
@@ -68,7 +66,7 @@ public class Field implements IColors, IDraw, IRefs {
 		main.noStroke();
 		main.fill(getColAsInt());
 		main.rect((float) size * getJ(), (float) size * getI(), size, size);
-		if (getPiece() != null) {
+		if (getPiece() != null && getPiece().getField() != null) {
 			getPiece().draw(main);
 		}
 	}
@@ -82,13 +80,10 @@ public class Field implements IColors, IDraw, IRefs {
 	}
 
 	/**
-	 * We need some different colors, since
-	 * the fields should not be only black
-	 * and white. In detail, e.e. white
-	 * should rather be grey
+	 * We need some different colors, since the fields should not be only black and
+	 * white. In detail, e.e. white should rather be grey
 	 *
-	 * @return the corresponding color value
-	 *         as integer
+	 * @return the corresponding color value as integer
 	 */
 	public int getColAsInt() {
 		if (getCol() == Colors.WHITE) {
@@ -125,8 +120,7 @@ public class Field implements IColors, IDraw, IRefs {
 	}
 
 	/**
-	 * The mouse position in chess game's
-	 * native coordinates
+	 * The mouse position in chess game's native coordinates
 	 *
 	 * @param main the main papplet
 	 * @return the vertical position
@@ -136,8 +130,7 @@ public class Field implements IColors, IDraw, IRefs {
 	}
 
 	/**
-	 * The mouse position in chess game's
-	 * native coordinates
+	 * The mouse position in chess game's native coordinates
 	 *
 	 * @param main the main papplet
 	 * @return the horizontal position
@@ -161,8 +154,8 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return the string in chess notation
 	 */
 	public String toChessNotation() {
-		final StringBuilder	strBuilder	= new StringBuilder();
-		final char			name		= "ABCDEFGH".charAt(getJ());
+		final StringBuilder strBuilder = new StringBuilder();
+		final char name = "ABCDEFGH".charAt(getJ());
 		strBuilder.append(name);
 		strBuilder.append(1 + getI());
 		return strBuilder.toString();
