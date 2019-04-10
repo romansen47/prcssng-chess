@@ -119,16 +119,6 @@ public class King extends Piece {
 	}
 
 	/**
-	 * Must be rewritten in order to avoid cycles
-	 */
-	@Override
-	public List<IMove> getPossibleMoves() {
-		final List<IMove> lst = getSpecialMoves();
-		lst.addAll(getSimpleMoves());
-		return lst;
-	}
-
-	/**
 	 *
 	 * @param field rooks field
 	 * @return the rook

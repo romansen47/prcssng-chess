@@ -21,7 +21,7 @@ public final class Config {
 	/**
 	 * Do we use an easy player?
 	 */
-	private static boolean easyPlayer = true;
+	private static boolean easyPlayer = false;
 
 	/**
 	 * Do we use a random black player?
@@ -36,7 +36,7 @@ public final class Config {
 	/**
 	 * the standard size of a field
 	 */
-	public static final int SIZE = 80;
+	public static final int SIZE = 60;
 
 	/**
 	 * getter for the static instance

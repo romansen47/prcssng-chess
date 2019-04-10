@@ -30,6 +30,7 @@ public class Promotion extends Move {
 	public void execute() {
 		super.execute();
 		IPiece newQueen = ((Pawn) pawn).getPromotedQueen();
+		newQueen.setField(getNext());
 		pawn.getOwner().getPieces().add(newQueen);
 		pawn.die();
 		getNext().setPiece(newQueen);
