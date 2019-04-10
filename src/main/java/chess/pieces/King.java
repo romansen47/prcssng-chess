@@ -17,7 +17,7 @@ public class King extends Piece {
 	/**
 	 * King carries around the information if he is valid for castling
 	 */
-	private boolean isValidForCastling = true;
+	// private final boolean isValidForCastling = true;
 
 	/**
 	 * king has a state
@@ -27,16 +27,20 @@ public class King extends Piece {
 	/**
 	 * Constructor
 	 *
-	 * @param col   the color
-	 * @param field the field
+	 * @param col
+	 *            the color
+	 * @param field
+	 *            the field
 	 */
 	public King(Colors col, Field field) {
 		super(Ids.KING, col, field, 1000);
 	}
 
 	/**
-	 * @param fld the field to be checked for validity
-	 * @param lst the list of fields already validated
+	 * @param fld
+	 *            the field to be checked for validity
+	 * @param lst
+	 *            the list of fields already validated
 	 *
 	 * @return returns true, if field is valid and adds field to the list of valid
 	 *         fields. returns false and does nothing, otherwise.
@@ -88,8 +92,10 @@ public class King extends Piece {
 	 * in a check for validity for a castling the fields between the king and the
 	 * rook must not be being attacked
 	 *
-	 * @param fld1 first field
-	 * @param fld2 second field
+	 * @param fld1
+	 *            first field
+	 * @param fld2
+	 *            second field
 	 * @return the fields in between
 	 */
 	private List<Field> getFieldsInBetween(Field fld1, Field fld2) {
@@ -106,7 +112,8 @@ public class King extends Piece {
 	}
 
 	/**
-	 * @param field the field to move on
+	 * @param field
+	 *            the field to move on
 	 * @return returns the move. returns subtype castling in case of validity
 	 */
 	@Override
@@ -130,7 +137,8 @@ public class King extends Piece {
 
 	/**
 	 *
-	 * @param field rooks field
+	 * @param field
+	 *            rooks field
 	 * @return the rook
 	 */
 	private Rook getRook(Field field) {
@@ -244,7 +252,8 @@ public class King extends Piece {
 
 	/**
 	 *
-	 * @param field the field to be checked for validity
+	 * @param field
+	 *            the field to be checked for validity
 	 * @return returns, whether the field contains a rook of same color, whether
 	 *         rook has already been attacked and if one of the fields in between is
 	 *         under enemy attack.
@@ -272,7 +281,8 @@ public class King extends Piece {
 	/**
 	 * setter for the state
 	 *
-	 * @param state the state
+	 * @param state
+	 *            the state
 	 */
 	public void setState(State state) {
 		if (state == State.CHESS) {
@@ -284,10 +294,11 @@ public class King extends Piece {
 	/**
 	 * setter for isValidForCastling
 	 *
-	 * @param isValidForCastling isValidForCastling
+	 * @param isValidForCastling
+	 *            isValidForCastling
 	 */
 	public void setValidForCastling(boolean isValidForCastling) {
-		this.isValidForCastling = isValidForCastling;
+		// this.isValidForCastling = isValidForCastling;
 	}
 
 	@Override

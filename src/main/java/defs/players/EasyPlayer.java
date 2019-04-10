@@ -27,12 +27,12 @@ public class EasyPlayer extends RandomPlayer {
 			final List<IMove> tmpmoves = piece.getPossibleMoves();
 			for (final IMove move : tmpmoves) {
 				if (move.getNext() != piece.getField()) {
-					moves.addAll(tmpmoves);
+					moves.add(move);
 				}
 			}
 		}
 		final ArrayList<IMove> newMoves = IPlayer.removeDuplicates(moves);
-		List<Integer> list = evaluateMoveList(newMoves);
+		evaluateMoveList(newMoves);
 		return newMoves.get(0);
 	}
 
