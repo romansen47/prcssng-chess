@@ -77,7 +77,7 @@ public class King extends Piece {
 		final List<Field> fields = new ArrayList<>();
 		final List<IPiece> pieces = pl.getPieces();
 		for (final IPiece piece : pieces) {
-			if (!(piece instanceof King) && piece.convertMovesToFields(piece.getPossibleMoves()).contains(getField())) {
+			if (piece.convertMovesToFields(piece.getPossibleMoves()).contains(getField())) {
 				fields.add(piece.getField());
 			}
 		}

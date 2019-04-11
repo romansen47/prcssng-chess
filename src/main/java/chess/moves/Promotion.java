@@ -37,7 +37,7 @@ public class Promotion extends Move {
 		if (getPiece().getCol() == Colors.WHITE) {
 			newQueen.setImage(Drawer.getMain().getWhiteQueen());
 		} else {
-			newQueen.setImage(Drawer.getMain().getWhiteQueen());
+			newQueen.setImage(Drawer.getMain().getBlackQueen());
 		}
 	}
 }
