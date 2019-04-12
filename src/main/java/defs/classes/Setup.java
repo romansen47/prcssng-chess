@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chess.Config;
+import chess.IMain;
 import chess.IRefs;
 import chess.ISetupAndRun;
 import chess.Main;
@@ -17,10 +18,8 @@ import processing.core.PImage;
  *
  * @author roman
  *
- *         The functionality of the main
- *         setup method is being
- *         outsourced to an own
- *         (singleton) class
+ *         The functionality of the main setup method is being outsourced to an
+ *         own (singleton) class
  */
 public class Setup implements IRefs, ISetupAndRun {
 
@@ -35,7 +34,7 @@ public class Setup implements IRefs, ISetupAndRun {
 	 * @param main the Main(PApplet) object.
 	 * @return the static instance
 	 */
-	public static Setup getInstance(Main main) {
+	public static Setup getInstance(IMain main) {
 		if (Setup.instance == null) {
 			return new Setup(main);
 		}
@@ -43,18 +42,16 @@ public class Setup implements IRefs, ISetupAndRun {
 	}
 
 	/**
-	 * This is necessary, since main
-	 * instance is needed to initiate the
-	 * pieces
+	 * This is necessary, since main instance is needed to initiate the pieces
 	 */
-	private final Main main;
+	private final IMain main;
 
 	/**
 	 * Constructor
 	 *
 	 * @param main the papplet object
 	 */
-	private Setup(Main main) {
+	private Setup(IMain main) {
 		this.main = main;
 	}
 
@@ -71,7 +68,7 @@ public class Setup implements IRefs, ISetupAndRun {
 		setupPlayers();
 
 		// create pieces
-		initiatePieces(getMain().getPath());
+		initiatePieces(((Main) getMain()).getPath());
 
 		// this.getReferee().setMarked(Game.getPlayer().getKing().getField());
 
@@ -94,24 +91,20 @@ public class Setup implements IRefs, ISetupAndRun {
 	/**
 	 * @return the main
 	 */
-	public Main getMain() {
+	public IMain getMain() {
 		return main;
 	}
 
 	/**
 	 * Returns e.g. all black rooks.
 	 *
-	 * @param id  the id the pieces in the
-	 *            returned list should have
-	 * @param col the color the pieces in
-	 *            the returned list should
-	 *            have
-	 * @return the list of pieces of same
-	 *         color and id
+	 * @param id  the id the pieces in the returned list should have
+	 * @param col the color the pieces in the returned list should have
+	 * @return the list of pieces of same color and id
 	 */
 	public List<IPiece> getPiecesOfSameKind(Ids id, Colors col) {
-		final List<IPiece>	pieces	= new ArrayList<>();
-		IPlayer				pl		= Game.getWhite();
+		final List<IPiece> pieces = new ArrayList<>();
+		IPlayer pl = Game.getWhite();
 		if (col == Colors.BLACK) {
 			pl = Game.getBlack();
 		}
@@ -124,62 +117,55 @@ public class Setup implements IRefs, ISetupAndRun {
 	}
 
 	/**
-	 * Initiates the pimage objects and
-	 * assignes them to the pieces
+	 * Initiates the pimage objects and assignes them to the pieces
 	 *
-	 * @param path the path where the images
-	 *             are stored
+	 * @param path the path where the images are stored
 	 */
 	final void initiatePieces(String path) {
 
-		getMain().setWhiteKing(getMain().loadImage(path + "white_king.png"));
-		initiateRelevant(Ids.KING, Colors.WHITE, getMain().getWhiteKing());
+		((Main) getMain()).setWhiteKing(((Main) getMain()).loadImage(path + "white_king.png"));
+		initiateRelevant(Ids.KING, Colors.WHITE, ((Main) getMain()).getWhiteKing());
 
-		getMain().setBlackKing(getMain().loadImage(path + "black_king.png"));
-		initiateRelevant(Ids.KING, Colors.BLACK, getMain().getBlackKing());
+		((Main) getMain()).setBlackKing(((Main) getMain()).loadImage(path + "black_king.png"));
+		initiateRelevant(Ids.KING, Colors.BLACK, ((Main) getMain()).getBlackKing());
 
-		getMain().setWhiteQueen(getMain().loadImage(path + "white_queen.png"));
-		initiateRelevant(Ids.QUEEN, Colors.WHITE, getMain().getWhiteQueen());
+		((Main) getMain()).setWhiteQueen(((Main) getMain()).loadImage(path + "white_queen.png"));
+		initiateRelevant(Ids.QUEEN, Colors.WHITE, ((Main) getMain()).getWhiteQueen());
 
-		getMain().setBlackQueen(getMain().loadImage(path + "black_queen.png"));
-		initiateRelevant(Ids.QUEEN, Colors.BLACK, getMain().getBlackQueen());
+		((Main) getMain()).setBlackQueen(((Main) getMain()).loadImage(path + "black_queen.png"));
+		initiateRelevant(Ids.QUEEN, Colors.BLACK, ((Main) getMain()).getBlackQueen());
 
-		getMain().setWhiteKnight(getMain().loadImage(path + "white_knight.png"));
-		initiateRelevant(Ids.KNIGHT, Colors.WHITE, getMain().getWhiteKnight());
+		((Main) getMain()).setWhiteKnight(((Main) getMain()).loadImage(path + "white_knight.png"));
+		initiateRelevant(Ids.KNIGHT, Colors.WHITE, ((Main) getMain()).getWhiteKnight());
 
-		getMain().setBlackKnight(getMain().loadImage(path + "black_knight.png"));
-		initiateRelevant(Ids.KNIGHT, Colors.BLACK, getMain().getBlackKnight());
+		((Main) getMain()).setBlackKnight(((Main) getMain()).loadImage(path + "black_knight.png"));
+		initiateRelevant(Ids.KNIGHT, Colors.BLACK, ((Main) getMain()).getBlackKnight());
 
-		getMain().setWhiteBishop(getMain().loadImage(path + "white_bishop.png"));
-		initiateRelevant(Ids.BISHOP, Colors.WHITE, getMain().getWhiteBishop());
+		((Main) getMain()).setWhiteBishop(((Main) getMain()).loadImage(path + "white_bishop.png"));
+		initiateRelevant(Ids.BISHOP, Colors.WHITE, ((Main) getMain()).getWhiteBishop());
 
-		getMain().setBlackBishop(getMain().loadImage(path + "black_bishop.png"));
-		initiateRelevant(Ids.BISHOP, Colors.BLACK, getMain().getBlackBishop());
+		((Main) getMain()).setBlackBishop(((Main) getMain()).loadImage(path + "black_bishop.png"));
+		initiateRelevant(Ids.BISHOP, Colors.BLACK, ((Main) getMain()).getBlackBishop());
 
-		getMain().setWhiteTower(getMain().loadImage(path + "white_rook.png"));
-		initiateRelevant(Ids.ROOK, Colors.WHITE, getMain().getWhiteTower());
+		((Main) getMain()).setWhiteTower(((Main) getMain()).loadImage(path + "white_rook.png"));
+		initiateRelevant(Ids.ROOK, Colors.WHITE, ((Main) getMain()).getWhiteTower());
 
-		getMain().setBlackTower(getMain().loadImage(path + "black_rook.png"));
-		initiateRelevant(Ids.ROOK, Colors.BLACK, getMain().getBlackTower());
+		((Main) getMain()).setBlackTower(((Main) getMain()).loadImage(path + "black_rook.png"));
+		initiateRelevant(Ids.ROOK, Colors.BLACK, ((Main) getMain()).getBlackTower());
 
-		getMain().setWhitePawn(getMain().loadImage(path + "white_pawn.png"));
-		initiateRelevant(Ids.PAWN, Colors.WHITE, getMain().getWhitePawn());
+		((Main) getMain()).setWhitePawn(((Main) getMain()).loadImage(path + "white_pawn.png"));
+		initiateRelevant(Ids.PAWN, Colors.WHITE, ((Main) getMain()).getWhitePawn());
 
-		getMain().setBlackPawn(getMain().loadImage(path + "black_pawn.png"));
-		initiateRelevant(Ids.PAWN, Colors.BLACK, getMain().getBlackPawn());
+		((Main) getMain()).setBlackPawn(((Main) getMain()).loadImage(path + "black_pawn.png"));
+		initiateRelevant(Ids.PAWN, Colors.BLACK, ((Main) getMain()).getBlackPawn());
 
 	}
 
 	/**
-	 * Assignes an image to a set of pieces
-	 * of same kind
+	 * Assignes an image to a set of pieces of same kind
 	 *
-	 * @param id    the id corresponding to
-	 *              which the pieces will be
-	 *              selected
-	 * @param col   the col corresponding to
-	 *              which the pieces will be
-	 *              selected
+	 * @param id    the id corresponding to which the pieces will be selected
+	 * @param col   the col corresponding to which the pieces will be selected
 	 * @param image the image to be assigned
 	 */
 	public void initiateRelevant(Ids id, Colors col, PImage image) {
@@ -194,16 +180,15 @@ public class Setup implements IRefs, ISetupAndRun {
 	}
 
 	/**
-	 * Setup surface-attribute of papplet
-	 * instance
+	 * Setup surface-attribute of papplet instance
 	 */
 	final void setupSurface() {
-		getMain().background(255);
-		getMain().frameRate(60);
-		getMain().getSurface().setResizable(true);
-		getMain().getSurface().setSize(15 * Config.SIZE, 8 * Config.SIZE);
-		getMain().getSurface().setLocation((getMain().displayWidth - getMain().width) >> 1,
-				(getMain().displayHeight - getMain().height) >> 1);
+		((Main) getMain()).getSurface().setResizable(true);
+		((Main) getMain()).getSurface().setSize(15 * Config.SIZE, 8 * Config.SIZE);
+		((Main) getMain()).background(255);
+		((Main) getMain()).frameRate(60);
+		((Main) getMain()).getSurface().setLocation((((Main) getMain()).displayWidth - ((Main) getMain()).width) >> 1,
+				(((Main) getMain()).displayHeight - ((Main) getMain()).height) >> 1);
 	}
 
 }

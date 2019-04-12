@@ -1,9 +1,14 @@
 package chess;
 
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JFileChooser;
 import javax.xml.bind.JAXBException;
 
 import chess.moves.IMove;
@@ -26,6 +31,8 @@ import defs.players.artint.RandomPlayer;
  *         class.
  */
 public final class Drawer implements ISetupAndRun {
+
+	final JFileChooser chooser = new JFileChooser();
 
 	/**
 	 * true if match is to be restarted
@@ -55,16 +62,30 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * method to restore a match from a separate xml file
 	 */
-	public void restoreFromXml() {
-		if (Main.isRestore()) {
-			Main.setRestore(false);
+	public void restoreFromXml(String path) {
+		if (main.isRestore()) {
+			Game.setPlayer(Game.getWhite());
 			try {
-				Game.setPlayer(Game.getWhite());
-				new PrintableTimeline().restoreFromXml();
-				return;
+				new PrintableTimeline().restoreFromXml(path);
 			} catch (final JAXBException e) {
 				System.err.println("Failed to load timeline from xml. Does the file exist?");
 			}
+		}
+	}
+
+	/**
+	 * method to restore a match from a separate xml file
+	 */
+	public void restoreFromXml() {
+		try {
+			int ans = chooser.showOpenDialog(null);
+			String path = chooser.getSelectedFile().getPath();
+			if (ans == JFileChooser.APPROVE_OPTION) {
+				System.out.println("Die zu öffnende Datei ist: " + path);
+			}
+			restoreFromXml(path);
+		} catch (Exception e) {
+			return;
 		}
 	}
 
@@ -73,7 +94,7 @@ public final class Drawer implements ISetupAndRun {
 	 */
 	public void startUp() {
 		if (isStartup()) {
-			getMain().background(255);
+			((Main) getMain()).background(255);
 			createAllMoves();
 			drawChessboard(getAllPossibleMoves(), allAttackers, allSupporters);
 			setStartup(false);
@@ -132,23 +153,24 @@ public final class Drawer implements ISetupAndRun {
 	 * @throws Exception from (un)marshaller
 	 */
 	public void checkForPressedKey() throws Exception {
-		if ((getMain().pressed() == 1)) {
-			if (getMain().key == 'r') {
+		String path = "target/TimeLine.xml";
+		if ((((Main) getMain()).pressed() == 1)) {
+			if (((Main) getMain()).key == 'r') {
 				getReferee().rewindLastMove();
 			}
-			if (getMain().key == 'c') {
+			if (((Main) getMain()).key == 'c') {
 				Timeline.getInstance().clear();
 				getReferee().rePlayGame(Timeline.getInstance());
 			}
-			if (getMain().key == 's') {
+			if (((Main) getMain()).key == 's') {
 				new PrintableTimeline().toXml();
 			}
-			if (getMain().key == 'l') {
+			if (((Main) getMain()).key == 'l') {
 				getReferee().reset();
 				move = null;
-				Main.setRestore(true);
+				main.setRestore(true);
 			}
-			getMain().background(255);
+			((Main) getMain()).background(255);
 			drawChessboard(getAllPossibleMoves(), allAttackers, allSupporters);
 			move = null;
 		}
@@ -162,7 +184,7 @@ public final class Drawer implements ISetupAndRun {
 	public void drawChessboardPiecesAndMarks(boolean cl) {
 		if (cl || move != null) {
 			createAllMoves();
-			getMain().background(255);
+			((Main) getMain()).background(255);
 			drawChessboard(getAllPossibleMoves(), allAttackers, allSupporters);
 			move = null;
 		}
@@ -183,7 +205,12 @@ public final class Drawer implements ISetupAndRun {
 	public void execute() throws Exception {
 
 		// restore, if Main.restore is true
-		restoreFromXml();
+		if (main.isRestore()) {
+			main.setRestore(false);
+			restoreFromXml();
+		}
+
+		// getMain().getSAVEDTIMELINEPATH());
 
 		// start up correctly, if startup is
 		// true
@@ -218,7 +245,7 @@ public final class Drawer implements ISetupAndRun {
 	 * @param mn the main papplet object
 	 * @return drawer instance
 	 */
-	public static Drawer getInstance(Main mn) {
+	public static Drawer getInstance(IMain mn) {
 		if (Drawer.instance == null) {
 			main = mn;
 			final Drawer inst = new Drawer();
@@ -242,7 +269,7 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * main instance is needed, since the drawer should be able to "draw" things.
 	 */
-	private static Main main;
+	private static IMain main;
 
 	/**
 	 * private constructor.
@@ -256,7 +283,7 @@ public final class Drawer implements ISetupAndRun {
 	 * @return whether click has been performed.
 	 */
 	public boolean checkForClick() {
-		return getMain().clicked() == 1;
+		return ((Main) getMain()).clicked() == 1;
 	}
 
 	/**
@@ -281,13 +308,13 @@ public final class Drawer implements ISetupAndRun {
 	public void drawGrid() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				getMain().stroke(0);
-				getMain().strokeWeight(3);
+				((Main) getMain()).stroke(0);
+				((Main) getMain()).strokeWeight(3);
 				final float tmp = 8 * (float) Config.SIZE;
-				getMain().line(0, 0, tmp, 0);
-				getMain().line(0, 0, 0, tmp);
-				getMain().line(tmp, 0, tmp, tmp);
-				getMain().line(0, tmp, tmp, tmp);
+				((Main) getMain()).line(0, 0, tmp, 0);
+				((Main) getMain()).line(0, 0, 0, tmp);
+				((Main) getMain()).line(tmp, 0, tmp, tmp);
+				((Main) getMain()).line(0, tmp, tmp, tmp);
 			}
 		}
 	}
@@ -336,7 +363,7 @@ public final class Drawer implements ISetupAndRun {
 	public void drawPieces() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				getGame().getField(i, j).draw(getMain());
+				getGame().getField(i, j).draw(((Main) getMain()));
 			}
 		}
 	}
@@ -346,13 +373,13 @@ public final class Drawer implements ISetupAndRun {
 	 */
 	private void drawTimeLine() {
 		final Timeline tl = getGame().getMoveList();
-		getMain().textSize(24);
-		getMain().fill(0);
-		getMain().text("Timeline:", (Config.GAMESIZE + 2) * (float) Config.SIZE, Config.SIZE);
-		getMain().textSize(18);
+		((Main) getMain()).textSize(24);
+		((Main) getMain()).fill(0);
+		((Main) getMain()).text("Timeline:", (Config.GAMESIZE + 2) * (float) Config.SIZE, Config.SIZE);
+		((Main) getMain()).textSize(18);
 		int i = 2;
 		for (final String str : tl.toStr()) {
-			getMain().text(str, (((float) Config.SIZE) / 4) + ((Config.GAMESIZE + 1) * Config.SIZE),
+			((Main) getMain()).text(str, (((float) Config.SIZE) / 4) + ((Config.GAMESIZE + 1) * Config.SIZE),
 					(float) Config.SIZE + (i++ * 30));
 		}
 	}
@@ -361,9 +388,9 @@ public final class Drawer implements ISetupAndRun {
 	 * Draws the timeline
 	 */
 	private void drawServiceWindow() {
-		getMain().textSize(32);
-		getMain().fill(255);
-		getMain().rect((Config.GAMESIZE + 1) * (float) Config.SIZE, 4 * Config.SIZE, Config.SIZE, Config.SIZE);
+		((Main) getMain()).textSize(32);
+		((Main) getMain()).fill(255);
+		((Main) getMain()).rect((Config.GAMESIZE + 1) * (float) Config.SIZE, 4 * Config.SIZE, Config.SIZE, Config.SIZE);
 	}
 
 	/**
@@ -386,12 +413,12 @@ public final class Drawer implements ISetupAndRun {
 	 * @param pos   position of the mark within the field
 	 */
 	private void drawColoredField(Field fld, int red, int green, int blue, int pos) {
-		getMain().stroke(red, green, blue);
+		((Main) getMain()).stroke(red, green, blue);
 		final int size = Config.SIZE;
 		final int thickness = 5 - pos;
-		getMain().strokeWeight(thickness);
-		getMain().noFill();
-		getMain().rect((((fld.getJ() + 1) * size) - size) + (float) thickness,
+		((Main) getMain()).strokeWeight(thickness);
+		((Main) getMain()).noFill();
+		((Main) getMain()).rect((((fld.getJ() + 1) * size) - size) + (float) thickness,
 				(((fld.getI() + 1) * (float) size) - size) + thickness, (float) size - (2 * thickness),
 				(float) size - (2 * thickness));
 	}
@@ -446,7 +473,7 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * @return the main
 	 */
-	public static Main getMain() {
+	public static IMain getMain() {
 		return main;
 	}
 
@@ -484,7 +511,26 @@ public final class Drawer implements ISetupAndRun {
 	 * @param allPossibleMoves the allPossibleMoves to set
 	 */
 	public void setAllPossibleMoves(Map<IPiece, List<IMove>> allPossibleMoves) {
-		this.allPossibleMoves = allPossibleMoves;
+		Drawer.allPossibleMoves = allPossibleMoves;
+	}
+
+	public List<Path> ls(String directory) {
+		Path dir = FileSystems.getDefault().getPath(directory);
+		return ls(dir);
+	}
+
+	public static List<Path> ls(Path dir) {
+		List<Path> paths = new ArrayList<>();
+		try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+			for (Path file : stream) {
+				paths.add(file.getFileName());
+			}
+		} catch (Exception e) {
+			// IOException can never be thrown by the iteration.
+			// In this snippet, it can only be thrown by newDirectoryStream.
+			System.err.println(e);
+		}
+		return paths;
 	}
 
 }

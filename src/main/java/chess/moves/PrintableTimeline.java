@@ -2,6 +2,7 @@ package chess.moves;
 
 import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -15,6 +16,8 @@ import defs.classes.Game;
 
 @XmlRootElement(name = "TheTimeline")
 public class PrintableTimeline {
+
+	final JFileChooser chooser = new JFileChooser();
 
 	private PrintableMove[] moves;
 
@@ -31,25 +34,31 @@ public class PrintableTimeline {
 	}
 
 	public void toXml() throws Exception {
-		final File			file			= new File("target/TimeLine.xml");
-		final JAXBContext	jaxbContext		= JAXBContext.newInstance(chess.moves.PrintableTimeline.class);
-		final Marshaller	jaxbMarshaller	= jaxbContext.createMarshaller();
+
+		int ans = chooser.showSaveDialog(null);
+		String path = chooser.getSelectedFile().getPath();
+		if (ans == JFileChooser.APPROVE_OPTION) {
+			System.out.println("Die zu öffnende Datei ist: " + path);
+		}
+		final File file = new File(path);
+		final JAXBContext jaxbContext = JAXBContext.newInstance(chess.moves.PrintableTimeline.class);
+		final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		jaxbMarshaller.marshal(this, file);
 		jaxbMarshaller.marshal(this, System.out);
 	}
 
-	public void restoreFromXml() throws JAXBException {
-		final File				file			= new File("target/TimeLine.xml");
-		final JAXBContext		jContext		= JAXBContext.newInstance(PrintableTimeline.class);
-		final Unmarshaller		unmarshallerObj	= jContext.createUnmarshaller();
-		final PrintableTimeline	ptl				= ((PrintableTimeline) (unmarshallerObj.unmarshal(file)));
-		final PrintableMove[]	newMoves		= ptl.getMoves();
+	public void restoreFromXml(String path) throws JAXBException {
+		final File file = new File(path);
+		final JAXBContext jContext = JAXBContext.newInstance(PrintableTimeline.class);
+		final Unmarshaller unmarshallerObj = jContext.createUnmarshaller();
+		final PrintableTimeline ptl = ((PrintableTimeline) (unmarshallerObj.unmarshal(file)));
+		final PrintableMove[] newMoves = ptl.getMoves();
 		Timeline.getInstance().clear();
 		IPiece piece;
 		for (final PrintableMove move : newMoves) {
-			final Field	fld1	= Game.getInstance().getField(move.getI1(), move.getJ1());
-			final Field	fld2	= Game.getInstance().getField(move.getI2(), move.getJ2());
+			final Field fld1 = Game.getInstance().getField(move.getI1(), move.getJ1());
+			final Field fld2 = Game.getInstance().getField(move.getI2(), move.getJ2());
 			piece = fld1.getPiece();
 			piece.getMove(fld2).execute();
 		}

@@ -7,26 +7,28 @@ import defs.players.IPlayer;
 import processing.core.PImage;
 import processing.template.Gui;
 
-public class Main extends Gui implements IRefs {
+public class Main extends Gui implements IRefs, IMain {
 
-	private static boolean	restore		= true;
+	private static boolean restore = true;
 	/**
 	 * the main class
 	 */
-	static final String		MAINCLASS	= "chess.Main";
+	protected static final String MAINCLASS = "chess.Main";
 
 	/**
-	 * the path for where the images are
-	 * stored
+	 * the path for where the images are stored
 	 */
 	static final String PATH = "";
+
+	private static String SAVEDTIMELINEPATH = "target/TimeLine.xml";
 
 	/**
 	 * Getter for MainClass
 	 *
 	 * @return the main class as string
 	 */
-	public static String getMainClass() {
+	@Override
+	public String getMainClass() {
 		return Main.MAINCLASS;
 	}
 
@@ -35,7 +37,8 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return the acting player
 	 */
-	public static IPlayer getPlayer() {
+	@Override
+	public IPlayer getPlayer() {
 		Game.getInstance();
 		return Game.getPlayer();
 	}
@@ -57,70 +60,69 @@ public class Main extends Gui implements IRefs {
 	/**
 	 * image for the piece
 	 */
-	private PImage				blackBishop;
+	private PImage blackBishop;
 	/**
 	 * image for the piece
 	 */
-	private PImage				blackKing;
+	private PImage blackKing;
 	/**
 	 * image for the piece
 	 */
-	private PImage				blackKnight;
+	private PImage blackKnight;
 	/**
 	 * image for the piece
 	 */
-	private PImage				blackPawn;
+	private PImage blackPawn;
 	/**
 	 * image for the piece
 	 */
-	private PImage				blackQueen;
+	private PImage blackQueen;
 	/**
 	 * image for the piece
 	 */
-	private PImage				blackTower;
+	private PImage blackTower;
 	/**
 	 * a drawer instance
 	 */
-	private final ISetupAndRun	drawer	= Drawer.getInstance(this);
+	private final ISetupAndRun drawer = Drawer.getInstance(this);
 	/**
 	 * a setup instance
 	 */
-	private final ISetupAndRun	setup	= Setup.getInstance(this);
+	protected final ISetupAndRun setup = Setup.getInstance(this);
 	/**
 	 * image for the piece
 	 */
-	private PImage				whiteBishop;
+	private PImage whiteBishop;
 	/**
 	 * image for the piece
 	 */
-	private PImage				whiteKing;
+	private PImage whiteKing;
 	/**
 	 * image for the piece
 	 */
-	private PImage				whiteKnight;
+	private PImage whiteKnight;
 	/**
 	 * image for the piece
 	 */
-	private PImage				whitePawn;
+	private PImage whitePawn;
 
 	/**
 	 * image for the piece
 	 */
-	private PImage	whiteQueen;
+	private PImage whiteQueen;
 	/**
 	 * image for the piece
 	 */
-	private PImage	whiteTower;
+	private PImage whiteTower;
 
 	/**
-	 * functionality outsourced to Drawer
-	 * class
+	 * functionality outsourced to Drawer class
 	 */
 	@Override
 	public void draw() {
 		if (getPlayer() != null) {
 			try {
-				drawer.execute();
+				getDrawer().execute();
 			} catch (final Exception e) {
 				e.printStackTrace();
 			}
@@ -139,6 +141,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return pimage
 	 */
+	@Override
 	public PImage getBlackBishop() {
 		return blackBishop;
 	}
@@ -148,6 +151,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return pimage
 	 */
+	@Override
 	public PImage getBlackKing() {
 		return blackKing;
 	}
@@ -157,6 +161,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return pimage
 	 */
+	@Override
 	public PImage getBlackKnight() {
 		return blackKnight;
 	}
@@ -166,6 +171,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return pimage
 	 */
+	@Override
 	public PImage getBlackPawn() {
 		return blackPawn;
 	}
@@ -175,6 +181,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return pimage
 	 */
+	@Override
 	public PImage getBlackQueen() {
 		return blackQueen;
 	}
@@ -184,6 +191,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return pimage
 	 */
+	@Override
 	public PImage getBlackTower() {
 		return blackTower;
 	}
@@ -195,6 +203,7 @@ public class Main extends Gui implements IRefs {
 	 * @param j the row number
 	 * @return the field at position (i,j)
 	 */
+	@Override
 	public Field getField(int i, int j) {
 		return getGame().getField(i, j);
 	}
@@ -204,6 +213,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return the inactive player
 	 */
+	@Override
 	public IPlayer getOtherPlayer() {
 		return Game.getOpponent();
 	}
@@ -211,9 +221,9 @@ public class Main extends Gui implements IRefs {
 	/**
 	 * Getter for PATH
 	 *
-	 * @return the path to main class as
-	 *         string
+	 * @return the path to main class as string
 	 */
+	@Override
 	public String getPath() {
 		return Main.PATH;
 	}
@@ -223,6 +233,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return the vertical position
 	 */
+	@Override
 	public int getPosI() {
 		return Config.GAMESIZE - ((mouseY - (mouseY % Config.SIZE)) / Config.SIZE);
 	}
@@ -232,6 +243,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return the horizontal position
 	 */
+	@Override
 	public int getPosJ() {
 		return (mouseX - (mouseX % Config.SIZE)) / Config.SIZE;
 	}
@@ -241,6 +253,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return pimage
 	 */
+	@Override
 	public PImage getWhiteBishop() {
 		return whiteBishop;
 	}
@@ -250,6 +263,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return pimage
 	 */
+	@Override
 	public PImage getWhiteKing() {
 		return whiteKing;
 	}
@@ -259,6 +273,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return pimage
 	 */
+	@Override
 	public PImage getWhiteKnight() {
 		return whiteKnight;
 	}
@@ -268,6 +283,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return pimage
 	 */
+	@Override
 	public PImage getWhitePawn() {
 		return whitePawn;
 	}
@@ -277,6 +293,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return pimage
 	 */
+	@Override
 	public PImage getWhiteQueen() {
 		return whiteQueen;
 	}
@@ -286,6 +303,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @return pimage
 	 */
+	@Override
 	public PImage getWhiteTower() {
 		return whiteTower;
 	}
@@ -295,6 +313,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @param blackBishop pimage
 	 */
+	@Override
 	public void setBlackBishop(PImage blackBishop) {
 		this.blackBishop = blackBishop;
 	}
@@ -304,6 +323,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @param blackKing pimage
 	 */
+	@Override
 	public void setBlackKing(PImage blackKing) {
 		this.blackKing = blackKing;
 	}
@@ -313,6 +333,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @param blackKnight pimage
 	 */
+	@Override
 	public void setBlackKnight(PImage blackKnight) {
 		this.blackKnight = blackKnight;
 	}
@@ -322,6 +343,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @param blackPawn pimage
 	 */
+	@Override
 	public void setBlackPawn(PImage blackPawn) {
 		this.blackPawn = blackPawn;
 	}
@@ -331,6 +353,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @param blackQueen pimage
 	 */
+	@Override
 	public void setBlackQueen(PImage blackQueen) {
 		this.blackQueen = blackQueen;
 	}
@@ -340,6 +363,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @param blackTower pimage
 	 */
+	@Override
 	public void setBlackTower(PImage blackTower) {
 		this.blackTower = blackTower;
 	}
@@ -352,8 +376,7 @@ public class Main extends Gui implements IRefs {
 	}
 
 	/**
-	 * functionality outsourced to Setup
-	 * class
+	 * functionality outsourced to Setup class
 	 */
 	@Override
 	public void setup() {
@@ -371,6 +394,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @param whiteBishop pimage
 	 */
+	@Override
 	public void setWhiteBishop(PImage whiteBishop) {
 		this.whiteBishop = whiteBishop;
 	}
@@ -380,6 +404,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @param whiteKing pimage
 	 */
+	@Override
 	public void setWhiteKing(PImage whiteKing) {
 		this.whiteKing = whiteKing;
 	}
@@ -389,6 +414,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @param whiteKnight pimage
 	 */
+	@Override
 	public void setWhiteKnight(PImage whiteKnight) {
 		this.whiteKnight = whiteKnight;
 	}
@@ -398,6 +424,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @param whitePawn pimage
 	 */
+	@Override
 	public void setWhitePawn(PImage whitePawn) {
 		this.whitePawn = whitePawn;
 	}
@@ -407,6 +434,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @param whiteQueen pimage
 	 */
+	@Override
 	public void setWhiteQueen(PImage whiteQueen) {
 		this.whiteQueen = whiteQueen;
 	}
@@ -416,6 +444,7 @@ public class Main extends Gui implements IRefs {
 	 *
 	 * @param whiteTower pimage
 	 */
+	@Override
 	public void setWhiteTower(PImage whiteTower) {
 		this.whiteTower = whiteTower;
 	}
@@ -423,28 +452,56 @@ public class Main extends Gui implements IRefs {
 	/**
 	 * @return the redraw
 	 */
-	protected boolean isRedraw() {
+	@Override
+	public boolean isRedraw() {
 		return redrawCustom;
 	}
 
 	/**
 	 * @param redraw the redraw to set
 	 */
-	protected void setRedraw(boolean redraw) {
+	@Override
+	public void setRedraw(boolean redraw) {
 		redrawCustom = redraw;
 	}
 
 	/**
 	 * @return the restore
 	 */
-	public static boolean isRestore() {
+	@Override
+	public boolean isRestore() {
 		return restore;
 	}
 
 	/**
 	 * @param restore the restore to set
 	 */
-	public static void setRestore(boolean restore) {
+	@Override
+	public void setRestore(boolean restore) {
 		Main.restore = restore;
+	}
+
+	/**
+	 * @return the sAVEDTIMELINEPATH
+	 */
+	@Override
+	public String getSAVEDTIMELINEPATH() {
+		return SAVEDTIMELINEPATH;
+	}
+
+	/**
+	 * @param sAVEDTIMELINEPATH the sAVEDTIMELINEPATH to set
+	 */
+	@Override
+	public void setSAVEDTIMELINEPATH(String sAVEDTIMELINEPATH) {
+		Main.SAVEDTIMELINEPATH = sAVEDTIMELINEPATH;
+	}
+
+	/**
+	 * @return the drawer
+	 */
+	@Override
+	public ISetupAndRun getDrawer() {
+		return drawer;
 	}
 }
