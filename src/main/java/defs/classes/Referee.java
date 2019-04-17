@@ -10,7 +10,6 @@ import chess.moves.IMove;
 import chess.moves.Timeline;
 import chess.pieces.IPiece;
 import chess.pieces.King;
-import defs.enums.State;
 import defs.players.artint.RandomPlayer;
 
 /**
@@ -78,17 +77,17 @@ public final class Referee implements IRefs {
 	/**
 	 * Check what situation we have after this move
 	 */
-	public void checkState() {
-		final King king = Game.getPlayer().getKing();
-		final List<IMove> moves = king.getAllMovesToAvoidChess();
-		if (moves.isEmpty()) {
-			if (king.getState() == State.REGULAR) {
-				king.setState(State.MATE);
-			} else {
-				king.setState(State.STALEMATE);
-			}
-		}
-	}
+//	public void checkState() {
+//		final King king = Game.getPlayer().getKing();
+//		final List<IMove> moves = king.getAllMovesToAvoidChess();
+//		if (moves.isEmpty()) {
+//			if (king.getState() == State.REGULAR) {
+//				king.setState(State.MATE);
+//			} else {
+//				king.setState(State.STALEMATE);
+//			}
+//		}
+//	}
 
 	/**
 	 * Getter for marked field

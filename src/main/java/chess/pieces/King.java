@@ -217,7 +217,13 @@ public class King extends Piece {
 	 * @return returns, whether king is under enemy attack
 	 */
 	public boolean isChecked() {
-		return !getAttackers().isEmpty();
+//		try {
+//			return !Drawer.getAllAttackers().get(this).isEmpty();
+//		} catch (Exception e) {
+//			return false;
+//		}
+		return !getAttackers().isEmpty();//
+		// !getReferee().getGame().getMoveList().isEmpty();
 	}
 
 	/**

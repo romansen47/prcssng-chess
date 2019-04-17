@@ -47,7 +47,7 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * map containing all attackers for each piece
 	 */
-	private Map<IPiece, List<IMove>> allAttackers = null;
+	private static Map<IPiece, List<IMove>> allAttackers = null;
 
 	/**
 	 * map containing all supporters for each piece
@@ -96,7 +96,7 @@ public final class Drawer implements ISetupAndRun {
 		if (isStartup()) {
 			((Main) getMain()).background(255);
 			createAllMoves();
-			drawChessboard(getAllPossibleMoves(), allAttackers, allSupporters);
+			drawChessboard(getAllPossibleMoves(), getAllAttackers(), getAllSupporters());
 			setStartup(false);
 		}
 	}
@@ -129,8 +129,8 @@ public final class Drawer implements ISetupAndRun {
 			// save move to list and statistics
 			getReferee().processMove(move);
 			setAllPossibleMoves(null);
-			allAttackers = null;
-			allSupporters = null;
+			setAllAttackers(null);
+			setAllSupporters(null);
 		}
 	}
 
@@ -171,7 +171,7 @@ public final class Drawer implements ISetupAndRun {
 				main.setRestore(true);
 			}
 			((Main) getMain()).background(255);
-			drawChessboard(getAllPossibleMoves(), allAttackers, allSupporters);
+			drawChessboard(getAllPossibleMoves(), getAllAttackers(), getAllSupporters());
 			move = null;
 		}
 	}
@@ -185,15 +185,15 @@ public final class Drawer implements ISetupAndRun {
 		if (cl || move != null) {
 			createAllMoves();
 			((Main) getMain()).background(255);
-			drawChessboard(getAllPossibleMoves(), allAttackers, allSupporters);
+			drawChessboard(getAllPossibleMoves(), getAllAttackers(), getAllSupporters());
 			move = null;
 		}
 	}
 
-	private void createAllMoves() {
+	public void createAllMoves() {
 		setAllPossibleMoves(getReferee().createPossibleValidMovesForActivePieces());
-		allAttackers = getReferee().createAttackersOnActivePieces();
-		allSupporters = getReferee().createSupportersOfActivePieces(getAllPossibleMoves());
+		setAllAttackers(getReferee().createAttackersOnActivePieces());
+		setAllSupporters(getReferee().createSupportersOfActivePieces(getAllPossibleMoves()));
 	}
 
 	/**
@@ -528,6 +528,34 @@ public final class Drawer implements ISetupAndRun {
 			System.err.println(e);
 		}
 		return paths;
+	}
+
+	/**
+	 * @return the allAttackers
+	 */
+	public static Map<IPiece, List<IMove>> getAllAttackers() {
+		return allAttackers;
+	}
+
+	/**
+	 * @param allAttackers the allAttackers to set
+	 */
+	public void setAllAttackers(Map<IPiece, List<IMove>> allAttackers) {
+		this.allAttackers = allAttackers;
+	}
+
+	/**
+	 * @return the allSupporters
+	 */
+	public Map<IPiece, List<IMove>> getAllSupporters() {
+		return allSupporters;
+	}
+
+	/**
+	 * @param allSupporters the allSupporters to set
+	 */
+	public void setAllSupporters(Map<IPiece, List<IMove>> allSupporters) {
+		this.allSupporters = allSupporters;
 	}
 
 }

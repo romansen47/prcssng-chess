@@ -8,6 +8,7 @@ import org.junit.Test;
 import chess.Drawer;
 import chess.IMain;
 import chess.Main;
+import defs.classes.Referee;
 
 public class TestRunner {
 
@@ -16,11 +17,9 @@ public class TestRunner {
 	final static String mainPath = "src/test/resources/movechains/";
 
 	@BeforeClass
-	public static void setup() throws Exception {
+	public static void setup() {
 		main = new Main();
 		main.run(PATH);
-		new TestRunner().runCastlingTests();
-		new TestRunner().runEnPassantTests();
 	}
 
 	@Test
@@ -29,6 +28,7 @@ public class TestRunner {
 		runTests("Castlings:", source);
 	}
 
+	@Test
 	public void runEnPassantTests() throws Exception {
 		final String source = mainPath + "enPassants/";
 		runTests("EnPassant:", source);
@@ -37,6 +37,7 @@ public class TestRunner {
 	private static void runTest(String path) throws Exception {
 		System.out.println("Zugkette " + path + " wird durchlaufen...");
 		((Drawer) main.getDrawer()).restoreFromXml(path.toString());
+		Referee.getInstance().reset();
 	}
 
 	private static void runTests(String name, String path) throws Exception {
