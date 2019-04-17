@@ -35,7 +35,12 @@ public class PrintableTimeline {
 
 	public void toXml() throws Exception {
 
-		int ans = chooser.showSaveDialog(null);
+		int ans = 0;
+		try {
+			ans = chooser.showSaveDialog(null);
+		} catch (Exception e) {
+			System.out.println("Speichern abgebrochen");
+		}
 		String path = chooser.getSelectedFile().getPath();
 		if (ans == JFileChooser.APPROVE_OPTION) {
 			System.out.println("Die zu öffnende Datei ist: " + path);

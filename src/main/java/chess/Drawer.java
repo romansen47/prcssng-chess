@@ -206,14 +206,11 @@ public final class Drawer implements ISetupAndRun {
 
 		// restore, if Main.restore is true
 		if (main.isRestore()) {
-			main.setRestore(false);
 			restoreFromXml();
+			main.setRestore(false);
 		}
 
-		// getMain().getSAVEDTIMELINEPATH());
-
-		// start up correctly, if startup is
-		// true
+		// start up correctly, if startup is true
 		startUp();
 
 		// check keyboard for interaction
@@ -222,8 +219,7 @@ public final class Drawer implements ISetupAndRun {
 		// check mouse for interaction
 		final boolean cl = checkForClick();
 
-		// mark field and create next move, if
-		// clicked
+		// mark field and create next move, if clicked
 		setMark(cl);
 		checkForNewMove(cl);
 
@@ -232,6 +228,7 @@ public final class Drawer implements ISetupAndRun {
 
 		// create marks and draw everything
 		drawChessboardPiecesAndMarks(cl);
+
 	}
 
 	/**

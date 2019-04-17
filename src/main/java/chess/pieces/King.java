@@ -229,7 +229,7 @@ public class King extends Piece {
 		 *
 		 * This is wrong... return this.isValidForCastling;
 		 */
-		return true;
+		return isValidForCastling;
 	}
 
 	/**

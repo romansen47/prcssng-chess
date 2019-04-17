@@ -15,9 +15,7 @@ import defs.enums.State;
  *
  * @author roman
  *
- *         The main information about
- *         the game is saved to a
- *         sequence of "moves"
+ *         The main information about the game is saved to a sequence of "moves"
  */
 @XmlRootElement
 public class Move implements IMove, IRefs {
@@ -32,8 +30,7 @@ public class Move implements IMove, IRefs {
 	private final IPiece piece;
 
 	/**
-	 * the field the piece stands on before
-	 * move has been executed
+	 * the field the piece stands on before move has been executed
 	 */
 	@XmlElement
 	private final Field prev;
@@ -53,42 +50,37 @@ public class Move implements IMove, IRefs {
 	 * plain constructor
 	 */
 	public Move() {
-		prev		= null;
-		next		= null;
-		piece		= null;
-		chessNot	= null;
+		prev = null;
+		next = null;
+		piece = null;
+		chessNot = null;
 	}
 
 	/**
 	 * Concrete constructor for a move
 	 *
 	 * @param prev the initial piece to move
-	 * @param next the field, fig is to be
-	 *             moved to
+	 * @param next the field, fig is to be moved to
 	 */
 	public Move(Field prev, Field next) {
-		piece		= prev.getPiece();
-		this.prev	= prev;
-		this.next	= next;
-		chessNot	= getString();
+		piece = prev.getPiece();
+		this.prev = prev;
+		this.next = next;
+		chessNot = getString();
 	}
 
 	/**
-	 * check if the move is a check for
-	 * opponent's king
+	 * check if the move is a check for opponent's king
 	 *
-	 * @return true if opponent's king is
-	 *         not chessed
+	 * @return true if opponent's king is not chessed
 	 */
 	private boolean checkForChess() {
 		return !next.getPiece().getOpponent().getKing().getAttackers().isEmpty();
 	}
 
 	/**
-	 * default implementation of the
-	 * execution of a simple move. to be
-	 * extended for castling, en passant and
-	 * promotion
+	 * default implementation of the execution of a simple move. to be extended for
+	 * castling, en passant and promotion
 	 */
 	@Override
 	public void execute() {
@@ -103,9 +95,9 @@ public class Move implements IMove, IRefs {
 		if (fig2 != null) {
 			Game.getOpponent().getPieces().remove(fig2);
 		}
-		if (fig1 instanceof King) {
-			((King) fig1).setValidForCastling(false);
-		}
+//		if (fig1 instanceof King) {
+//			((King) fig1).setValidForCastling(false);
+//		}
 		if (checkForChess()) {
 			final King opKing = fig1.getOpponent().getKing();
 			opKing.setState(State.CHESS);
@@ -125,8 +117,7 @@ public class Move implements IMove, IRefs {
 	}
 
 	/**
-	 * @return String in order to present
-	 *         the move in chess notation
+	 * @return String in order to present the move in chess notation
 	 */
 	public String getString() {
 		String str = "";
