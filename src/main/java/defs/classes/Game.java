@@ -14,19 +14,19 @@ public final class Game implements IRefs {
 	/**
 	 * the black player
 	 */
-	private static IPlayer	black;
+	private static IPlayer black;
 	/**
 	 * static instance
 	 */
-	private static Game		instance	= null;
+	private static Game instance = null;
 	/**
 	 * the acting player
 	 */
-	private static IPlayer	player;
+	private static IPlayer player;
 	/**
 	 * the white player
 	 */
-	private static IPlayer	white;
+	private static IPlayer white;
 
 	/**
 	 * getter for the black player
@@ -127,8 +127,7 @@ public final class Game implements IRefs {
 	 *
 	 * @param i coordinate for the row
 	 * @param j coordinate for the column
-	 * @return the field at given
-	 *         coordinates
+	 * @return the field at given coordinates
 	 */
 	public Field getField(int i, int j) {
 		return getChessboard()[i][j];
@@ -148,7 +147,7 @@ public final class Game implements IRefs {
 	 *
 	 * @return the passive player
 	 */
-	public static IPlayer getOpponent() {
+	public IPlayer getOpponent() {
 		if (getPlayer() == getWhite()) {
 			return getBlack();
 		}
@@ -156,18 +155,16 @@ public final class Game implements IRefs {
 	}
 
 	/**
-	 * setup method for the game. creates
-	 * the players and sets the white player
-	 * as the acting player to perform the
-	 * first move
+	 * setup method for the game. creates the players and sets the white player as
+	 * the acting player to perform the first move
 	 */
 	public void setup() {
-		if (Config.isEasyPlayer()) {
+		if (Config.getInstance().isEasyPlayer()) {
 			setBlack(new EasyPlayer(Colors.BLACK, 1));
 		} else {
 			setBlack(new Player(Colors.BLACK));
 		}
-		if (Config.isRandomWhitePlayer()) {
+		if (Config.getInstance().isRandomWhitePlayer()) {
 			setWhite(new WhiteRandomPlayer());
 		} else {
 			setWhite(new Player(Colors.WHITE));

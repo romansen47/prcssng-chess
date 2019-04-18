@@ -206,9 +206,9 @@ public final class Referee implements IRefs {
 	 */
 	private void resetPieces() {
 		Game.getPlayer().getPieces().clear();
-		Game.getOpponent().getPieces().clear();
+		Game.getInstance().getOpponent().getPieces().clear();
 		Game.getPlayer().getDeadPieces().clear();
-		Game.getOpponent().getDeadPieces().clear();
+		Game.getInstance().getOpponent().getDeadPieces().clear();
 		for (final IPiece piece : Game.getWhite().getAllPieces()) {
 			piece.reset();
 			Game.getWhite().getPieces().add(piece);

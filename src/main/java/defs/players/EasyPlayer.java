@@ -32,7 +32,7 @@ public class EasyPlayer extends RandomPlayer {
 			}
 		}
 		final ArrayList<IMove> newMoves = IPlayer.removeDuplicates(moves);
-		List<Integer> list = evaluateMoveList(newMoves);
+		evaluateMoveList(newMoves);
 		return newMoves.get(0);
 	}
 
@@ -50,7 +50,7 @@ public class EasyPlayer extends RandomPlayer {
 		Collections.sort(moves, new SortByEval());
 		List<Integer> sortedMoves = new ArrayList<>();
 		for (IMove move : moves) {
-			sortedMoves.add(new Integer(evaluate(move)));
+			sortedMoves.add(evaluate(move));
 		}
 		return sortedMoves;
 	}

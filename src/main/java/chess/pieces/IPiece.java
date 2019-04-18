@@ -74,7 +74,7 @@ public interface IPiece extends IRefs {
 	 */
 	default List<Field> getAttackers() {
 		final List<Field> attackers = new ArrayList<>();
-		for (final IPiece piece : Game.getOpponent().getPieces()) {
+		for (final IPiece piece : Game.getInstance().getOpponent().getPieces()) {
 			final List<IMove> possibleMoves = piece.getSimpleMoves();
 			for (final IMove move : possibleMoves) {
 				if (move.getNext() == getField()) {

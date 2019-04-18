@@ -62,7 +62,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 */
 	@Override
 	public void draw(Main main) {
-		final int size = Config.SIZE;
+		final int size = Config.getInstance().SIZE;
 		main.noStroke();
 		main.fill(getColAsInt());
 		main.rect((float) size * getJ(), (float) size * getI(), size, size);
@@ -126,7 +126,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return the vertical position
 	 */
 	public int getPosI(Main main) {
-		return (main.mouseX - (main.mouseX % Config.SIZE)) / Config.SIZE;
+		return (main.mouseX - (main.mouseX % Config.getInstance().SIZE)) / Config.getInstance().SIZE;
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @return the horizontal position
 	 */
 	public int getPosJ(Main main) {
-		return (main.mouseY - (main.mouseY % Config.SIZE)) / Config.SIZE;
+		return (main.mouseY - (main.mouseY % Config.getInstance().SIZE)) / Config.getInstance().SIZE;
 	}
 
 	/**

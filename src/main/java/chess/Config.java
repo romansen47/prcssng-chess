@@ -11,7 +11,7 @@ public final class Config {
 	/**
 	 * GAMESIZE+1 is the amount of fields in each directions
 	 */
-	public static final int GAMESIZE = 7;
+	public static int GAMESIZE = 7;
 
 	/**
 	 * static instance of Config
@@ -21,22 +21,22 @@ public final class Config {
 	/**
 	 * Do we use an easy player?
 	 */
-	private static boolean easyPlayer = false;
+	private boolean easyPlayer = false;
 
 	/**
 	 * Do we use a random black player?
 	 */
-	private static boolean randomBlackPlayer = false;
+	private boolean randomBlackPlayer = false;
 
 	/**
 	 * Do we use a random white player?
 	 */
-	private static boolean randomWhitePlayer = false;
+	private boolean randomWhitePlayer = false;
 
 	/**
 	 * the standard size of a field
 	 */
-	public static final int SIZE = 60;
+	public final int SIZE = 60;
 
 	/**
 	 * getter for the static instance
@@ -44,10 +44,10 @@ public final class Config {
 	 * @return the static instance
 	 */
 	public static Config getInstance() {
-		if (Config.instance == null) {
-			Config.instance = new Config();
+		if (instance == null) {
+			instance = new Config();
 		}
-		return Config.instance;
+		return instance;
 	}
 
 	/**
@@ -55,8 +55,8 @@ public final class Config {
 	 *
 	 * @return the black random player
 	 */
-	public static boolean isRandomBlackPlayer() {
-		return Config.randomBlackPlayer;
+	public boolean isRandomBlackPlayer() {
+		return randomBlackPlayer;
 	}
 
 	/**
@@ -64,8 +64,8 @@ public final class Config {
 	 *
 	 * @return the white random player
 	 */
-	public static boolean isRandomWhitePlayer() {
-		return Config.randomWhitePlayer;
+	public boolean isRandomWhitePlayer() {
+		return randomWhitePlayer;
 	}
 
 	/**
@@ -73,8 +73,8 @@ public final class Config {
 	 *
 	 * @param randomPlayer instance of RandomPlayer
 	 */
-	public static void setRandomBlackPlayer(boolean randomPlayer) {
-		Config.randomBlackPlayer = randomPlayer;
+	public void setRandomBlackPlayer(boolean randomPlayer) {
+		randomBlackPlayer = randomPlayer;
 	}
 
 	/**
@@ -82,8 +82,8 @@ public final class Config {
 	 *
 	 * @param randomPlayer instance of RandomWhitePlayer
 	 */
-	public static void setRandomWhitePlayer(boolean randomPlayer) {
-		Config.randomWhitePlayer = randomPlayer;
+	public void setRandomWhitePlayer(boolean randomPlayer) {
+		randomWhitePlayer = randomPlayer;
 	}
 
 	/**
@@ -95,15 +95,15 @@ public final class Config {
 	/**
 	 * @return the easyPlayer
 	 */
-	public static boolean isEasyPlayer() {
+	public boolean isEasyPlayer() {
 		return easyPlayer;
 	}
 
 	/**
 	 * @param easyPlayer the easyPlayer to set
 	 */
-	public static void setEasyPlayer(boolean easyPlayer) {
-		Config.easyPlayer = easyPlayer;
+	public void setEasyPlayer(boolean easyPlayer) {
+		this.easyPlayer = easyPlayer;
 	}
 
 }

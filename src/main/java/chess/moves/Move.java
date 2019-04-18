@@ -93,7 +93,7 @@ public class Move implements IMove, IRefs {
 		fig1.setField(getNext());
 		getNext().setPiece(fig1);
 		if (fig2 != null) {
-			Game.getOpponent().getPieces().remove(fig2);
+			Game.getInstance().getOpponent().getPieces().remove(fig2);
 		}
 //		if (fig1 instanceof King) {
 //			((King) fig1).setValidForCastling(false);

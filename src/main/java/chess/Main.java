@@ -215,7 +215,7 @@ public class Main extends Gui implements IRefs, IMain {
 	 */
 	@Override
 	public IPlayer getOtherPlayer() {
-		return Game.getOpponent();
+		return Game.getInstance().getOpponent();
 	}
 
 	/**
@@ -235,7 +235,7 @@ public class Main extends Gui implements IRefs, IMain {
 	 */
 	@Override
 	public int getPosI() {
-		return Config.GAMESIZE - ((mouseY - (mouseY % Config.SIZE)) / Config.SIZE);
+		return Config.GAMESIZE - ((mouseY - (mouseY % Config.getInstance().SIZE)) / Config.getInstance().SIZE);
 	}
 
 	/**
@@ -245,7 +245,7 @@ public class Main extends Gui implements IRefs, IMain {
 	 */
 	@Override
 	public int getPosJ() {
-		return (mouseX - (mouseX % Config.SIZE)) / Config.SIZE;
+		return (mouseX - (mouseX % Config.getInstance().SIZE)) / Config.getInstance().SIZE;
 	}
 
 	/**

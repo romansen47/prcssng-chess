@@ -61,7 +61,7 @@ public abstract class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 
 	@Override
 	public void draw(Main main) {
-		final int size = Config.SIZE;
+		final int size = Config.getInstance().SIZE;
 		main.image(getImage(), (float) size * getField().getJ(), (float) size * getField().getI(), size, size);
 	}
 

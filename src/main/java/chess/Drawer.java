@@ -42,12 +42,12 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * map containing all possible valid moves for each piece
 	 */
-	private static Map<IPiece, List<IMove>> allPossibleMoves = null;
+	private Map<IPiece, List<IMove>> allPossibleMoves = null;
 
 	/**
 	 * map containing all attackers for each piece
 	 */
-	private static Map<IPiece, List<IMove>> allAttackers = null;
+	private Map<IPiece, List<IMove>> allAttackers = null;
 
 	/**
 	 * map containing all supporters for each piece
@@ -153,7 +153,6 @@ public final class Drawer implements ISetupAndRun {
 	 * @throws Exception from (un)marshaller
 	 */
 	public void checkForPressedKey() throws Exception {
-		String path = "target/TimeLine.xml";
 		if ((((Main) getMain()).pressed() == 1)) {
 			if (((Main) getMain()).key == 'r') {
 				getReferee().rewindLastMove();
@@ -307,7 +306,7 @@ public final class Drawer implements ISetupAndRun {
 			for (int j = 0; j < 8; j++) {
 				((Main) getMain()).stroke(0);
 				((Main) getMain()).strokeWeight(3);
-				final float tmp = 8 * (float) Config.SIZE;
+				final float tmp = 8 * (float) Config.getInstance().SIZE;
 				((Main) getMain()).line(0, 0, tmp, 0);
 				((Main) getMain()).line(0, 0, 0, tmp);
 				((Main) getMain()).line(tmp, 0, tmp, tmp);
@@ -372,12 +371,14 @@ public final class Drawer implements ISetupAndRun {
 		final Timeline tl = getGame().getMoveList();
 		((Main) getMain()).textSize(24);
 		((Main) getMain()).fill(0);
-		((Main) getMain()).text("Timeline:", (Config.GAMESIZE + 2) * (float) Config.SIZE, Config.SIZE);
+		((Main) getMain()).text("Timeline:", (Config.GAMESIZE + 2) * (float) Config.getInstance().SIZE,
+				Config.getInstance().SIZE);
 		((Main) getMain()).textSize(18);
 		int i = 2;
 		for (final String str : tl.toStr()) {
-			((Main) getMain()).text(str, (((float) Config.SIZE) / 4) + ((Config.GAMESIZE + 1) * Config.SIZE),
-					(float) Config.SIZE + (i++ * 30));
+			((Main) getMain()).text(str,
+					(((float) Config.getInstance().SIZE) / 4) + ((Config.GAMESIZE + 1) * Config.getInstance().SIZE),
+					(float) Config.getInstance().SIZE + (i++ * 30));
 		}
 	}
 
@@ -387,7 +388,8 @@ public final class Drawer implements ISetupAndRun {
 	private void drawServiceWindow() {
 		((Main) getMain()).textSize(32);
 		((Main) getMain()).fill(255);
-		((Main) getMain()).rect((Config.GAMESIZE + 1) * (float) Config.SIZE, 4 * Config.SIZE, Config.SIZE, Config.SIZE);
+		((Main) getMain()).rect((Config.GAMESIZE + 1) * (float) Config.getInstance().SIZE,
+				4 * Config.getInstance().SIZE, Config.getInstance().SIZE, Config.getInstance().SIZE);
 	}
 
 	/**
@@ -411,7 +413,7 @@ public final class Drawer implements ISetupAndRun {
 	 */
 	private void drawColoredField(Field fld, int red, int green, int blue, int pos) {
 		((Main) getMain()).stroke(red, green, blue);
-		final int size = Config.SIZE;
+		final int size = Config.getInstance().SIZE;
 		final int thickness = 5 - pos;
 		((Main) getMain()).strokeWeight(thickness);
 		((Main) getMain()).noFill();
@@ -500,7 +502,7 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * @return the allPossibleMoves
 	 */
-	public static Map<IPiece, List<IMove>> getAllPossibleMoves() {
+	public Map<IPiece, List<IMove>> getAllPossibleMoves() {
 		return allPossibleMoves;
 	}
 
@@ -508,7 +510,7 @@ public final class Drawer implements ISetupAndRun {
 	 * @param allPossibleMoves the allPossibleMoves to set
 	 */
 	public void setAllPossibleMoves(Map<IPiece, List<IMove>> allPossibleMoves) {
-		Drawer.allPossibleMoves = allPossibleMoves;
+		this.allPossibleMoves = allPossibleMoves;
 	}
 
 	public List<Path> ls(String directory) {
@@ -533,7 +535,7 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * @return the allAttackers
 	 */
-	public static Map<IPiece, List<IMove>> getAllAttackers() {
+	public Map<IPiece, List<IMove>> getAllAttackers() {
 		return allAttackers;
 	}
 
