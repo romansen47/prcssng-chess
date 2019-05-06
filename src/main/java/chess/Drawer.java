@@ -85,7 +85,6 @@ public final class Drawer implements ISetupAndRun {
 			}
 			restoreFromXml(path);
 		} catch (Exception e) {
-			return;
 		}
 	}
 
@@ -104,7 +103,8 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * creates the move
 	 *
-	 * @param cl true on mouse button
+	 * @param cl
+	 *            true on mouse button
 	 */
 	public void checkForNewMove(boolean cl) {
 		if (Game.getPlayer() instanceof RandomPlayer) {
@@ -121,9 +121,10 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * resets the move maps end executes the move
 	 *
-	 * @throws Exception from marshaller when loading fails
+	 * @throws Exception
+	 *             from marshaller when loading fails
 	 */
-	public void processMove() throws Exception {
+	public void processMove() {
 		checkForMate();
 		if (move != null) {
 			// save move to list and statistics
@@ -150,7 +151,8 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * does various thing when r,s,c or l are hit
 	 *
-	 * @throws Exception from (un)marshaller
+	 * @throws Exception
+	 *             from (un)marshaller
 	 */
 	public void checkForPressedKey() throws Exception {
 		if ((((Main) getMain()).pressed() == 1)) {
@@ -178,7 +180,8 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * draw everything if clicked or non-trivial move exists
 	 *
-	 * @param cl true on mouse button hit
+	 * @param cl
+	 *            true on mouse button hit
 	 */
 	public void drawChessboardPiecesAndMarks(boolean cl) {
 		if (cl || move != null) {
@@ -198,7 +201,8 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * the main method executed whithin the main draw loop
 	 *
-	 * @throws Exception file does not exist
+	 * @throws Exception
+	 *             file does not exist
 	 */
 	@Override
 	public void execute() throws Exception {
@@ -238,7 +242,8 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * instance getter
 	 *
-	 * @param mn the main papplet object
+	 * @param mn
+	 *            the main papplet object
 	 * @return drawer instance
 	 */
 	public static Drawer getInstance(IMain mn) {
@@ -285,9 +290,12 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * Draws the chess board. First draws the grid.
 	 *
-	 * @param allPossibleMoves map containing all possible moves for all players
-	 * @param allAttackers     map containing all attackers
-	 * @param allSupporters    map containing all supporters
+	 * @param allPossibleMoves
+	 *            map containing all possible moves for all players
+	 * @param allAttackers
+	 *            map containing all attackers
+	 * @param allSupporters
+	 *            map containing all supporters
 	 */
 	public void drawChessboard(Map<IPiece, List<IMove>> allPossibleMoves, Map<IPiece, List<IMove>> allAttackers,
 			Map<IPiece, List<IMove>> allSupporters) {
@@ -320,9 +328,12 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * draws all marked fields
 	 *
-	 * @param allPossibleMoves map containing all possible moves for all players
-	 * @param allAttackers     map containing all attackers
-	 * @param allSupporters    map containing all supporters
+	 * @param allPossibleMoves
+	 *            map containing all possible moves for all players
+	 * @param allAttackers
+	 *            map containing all attackers
+	 * @param allSupporters
+	 *            map containing all supporters
 	 */
 	public void drawMarked(Map<IPiece, List<IMove>> allPossibleMoves, Map<IPiece, List<IMove>> allAttackers,
 			Map<IPiece, List<IMove>> allSupporters) {
@@ -342,8 +353,10 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * draws specific marked fields
 	 *
-	 * @param fields the marked fields
-	 * @param tmp    the colors for the fields
+	 * @param fields
+	 *            the marked fields
+	 * @param tmp
+	 *            the colors for the fields
 	 */
 	public void drawMarkedFields(List<Field> fields, Colors tmp) {
 		if (!fields.isEmpty()) {
@@ -405,11 +418,16 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * draws the concrete field with all marks
 	 *
-	 * @param fld   the field to draw
-	 * @param red   how much red?
-	 * @param green how much green?
-	 * @param blue  how much blue?
-	 * @param pos   position of the mark within the field
+	 * @param fld
+	 *            the field to draw
+	 * @param red
+	 *            how much red?
+	 * @param green
+	 *            how much green?
+	 * @param blue
+	 *            how much blue?
+	 * @param pos
+	 *            position of the mark within the field
 	 */
 	private void drawColoredField(Field fld, int red, int green, int blue, int pos) {
 		((Main) getMain()).stroke(red, green, blue);
@@ -425,8 +443,10 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * Concrete drawing of a field mark
 	 *
-	 * @param fld the field to draw the mark for
-	 * @param col the color
+	 * @param fld
+	 *            the field to draw the mark for
+	 * @param col
+	 *            the color
 	 */
 	public void mark(Field fld, Colors col) {
 		switch (col) {
@@ -449,7 +469,8 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * Marks the field, which has been cicked on
 	 *
-	 * @param clicked tells whether click has been performed
+	 * @param clicked
+	 *            tells whether click has been performed
 	 */
 	public void setMark(boolean clicked) {
 		if (!clicked || (getMain().getPosJ() > Config.GAMESIZE)) {
@@ -484,7 +505,8 @@ public final class Drawer implements ISetupAndRun {
 	}
 
 	/**
-	 * @param startup the startup to set
+	 * @param startup
+	 *            the startup to set
 	 */
 	private void setStartup(boolean startup) {
 		this.startup = startup;
@@ -507,7 +529,8 @@ public final class Drawer implements ISetupAndRun {
 	}
 
 	/**
-	 * @param allPossibleMoves the allPossibleMoves to set
+	 * @param allPossibleMoves
+	 *            the allPossibleMoves to set
 	 */
 	public void setAllPossibleMoves(Map<IPiece, List<IMove>> allPossibleMoves) {
 		this.allPossibleMoves = allPossibleMoves;

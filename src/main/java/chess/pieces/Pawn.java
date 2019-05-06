@@ -24,8 +24,10 @@ public class Pawn extends Piece {
 	/**
 	 * Constructor
 	 *
-	 * @param col   the color
-	 * @param field the field
+	 * @param col
+	 *            the color
+	 * @param field
+	 *            the field
 	 */
 	public Pawn(Colors col, Field field) {
 		super(Ids.PAWN, col, field, 30);
@@ -36,7 +38,8 @@ public class Pawn extends Piece {
 	}
 
 	/**
-	 * @param field the field to move on
+	 * @param field
+	 *            the field to move on
 	 * @return returns the move. returns subtype enpassant in case of validity
 	 */
 	@Override
@@ -127,10 +130,9 @@ public class Pawn extends Piece {
 		}
 		if (getGame().getField(getPosI() + factor, getPosJ()).getPiece() == null) {
 			lst.add(getGame().getField(getPosI() + factor, getPosJ()));
-			if (getField().getI() == getFirstField().getI()) {
-				if (getGame().getField(getPosI() + 2 * factor, getPosJ()).getPiece() == null) {
-					lst.add(getGame().getField(getPosI() + 2 * factor, getPosJ()));
-				}
+			if (getField().getI() == getFirstField().getI()
+					&& (getGame().getField(getPosI() + 2 * factor, getPosJ()).getPiece() == null)) {
+				lst.add(getGame().getField(getPosI() + 2 * factor, getPosJ()));
 			}
 		}
 		return convertFieldsToMoves(lst);
@@ -163,7 +165,8 @@ public class Pawn extends Piece {
 	}
 
 	/**
-	 * @param drawer the drawer to set
+	 * @param drawer
+	 *            the drawer to set
 	 */
 	public static void setDrawer(Drawer drawer) {
 		Pawn.drawer = drawer;

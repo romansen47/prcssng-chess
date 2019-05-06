@@ -16,11 +16,8 @@ import defs.enums.Ids;
  */
 public class Promotion extends Move {
 
-	final public IPiece pawn;
+	public final IPiece pawn;
 
-	/**
-	 * TODO: Constructor
-	 */
 	public Promotion(Field prev, Field next, Ids id) {
 		super(prev, next);
 		pawn = getPiece();

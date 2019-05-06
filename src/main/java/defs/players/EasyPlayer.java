@@ -63,8 +63,8 @@ public class EasyPlayer extends RandomPlayer {
 		for (IPiece piece : possibleMoves.keySet()) {
 			movesToList.addAll(possibleMoves.get(piece));
 		}
-		int AmountOfPossibleMovesAfterExecution = movesToList.size() * 50;
-		final int ans = AmountOfPossibleMovesAfterExecution + evaluatePieces(getPieces());
+		int amountOfPossibleMovesAfterExecution = movesToList.size() * 50;
+		final int ans = amountOfPossibleMovesAfterExecution + evaluatePieces(getPieces());
 		getReferee().rewindLastMove();
 		return -ans;
 	}
