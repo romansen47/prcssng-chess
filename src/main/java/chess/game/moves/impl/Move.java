@@ -1,11 +1,12 @@
-package chess.moves;
+package chess.game.moves.impl;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import chess.IRefs;
-import chess.pieces.IPiece;
-import chess.pieces.King;
+import chess.game.moves.IMove;
+import chess.game.pieces.IPiece;
+import chess.game.pieces.impl.King;
+import config.IRefs;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.enums.Ids;
@@ -95,14 +96,14 @@ public class Move implements IMove, IRefs {
 		if (fig2 != null) {
 			Game.getInstance().getOpponent().getPieces().remove(fig2);
 		}
-//		if (fig1 instanceof King) {
-//			((King) fig1).setValidForCastling(false);
-//		}
-		if (checkForChess()) {
-			final King opKing = fig1.getOpponent().getKing();
-			opKing.setState(State.CHESS);
-		}
+		final King opKing = fig1.getOpponent().getKing();
 		getGame().getMoveList().add(this);
+		if (checkForChess()) {
+			opKing.setState(State.CHESS);
+		} else {
+			opKing.setState(State.REGULAR);
+		}
+		fig1.getOwner().getKing().setState(State.REGULAR);
 		getReferee().switchMainPlayer();
 	}
 

@@ -1,10 +1,10 @@
 package defs.classes;
 
-import chess.Config;
-import chess.IDraw;
-import chess.IRefs;
-import chess.Main;
-import chess.pieces.IPiece;
+import chess.ConcreteChess;
+import chess.game.pieces.IPiece;
+import config.Config;
+import config.IDraw;
+import config.IRefs;
 import defs.enums.Colors;
 import defs.interfaces.IColors;
 
@@ -61,7 +61,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @see defs.interfaces.IDraw#draw(chess. Main)
 	 */
 	@Override
-	public void draw(Main main) {
+	public void draw(ConcreteChess main) {
 		final int size = Config.getInstance().SIZE;
 		main.noStroke();
 		main.fill(getColAsInt());
@@ -125,7 +125,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @param main the main papplet
 	 * @return the vertical position
 	 */
-	public int getPosI(Main main) {
+	public int getPosI(ConcreteChess main) {
 		return (main.mouseX - (main.mouseX % Config.getInstance().SIZE)) / Config.getInstance().SIZE;
 	}
 
@@ -135,7 +135,7 @@ public class Field implements IColors, IDraw, IRefs {
 	 * @param main the main papplet
 	 * @return the horizontal position
 	 */
-	public int getPosJ(Main main) {
+	public int getPosJ(ConcreteChess main) {
 		return (main.mouseY - (main.mouseY % Config.getInstance().SIZE)) / Config.getInstance().SIZE;
 	}
 

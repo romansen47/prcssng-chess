@@ -1,9 +1,10 @@
-package chess.moves;
+package chess.game.moves;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.IRefs;
+import chess.game.moves.impl.Move;
+import config.IRefs;
 
 /**
  *

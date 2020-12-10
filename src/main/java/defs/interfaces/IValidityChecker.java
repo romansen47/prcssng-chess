@@ -3,9 +3,9 @@ package defs.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.moves.IMove;
-import chess.pieces.IPiece;
-import chess.pieces.King;
+import chess.game.moves.IMove;
+import chess.game.pieces.IPiece;
+import chess.game.pieces.impl.King;
 import defs.classes.Field;
 
 public interface IValidityChecker extends IColors {

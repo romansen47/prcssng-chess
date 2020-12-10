@@ -1,4 +1,4 @@
-package chess;
+package config;
 
 /**
  *
@@ -21,7 +21,7 @@ public final class Config {
 	/**
 	 * Do we use an easy player?
 	 */
-	private boolean easyPlayer = false;
+	private boolean easyPlayer = true;
 
 	/**
 	 * Do we use a random black player?

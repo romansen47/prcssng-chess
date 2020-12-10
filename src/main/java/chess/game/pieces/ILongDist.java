@@ -1,10 +1,10 @@
-package chess.pieces;
+package chess.game.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.Config;
-import chess.moves.IMove;
+import chess.game.moves.IMove;
+import config.Config;
 import defs.classes.Field;
 import defs.interfaces.IValidityChecker;
 

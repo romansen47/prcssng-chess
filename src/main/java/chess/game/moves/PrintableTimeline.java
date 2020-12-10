@@ -1,4 +1,4 @@
-package chess.moves;
+package chess.game.moves;
 
 import java.io.File;
 
@@ -10,7 +10,8 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import chess.pieces.IPiece;
+import chess.game.moves.impl.PrintableMove;
+import chess.game.pieces.IPiece;
 import defs.classes.Field;
 import defs.classes.Game;
 
@@ -29,7 +30,7 @@ public class PrintableTimeline {
 		setMoves(new PrintableMove[tl.size()]);
 		int i = 0;
 		for (final IMove move : tl) {
-			getMoves()[i] = new PrintableMove((chess.moves.Move) move, ++i);
+			getMoves()[i] = new PrintableMove((chess.game.moves.impl.Move) move, ++i);
 		}
 	}
 
@@ -46,7 +47,7 @@ public class PrintableTimeline {
 			System.out.println("Die zu öffnende Datei ist: " + path);
 		}
 		final File file = new File(path);
-		final JAXBContext jaxbContext = JAXBContext.newInstance(chess.moves.PrintableTimeline.class);
+		final JAXBContext jaxbContext = JAXBContext.newInstance(chess.game.moves.PrintableTimeline.class);
 		final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		jaxbMarshaller.marshal(this, file);

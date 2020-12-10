@@ -1,8 +1,9 @@
-package chess.pieces;
+package chess.game.pieces.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import chess.game.pieces.ILongDist;
 import defs.classes.Field;
 import defs.enums.Colors;
 import defs.enums.Ids;
@@ -16,7 +17,7 @@ public class Queen extends Piece implements ILongDist {
 	 * @param field the field
 	 */
 	public Queen(Colors col, Field field) {
-		super(Ids.QUEEN, col, field, 450);
+		super(Ids.QUEEN, col, field, 10000);
 	}
 
 	@Override

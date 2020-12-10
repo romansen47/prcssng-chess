@@ -1,4 +1,4 @@
-package chess;
+package config;
 
 import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystems;
@@ -11,11 +11,12 @@ import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.xml.bind.JAXBException;
 
-import chess.moves.IMove;
-import chess.moves.PrintableTimeline;
-import chess.moves.Timeline;
-import chess.pieces.IPiece;
-import chess.pieces.Pawn;
+import chess.ConcreteChess;
+import chess.game.moves.IMove;
+import chess.game.moves.PrintableTimeline;
+import chess.game.moves.Timeline;
+import chess.game.pieces.IPiece;
+import chess.game.pieces.impl.Pawn;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.enums.Colors;
@@ -93,7 +94,7 @@ public final class Drawer implements ISetupAndRun {
 	 */
 	public void startUp() {
 		if (isStartup()) {
-			((Main) getMain()).background(255);
+			((ConcreteChess) getMain()).background(255);
 			createAllMoves();
 			drawChessboard(getAllPossibleMoves(), getAllAttackers(), getAllSupporters());
 			setStartup(false);
@@ -103,8 +104,7 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * creates the move
 	 *
-	 * @param cl
-	 *            true on mouse button
+	 * @param cl true on mouse button
 	 */
 	public void checkForNewMove(boolean cl) {
 		if (Game.getPlayer() instanceof RandomPlayer) {
@@ -121,8 +121,7 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * resets the move maps end executes the move
 	 *
-	 * @throws Exception
-	 *             from marshaller when loading fails
+	 * @throws Exception from marshaller when loading fails
 	 */
 	public void processMove() {
 		checkForMate();
@@ -151,27 +150,26 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * does various thing when r,s,c or l are hit
 	 *
-	 * @throws Exception
-	 *             from (un)marshaller
+	 * @throws Exception from (un)marshaller
 	 */
 	public void checkForPressedKey() throws Exception {
-		if ((((Main) getMain()).pressed() == 1)) {
-			if (((Main) getMain()).key == 'r') {
+		if ((((ConcreteChess) getMain()).pressed() == 1)) {
+			if (((ConcreteChess) getMain()).key == 'r') {
 				getReferee().rewindLastMove();
 			}
-			if (((Main) getMain()).key == 'c') {
+			if (((ConcreteChess) getMain()).key == 'c') {
 				Timeline.getInstance().clear();
 				getReferee().rePlayGame(Timeline.getInstance());
 			}
-			if (((Main) getMain()).key == 's') {
+			if (((ConcreteChess) getMain()).key == 's') {
 				new PrintableTimeline().toXml();
 			}
-			if (((Main) getMain()).key == 'l') {
+			if (((ConcreteChess) getMain()).key == 'l') {
 				getReferee().reset();
 				move = null;
 				main.setRestore(true);
 			}
-			((Main) getMain()).background(255);
+			((ConcreteChess) getMain()).background(255);
 			drawChessboard(getAllPossibleMoves(), getAllAttackers(), getAllSupporters());
 			move = null;
 		}
@@ -180,13 +178,12 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * draw everything if clicked or non-trivial move exists
 	 *
-	 * @param cl
-	 *            true on mouse button hit
+	 * @param cl true on mouse button hit
 	 */
 	public void drawChessboardPiecesAndMarks(boolean cl) {
 		if (cl || move != null) {
 			createAllMoves();
-			((Main) getMain()).background(255);
+			((ConcreteChess) getMain()).background(255);
 			drawChessboard(getAllPossibleMoves(), getAllAttackers(), getAllSupporters());
 			move = null;
 		}
@@ -201,8 +198,7 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * the main method executed whithin the main draw loop
 	 *
-	 * @throws Exception
-	 *             file does not exist
+	 * @throws Exception file does not exist
 	 */
 	@Override
 	public void execute() throws Exception {
@@ -242,8 +238,7 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * instance getter
 	 *
-	 * @param mn
-	 *            the main papplet object
+	 * @param mn the main papplet object
 	 * @return drawer instance
 	 */
 	public static Drawer getInstance(IMain mn) {
@@ -253,7 +248,7 @@ public final class Drawer implements ISetupAndRun {
 			if (Pawn.getDrawer() == null) {
 				Pawn.setDrawer(inst);
 			}
-			return inst;
+			return Drawer.instance = inst;
 		}
 		return Drawer.instance;
 	}
@@ -264,6 +259,9 @@ public final class Drawer implements ISetupAndRun {
 	 * @return drawer instance
 	 */
 	public static Drawer getInstance() {
+		if (main != null) {
+			getInstance(main);
+		}
 		return Drawer.instance;
 	}
 
@@ -284,18 +282,15 @@ public final class Drawer implements ISetupAndRun {
 	 * @return whether click has been performed.
 	 */
 	public boolean checkForClick() {
-		return ((Main) getMain()).clicked() == 1;
+		return ((ConcreteChess) getMain()).clicked() == 1;
 	}
 
 	/**
 	 * Draws the chess board. First draws the grid.
 	 *
-	 * @param allPossibleMoves
-	 *            map containing all possible moves for all players
-	 * @param allAttackers
-	 *            map containing all attackers
-	 * @param allSupporters
-	 *            map containing all supporters
+	 * @param allPossibleMoves map containing all possible moves for all players
+	 * @param allAttackers     map containing all attackers
+	 * @param allSupporters    map containing all supporters
 	 */
 	public void drawChessboard(Map<IPiece, List<IMove>> allPossibleMoves, Map<IPiece, List<IMove>> allAttackers,
 			Map<IPiece, List<IMove>> allSupporters) {
@@ -312,13 +307,13 @@ public final class Drawer implements ISetupAndRun {
 	public void drawGrid() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				((Main) getMain()).stroke(0);
-				((Main) getMain()).strokeWeight(3);
+				((ConcreteChess) getMain()).stroke(0);
+				((ConcreteChess) getMain()).strokeWeight(3);
 				final float tmp = 8 * (float) Config.getInstance().SIZE;
-				((Main) getMain()).line(0, 0, tmp, 0);
-				((Main) getMain()).line(0, 0, 0, tmp);
-				((Main) getMain()).line(tmp, 0, tmp, tmp);
-				((Main) getMain()).line(0, tmp, tmp, tmp);
+				((ConcreteChess) getMain()).line(0, 0, tmp, 0);
+				((ConcreteChess) getMain()).line(0, 0, 0, tmp);
+				((ConcreteChess) getMain()).line(tmp, 0, tmp, tmp);
+				((ConcreteChess) getMain()).line(0, tmp, tmp, tmp);
 			}
 		}
 	}
@@ -328,12 +323,9 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * draws all marked fields
 	 *
-	 * @param allPossibleMoves
-	 *            map containing all possible moves for all players
-	 * @param allAttackers
-	 *            map containing all attackers
-	 * @param allSupporters
-	 *            map containing all supporters
+	 * @param allPossibleMoves map containing all possible moves for all players
+	 * @param allAttackers     map containing all attackers
+	 * @param allSupporters    map containing all supporters
 	 */
 	public void drawMarked(Map<IPiece, List<IMove>> allPossibleMoves, Map<IPiece, List<IMove>> allAttackers,
 			Map<IPiece, List<IMove>> allSupporters) {
@@ -353,10 +345,8 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * draws specific marked fields
 	 *
-	 * @param fields
-	 *            the marked fields
-	 * @param tmp
-	 *            the colors for the fields
+	 * @param fields the marked fields
+	 * @param tmp    the colors for the fields
 	 */
 	public void drawMarkedFields(List<Field> fields, Colors tmp) {
 		if (!fields.isEmpty()) {
@@ -372,7 +362,7 @@ public final class Drawer implements ISetupAndRun {
 	public void drawPieces() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				getGame().getField(i, j).draw(((Main) getMain()));
+				getGame().getField(i, j).draw(((ConcreteChess) getMain()));
 			}
 		}
 	}
@@ -382,14 +372,14 @@ public final class Drawer implements ISetupAndRun {
 	 */
 	private void drawTimeLine() {
 		final Timeline tl = getGame().getMoveList();
-		((Main) getMain()).textSize(24);
-		((Main) getMain()).fill(0);
-		((Main) getMain()).text("Timeline:", (Config.GAMESIZE + 2) * (float) Config.getInstance().SIZE,
+		((ConcreteChess) getMain()).textSize(20);
+		((ConcreteChess) getMain()).fill(0);
+		((ConcreteChess) getMain()).text("Timeline:", (Config.GAMESIZE + 2) * (float) Config.getInstance().SIZE,
 				Config.getInstance().SIZE);
-		((Main) getMain()).textSize(18);
+		((ConcreteChess) getMain()).textSize(18);
 		int i = 2;
 		for (final String str : tl.toStr()) {
-			((Main) getMain()).text(str,
+			((ConcreteChess) getMain()).text(str,
 					(((float) Config.getInstance().SIZE) / 4) + ((Config.GAMESIZE + 1) * Config.getInstance().SIZE),
 					(float) Config.getInstance().SIZE + (i++ * 30));
 		}
@@ -399,10 +389,7 @@ public final class Drawer implements ISetupAndRun {
 	 * Draws the timeline
 	 */
 	private void drawServiceWindow() {
-		((Main) getMain()).textSize(32);
-		((Main) getMain()).fill(255);
-		((Main) getMain()).rect((Config.GAMESIZE + 1) * (float) Config.getInstance().SIZE,
-				4 * Config.getInstance().SIZE, Config.getInstance().SIZE, Config.getInstance().SIZE);
+		// TODO: Create, whatever it was.
 	}
 
 	/**
@@ -418,24 +405,19 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * draws the concrete field with all marks
 	 *
-	 * @param fld
-	 *            the field to draw
-	 * @param red
-	 *            how much red?
-	 * @param green
-	 *            how much green?
-	 * @param blue
-	 *            how much blue?
-	 * @param pos
-	 *            position of the mark within the field
+	 * @param fld   the field to draw
+	 * @param red   how much red?
+	 * @param green how much green?
+	 * @param blue  how much blue?
+	 * @param pos   position of the mark within the field
 	 */
 	private void drawColoredField(Field fld, int red, int green, int blue, int pos) {
-		((Main) getMain()).stroke(red, green, blue);
+		((ConcreteChess) getMain()).stroke(red, green, blue);
 		final int size = Config.getInstance().SIZE;
 		final int thickness = 5 - pos;
-		((Main) getMain()).strokeWeight(thickness);
-		((Main) getMain()).noFill();
-		((Main) getMain()).rect((((fld.getJ() + 1) * size) - size) + (float) thickness,
+		((ConcreteChess) getMain()).strokeWeight(thickness);
+		((ConcreteChess) getMain()).noFill();
+		((ConcreteChess) getMain()).rect((((fld.getJ() + 1) * size) - size) + (float) thickness,
 				(((fld.getI() + 1) * (float) size) - size) + thickness, (float) size - (2 * thickness),
 				(float) size - (2 * thickness));
 	}
@@ -443,10 +425,8 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * Concrete drawing of a field mark
 	 *
-	 * @param fld
-	 *            the field to draw the mark for
-	 * @param col
-	 *            the color
+	 * @param fld the field to draw the mark for
+	 * @param col the color
 	 */
 	public void mark(Field fld, Colors col) {
 		switch (col) {
@@ -469,8 +449,7 @@ public final class Drawer implements ISetupAndRun {
 	/**
 	 * Marks the field, which has been cicked on
 	 *
-	 * @param clicked
-	 *            tells whether click has been performed
+	 * @param clicked tells whether click has been performed
 	 */
 	public void setMark(boolean clicked) {
 		if (!clicked || (getMain().getPosJ() > Config.GAMESIZE)) {
@@ -505,8 +484,7 @@ public final class Drawer implements ISetupAndRun {
 	}
 
 	/**
-	 * @param startup
-	 *            the startup to set
+	 * @param startup the startup to set
 	 */
 	private void setStartup(boolean startup) {
 		this.startup = startup;
@@ -529,8 +507,7 @@ public final class Drawer implements ISetupAndRun {
 	}
 
 	/**
-	 * @param allPossibleMoves
-	 *            the allPossibleMoves to set
+	 * @param allPossibleMoves the allPossibleMoves to set
 	 */
 	public void setAllPossibleMoves(Map<IPiece, List<IMove>> allPossibleMoves) {
 		this.allPossibleMoves = allPossibleMoves;

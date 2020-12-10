@@ -1,13 +1,14 @@
-package chess.pieces;
+package chess.game.pieces.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.Config;
-import chess.Drawer;
-import chess.moves.EnPassant;
-import chess.moves.IMove;
-import chess.moves.Promotion;
+import chess.game.moves.IMove;
+import chess.game.moves.impl.EnPassant;
+import chess.game.moves.impl.Promotion;
+import chess.game.pieces.IPiece;
+import config.Config;
+import config.Drawer;
 import defs.classes.Field;
 import defs.enums.Colors;
 import defs.enums.Ids;

@@ -1,4 +1,6 @@
-package chess;
+package config;
+
+import chess.ConcreteChess;
 
 /**
  *
@@ -16,6 +18,6 @@ public interface IDraw {
 	 *
 	 * @param main gui object
 	 */
-	void draw(Main main);
+	void draw(ConcreteChess main);
 
 }

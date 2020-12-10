@@ -1,8 +1,10 @@
-package chess.pieces;
+package chess.game.pieces.impl;
 
 import java.util.List;
 
-import chess.moves.IMove;
+import chess.game.moves.IMove;
+import chess.game.pieces.ILongDist;
+import chess.game.pieces.IPiece;
 import defs.classes.Field;
 import defs.enums.Colors;
 import defs.enums.Ids;
@@ -16,7 +18,7 @@ public class Rook extends Piece implements ILongDist {
 	 * @param field the field
 	 */
 	public Rook(Colors col, Field field) {
-		super(Ids.ROOK, col, field, 100);
+		super(Ids.ROOK, col, field, 300);
 	}
 
 	@Override
@@ -40,12 +42,7 @@ public class Rook extends Piece implements ILongDist {
 				hasBeenMoved = true;
 			}
 		}
-		final King king = getOpponent().getKing();
-		final boolean validForCastling = king.isValidForCastling();
-		king.setValidForCastling(false);
-		final List<Field> attackers = getAttackers();
-		king.setValidForCastling(validForCastling);
-		return attackers.isEmpty() && !hasBeenMoved;
+		return !hasBeenMoved;
 	}
 
 }

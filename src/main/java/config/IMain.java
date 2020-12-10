@@ -1,9 +1,9 @@
-package chess;
+package config;
 
 import defs.classes.Field;
 import defs.players.IPlayer;
 import processing.core.PImage;
-import processing.template.IGuiTemplate;
+import processing.template.abstr.IGuiTemplate;
 
 public interface IMain extends IGuiTemplate {
 

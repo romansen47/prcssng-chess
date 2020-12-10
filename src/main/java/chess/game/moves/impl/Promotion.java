@@ -1,11 +1,11 @@
 /**
  *
  */
-package chess.moves;
+package chess.game.moves.impl;
 
-import chess.Drawer;
-import chess.pieces.IPiece;
-import chess.pieces.Pawn;
+import chess.game.pieces.IPiece;
+import chess.game.pieces.impl.Pawn;
+import config.Drawer;
 import defs.classes.Field;
 import defs.enums.Colors;
 import defs.enums.Ids;

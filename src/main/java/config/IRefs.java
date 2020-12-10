@@ -1,5 +1,6 @@
-package chess;
+package config;
 
+import chess.ConcreteChess;
 import defs.classes.Game;
 import defs.classes.Referee;
 
@@ -19,7 +20,7 @@ public interface IRefs {
 	 * @param main the Main instance
 	 * @return static instance of drawer
 	 */
-	default Drawer getDrawer(Main main) {
+	default Drawer getDrawer(ConcreteChess main) {
 		return Drawer.getInstance(main);
 	}
 

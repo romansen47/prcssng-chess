@@ -1,11 +1,13 @@
-package chess.pieces;
+package chess.game.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.IRefs;
-import chess.Main;
-import chess.moves.IMove;
+import chess.ConcreteChess;
+import chess.game.moves.IMove;
+import chess.game.pieces.impl.Pawn;
+import chess.game.pieces.impl.Piece;
+import config.IRefs;
 import defs.classes.Field;
 import defs.classes.Game;
 import defs.enums.Colors;
@@ -66,7 +68,7 @@ public interface IPiece extends IRefs {
 	 *
 	 * @param main the main papplet
 	 */
-	void draw(Main main);
+	void draw(ConcreteChess main);
 
 	/**
 	 *
@@ -215,10 +217,10 @@ public interface IPiece extends IRefs {
 		return new ArrayList<>();
 	}
 
-	/**
-	 *
-	 * @return List of fields with friends on them guarding the piece
-	 */
+//	/**
+//	 *
+//	 * @return List of fields with friends on them guarding the piece
+//	 */
 	default List<Field> getSupporters() {
 		final IPiece piece = this;
 		Colors col = Colors.WHITE;

@@ -1,8 +1,8 @@
 package defs.classes;
 
-import chess.Config;
-import chess.IRefs;
-import chess.moves.Timeline;
+import chess.game.moves.Timeline;
+import config.Config;
+import config.IRefs;
 import defs.enums.Colors;
 import defs.players.EasyPlayer;
 import defs.players.IPlayer;
@@ -160,7 +160,7 @@ public final class Game implements IRefs {
 	 */
 	public void setup() {
 		if (Config.getInstance().isEasyPlayer()) {
-			setBlack(new EasyPlayer(Colors.BLACK, 1));
+			setBlack(new EasyPlayer(Colors.BLACK, 5));
 		} else {
 			setBlack(new Player(Colors.BLACK));
 		}

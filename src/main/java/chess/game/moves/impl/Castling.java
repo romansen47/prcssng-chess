@@ -1,8 +1,8 @@
-package chess.moves;
+package chess.game.moves.impl;
 
-import chess.pieces.IPiece;
-import chess.pieces.King;
-import chess.pieces.Rook;
+import chess.game.pieces.IPiece;
+import chess.game.pieces.impl.King;
+import chess.game.pieces.impl.Rook;
 import defs.enums.Ids;
 
 /**
@@ -14,8 +14,7 @@ import defs.enums.Ids;
 public class Castling extends Move {
 
 	/**
-	 * Treating a castling like a (friendly)
-	 * beat. Opponent is always a rook.
+	 * Treating a castling like a (friendly) beat. Opponent is always a rook.
 	 */
 	private final Rook rook;
 
@@ -27,15 +26,15 @@ public class Castling extends Move {
 	@Override
 	public void execute() {
 		final IPiece king = getPiece();
-		if ((rook.getId() == Ids.ROOK) && (king.getCol() == rook.getCol())) {
-			int	k	= getPrev().getJ();
-			int	r	= getNext().getJ();
+		if ((rook.getId() == Ids.ROOK) && (king.getCol().equals(rook.getCol()))) {
+			int k = getPrev().getJ();
+			int r = getNext().getJ();
 			if (k > r) {
-				r	= k - 1;
-				k	= r - 1;
+				r = k - 1;
+				k = r - 1;
 			} else {
-				r	= k + 1;
-				k	= r + 1;
+				r = k + 1;
+				k = r + 1;
 			}
 			getPrev().setPiece(null);
 			king.setField(getGame().getField(getPrev().getI(), k));
@@ -44,7 +43,7 @@ public class Castling extends Move {
 			rook.setField(getGame().getField(getPrev().getI(), r));
 			rook.getField().setPiece(getRook());
 		}
-		((King) king).setValidForCastling(false);
+//		((King) king).setValidForCastling(false);
 		getGame().getMoveList().add(this);
 		getReferee().switchMainPlayer();
 	}
@@ -61,7 +60,7 @@ public class Castling extends Move {
 	/**
 	 * @return the rook
 	 */
-	Rook getRook() {
+	public Rook getRook() {
 		return rook;
 	}
 }

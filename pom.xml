@@ -5,12 +5,8 @@
 	<artifactId>chess</artifactId>
 	<name>chess</name>
 	<packaging>jar</packaging>
-
-	<parent>
-		<groupId>prcssng</groupId>
-		<artifactId>build</artifactId>
-		<version>1.0.0-snapshot</version>
-	</parent>
+	<groupId>prcssng</groupId>
+	<version>1.0.0-snapshot</version>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>

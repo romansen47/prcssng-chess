@@ -1,11 +1,12 @@
-package chess.pieces;
+package chess.game.pieces.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.Config;
-import chess.moves.Castling;
-import chess.moves.IMove;
+import chess.game.moves.IMove;
+import chess.game.moves.impl.Castling;
+import chess.game.pieces.IPiece;
+import config.Config;
 import defs.classes.Field;
 import defs.enums.Colors;
 import defs.enums.Ids;
@@ -14,10 +15,10 @@ import defs.players.IPlayer;
 
 public class King extends Piece {
 
-	/**
-	 * King carries around the information if he is valid for castling
-	 */
-	private boolean isValidForCastling = true;
+//	/**
+//	 * King carries around the information if he is valid for castling
+//	 */
+//	private boolean isValidForCastling = true;
 
 	/**
 	 * king has a state
@@ -217,13 +218,11 @@ public class King extends Piece {
 	 * @return returns, whether king is under enemy attack
 	 */
 	public boolean isChecked() {
-//		try {
-//			return !Drawer.getAllAttackers().get(this).isEmpty();
-//		} catch (Exception e) {
-//			return false;
-//		}
-		return !getAttackers().isEmpty();//
-		// !getReferee().getGame().getMoveList().isEmpty();
+		try {
+			return getAllAttackedFields().contains(getField());
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	/**
@@ -231,11 +230,20 @@ public class King extends Piece {
 	 * @return returns, whether king already has been moved or checked
 	 */
 	public boolean isValidForCastling() {
-		/**
-		 *
-		 * This is wrong... return this.isValidForCastling;
-		 */
-		return isValidForCastling;
+		boolean hasBeenMoved = false;
+		for (final IMove move : getOwner().getMoveList()) {
+			final IPiece fig = move.getPiece();
+			if ((fig instanceof King) && ((King) fig == this)) {
+				hasBeenMoved = true;
+			}
+		}
+		if (hasBeenMoved) {
+			return false;
+		}
+		if (getState().equals(State.CHESS)) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -262,7 +270,6 @@ public class King extends Piece {
 	@Override
 	public void reset() {
 		super.reset();
-		setValidForCastling(true);
 	}
 
 	/**
@@ -271,40 +278,6 @@ public class King extends Piece {
 	 * @param state the state
 	 */
 	public void setState(State state) {
-		if (state == State.CHESS) {
-			setValidForCastling(false);
-		}
 		this.state = state;
-	}
-
-	/**
-	 * setter for isValidForCastling
-	 *
-	 * @param isValidForCastling isValidForCastling
-	 */
-	public void setValidForCastling(boolean isValidForCastling) {
-		this.isValidForCastling = isValidForCastling;
-	}
-
-	@Override
-	public List<Field> getSpecialFields(IPlayer Player) {
-		final List<Field> fields = new ArrayList<>();
-		final List<IPiece> pieces = Player.getPieces();
-		for (final IPiece piece : pieces) {
-			King king = null;
-			boolean castling = true;
-			if (piece instanceof King) {
-				king = (King) piece;
-				castling = king.isValidForCastling();
-				king.setValidForCastling(false);
-			}
-			if (piece.getPossibleFields().contains(getField())) {
-				fields.add(piece.getField());
-			}
-			if ((piece instanceof King) && (king != null)) {
-				king.setValidForCastling(castling);
-			}
-		}
-		return fields;
 	}
 }

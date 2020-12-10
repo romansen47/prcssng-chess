@@ -1,11 +1,12 @@
-package chess.pieces;
+package chess.game.pieces.impl;
 
-import chess.Config;
-import chess.IDraw;
-import chess.IRefs;
-import chess.Main;
-import chess.moves.IMove;
-import chess.moves.Move;
+import chess.ConcreteChess;
+import chess.game.moves.IMove;
+import chess.game.moves.impl.Move;
+import chess.game.pieces.IPiece;
+import config.Config;
+import config.IDraw;
+import config.IRefs;
 import defs.classes.Field;
 import defs.enums.Colors;
 import defs.enums.Ids;
@@ -60,7 +61,7 @@ public abstract class Piece implements IPiece, IValidityChecker, IDraw, IRefs {
 	}
 
 	@Override
-	public void draw(Main main) {
+	public void draw(ConcreteChess main) {
 		final int size = Config.getInstance().SIZE;
 		main.image(getImage(), (float) size * getField().getJ(), (float) size * getField().getI(), size, size);
 	}

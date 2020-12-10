@@ -1,8 +1,9 @@
-package chess.pieces;
+package chess.game.pieces.impl;
 
 import java.util.List;
 
-import chess.moves.IMove;
+import chess.game.moves.IMove;
+import chess.game.pieces.IPiece;
 import defs.classes.Field;
 import defs.enums.Colors;
 import defs.enums.Ids;

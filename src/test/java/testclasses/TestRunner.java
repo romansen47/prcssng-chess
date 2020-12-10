@@ -5,20 +5,20 @@ import java.nio.file.Path;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import chess.Drawer;
-import chess.IMain;
-import chess.Main;
+import chess.ConcreteChess;
+import config.Drawer;
+import config.IMain;
 import defs.classes.Referee;
 
 public class TestRunner {
 
 	static IMain main;
-	final static String PATH = "chess.Main";
+	final static String PATH = "chess.ConcreteChess";
 	final static String mainPath = "src/test/resources/movechains/";
 
 	@BeforeClass
 	public static void setup() {
-		main = new Main();
+		main = new ConcreteChess();
 		main.run(PATH);
 	}
 
@@ -32,6 +32,12 @@ public class TestRunner {
 	public void runEnPassantTests() throws Exception {
 		final String source = mainPath + "enPassants/";
 		runTests("EnPassant:", source);
+	}
+
+	@Test
+	public void runIssues() throws Exception {
+		final String source = mainPath + "issues/";
+		runTests("Issues:", source);
 	}
 
 	private static void runTest(String path) throws Exception {

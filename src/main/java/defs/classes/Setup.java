@@ -3,12 +3,12 @@ package defs.classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.Config;
-import chess.IMain;
-import chess.IRefs;
-import chess.ISetupAndRun;
-import chess.Main;
-import chess.pieces.IPiece;
+import chess.ConcreteChess;
+import chess.game.pieces.IPiece;
+import config.Config;
+import config.IMain;
+import config.IRefs;
+import config.ISetupAndRun;
 import defs.enums.Colors;
 import defs.enums.Ids;
 import defs.players.IPlayer;
@@ -68,7 +68,7 @@ public class Setup implements IRefs, ISetupAndRun {
 		setupPlayers();
 
 		// create pieces
-		initiatePieces(((Main) getMain()).getPath());
+		initiatePieces(((ConcreteChess) getMain()).getPath());
 
 		// this.getReferee().setMarked(Game.getPlayer().getKing().getField());
 
@@ -123,41 +123,41 @@ public class Setup implements IRefs, ISetupAndRun {
 	 */
 	final void initiatePieces(String path) {
 
-		((Main) getMain()).setWhiteKing(((Main) getMain()).loadImage(path + "white_king.png"));
-		initiateRelevant(Ids.KING, Colors.WHITE, ((Main) getMain()).getWhiteKing());
+		((ConcreteChess) getMain()).setWhiteKing(((ConcreteChess) getMain()).loadImage(path + "white_king.png"));
+		initiateRelevant(Ids.KING, Colors.WHITE, ((ConcreteChess) getMain()).getWhiteKing());
 
-		((Main) getMain()).setBlackKing(((Main) getMain()).loadImage(path + "black_king.png"));
-		initiateRelevant(Ids.KING, Colors.BLACK, ((Main) getMain()).getBlackKing());
+		((ConcreteChess) getMain()).setBlackKing(((ConcreteChess) getMain()).loadImage(path + "black_king.png"));
+		initiateRelevant(Ids.KING, Colors.BLACK, ((ConcreteChess) getMain()).getBlackKing());
 
-		((Main) getMain()).setWhiteQueen(((Main) getMain()).loadImage(path + "white_queen.png"));
-		initiateRelevant(Ids.QUEEN, Colors.WHITE, ((Main) getMain()).getWhiteQueen());
+		((ConcreteChess) getMain()).setWhiteQueen(((ConcreteChess) getMain()).loadImage(path + "white_queen.png"));
+		initiateRelevant(Ids.QUEEN, Colors.WHITE, ((ConcreteChess) getMain()).getWhiteQueen());
 
-		((Main) getMain()).setBlackQueen(((Main) getMain()).loadImage(path + "black_queen.png"));
-		initiateRelevant(Ids.QUEEN, Colors.BLACK, ((Main) getMain()).getBlackQueen());
+		((ConcreteChess) getMain()).setBlackQueen(((ConcreteChess) getMain()).loadImage(path + "black_queen.png"));
+		initiateRelevant(Ids.QUEEN, Colors.BLACK, ((ConcreteChess) getMain()).getBlackQueen());
 
-		((Main) getMain()).setWhiteKnight(((Main) getMain()).loadImage(path + "white_knight.png"));
-		initiateRelevant(Ids.KNIGHT, Colors.WHITE, ((Main) getMain()).getWhiteKnight());
+		((ConcreteChess) getMain()).setWhiteKnight(((ConcreteChess) getMain()).loadImage(path + "white_knight.png"));
+		initiateRelevant(Ids.KNIGHT, Colors.WHITE, ((ConcreteChess) getMain()).getWhiteKnight());
 
-		((Main) getMain()).setBlackKnight(((Main) getMain()).loadImage(path + "black_knight.png"));
-		initiateRelevant(Ids.KNIGHT, Colors.BLACK, ((Main) getMain()).getBlackKnight());
+		((ConcreteChess) getMain()).setBlackKnight(((ConcreteChess) getMain()).loadImage(path + "black_knight.png"));
+		initiateRelevant(Ids.KNIGHT, Colors.BLACK, ((ConcreteChess) getMain()).getBlackKnight());
 
-		((Main) getMain()).setWhiteBishop(((Main) getMain()).loadImage(path + "white_bishop.png"));
-		initiateRelevant(Ids.BISHOP, Colors.WHITE, ((Main) getMain()).getWhiteBishop());
+		((ConcreteChess) getMain()).setWhiteBishop(((ConcreteChess) getMain()).loadImage(path + "white_bishop.png"));
+		initiateRelevant(Ids.BISHOP, Colors.WHITE, ((ConcreteChess) getMain()).getWhiteBishop());
 
-		((Main) getMain()).setBlackBishop(((Main) getMain()).loadImage(path + "black_bishop.png"));
-		initiateRelevant(Ids.BISHOP, Colors.BLACK, ((Main) getMain()).getBlackBishop());
+		((ConcreteChess) getMain()).setBlackBishop(((ConcreteChess) getMain()).loadImage(path + "black_bishop.png"));
+		initiateRelevant(Ids.BISHOP, Colors.BLACK, ((ConcreteChess) getMain()).getBlackBishop());
 
-		((Main) getMain()).setWhiteTower(((Main) getMain()).loadImage(path + "white_rook.png"));
-		initiateRelevant(Ids.ROOK, Colors.WHITE, ((Main) getMain()).getWhiteTower());
+		((ConcreteChess) getMain()).setWhiteTower(((ConcreteChess) getMain()).loadImage(path + "white_rook.png"));
+		initiateRelevant(Ids.ROOK, Colors.WHITE, ((ConcreteChess) getMain()).getWhiteTower());
 
-		((Main) getMain()).setBlackTower(((Main) getMain()).loadImage(path + "black_rook.png"));
-		initiateRelevant(Ids.ROOK, Colors.BLACK, ((Main) getMain()).getBlackTower());
+		((ConcreteChess) getMain()).setBlackTower(((ConcreteChess) getMain()).loadImage(path + "black_rook.png"));
+		initiateRelevant(Ids.ROOK, Colors.BLACK, ((ConcreteChess) getMain()).getBlackTower());
 
-		((Main) getMain()).setWhitePawn(((Main) getMain()).loadImage(path + "white_pawn.png"));
-		initiateRelevant(Ids.PAWN, Colors.WHITE, ((Main) getMain()).getWhitePawn());
+		((ConcreteChess) getMain()).setWhitePawn(((ConcreteChess) getMain()).loadImage(path + "white_pawn.png"));
+		initiateRelevant(Ids.PAWN, Colors.WHITE, ((ConcreteChess) getMain()).getWhitePawn());
 
-		((Main) getMain()).setBlackPawn(((Main) getMain()).loadImage(path + "black_pawn.png"));
-		initiateRelevant(Ids.PAWN, Colors.BLACK, ((Main) getMain()).getBlackPawn());
+		((ConcreteChess) getMain()).setBlackPawn(((ConcreteChess) getMain()).loadImage(path + "black_pawn.png"));
+		initiateRelevant(Ids.PAWN, Colors.BLACK, ((ConcreteChess) getMain()).getBlackPawn());
 
 	}
 
@@ -183,12 +183,12 @@ public class Setup implements IRefs, ISetupAndRun {
 	 * Setup surface-attribute of papplet instance
 	 */
 	final void setupSurface() {
-		((Main) getMain()).getSurface().setResizable(true);
-		((Main) getMain()).getSurface().setSize(15 * Config.getInstance().SIZE, 8 * Config.getInstance().SIZE);
-		((Main) getMain()).background(255);
-		((Main) getMain()).frameRate(60);
-		((Main) getMain()).getSurface().setLocation((((Main) getMain()).displayWidth - ((Main) getMain()).width) >> 1,
-				(((Main) getMain()).displayHeight - ((Main) getMain()).height) >> 1);
+		((ConcreteChess) getMain()).getSurface().setResizable(true);
+		((ConcreteChess) getMain()).getSurface().setSize(15 * Config.getInstance().SIZE, 8 * Config.getInstance().SIZE);
+		((ConcreteChess) getMain()).background(255);
+		((ConcreteChess) getMain()).frameRate(60);
+		((ConcreteChess) getMain()).getSurface().setLocation((((ConcreteChess) getMain()).displayWidth - ((ConcreteChess) getMain()).width) >> 1,
+				(((ConcreteChess) getMain()).displayHeight - ((ConcreteChess) getMain()).height) >> 1);
 	}
 
 }

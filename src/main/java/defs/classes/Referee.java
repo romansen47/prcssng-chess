@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import chess.IRefs;
-import chess.moves.IMove;
-import chess.moves.Timeline;
-import chess.pieces.IPiece;
-import chess.pieces.King;
+import chess.game.moves.IMove;
+import chess.game.moves.Timeline;
+import chess.game.moves.impl.Castling;
+import chess.game.pieces.IPiece;
+import chess.game.pieces.impl.King;
+import chess.game.pieces.impl.Rook;
+import config.IRefs;
 import defs.players.artint.RandomPlayer;
 
 /**
@@ -69,13 +71,21 @@ public final class Referee implements IRefs {
 		final King king = Game.getPlayer().getKing();
 		move.execute();
 		ans = !king.isChecked();
+		if (ans && move instanceof Castling) {
+			getReferee().switchMainPlayer();
+			Rook rook = ((Castling) move).getRook();
+			if (!rook.getAttackers().isEmpty()) {
+				ans = false;
+			}
+			getReferee().switchMainPlayer();
+		}
 		rewindLastMove();
 		// this.setMarked(move.getPrev());
 		return ans;
 	}
 
 	/**
-	 * Check what situation we have after this move
+	 * Check what situation we have after this move. Method probably to be removed.
 	 */
 //	public void checkState() {
 //		final King king = Game.getPlayer().getKing();

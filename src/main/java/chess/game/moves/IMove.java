@@ -1,13 +1,12 @@
-package chess.moves;
+package chess.game.moves;
 
-import chess.pieces.IPiece;
+import chess.game.pieces.IPiece;
 import defs.classes.Field;
 
 public interface IMove {
 
 	/**
-	 * Execution of a move. Recalculates new
-	 * positions.
+	 * Execution of a move. Recalculates new positions.
 	 */
 	void execute();
 
@@ -33,8 +32,7 @@ public interface IMove {
 	Field getNext();
 
 	/**
-	 * Getter for the Id of the piece on
-	 * next field
+	 * Getter for the Id of the piece on next field
 	 *
 	 * @return Id of the piece on next field
 	 */
@@ -50,11 +48,9 @@ public interface IMove {
 	// void toXml() throws Exception;
 
 	/**
-	 * Getter for the Id of the piece on
-	 * previous field
+	 * Getter for the Id of the piece on previous field
 	 *
-	 * @return Id of the piece on previous
-	 *         field
+	 * @return Id of the piece on previous field
 	 */
 	// Ids getPrevId();
 

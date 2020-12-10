@@ -1,8 +1,9 @@
-package chess.pieces;
+package chess.game.pieces.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import chess.game.pieces.ILongDist;
 import defs.classes.Field;
 import defs.enums.Colors;
 import defs.enums.Ids;
